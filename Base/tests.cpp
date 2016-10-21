@@ -4,6 +4,7 @@
 
 #include "Driver.h"
 #include "mini_test.h"
+#include "aed2/TiposBasicos.h"
 
 using namespace aed2;
 

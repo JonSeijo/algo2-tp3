@@ -10,9 +10,10 @@ struct Coordenada
 {
 	Nat latitud;
 	Nat longitud;
-	Coordenada(Nat latitud, Nat longitud) : latitud(latitud), longitud(longitud)
-	{
-	}
+	
+	Coordenada(Nat latitud, Nat longitud)
+	 : latitud(latitud), longitud(longitud) {}
+	 
 };
 
 bool operator == (const Coordenada& c1, const Coordenada& c2){
