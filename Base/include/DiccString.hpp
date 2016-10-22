@@ -1,19 +1,20 @@
 /*
  * Diccionario implementado sobre trie cuyas claves son string,
- *
- * Created on HOY VIEJA....
  */
 
 #ifndef DICC_STRING_H_
 #define	DICC_STRING_H_
 
 #include <ostream>
-#include <string.h>
+#include <string>
 #include "../aed2.h"
 
+using namespace aed2;
+using namespace std;
 
 template<class S>
-class DiccString{
+class DiccString
+{
   public:
 
     class Iterador;
@@ -25,9 +26,9 @@ class DiccString{
     //no esta en el modulo.
     DiccString(const DiccString<S>& otro);
 
-    void Definir(const string& clave, const S& significado);
+    void Definir(const string &clave, const S& significado);
 
-    bool Definido(const string& clave) const;
+    bool Definido(const string &clave) const;
 
     //Creo que siempre se devuelve como referencia modificable
     const S& Significado(const string& clave) const;
@@ -42,10 +43,14 @@ class DiccString{
 
     struct Nodo {
       S* definicion;
-      Arreglo< Nodo* >(256) siguientes;
-      DiccString<s>::Iterador* itClave;
+      Arreglo< Nodo* > siguientes;
+      DiccString<S>::Iterador* itClave;
 
-      Nodo() : definicion(NULL), siguientes(256), itClave(NULL){};
+      Nodo() : definicion(NULL), siguientes(), itClave(NULL){
+		
+		siguientes = Arreglo<Nodo*>(256);
+		  
+		};
     };
 
     Conj<string> _claves;
@@ -54,15 +59,35 @@ class DiccString{
 
 };
 
-template<class K, class S>
-std::ostream& operator << (std::ostream &os, const Dicc<K,S>& d);
 
 // Implementacion Dicc
 
-template<class K, class S>
+template< class S>
 DiccString<S>::DiccString()
  : _claves(), _raiz(NULL)
 {}
+
+
+template< class S>
+DiccString<S>::~DiccString(){
+	
+	Conj<string>::Iterador it = _claves.CrearIt();
+	
+	while(it.HaySiguiente()){
+		
+		Borrar(it.Siguiente());
+		
+		it.Avanzar();
+	}
+	
+	if(_raiz != NULL){
+		Nodo* temp = _raiz;
+		delete temp;
+		_raiz = NULL;
+	}
+}
+
+
 
 
 //Constructor por copia.
@@ -73,16 +98,57 @@ DiccString<S>::DiccString(const DiccString<S>& otro){
 
 
 
-template<class K, class S>
+template<class S>
 void DiccString<S>::Definir(const string& clave, const S& significado){
-  assert(false);
-  //TODO:
+	if (_claves.Cardinal() == 0 || _raiz == NULL) {
+        _raiz = new Nodo;
+    }
+    
+    Nodo* nodoActual = _raiz;
+    
+    for (Nat i = 0; i < clave.size(); i++) {
+		
+        if (nodoActual->siguientes[int(clave[i])] == NULL) {
+            nodoActual->siguientes[int(clave[i])] = new Nodo();
+        }
+        
+        nodoActual = nodoActual->siguientes[int(clave[i])];
+    }
+
+	if(nodoActual->definicion != NULL){
+	
+		S* valor = nodoActual->definicion;
+		nodoActual->definicion = NULL;
+		delete valor;
+		
+	}else{
+		
+		
+		nodoActual->definicion = new S(significado);
+  
+		*nodoActual->itClave = _claves.AgregarRapido(clave);
+	}
+
+  
 }
 
 
 template<class S>
 bool DiccString<S>::Definido(const string& clave) const{
-  return Buscar(clave).HaySiguiente();
+  
+      Nodo* nodoActual = _raiz;
+    
+    for (Nat i = 0; i < clave.size(); i++) {
+		
+        if (nodoActual->siguientes[int(clave[i])] == NULL) {
+            nodoActual->siguientes[int(clave[i])] = new Nodo();
+        }
+        
+        nodoActual = nodoActual->siguientes[int(clave[i])];
+    }
+
+	
+  return nodoActual->definicion != NULL;
 }
 
 template< class S>
@@ -90,39 +156,79 @@ const S& DiccString<S>::Significado(const string& clave) const {
   #ifdef DEBUG
   assert( Definido(clave) );
   #endif
+  Nodo* nodoActual = _raiz;
+    
+    for (Nat i = 0; i < clave.size(); i++) {
+		
+        if (nodoActual->siguientes[int(clave[i])] == NULL) {
+            nodoActual->siguientes[int(clave[i])] = new Nodo();
+        }
+        
+        nodoActual = nodoActual->siguientes[int(clave[i])];
+    }
 
-  return Buscar(clave).SiguienteSignificado();
+  
+
+  return nodoActual->definicion;
 }
 
 template<class S>
-S& DiccString<S>::Significado(const stirng& clave)
-{
+S& DiccString<S>::Significado(const string& clave) {
   #ifdef DEBUG
   assert( Definido(clave) );
   #endif
+  
+  Nodo* nodoActual = _raiz;
+    
+    for (Nat i = 0; i < clave.size(); i++) {
+		
+        if (nodoActual->siguientes[int(clave[i])] == NULL) {
+            nodoActual->siguientes[int(clave[i])] = new Nodo();
+        }
+        
+        nodoActual = nodoActual->siguientes[int(clave[i])];
+    }
 
-  return Buscar(clave).SiguienteSignificado();
+  
+
+  return nodoActual->definicion;
+
 }
 
-template<class K, class S>
+template<class S>
 void DiccString<S>::Borrar(const string& clave){
   #ifdef DEBUG
   assert( Definido(clave) );
   #endif
 
-  Buscar(clave).EliminarSiguiente();
+      
+	Nodo* nodoActual = _raiz;
+    
+    for (Nat i = 0; i < clave.size(); i++) {
+		
+        if (nodoActual->siguientes[int(clave[i])] == NULL) {
+            nodoActual->siguientes[int(clave[i])] = new Nodo();
+        }
+        
+        nodoActual = nodoActual->siguientes[int(clave[i])];
+    }
+
+	if(nodoActual->definicion != NULL){
+	
+		S* valor = nodoActual->definicion;
+		nodoActual->definicion = NULL;
+		delete valor;
+		
+		nodoActual->itClave->EliminarSiguiente();
+		
+	}
 }
 
 template<class S>
 Nat DiccString<S>::CantClaves() const{
-  return _claves.Longitud();
+  return _claves.Cardinal();
 }
 
-
-template< class S>
-std::ostream& operator << (std::ostream& os, const DiccString<S>& d){
-  return Mostrar(os, d, '{', '}');
-}
 
 
 
