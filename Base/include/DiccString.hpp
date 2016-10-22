@@ -1,6 +1,6 @@
 /*
  * Diccionario implementado sobre trie cuyas claves son string,
- *  
+ *
  * Created on HOY VIEJA....
  */
 
@@ -16,28 +16,30 @@ template<class S>
 class DiccString{
   public:
 
+    class Iterador;
+
     DiccString();
-    
+
     //no esta en el modulo.
     DiccString(const DiccString<S>& otro);
 
     void Definir(const string& clave, const S& significado);
 
     bool Definido(const string& clave) const;
-    
+
     //Creo que siempre se devuelve como referencia modificable
     const S& Significado(const string& clave) const;
-    
+
     S& Significado(const string& clave);
-    
+
     void Borrar(const string& clave);
-    
+
     Nat CantClaves() const;
 
   private:
 
     Conj<string> _claves;
-    
+
     Nodo* _raiz;
 
 };
@@ -48,7 +50,7 @@ std::ostream& operator << (std::ostream &os, const Dicc<K,S>& d);
 // Implementacion Dicc
 
 template<class K, class S>
-DiccString<S>::DiccString() 
+DiccString<S>::DiccString()
  : _claves(), _raiz(NULL)
 {}
 
@@ -115,4 +117,4 @@ std::ostream& operator << (std::ostream& os, const DiccString<S>& d){
 
 
 
-#endif	//AED2_DICC_H_
+#endif	//DICC_STRING_
