@@ -15,6 +15,7 @@ class Juego{
   public:
 
     Juego(const Mapa &map);
+    ~Juego();
 
     void AgregarPokemon(const Pokemon &p, const Coordenada &c);
     Nat AgregarJugador();

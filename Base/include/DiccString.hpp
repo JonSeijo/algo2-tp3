@@ -9,7 +9,7 @@
 
 #include <ostream>
 #include <string.h>
-#include "../aed2/Conj.h"
+#include "../aed2.h"
 
 
 template<class S>
@@ -19,6 +19,8 @@ class DiccString{
     class Iterador;
 
     DiccString();
+    ~DiccString();
+
 
     //no esta en el modulo.
     DiccString(const DiccString<S>& otro);
@@ -37,6 +39,14 @@ class DiccString{
     Nat CantClaves() const;
 
   private:
+
+    struct Nodo {
+      S* definicion;
+      Arreglo< Nodo* >(256) siguientes;
+      DiccString<s>::Iterador* itClave;
+
+      Nodo() : definicion(NULL), siguientes(256), itClave(NULL){};
+    };
 
     Conj<string> _claves;
 
