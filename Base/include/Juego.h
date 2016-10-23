@@ -7,7 +7,7 @@
 #include "../aed2/Arreglo.h"
 
 #include "Mapa.h"
-#include "DiccString.h"
+#include "DiccString.hpp"
 
 using namespace aed2;
 
@@ -25,7 +25,7 @@ class Juego{
 
     void Moverse(Jugador e, const Coordenada &c);
 
-    Mapa& Mapa();
+    Mapa& mapa();
 
     Conj<Jugador>::Iterador Jugadores();
 
@@ -39,7 +39,7 @@ class Juego{
 
     const Conj<Coordenada>& PosConPokemons() const;
 
-    const Pokemon& PokemonEnPos(const COordenada &c) const;
+    const Pokemon& PokemonEnPos(const Coordenada &c) const;
 
     Nat CantMovimientosParaCaptura(const Coordenada &c) const;
 
@@ -47,7 +47,7 @@ class Juego{
 
     const Coordenada& PosPokemonCercano(const Coordenada &c) const;
 
-    const Conj<Jugador>& EntrenadoresPosibles(const COordenada &c, const Conj<Jugador> &es) const;
+    const Conj<Jugador>& EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &es) const;
 
     Nat IndiceRareza(const Pokemon &p) const;
 
@@ -57,7 +57,7 @@ class Juego{
 
   private:
 
-}
+};
 
 
 

@@ -14,20 +14,20 @@ class Driver {
 
 	/* Inicializa un juego con un mapa fijo. */
 	Driver(const Conj< Coordenada > & cs);
-	
+
 	/* Destruye el contenido del juego, liberando la memoria dinámica alocada. */
 	~Driver();
 
 	/* Agrega el pokemon pasado por parametro en su coordenada al juego. */
 	void agregarPokemon(const Pokemon & p, const Coordenada & c);
 
-	/* Agrega un nuevo jugador, asignandole el id correspondiente. 
-	 * Esta función deberá cambiar su aridad respecto del TAD devolviendo: 
-	 * el id del jugador agregado. */	
+	/* Agrega un nuevo jugador, asignandole el id correspondiente.
+	 * Esta función deberá cambiar su aridad respecto del TAD devolviendo:
+	 * el id del jugador agregado. */
 	Jugador agregarJugador();
 
 	/* Al jugador pasado por parametro, lo conecta en la coordenada indicada.
-	 * Requiere que el jugador este en el juego desconectado y 
+	 * Requiere que el jugador este en el juego desconectado y
 	 * que la Coordenada pasada este en el mapa. */
 	void conectarse(const Jugador & j, const Coordenada & c);
 
@@ -36,17 +36,17 @@ class Driver {
 	void desconectarse(const Jugador & j);
 
 	/* Al jugador pasado por parametro, lo intenta mover hacia la coordenada indicada.
-	 * Requiere que el jugador este en el juego conectado y 
+	 * Requiere que el jugador este en el juego conectado y
 	 * que la Coordenada pasada este en el mapa. */
 	void moverse(const Jugador & j, const Coordenada & c);
 
 	/* Devuelve todas las coordenadas que posee el mapa del Juego. */
 	Conj< Coordenada > mapa() const;
 
-	/* Indica si hay un camino posible entre dos coordenadas 
+	/* Indica si hay un camino posible entre dos coordenadas
 	*  Requiere que las coordenadas existan en el mapa */
 	bool hayCamino(const Coordenada & c1, const Coordenada & c2) const;
-	
+
 	/* Indica si una coordenada existe o no en el mapa */
 	bool posExistente(const Coordenada & c) const;
 
@@ -101,7 +101,7 @@ class Driver {
 	 * la coordenada indicada, que tengan un camino hasta ella.
 	 * Requiere que haya un pokemon a distancia menor o igual a 2 de la Coordenada. */
 	Conj<Jugador> entrenadoresPosibles(const Coordenada & c) const;
-	
+
 	/* Devuelve el indice de rarez del pokemon pasado como parametro.
 	 * Requiere que haya al menos un pokemon de la especie en el juego. */
 	Nat indiceRareza(const Pokemon & p) const;
@@ -119,10 +119,9 @@ class Driver {
 	 * TODO: Va a ser necesario instanciar privadamente el Modulo principal *
 	 * con el cuál interactuar. Además, pueden declarar todas las		   *
 	 * funciones auxiliares que les hagan falta.							*
-	 ************************************************************************/  
+	 ************************************************************************/
 
 }; // class Driver
 
 
 #endif // DRIVER_H_
-

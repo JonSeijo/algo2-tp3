@@ -1,7 +1,7 @@
-SOURCES = tests.cpp Juego.cpp Mapa.cpp
+SOURCES = tests.cpp Juego.cpp Mapa.cpp Driver.cpp
 OBJS = $(SOURCES:.cpp=.o)
 
-LIBS = modulos.h
+LIBS = modulos.h aed2.h
 
 TARGET = tests
 
@@ -10,11 +10,8 @@ $(TARGET): $(OBJS)
 
 all: $(TARGET)
 
-driver : Driver.o
-	$(CXX) -o Driver  Driver.o $(LIBS)
-
 clean:
-	rm -f $(OBJS) $(TARGET) Driver Driver.o
+	rm -f $(OBJS) $(TARGET)
 
 valgrind: all
 	valgrind --leak-check=full ./$(TARGET)

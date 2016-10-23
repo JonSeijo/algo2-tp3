@@ -9,10 +9,10 @@
 namespace aed2{
     typedef unsigned int Nat;
     typedef std::string String;
-    
-	/** 
-	 * Imprime un elemento a un string, en vez de a una pantalla, 
-	 * a través del operador << 
+
+	/**
+	 * Imprime un elemento a un string, en vez de a una pantalla,
+	 * a través del operador <<
 	 */
 	template <typename T>
 	std::string to_str(const T& t)
@@ -22,8 +22,8 @@ namespace aed2{
 
 		return ss.str();
 	}
-		
-	
+
+
 	/**
 	 * Función para mostrar genérica
 	 */
@@ -38,16 +38,15 @@ namespace aed2{
         }
         return os << der;
     }
-	
+
 
 	/**
 	 * Esta función se puede utilizar para comparar dos colecciones
-	 * iterables que representen conjuntos, es decir, que no tengan 
+	 * iterables que representen conjuntos, es decir, que no tengan
 	 * elementos repetidos.
 	 */
 	template<typename T, typename S>
-	bool Comparar(const T& t, const S& s)
-	{
+	bool Comparar(const T& t, const S& s)	{
 	  typename T::const_Iterador it1 = t.CrearIt();
 	  typename S::const_Iterador it2 = s.CrearIt();
 
@@ -89,10 +88,10 @@ namespace aed2{
 			if ( !esta ) {
 				return false;
 			}
-				
+
 			it1.Avanzar();
 		}
-	  
+
 	  return true;
 	}
 

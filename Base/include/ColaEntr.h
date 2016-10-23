@@ -26,11 +26,11 @@ class ColaEntr{
 			public:
 				Iterador();
 				void Borrar();
-		}
+		};
 
 	private:
 
-}
+};
 
 
 #endif

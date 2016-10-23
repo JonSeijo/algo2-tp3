@@ -2,7 +2,7 @@
 #ifndef MAPA_H_
 #define	MAPA_H_
 
-#include "TiposJuego.h"
+#include "../TiposJuego.h"
 #include "../aed2.h"
 
 using namespace aed2;
@@ -24,8 +24,8 @@ class Mapa {
 
   private:
 
-    
 
-}
+
+};
 
 #endif

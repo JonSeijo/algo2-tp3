@@ -4,7 +4,6 @@
 
 #include "Driver.h"
 #include "mini_test.h"
-#include "aed2/TiposBasicos.h"
 
 using namespace aed2;
 
@@ -31,11 +30,10 @@ void test_agregar_pokemones(){
 // TODO: Agregar más tests
 
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv){
   RUN_TEST(test_constructor_con_mapa);
   RUN_TEST(test_agregar_jugadores);
   RUN_TEST(test_agregar_pokemones);
-  
+
   return 0;
 }
