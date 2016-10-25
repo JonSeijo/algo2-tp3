@@ -279,22 +279,23 @@ DiccString<S>::Iterador::Iterador(const DiccString<S> &d){
 
 template <class S>
 bool DiccString<S>::Iterador::HayMas() const{
-  assert(false);
-
+  return _itClave.HaySiguiente();
 }
 
 template <class S>
 typename DiccString<S>::Iterador::par& DiccString<S>::Iterador::Actual() const{
 
-  assert(false);
+  string clave = _itClave.Siguiente();
+  S def(_dicc->Obtener(clave));
+  typename DiccString<S>::Iterador::par res(clave, def);
 
+  return res;
 }
 
 template <class S>
 void DiccString<S>::Iterador::Avanzar(){
-  assert(false);
+  _itClave.Avanzar();
 }
-
 
 
 
