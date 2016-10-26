@@ -7,6 +7,7 @@
 #include "../aed2/Arreglo.h"
 
 #include "Mapa.h"
+#include "ColaEntr.h"
 #include "DiccString.hpp"
 
 using namespace aed2;
@@ -56,6 +57,46 @@ class Juego{
     Nat CantMismaEspecie(const Pokemon &p) const;
 
   private:
+    struct jugStruc{
+      Nat _id;
+      Nat _sanciones;
+      bool _conectado;
+      Coordenada _pos;
+      DiccString<Nat> _pokemons;
+      ColaEntr::Iterador _itAEntrenadores;
+      Lista<Nat>::Iterador _itAPos;
+      Conj<Jugador>::Iterador _itAJuego;
+      Nat _cantCap;
+
+      jugStruc(Nat id, Coordenada pos)
+       : _sanciones(0), _conectado(true), _pos(pos), _pokemons(),
+       Conj<Jugador>::Iterador _itAJuego,   _itAEntrenadores(), _itAPos(), _cantCap(0){};
+
+    };
+
+    struct pokeStruc{
+      Pokemon _poke;
+      Nat _contador;
+      ColaEntr _entrenadores;
+
+      pokeStruc(Pokemon p) : _poke(p), _contador(0), _entrenadores() {};
+
+    };
+
+    DiccString<Nat> _cantPokemon;
+
+    Nat _cantPokemonesTotales;
+
+    Mapa _mapa;
+
+    Vector<jugStruc> _jugadores;
+
+    Conj<jugStruc> _jugadoresNoEliminados;
+    Vector< Vector < Lista <Jugador> > > _grillaJugadores;
+
+    Vector< Vector<pokeStruc*> > _pokenodos;
+
+    Conj<Coordenada> _posPokemons;
 
 };
 

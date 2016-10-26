@@ -78,6 +78,9 @@ class DiccString{
 
   private:
 
+    Nat cuentaHijos(Nodo* padre) const;
+    void BorrarDesde(Nodo* &reserva, Nat rindex);;
+
     struct Nodo {
       S* definicion;
       Arreglo< Nodo* > siguientes;
@@ -238,29 +241,81 @@ void DiccString<S>::Borrar(const string& clave){
   assert( Definido(clave) );
   #endif
 
+  bool borrarRaiz = _claves.Cardinal() == 1;
 
-	Nodo* nodoActual = _raiz;
+  Nat rindex = 0;
 
-    for (Nat i = 0; i < clave.size(); i++) {
+  Nodo* nodoActual = _raiz;
+  Nodo* reserva = _raiz;
 
-        if (nodoActual->siguientes[int(clave[i])] == NULL) {
-            nodoActual->siguientes[int(clave[i])] = new Nodo();
-        }
+  for (Nat i = 0; i < clave.size(); i++) {
 
-        nodoActual = nodoActual->siguientes[int(clave[i])];
+    nodoActual = nodoActual->siguientes[int(clave[i])];
+    bool definido = i != clave.size() - 1 &&
+                  nodoActual->definicion != NULL;
+
+    if (CuentaHijos(nodoActual) > 1 || defindio) {
+      reserva = nodoActual;
+      rindex = i + 1;
     }
 
-	if(nodoActual->definicion != NULL){
+  }
+  nodoActual->itClave->EliminarSiguiente();
+  delete nodoActual->itClave;
+  nodoActual->itClave = NULL;
+
+  Nat hijos = CuentaHijos(nodoActual);
+
+  if(hijos > 1){
 
 		S* valor = nodoActual->definicion;
 		nodoActual->definicion = NULL;
 		delete valor;
 
-		nodoActual->itClave->EliminarSiguiente();
-
 	}
+
+  if (hijos == 0) {
+    BorrarDesde(reserva, rindex);
+  }
+  if (borrarRaiz) {
+    delete _raiz;
+    _raiz = NULL;
+  }
+
+
+}
+template<class S>
+Nat DiccString<S>::CuentaHijos(Nodo* padre) const{
+  Nat hijos = 0;
+  for (Nat i = 0; i < 256; i++) {
+    if(padre->siguientes[i] != NULL){
+      hijos++;
+    }
+
+  }
+  return hijos;
 }
 
+template<class S>
+void DiccString<S>::BorrarDesde(Nodo* &desde, Nat index) {
+
+  desde = desde->siguientes[index];
+  bool sigue = false:
+  while (desde != NULL) {
+    Nodo* temp = desde;
+    for (Nat i = 0; i < 256; i++) {
+      if(desde->siguientes[i] != NULL){
+        desde = desde->siguientes[i];
+        sigue = true;
+      }
+    }
+    delete temp;
+  }
+  if(!sigue){
+    delete desde;
+  }
+
+}
 template<class S>
 Nat DiccString<S>::CantClaves() const{
   return _claves.Cardinal();
@@ -296,7 +351,6 @@ template <class S>
 void DiccString<S>::Iterador::Avanzar(){
   _itClave.Avanzar();
 }
-
 
 
 #endif	//DICC_STRING_
