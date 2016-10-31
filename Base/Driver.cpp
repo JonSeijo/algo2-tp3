@@ -2,56 +2,64 @@
 using namespace aed2;
 
 // Instanciar un mapa y un juego
-Driver::Driver(const Conj< Coordenada > & cs){
-  assert(false);
+Driver::Driver(const Conj< Coordenada > & cs) : _juego(NULL){
+	Mapa map(cs);
+		
+	this->_juego = new Juego(map);
 }
 
 Driver::~Driver(){
-  assert(false);
+	delete _juego;
 }
 
 void Driver::agregarPokemon(const Pokemon & p, const Coordenada & c){
-  assert(false);
+	_juego->AgregarPokemon(p, c);
 }
 
 
 Jugador Driver::agregarJugador(){
-  assert(false);
+  return _juego->AgregarJugador();
 }
 
 
 void Driver::conectarse(const Jugador & j, const Coordenada & c){
-  assert(false);
+  _juego->Conectarse(j, c);
 }
 
 
 void Driver::desconectarse(const Jugador & j){
-  assert(false);
+  _juego->Desconectarse(j);
 }
 
 
 void Driver::moverse(const Jugador & j, const Coordenada & c){
-  assert(false);
+  _juego->Moverse(j, c);
 }
 
 
 Conj< Coordenada > Driver::mapa() const{
-  assert(false);
+  return _juego->mapa().Coordenadas();
 }
 
 
 bool Driver::hayCamino(const Coordenada & c1, const Coordenada & c2) const{
-  assert(false);
+  return _juego->mapa().HayCamino(c1, c2);
 }
 
 
 bool Driver::posExistente(const Coordenada & c) const{
-  assert(false);
+	return _juego->mapa().PosExistente(c);
 }
 
 
 Conj< Jugador > Driver::jugadores() const{
-  assert(false);
+  Conj< Jugador > jugadores;
+
+  for (auto it = _juego->Jugadores(); it.HaySiguiente(); it.Avanzar() ) {
+      jugadores.AgregaraRapido(_juego.Siguiente());
+  }
+
+  return jugadores;
 }
 
 

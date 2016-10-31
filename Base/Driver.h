@@ -114,6 +114,8 @@ class Driver {
 
 
 	private:
+	
+		Juego* _juego;
 
 	/************************************************************************
 	 * TODO: Va a ser necesario instanciar privadamente el Modulo principal *
