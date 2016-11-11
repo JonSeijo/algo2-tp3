@@ -38,9 +38,9 @@ class DiccString{
 
     Nat CantClaves() const;
 
-    /**********************************
-     * Iterador de DiccString, modificable *
-     **********************************/
+    /***************************************/
+    /* Iterador de DiccString, modificable */
+    /***************************************/
     class Iterador{
     public:
 
@@ -78,9 +78,6 @@ class DiccString{
 
   private:
 
-    Nat cuentaHijos(Nodo* padre) const;
-    void BorrarDesde(Nodo* &reserva, Nat rindex);;
-
     struct Nodo {
       S* definicion;
       Arreglo< Nodo* > siguientes;
@@ -96,6 +93,11 @@ class DiccString{
     Conj<string> _claves;
 
     Nodo* _raiz;
+
+
+    Nat CuentaHijos(Nodo* padre) const;
+    void BorrarDesde(Nodo* &reserva, Nat rindex);;
+
 
 };
 
@@ -166,7 +168,7 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
 
 		nodoActual->definicion = new S(significado);
 
-		*nodoActual->itClave = _claves.AgregarRapido(clave);
+		*(nodoActual->itClave) = _claves.AgregarRapido(clave);
 	}
 
 
@@ -176,16 +178,16 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
 template<class S>
 bool DiccString<S>::Definido(const string& clave) const{
 
-      Nodo* nodoActual = _raiz;
+  Nodo* nodoActual = _raiz;
 
-    for (Nat i = 0; i < clave.size(); i++) {
+  for (Nat i = 0; i < clave.size(); i++) {
 
-        if (nodoActual->siguientes[int(clave[i])] == NULL) {
-            nodoActual->siguientes[int(clave[i])] = new Nodo();
-        }
+      if (nodoActual->siguientes[int(clave[i])] == NULL) {
+          nodoActual->siguientes[int(clave[i])] = new Nodo();
+      }
 
-        nodoActual = nodoActual->siguientes[int(clave[i])];
-    }
+      nodoActual = nodoActual->siguientes[int(clave[i])];
+  }
 
 
   return nodoActual->definicion != NULL;
@@ -254,13 +256,14 @@ void DiccString<S>::Borrar(const string& clave){
     bool definido = i != clave.size() - 1 &&
                   nodoActual->definicion != NULL;
 
-    if (CuentaHijos(nodoActual) > 1 || defindio) {
+    if (CuentaHijos(nodoActual) > 1 || definido) {
       reserva = nodoActual;
       rindex = i + 1;
     }
 
   }
-  nodoActual->itClave->EliminarSiguiente();
+  // No existe EliminarSiguiente
+  //nodoActual->itClave->EliminarSiguiente();
   delete nodoActual->itClave;
   nodoActual->itClave = NULL;
 
@@ -285,7 +288,7 @@ void DiccString<S>::Borrar(const string& clave){
 
 }
 template<class S>
-Nat DiccString<S>::CuentaHijos(Nodo* padre) const{
+Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
   Nat hijos = 0;
   for (Nat i = 0; i < 256; i++) {
     if(padre->siguientes[i] != NULL){
@@ -297,10 +300,10 @@ Nat DiccString<S>::CuentaHijos(Nodo* padre) const{
 }
 
 template<class S>
-void DiccString<S>::BorrarDesde(Nodo* &desde, Nat index) {
+void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat index) {
 
   desde = desde->siguientes[index];
-  bool sigue = false:
+  bool sigue = false;
   while (desde != NULL) {
     Nodo* temp = desde;
     for (Nat i = 0; i < 256; i++) {
@@ -329,6 +332,11 @@ DiccString<S>::Iterador::Iterador(const DiccString<S> &d){
 
     *_dicc = d;
    _itClave = d._claves.CrearIt();
+
+}
+template <class S>
+DiccString<S>::Iterador::~Iterador(){
+
 
 }
 

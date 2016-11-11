@@ -25,4 +25,21 @@ inline bool operator != (const Coordenada& c1, const Coordenada& c2){
  return not (c1 == c2);
 }
 
+
+struct jugYCantCapt{
+	Nat id;
+	Nat cant;
+
+	jugYCantCapt(Nat id, Nat cant) : id(id), cant(cant) {}
+
+	jugYCantCapt(const jugYCantCapt &otro) : id(otro.id), cant(otro.cant) {}
+
+};
+
+
+//TODO: Implementar...
+inline bool operator < (const jugYCantCapt & j1, const jugYCantCapt & j2) {
+	return false;
+}
+
 #endif

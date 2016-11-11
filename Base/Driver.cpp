@@ -3,9 +3,9 @@ using namespace aed2;
 
 // Instanciar un mapa y un juego
 Driver::Driver(const Conj< Coordenada > & cs) : _juego(NULL){
-	Mapa map(cs);
+	//Mapa map(cs);
 		
-	this->_juego = new Juego(map);
+	//this->_juego = new Juego(map);
 }
 
 Driver::~Driver(){
@@ -54,9 +54,9 @@ bool Driver::posExistente(const Coordenada & c) const{
 
 Conj< Jugador > Driver::jugadores() const{
   Conj< Jugador > jugadores;
-
-  for (auto it = _juego->Jugadores(); it.HaySiguiente(); it.Avanzar() ) {
-      jugadores.AgregaraRapido(_juego.Siguiente());
+  Conj< Jugador >::Iterador  it;
+  for ( it = _juego->Jugadores(); it.HaySiguiente(); it.Avanzar() ) {
+      jugadores.AgregarRapido(it.Siguiente());
   }
 
   return jugadores;

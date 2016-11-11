@@ -5,6 +5,7 @@
 #include "aed2/Dicc.h"
 #include "aed2/TiposBasicos.h"
 #include "TiposJuego.h"
+#include "modulos.h"
 
 using namespace aed2;
 
