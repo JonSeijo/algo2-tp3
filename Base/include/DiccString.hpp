@@ -62,6 +62,12 @@ class DiccString{
           par(const S &d, const string &c) : dato(d), clave(c){}
       };
 
+      DiccString<S>::Iterador& operator = (const DiccString<S>::Iterador& otro) {
+        this->_dicc = otro._dicc;
+        this->_itClave = otro._itClave;
+        return *this;
+      }
+
     private:
 
 
@@ -81,7 +87,7 @@ class DiccString{
     struct Nodo {
       S* definicion;
       Arreglo< Nodo* > siguientes;
-      DiccString<S>::Iterador* itClave;
+      Conj<string>::Iterador* itClave;
 
       Nodo() : definicion(NULL), siguientes(), itClave(NULL){
 
@@ -211,7 +217,7 @@ const S& DiccString<S>::Significado(const string& clave) const {
 
 
 
-  return nodoActual->definicion;
+  return *nodoActual->definicion;
 }
 
 template<class S>
@@ -233,7 +239,7 @@ S& DiccString<S>::Significado(const string& clave) {
 
 
 
-  return nodoActual->definicion;
+  return *nodoActual->definicion;
 
 }
 

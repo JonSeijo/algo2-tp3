@@ -49,7 +49,40 @@ Juego::~Juego(){
 }
 
 void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){
-  assert(false);
+  // Aumenta en uno la cantidad de pokemones en el juego.
+  _cantPokemonesTotales++;
+
+  // Se agregua el pokemon al conjunto.
+  _posPokemons.AgregarRapido(c);
+
+
+  // Se aumenta en uno la cantidad de la misma especie.
+  if (_cantPokemon.Definido(p)) {
+    Nat cant = _cantPokemon.Significado(p);
+    _cantPokemon.Definir(p, cant + 1);
+  } else {
+    _cantPokemon.Definir(p, 1);
+  }
+
+  // Se crea el pokenodo.
+  Nat x = c.latitud;
+  Nat y = c.longitud;
+  _pokenodos[x][y] = new pokeStruc(p);
+
+
+  // Se agregan los jugadores, que podrian capturar, al pokenodo.
+  Vector<Jugador> posibles = DameJugadoreseEnPokerango(c);
+  Nat i = 0;
+  while (i < posibles.Longitud()) {
+    Nat cant = _jugadores[posibles[i] ]._cantCap;    
+    jugYCantCapt aInsertar(posibles[i], cant);
+    _jugadores[posibles[i] ]._itAEntrenadores = 
+                        _pokenodos[x][y]->_entrenadores.Encolar(aInsertar);
+
+    i++;
+  }
+
+
 }
 
 Nat Juego::AgregarJugador(){
@@ -186,5 +219,14 @@ Nat Juego::CantPokemnsTotales() const{
 }
 
 Nat Juego::CantMismaEspecie(const Pokemon &p) const{
+  assert(false);
+}
+
+
+/*********************/
+/*Funciones privadas */
+/*********************/
+
+Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& otro) const{
   assert(false);
 }

@@ -98,6 +98,13 @@ class Juego{
 
     Conj<Coordenada> _posPokemons;
 
+
+    /**********************/
+    /* Funciones privadas */
+    /**********************/
+
+
+    Vector<Jugador> DameJugadoreseEnPokerango(const Coordenada&) const;
 };
 
 
