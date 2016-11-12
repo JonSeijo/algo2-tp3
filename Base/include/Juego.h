@@ -69,8 +69,8 @@ class Juego{
       Nat _cantCap;
 
       jugStruc(Nat id, Coordenada pos)
-       : _sanciones(0), _conectado(true), _pos(pos), _pokemons(),
-         _itAJuego(),   _itAEntrenadores(), _itAPos(), _cantCap(0){};
+       : _id(id), _sanciones(0), _conectado(true), _pos(pos), _pokemons(),
+         _itAJuego(), _itAEntrenadores(), _itAPos(), _cantCap(0){};
 
     };
 

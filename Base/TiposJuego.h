@@ -15,6 +15,10 @@ struct Coordenada{
 	Coordenada(Nat latitud, Nat longitud)
 	 : latitud(latitud), longitud(longitud) {}
 
+	Coordenada(const Coordenada &otra) : latitud(otra.latitud),
+										 longitud(otra.longitud){}
+
+
 };
 
 inline bool operator == (const Coordenada& c1, const Coordenada& c2){

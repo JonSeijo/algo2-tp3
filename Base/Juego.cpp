@@ -34,9 +34,6 @@ Juego::Juego(const Mapa &map) : _cantPokemon(), _cantPokemonesTotales(0), _mapa(
     _pokenodos.AgregarAtras(inter);
   }
 
-  
-
-
 }
 
 Juego::~Juego(){
@@ -56,7 +53,16 @@ void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){
 }
 
 Nat Juego::AgregarJugador(){
-  assert(false);
+  Nat proxId = this->_jugadores.Longitud();
+
+  Coordenada c = Coordenada(0, 0);
+  jugStruc e(proxId, c);
+
+  _jugadoresNoEliminados.AgregarRapido(e);
+
+  _jugadores.AgregarAtras(e);
+
+  return proxId;  
 }
 
 void Juego::Conectarse(Jugador e, const Coordenada &c){
