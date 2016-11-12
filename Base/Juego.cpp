@@ -66,7 +66,38 @@ Nat Juego::AgregarJugador(){
 }
 
 void Juego::Conectarse(Jugador e, const Coordenada &c){
-  assert(false);
+  // Se conecta el jugador.
+  _jugadores[e]._conectado = true;
+  
+  // Se lo ubica en la posicion correspondiente.
+  Nat x = c.latitud;
+  Nat y = c.longitud;
+  
+  _jugadores[e]._itAPos = _grillaJugadores[x][y].AgregarAtras(e);
+
+  _jugadores[e]._pos.latitud  = x;
+  _jugadores[e]._pos.longitud = y;
+
+
+  // Se verifica si el jugador entra en un pokenodo.
+  if (HayPokemonCercano(c)) {
+    if (_mapa->HayCamino(c, PosPokemonCercano(c))) {
+      
+      Nat latPok = PosPokemonCercano(c).latitud;
+      Nat lonPok = PosPokemonCercano(c).longitud;
+
+      // Se reinicia el contador.
+      _pokenodos[latPok][lonPok]->_contador = 0;
+
+      // Se encola el jugador en el pokenodo.
+      jugYCantCapt t(e, _jugadores[e]._cantCap);
+      _jugadores[e]._itAEntrenadores = 
+            _pokenodos[latPok][lonPok]->_entrenadores.Encolar(t);
+
+    }
+  }
+
+
 }
 
 void Juego::Desconectarse(Jugador e){
