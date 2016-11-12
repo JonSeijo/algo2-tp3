@@ -2,15 +2,53 @@
 #include <cassert>
 #include <iostream>
 #include "aed2.h"
+#include "TiposJuego.h"
+
 
 using namespace aed2;
 
-Juego::Juego(const Mapa &map){
-  assert(false);
+Juego::Juego(const Mapa &map) : _cantPokemon(), _cantPokemonesTotales(0), _mapa(NULL),
+ _jugadores(), _jugadoresNoEliminados(), _grillaJugadores(), _pokenodos(), _posPokemons(){
+
+  *_mapa = map; 
+
+  for (Nat i = 0; i < map.Tam(); i++) {
+    Vector < Lista <Jugador> > inter;
+
+    for (Nat j = 0; j < map.Tam(); j++) {
+      Lista < Jugador > vacia;
+      inter.AgregarAtras(vacia); 
+    }
+
+    _grillaJugadores.AgregarAtras(inter);
+  }
+ 
+  for (Nat i = 0; i < map.Tam(); i++) {
+    Vector<pokeStruc*> inter;
+
+    for (Nat j = 0; j < map.Tam(); j++) {
+      pokeStruc* nuevo = NULL;
+      inter.AgregarAtras(nuevo); 
+    }
+
+    _pokenodos.AgregarAtras(inter);
+  }
+
+  
+
+
 }
 
 Juego::~Juego(){
-  assert(false);
+
+  for (Nat i = 0; i < _pokenodos.Longitud(); i++) {
+    for (Nat j = 0; _pokenodos[i].Longitud(); j++) {
+      delete _pokenodos[i][j];
+    }
+
+  }
+  delete _mapa;
+
 }
 
 void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){

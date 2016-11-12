@@ -3,9 +3,20 @@ using namespace aed2;
 
 // Instanciar un mapa y un juego
 Driver::Driver(const Conj< Coordenada > & cs) : _juego(NULL){
-	//Mapa map(cs);
-		
-	//this->_juego = new Juego(map);
+
+  Mapa map;
+
+  Conj< Coordenada >::const_Iterador it = cs.CrearIt();
+
+  while (it.HaySiguiente()) {
+
+    map.AgregarCoord(it.Siguiente());
+
+    it.Avanzar();
+  }
+
+	this->_juego = new Juego(map);
+  
 }
 
 Driver::~Driver(){

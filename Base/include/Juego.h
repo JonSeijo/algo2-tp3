@@ -87,7 +87,7 @@ class Juego{
 
     Nat _cantPokemonesTotales;
 
-    Mapa _mapa;
+    Mapa* _mapa;
 
     Vector<jugStruc> _jugadores;
 
