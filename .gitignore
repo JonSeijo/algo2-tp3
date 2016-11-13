@@ -27,5 +27,11 @@
 *.exe
 *.out
 *.app
+test
+test_cola
+test_dicc
+test_mapa
 
-!modulos.PDF
+
+
+
