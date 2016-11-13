@@ -14,7 +14,7 @@ class Mapa {
 
         Mapa();
         ~Mapa();
-        void AgregarCoord( const Coordenada &c);
+        void AgregarCoord(const Coordenada &c);
 
         Conj<Coordenada> Coordenadas() const;
 

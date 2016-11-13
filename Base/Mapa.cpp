@@ -20,8 +20,26 @@ Mapa::~Mapa(){
 
 }
 
-void Mapa::AgregarCoord(const Coordenada &c){
-    assert(false);
+void Mapa::AgregarCoord(const Coordenada &c) {
+    Nat maximo = this->max(c.latitud, c.longitud);
+
+    if (maximo > this->_tam) {
+        vector<vector<vector<vector<bool> > > > nGrilla;
+        nGrilla = this->crearGrilla(maximo);
+        this->copiarCoordenadas(nGrilla, this->_grilla);
+        this->_grilla = nGrilla;
+        this->_tam = maximo;
+    }
+
+    this->_grilla[c.latitud][c.longitud][c.latitud][c.longitud] = true;
+
+    vector<vector<bool> > visitados = vector<vector<bool> >(this->_tam,
+                                         vector<bool>(this->_tam, false));
+
+    // ACA NECESITO USAR UNA COLA, QUE NO ESTA IMPLEMENTADA.
+    // DESPUES VEO DE COPIAR LA DEL TALLER Y SEGUIR CON EL ALGORITMO
+
+
 }
 
 Conj<Coordenada> Mapa::Coordenadas() const{
@@ -60,11 +78,7 @@ Nat Mapa::Tam() const{
     return this->_tam;
 }
 
-void AgregarCoord(Coordenada c) {
-
-}
-
-vector<vector<vector<vector<bool> > > > crearGrilla(const Nat n) {
+vector<vector<vector<vector<bool> > > > Mapa::crearGrilla(const Nat n) {
     vector<vector<vector<vector<bool> > > > nuevaGrilla;
     nuevaGrilla = vector<vector<vector<vector<bool> > > >(n,
                     vector<vector<vector<bool> > >(n, 
@@ -72,7 +86,7 @@ vector<vector<vector<vector<bool> > > > crearGrilla(const Nat n) {
                             vector<bool>(n, false))));
 }   
 
-void copiarCoordenadas(
+void Mapa::copiarCoordenadas(
     vector<vector<vector<vector<bool> > > > grillaNueva,
     vector<vector<vector<vector<bool> > > > grillaVieja) {
 
@@ -83,6 +97,6 @@ void copiarCoordenadas(
     }
 }
 
-Nat max(Nat x, Nat y) {
+Nat Mapa::max(Nat x, Nat y) {
     return (x >= y) ? x : y;
 }
