@@ -277,8 +277,28 @@ const Coordenada& Juego::PosPokemonCercano(const Coordenada &c) const{
   assert(false);
 }
 
-const Conj<Jugador>& Juego::EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &es) const{
-  assert(false);
+Conj<Jugador> Juego::EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &es) const{
+  
+  Conj< Jugador > posibles;
+  Coordenada pokeCoor(PosPokemonCercano(c));
+  Vector<Jugador> jugsEnNodo = DameJugadoreseEnPokerango(pokeCoor);
+
+  // Itero sobre es.
+  Conj<Jugador>::const_Iterador itPosibles = es.CrearIt();
+
+  while (itPosibles.HaySiguiente()) {
+
+    // Lo agrego si pertenece al nodo.
+    for (Nat i = 0; i < jugsEnNodo.Longitud(); i++) {
+      if (itPosibles.Siguiente() == jugsEnNodo[i]) {
+        posibles.AgregarRapido(itPosibles.Siguiente());
+      }
+    }
+    itPosibles.Avanzar();
+  }
+
+  return posibles;
+
 }
 
 Nat Juego::IndiceRareza(const Pokemon &p) const{

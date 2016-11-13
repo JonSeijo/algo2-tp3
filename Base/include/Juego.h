@@ -48,7 +48,7 @@ class Juego{
 
     const Coordenada& PosPokemonCercano(const Coordenada &c) const;
 
-    const Conj<Jugador>& EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &es) const;
+    Conj<Jugador> EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &es) const;
 
     Nat IndiceRareza(const Pokemon &p) const;
 
