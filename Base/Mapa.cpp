@@ -68,3 +68,15 @@ vector<vector<vector<vector<bool> > > > crearGrilla(const Nat n) {
                             vector<bool>(n, false))));
 }   
 
+
+void copiarCoordenadas(
+    vector<vector<vector<vector<bool> > > > grillaNueva,
+    vector<vector<vector<vector<bool> > > > grillaVieja) {
+    
+    for (int i = 0; i < grillaVieja.Tam(); i++) {
+        for (int j = 0; j < grillaVieja.Tam(); j++) {
+            grillaNueva[i][j][i][j] = grillaVieja[i][j][i][j];
+        }        
+    }
+}
+
