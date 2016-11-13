@@ -1,6 +1,6 @@
 
 #ifndef MAPA_H_
-#define	MAPA_H_
+#define MAPA_H_
 
 #include "../TiposJuego.h"
 #include "../aed2.h"
@@ -10,24 +10,31 @@ using namespace aed2;
 using namespace std;
 
 class Mapa {
-	public:
+    public:
 
-	    Mapa();
-	    ~Mapa();
-	    void AgregarCoord( const Coordenada &c);
+        Mapa();
+        ~Mapa();
+        void AgregarCoord( const Coordenada &c);
 
-	    Conj<Coordenada> Coordenadas() const;
+        Conj<Coordenada> Coordenadas() const;
 
-	    bool PosExistente(const Coordenada &c) const;
+        bool PosExistente(const Coordenada &c) const;
 
-	    bool HayCamino(const Coordenada &c1, const Coordenada &c2) const;
+        bool HayCamino(const Coordenada &c1, const Coordenada &c2) const;
 
-	    Nat Tam() const;
+        Nat Tam() const;
 
-	private:
+    private:
+
+        void copiarCoordenadas(
+            vector<vector<vector<vector<bool> > > > grillaNueva,
+            vector<vector<vector<vector<bool> > > > grillaVieja
+        );
+
+        vector<vector<vector<vector<bool> > > > crearGrilla(const Nat n);   
     
-    	vector<vector<vector<vector<bool> > > > _grilla;
-    	Nat _tam;
+        vector<vector<vector<vector<bool> > > > _grilla;
+        Nat _tam;
 
 };
 

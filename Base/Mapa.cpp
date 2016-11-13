@@ -59,3 +59,24 @@ bool Mapa::HayCamino(const Coordenada &c1, const Coordenada &c2) const{
 Nat Mapa::Tam() const{
     return this->_tam;
 }
+
+vector<vector<vector<vector<bool> > > > crearGrilla(const Nat n) {
+    vector<vector<vector<vector<bool> > > > nuevaGrilla;
+    nuevaGrilla = vector<vector<vector<vector<bool> > > >(n,
+                    vector<vector<vector<bool> > >(n, 
+                        vector<vector<bool> >(n, 
+                            vector<bool>(n, false))));
+}   
+
+
+void copiarCoordenadas(
+    vector<vector<vector<vector<bool> > > > grillaNueva,
+    vector<vector<vector<vector<bool> > > > grillaVieja) {
+
+    for (int i = 0; i < grillaVieja.size(); i++) {
+        for (int j = 0; j < grillaVieja.size(); j++) {
+            grillaNueva[i][j][i][j] = grillaVieja[i][j][i][j];
+        }        
+    }
+}
+
