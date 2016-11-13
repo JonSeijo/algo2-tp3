@@ -284,7 +284,7 @@ Nat Juego::IndiceRareza(const Pokemon &p) const{
 }
 
 Nat Juego::CantPokemnsTotales() const{
-  assert(false);
+  return this->_cantPokemonesTotales;
 }
 
 Nat Juego::CantMismaEspecie(const Pokemon &p) const{
