@@ -105,6 +105,18 @@ class Juego{
 
 
     Vector<Jugador> DameJugadoreseEnPokerango(const Coordenada&) const;
+
+
+    bool MovValido(Jugador, const Coordenada&) const;
+    
+    void CasoMov1(Jugador , const Coordenada&, const Coordenada&);
+    void CasoMov2(Jugador , const Coordenada&, const Coordenada&);
+    void CasoMov3(Jugador , const Coordenada&, const Coordenada&);
+    void CasoMov4(Jugador , const Coordenada&, const Coordenada&);
+    void CasoMov5(Jugador , const Coordenada&, const Coordenada&);
+
+
+
 };
 
 

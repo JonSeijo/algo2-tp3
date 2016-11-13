@@ -38,6 +38,8 @@ class DiccString{
 
     Nat CantClaves() const;
 
+    Conj<string>::const_Iterador Claves() const; 
+
     /***************************************/
     /* Iterador de DiccString, modificable */
     /***************************************/
@@ -329,6 +331,12 @@ template<class S>
 Nat DiccString<S>::CantClaves() const{
   return _claves.Cardinal();
 }
+
+template<class S>
+Conj<string>::const_Iterador DiccString<S>::Claves() const{
+  return _claves.CrearIt();
+}
+
 
 /*******************************/
 /* IMPLEMENTACION DEL ITERADOR */

@@ -1,6 +1,7 @@
 #include "modulos.h"
 #include <cassert>
 #include <iostream>
+#include <string>
 #include "aed2.h"
 #include "TiposJuego.h"
 
@@ -159,7 +160,75 @@ void Juego::Desconectarse(Jugador e){
 }
 
 void Juego::Moverse(Jugador e, const Coordenada &c){
-  assert(false);
+  // Si el movimiento no es valido...
+  if (!MovValido(e, c)) {
+    // Se sanciona al jugador.
+    _jugadores[e]._sanciones++;
+
+    // Si tiene 5 o mas sanciones...
+    if (_jugadores[e]._sanciones >= 5) {
+
+      // Se borra al jugador de la posicion y de los jugadores.
+      _jugadores[e]._itAPos.EliminarSiguiente();
+      _jugadores[e]._itAJuego.EliminarSiguiente();
+
+      // Se eliminan sus pokemones.
+      Conj<string>::const_Iterador it = _jugadores[e]._pokemons.Claves();
+      while (it.HaySiguiente()) {
+        string actual = it.Siguiente();
+
+        Nat cant = _jugadores[e]._pokemons.Significado(actual);
+
+        Nat n = _cantPokemon.Significado(actual);
+        _cantPokemon.Definir(actual, n - cant);
+
+        it.Avanzar();
+      }
+      _cantPokemonesTotales -= _jugadores[e]._cantCap;
+
+      // Si esta en un pokenodo...
+      // TODO: Falta ver si hay camino?
+      if (HayPokemonCercano(_jugadores[e]._pos)) {
+        // Se lo borra del pokenodo.
+        _jugadores[e]._itAEntrenadores.Borrar();
+      }
+
+
+    } 
+  }// Si el movimiento es valido..
+  else{
+
+    Coordenada posAntes(_jugadores[e]._pos);
+
+    bool hayPokAntes = HayPokemonCercano(posAntes);
+    bool hayPokDesp  = HayPokemonCercano(c);
+
+    if (hayPokDesp) {
+      if (!hayPokAntes) {
+        CasoMov3(e, posAntes, c);
+      } else if (PosPokemonCercano(posAntes) == PosPokemonCercano(c)) {
+        CasoMov1(e, posAntes, c);
+
+      } else {
+        CasoMov5(e, posAntes, c);
+      }
+    } else if (hayPokAntes) {
+      CasoMov2(e, posAntes, c);
+    } else {
+      CasoMov4(e, posAntes, c);
+    }
+
+  // Se lo saca de la posicion anterior.
+  _jugadores[e]._itAPos.EliminarSiguiente();
+
+  // Se lo agrega en la posicion nueva.
+  _jugadores[e]._itAPos = _grillaJugadores[c.latitud][c.longitud].AgregarAtras(e); 
+  _jugadores[e]._pos = c;
+
+  }
+
+
+ 
 }
 
 Mapa& Juego::mapa(){
@@ -228,5 +297,31 @@ Nat Juego::CantMismaEspecie(const Pokemon &p) const{
 /*********************/
 
 Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& otro) const{
+  assert(false);
+}
+
+
+void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& nueva){
+  assert(false);
+}
+
+
+void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& nueva){
+  assert(false);
+}
+
+void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& nueva){
+  assert(false);
+}
+
+void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& nueva){
+  assert(false);
+}
+
+void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& nueva){
+  assert(false);
+}
+
+bool Juego::MovValido(Jugador e, const Coordenada& c2) const{
   assert(false);
 }
