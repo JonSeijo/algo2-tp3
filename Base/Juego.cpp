@@ -341,7 +341,7 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
 }
 
 
-void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& nueva){
+void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp){
   // Lo borro de entrenadores.
   _jugadores[e]._itAEntrenadores.Borrar();
 
@@ -375,15 +375,58 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& nueva
   }
 }
 
-void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& nueva){
+void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp){
+  // El pokenodo al que entro el jugador. 
+  Coordenada pokePos = PosPokemonCercano(desp);
+
+  Nat lat = pokePos.latitud;
+  Nat lon = pokePos.longitud;
+
+  // Agrego el entrenador al pokenodo.
+  jugYCantCapt jug(e, _jugadores[e]._cantCap);
+  _jugadores[e]._itAEntrenadores = _pokenodos[lat][lon]->_entrenadores.Encolar(jug); 
+
+  
+  // Itero sobre los pokenodos
+  Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
+
+  while (it.HaySiguiente()) {
+
+    Nat x = it.Siguiente().latitud;
+    Nat y = it.Siguiente().longitud;
+
+    pokeStruc* pokeNodo = _pokenodos[x][y];
+
+    // Si no es al que entro el jugador...
+    if (it.Siguiente() == pokePos) {
+
+      // Aumento su contador.
+      pokeNodo->_contador = 0;
+
+
+    } else if (_pokenodos[x][y]->_contador == 10) {
+        // Si el contador llego a 10...
+
+        // Agrego el pokemon al entrenador que captura.
+        SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo());
+    
+        // Borro el pokenodo.
+        it.EliminarSiguiente();
+
+        delete pokeNodo;
+        _pokenodos[x][y] = NULL;
+    }
+    
+
+    it.Avanzar();
+  }
+}
+
+void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp){
   assert(false);
 }
 
-void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& nueva){
-  assert(false);
-}
-
-void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& nueva){
+void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp){
   assert(false);
 }
 
