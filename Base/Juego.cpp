@@ -240,7 +240,7 @@ Conj<Jugador>::Iterador Juego::Jugadores(){
 }
 
 Nat Juego::Sanciones(Jugador e) const{
-  assert(false);
+  return _jugadores[e]._sanciones;
 }
 
 Coordenada Juego::Posicion(Jugador e) const{
