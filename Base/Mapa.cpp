@@ -59,3 +59,12 @@ bool Mapa::HayCamino(const Coordenada &c1, const Coordenada &c2) const{
 Nat Mapa::Tam() const{
     return this->_tam;
 }
+
+vector<vector<vector<vector<bool> > > > crearGrilla(const Nat n) {
+    vector<vector<vector<vector<bool> > > > nuevaGrilla;
+    nuevaGrilla = vector<vector<vector<vector<bool> > > >(n,
+                    vector<vector<vector<bool> > >(n, 
+                        vector<vector<bool> >(n, 
+                            vector<bool>(n, false))));
+}   
+

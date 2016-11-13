@@ -25,6 +25,8 @@ class Mapa {
 	    Nat Tam() const;
 
 	private:
+
+		vector<vector<vector<vector<bool> > > > crearGrilla(const Nat n);	
     
     	vector<vector<vector<vector<bool> > > > _grilla;
     	Nat _tam;
