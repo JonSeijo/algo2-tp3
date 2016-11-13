@@ -244,7 +244,7 @@ Nat Juego::Sanciones(Jugador e) const{
 }
 
 Coordenada Juego::Posicion(Jugador e) const{
-  assert(false);
+  return _jugadores[e]._pos;
 }
 
 DiccString<Pokemon>::Iterador Juego::Pokemons(Jugador e){
