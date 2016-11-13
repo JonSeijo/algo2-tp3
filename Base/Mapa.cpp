@@ -25,11 +25,30 @@ void Mapa::AgregarCoord(const Coordenada &c){
 }
 
 Conj<Coordenada> Mapa::Coordenadas() const{
-    assert(false);
+    Conj<Coordenada> coors;
+    for (int i = 0; i < this->_tam; i++) {
+        for (int j = 0; j < this->_tam; j++) {
+            if (this->PosExistente(Coordenada(i,j))) {
+                coors.AgregarRapido(Coordenada(i,j));
+            }
+        }
+    }
+    return coors;
 }
 
 bool Mapa::PosExistente(const Coordenada &c) const{
-    assert(false);
+
+    if (c.latitud < 0 || c.longitud < 0) {
+        return false;
+    }
+
+    if (c.latitud >= this->_tam || c.longitud >= this->_tam) {
+        return false;
+    }
+
+    Nat x = c.latitud;
+    Nat y = c.longitud;
+    return this->_grilla[x][y][x][y];
 }
 
 
