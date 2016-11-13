@@ -280,7 +280,8 @@ const Conj<Jugador>& Juego::EntrenadoresPosibles(const Coordenada &c, const Conj
 }
 
 Nat Juego::IndiceRareza(const Pokemon &p) const{
-  assert(false);
+  Nat pokeCant = _cantPokemon.Significado(p);
+  return 100 - (100 * pokeCant / _cantPokemonesTotales);
 }
 
 Nat Juego::CantPokemnsTotales() const{
