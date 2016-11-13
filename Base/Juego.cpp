@@ -249,6 +249,9 @@ Coordenada Juego::Posicion(Jugador e) const{
 DiccString<Nat>::Iterador Juego::Pokemons(Jugador e){
   return _cantPokemon.CrearIt();
 }
+bool Juego::EstaConectado(Jugador e) const{
+  return _jugadores[e]._conectado;
+}
 
 Conj<Jugador> Juego::Expulsados() const{
   Conj<Jugador> expulsados;
@@ -455,10 +458,94 @@ Nat Juego::CantMismaEspecie(const Pokemon &p) const{
 /*Funciones privadas */
 /*********************/
 
-Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& otro) const{
-  assert(false);
+Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
+  Vector<Jugador> jugsRadio;
+  Nat x = c.latitud;
+  Nat y = c.longitud;
+
+  Nat m = _mapa->Tam();
+
+  if (_pokenodos[x][y] != NULL) {
+    AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y);
+  }
+  if (x > 0) {
+
+    if ( _pokenodos[x-1][y] != NULL) {
+      AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y);
+    }
+
+    if (y > 0 && (_pokenodos[x-1][y-1] != NULL)) {
+      AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y-1);
+    } 
+
+    if (y < m-1  && (_pokenodos[x-1][y+1] != NULL)) {
+      AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y+1);
+    }
+    if (x-1 > 0  && (_pokenodos[x-2][y] != NULL)) {
+      AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-2, y);
+    }
+
+  }
+
+  if (y > 0) {
+    if (_pokenodos[x][y-1] != NULL) {
+      AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y-1);
+    }
+
+    if (y-1 < 0  && (_pokenodos[x][y-2] != NULL)) {
+      AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y-2);
+    }
+
+  } 
+
+  if (y < m-1) {
+
+    if (_pokenodos[x][y+1] != NULL) {
+      AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y+1);
+    }
+    if (m > 1 && y < m-2  && (_pokenodos[x][y+2] != NULL)) {
+      AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y+2);
+    } 
+
+  }
+  if (x < m-1) {
+    if (_pokenodos[x+1][y] != NULL) {
+      AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y);
+    }
+
+    if (y > 0 && (_pokenodos[x+1][y-1] != NULL)) {
+      AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y-1);
+    } 
+
+    if (y < m-1 && (_pokenodos[x+1][y+1] != NULL)) {
+      AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y+1);
+    }
+
+  }
+
+  if (m > 1 && x < m-2  && (_pokenodos[x+2][y] != NULL)) {
+    AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+2, y);
+  }
+
+  return jugsRadio;
+
 }
 
+void Juego::AgregarAtrasJugsQueEstanEnPos(Vector<Jugador> jugs, Nat x, Nat y) const {
+  Lista <Jugador>::const_Iterador it = _grillaJugadores[x][y].CrearIt();
+
+  Coordenada c(x, y);
+  // Itero sobre los jugadores en esa posicion.
+  while (it.HaySiguiente()) {
+    Nat e = it.Siguiente();
+
+    // Si esta conectado y puede llegar al pokemon...
+    if(EstaConectado(e) && _mapa->HayCamino(Posicion(e), c)){
+      jugs.AgregarAtras(e);
+    }
+    it.Avanzar();
+  }
+}
 
 void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp){
   
