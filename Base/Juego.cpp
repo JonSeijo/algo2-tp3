@@ -301,8 +301,43 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& otro) const{
 }
 
 
-void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& nueva){
-  assert(false);
+void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp){
+  
+  // El pokenodo al que entro el jugador. 
+  Coordenada pokePos = PosPokemonCercano(desp);
+ 
+  // Itero sobre los pokenodos
+  Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
+
+  while (it.HaySiguiente()) {
+
+    Nat x = it.Siguiente().latitud;
+    Nat y = it.Siguiente().longitud;
+
+    // Si no es al que entro el jugador...
+    if (it.Siguiente() != pokePos) {
+
+      pokeStruc* pokeNodo = _pokenodos[x][y];
+      // Aumento su contador.
+      pokeNodo->_contador++;
+
+
+      // Si el contador llego a 10...
+      if (pokeNodo->_contador == 10) {
+        // Agrego el pokemon al entrenador que captura.
+        SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo());
+    
+        // Borro el pokenodo.
+        it.EliminarSiguiente();
+
+        delete pokeNodo;
+        _pokenodos[x][y] = NULL;
+      }
+    }
+
+    it.Avanzar();
+  }
+
 }
 
 
@@ -323,5 +358,10 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& nueva
 }
 
 bool Juego::MovValido(Jugador e, const Coordenada& c2) const{
+  assert(false);
+}
+
+
+void Juego::SumarUnoEnJug(Pokemon p, const ColaPrioridad<jugYCantCapt>::Iterador& e){
   assert(false);
 }
