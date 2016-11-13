@@ -270,7 +270,55 @@ Nat Juego::CantMovimientosParaCaptura(const Coordenada &c) const{
 }
 
 bool Juego::HayPokemonCercano(const Coordenada &c) const{
-  assert(false);
+  Nat x = c.latitud;
+  Nat y = c.longitud;
+
+  Nat m = _mapa->Tam();
+
+  bool hayPokemon = false;
+
+  // Hay un pokemon en (x, y).
+  hayPokemon |= (_pokenodos[x][y] != NULL);
+
+  // Hay un pokemon en ( x -1, y).
+  hayPokemon |= ((x > 0) && (_pokenodos[x - 1][y] != NULL));
+
+  // Hay un pokemon en ( x-1, y-1).
+  hayPokemon |= ((x > 0 && y > 0) && (_pokenodos[x - 1][y-1] != NULL));
+
+  // Hay un pokemon en (x-1, y+1).
+  hayPokemon |= ((x > 0 && y < m-1) && (_pokenodos[x-1][y+1] != NULL));
+
+  // Hay un pokemon en (x-2, y).
+  hayPokemon |= ((x - 1 > 0) && (_pokenodos[x-2][y] != NULL));
+
+  // Hay un pokemon en (x, y-1).
+  hayPokemon |= ((y > 0) && (_pokenodos[x][y-1] != NULL));
+
+  // Hay un pokemon en (x, y-2).
+  hayPokemon |= ((y - 1 > 0) && (_pokenodos[x][y-2] != NULL));
+
+  // Hay un pokemon en (x, y+1).
+  hayPokemon |= ((y < m - 1) && (_pokenodos[x][y+1] != NULL));
+
+  // Hay un pokemon en (x, y+2).
+  hayPokemon |= ((m > 1 && y < m-2) && (_pokenodos[x][y+2] != NULL));
+
+  // Hay un pokemon en (x+1, y).
+  hayPokemon |= ((x < m-1) && (_pokenodos[x+1][y] != NULL));
+
+  // Hay un pokemon en (x+1, y-1).
+  hayPokemon |= ((x < m-1 && y > 0) && (_pokenodos[x+1][y-1] != NULL));
+
+  // Hay un pokemon en (x+1, y+1).
+  hayPokemon |= ((y < m-1 && x < m-1) && (_pokenodos[x+1][y+1] != NULL));
+
+  // Hay un pokemon en (x+2, y).
+  hayPokemon |= ((m > 1 && x < m-2) && (_pokenodos[x+2][y] != NULL));
+
+
+  return hayPokemon;
+
 }
 
 const Coordenada& Juego::PosPokemonCercano(const Coordenada &c) const{
