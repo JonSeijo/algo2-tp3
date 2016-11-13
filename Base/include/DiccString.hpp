@@ -17,6 +17,8 @@ class DiccString{
   public:
 
     class Iterador;
+    struct par;
+
 
     DiccString();
     ~DiccString();
@@ -42,14 +44,19 @@ class DiccString{
 
     Conj<string>::const_Iterador Claves() const; 
 
+   struct par {
+      S dato;
+      string clave;
+
+      par(const S &d, const string &c) : dato(d), clave(c){}
+    };
     /***************************************/
     /* Iterador de DiccString, modificable */
     /***************************************/
     class Iterador{
     public:
 
-      struct par;
-
+      
       Iterador();
 
       Iterador(DiccString<S> &d);
@@ -59,15 +66,10 @@ class DiccString{
 
       bool HayMas() const;
 
-      par& Actual() const;
+      par Actual() const;
 
       void Avanzar();
-      struct par {
-          S dato;
-          string clave;
-
-          par(const S &d, const string &c) : dato(d), clave(c){}
-      };
+     
 
       DiccString<S>::Iterador& operator = (const DiccString<S>::Iterador& otro) {
         this->_dicc = otro._dicc;
@@ -365,11 +367,11 @@ bool DiccString<S>::Iterador::HayMas() const{
 }
 
 template <class S>
-typename DiccString<S>::Iterador::par& DiccString<S>::Iterador::Actual() const{
+typename DiccString<S>::par DiccString<S>::Iterador::Actual() const{
 
   string clave = _itClave.Siguiente();
-  S def(_dicc->Obtener(clave));
-  typename DiccString<S>::Iterador::par res(clave, def);
+  S def(_dicc->Significado(clave));
+  DiccString<S>::par res(def, clave);
 
   return res;
 }
