@@ -75,22 +75,34 @@ Conj< Jugador > Driver::jugadores() const{
 
 
 bool Driver::estaConectado(const Jugador & j) const{
-  assert(false);
+  return _juego->EstaConectado(j);
 }
 
 
 Nat Driver::sanciones(const Jugador & j) const{
-  assert(false);
+  return _juego->Sanciones(j);
 }
 
 
 Coordenada Driver::posicion(const Jugador & j) const{
-  assert(false);
+  return _juego->Posicion(j);
 }
 
 
 Dicc< Pokemon , Nat > Driver::pokemons(const Jugador & j) const{
-  assert(false);
+  Dicc< Pokemon , Nat > d;
+
+  DiccString<Nat>::Iterador it = _juego->Pokemons(j);
+
+  while (it.HayMas()) {
+
+    d.DefinirRapido(it.Actual().clave, it.Actual().dato);
+
+    it.Avanzar();
+
+  }
+
+  return d;
 }
 
 
