@@ -256,7 +256,7 @@ const Conj<Jugador>& Juego::Expulsados() const{
 }
 
 const Conj<Coordenada>& Juego::PosConPokemons() const{
-  assert(false);
+  return _posPokemons;
 }
 
 const Pokemon& Juego::PokemonEnPos(const Coordenada &c) const{
