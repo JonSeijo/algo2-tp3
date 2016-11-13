@@ -83,12 +83,25 @@ Nat Mapa::Tam() const{
 Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(const Nat n) {
     Vector<Vector<Vector<Vector<bool> > > > nuevaGrilla;
 
-    // Lo tengo que hacer a las malas.... lpm
+    for (int i = 0; i < n; i++) {
+        Vector<Vector<Vector<bool> > > nGrilla2;
 
-    // nuevaGrilla = Vector<Vector<Vector<Vector<bool> > > >(n,
-    //                 Vector<Vector<Vector<bool> > >(n, 
-    //                     Vector<Vector<bool> >(n, 
-    //                         Vector<bool>(n, false))));
+        for (int j = 0; j < n; j++) {
+            Vector<Vector<bool> > nGrilla3;
+
+            for (int k = 0; k < n; k++) {
+                Vector<bool> nGrilla4;
+                for (int l = 0; l < n; l++) {
+                    nGrilla4.AgregarAtras(false);
+                }
+                nGrilla3.AgregarAtras(nGrilla4);
+            }            
+            nGrilla2.AgregarAtras(nGrilla3);
+        }        
+        nuevaGrilla.AgregarAtras(nGrilla2);
+    }
+
+    return nuevaGrilla;
 }   
 
 void Mapa::copiarCoordenadas(
