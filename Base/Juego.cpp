@@ -260,7 +260,9 @@ const Conj<Coordenada>& Juego::PosConPokemons() const{
 }
 
 const Pokemon& Juego::PokemonEnPos(const Coordenada &c) const{
-  assert(false);
+  Nat x = c.latitud;
+  Nat y = c.longitud;
+  return _pokenodos[x][y]->_poke;
 }
 
 Nat Juego::CantMovimientosParaCaptura(const Coordenada &c) const{
