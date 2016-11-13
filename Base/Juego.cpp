@@ -227,8 +227,6 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
   _jugadores[e]._pos = c;
 
   }
-
-
  
 }
 
@@ -449,7 +447,7 @@ Nat Juego::CantPokemnsTotales() const{
 }
 
 Nat Juego::CantMismaEspecie(const Pokemon &p) const{
-  assert(false);
+  return _cantPokemon.Significado(p);
 }
 
 
