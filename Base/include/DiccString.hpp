@@ -38,6 +38,8 @@ class DiccString{
 
     Nat CantClaves() const;
 
+    Iterador CrearIt();
+
     Conj<string>::const_Iterador Claves() const; 
 
     /***************************************/
@@ -48,7 +50,10 @@ class DiccString{
 
       struct par;
 
-      Iterador(const DiccString<S> &d);
+      Iterador();
+
+      Iterador(DiccString<S> &d);
+
 
       ~Iterador();
 
@@ -66,7 +71,7 @@ class DiccString{
 
       DiccString<S>::Iterador& operator = (const DiccString<S>::Iterador& otro) {
         this->_dicc = otro._dicc;
-        this->_itClave = otro._itClave;
+        this->_itClave(otro._itClave);
         return *this;
       }
 
@@ -133,6 +138,11 @@ DiccString<S>::~DiccString(){
 	}
 }
 
+//Constructor por copia.
+template<class S>
+typename DiccString<S>::Iterador DiccString<S>::CrearIt(){
+  return Iterador(*this);
+}
 
 
 
@@ -338,10 +348,9 @@ Conj<string>::const_Iterador DiccString<S>::Claves() const{
 /* IMPLEMENTACION DEL ITERADOR */
 /*******************************/
 template <class S>
-DiccString<S>::Iterador::Iterador(const DiccString<S> &d){
+DiccString<S>::Iterador::Iterador(DiccString<S> &d) : _itClave(d._claves.CrearIt()){
 
     *_dicc = d;
-   _itClave = d._claves.CrearIt();
 
 }
 template <class S>

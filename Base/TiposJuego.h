@@ -2,6 +2,7 @@
 #define TIPOSJUEGO_H_
 
 #include "aed2/TiposBasicos.h"
+#include <cmath>
 
 typedef unsigned int Jugador;
 typedef unsigned int Nat;
@@ -21,6 +22,8 @@ struct Coordenada{
 										 longitud(otra.longitud){}
 
 
+
+
 };
 
 inline bool operator == (const Coordenada& c1, const Coordenada& c2){
@@ -31,6 +34,15 @@ inline bool operator != (const Coordenada& c1, const Coordenada& c2){
  return not (c1 == c2);
 }
 
+inline Nat distEuclidea(const Coordenada& c1, const Coordenada& c2){
+	Nat x =  c1.latitud  - c2.latitud;
+	Nat y =  c1.longitud - c2.longitud;
+
+	Nat z = (x*x) + (y*y);
+
+	// TODO: Chequear si redondear o que onda.
+	return sqrt(z);
+}
 
 struct jugYCantCapt{
 	Nat id;

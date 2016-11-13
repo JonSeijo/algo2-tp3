@@ -227,8 +227,6 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
   _jugadores[e]._pos = c;
 
   }
-
-
  
 }
 
@@ -248,8 +246,8 @@ Coordenada Juego::Posicion(Jugador e) const{
   return _jugadores[e]._pos;
 }
 
-DiccString<Pokemon>::Iterador Juego::Pokemons(Jugador e){
-  assert(false);
+DiccString<Nat>::Iterador Juego::Pokemons(Jugador e){
+  return _cantPokemon.CrearIt();
 }
 
 Conj<Jugador> Juego::Expulsados() const{
@@ -449,7 +447,7 @@ Nat Juego::CantPokemnsTotales() const{
 }
 
 Nat Juego::CantMismaEspecie(const Pokemon &p) const{
-  assert(false);
+  return _cantPokemon.Significado(p);
 }
 
 
@@ -674,11 +672,27 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
   
 }
 
-bool Juego::MovValido(Jugador e, const Coordenada& c2) const{
-  assert(false);
+bool Juego::MovValido(Jugador e, const Coordenada& c) const{
+  bool camino = _mapa->HayCamino(c, _jugadores[e]._pos);
+  bool distancia = distEuclidea(c, _jugadores[e]._pos) <= 100;
+
+  // Hay camino y esta a menos de 100 de dsitancia.
+  return camino && distancia;
+
 }
 
 
 void Juego::SumarUnoEnJug(Pokemon p, ColaPrioridad<jugYCantCapt>::Iterador e){
-  assert(false);
+  // Si ya tiene alguna de la misma especie...
+  if (_jugadores[e.Siguiente().id]._pokemons.Definido(p)) {
+    // Le sumo uno.
+    Nat actual = _jugadores[e.Siguiente().id]._pokemons.Significado(p);
+    _jugadores[e.Siguiente().id]._pokemons.Definir(p, actual + 1);
+  } else {
+    // Si no lo defino en 1.
+    _jugadores[e.Siguiente().id]._pokemons.Definir(p, 1);
+
+  }
+
+
 }

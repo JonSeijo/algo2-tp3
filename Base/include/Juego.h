@@ -34,7 +34,7 @@ class Juego{
 
     Coordenada Posicion(Jugador e) const;
 
-    DiccString<Pokemon>::Iterador Pokemons(Jugador e);
+    DiccString<Nat>::Iterador Pokemons(Jugador e);
 
     Conj<Jugador> Expulsados() const;
 

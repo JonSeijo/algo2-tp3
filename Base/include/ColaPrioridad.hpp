@@ -25,6 +25,7 @@ class ColaPrioridad{
 		class Iterador{
 			public:
 				Iterador();
+				T& Siguiente(); 
 				void Borrar();
 		};
 
@@ -80,4 +81,8 @@ void ColaPrioridad<T>::Iterador::Borrar(){
 	assert(false);
 }
 
+template<class T>
+T& ColaPrioridad<T>::Iterador::Siguiente(){
+	assert(false);
+}
 #endif
