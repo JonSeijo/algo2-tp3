@@ -41,7 +41,7 @@ inline Nat distEuclidea(const Coordenada& c1, const Coordenada& c2){
 	Nat z = (x*x) + (y*y);
 
 	// TODO: Chequear si redondear o que onda.
-	return sqrt(z);
+	return z;
 }
 
 struct jugYCantCapt{
