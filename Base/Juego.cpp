@@ -6,6 +6,7 @@
 #include "TiposJuego.h"
 
 
+
 using namespace aed2;
 
 Juego::Juego(const Mapa &map) : _cantPokemon(), _cantPokemonesTotales(0), _mapa(NULL),
@@ -589,6 +590,6 @@ bool Juego::MovValido(Jugador e, const Coordenada& c2) const{
 }
 
 
-void Juego::SumarUnoEnJug(Pokemon p, const ColaPrioridad<jugYCantCapt>::Iterador& e){
+void Juego::SumarUnoEnJug(Pokemon p, ColaPrioridad<jugYCantCapt>::Iterador e){
   assert(false);
 }

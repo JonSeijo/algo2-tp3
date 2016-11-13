@@ -73,10 +73,6 @@ class DiccString{
     private:
 
 
-      /*
-       * En el modulo no es un puntero pero es una desgracia, si desaprobamos
-       * hay que modificarlo a puntero.
-       */
       DiccString<S>* _dicc;
 
       Conj<string>::Iterador _itClave;

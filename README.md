@@ -5,15 +5,28 @@ Archivos en la carpeta "Base" (puede cambiarse)
 
 # Como se compila (en teoria)
 
-desde la carpeta base
+*desde la carpeta "Base"*
 
-# para el test:
-make
+## para el test general:
+### `make`
+### `make valgrind`
 
-# para correr valgrind:
-make valgrind
+## para el test de Mapa:
+### `make test_mapa`
+## para valgrind de Mapa:
+### `make val_mapa`
 
-# para borrar:
-make clean
+## para el test de ColaPrioridad:
+### `make test_cola`
+## para valgrind de ColaPrioridad:
+### `make val_cola`
+
+## para el test de DiccString:
+### `make test_dicc`
+## para valgrind de DiccString:
+### `make val_dicc`
+
+## para borrar:
+### `make clean`
 
 

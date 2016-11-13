@@ -1,12 +1,9 @@
 #ifndef COLA_PRIORIDAD_H_
 #define COLA_PRIORIDAD_H_
 
-
-#include "../modulos.h"
 #include "../aed2.h"
 #include <cassert>
 
-using namespace aed2;
 
 template<class T>
 class ColaPrioridad{
