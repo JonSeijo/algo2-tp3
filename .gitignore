@@ -27,7 +27,7 @@
 *.exe
 *.out
 *.app
-test
+tests
 test_cola
 test_dicc
 test_mapa

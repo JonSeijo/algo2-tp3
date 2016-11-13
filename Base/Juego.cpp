@@ -252,8 +252,18 @@ DiccString<Pokemon>::Iterador Juego::Pokemons(Jugador e){
   assert(false);
 }
 
-const Conj<Jugador>& Juego::Expulsados() const{
-  assert(false);
+Conj<Jugador> Juego::Expulsados() const{
+  Conj<Jugador> expulsados;
+
+  // Itero todos los jugadores.
+  for (Nat i = 0; i < _jugadores.Longitud(); i++) {
+
+    // Si tiene mas de 5 sanciones...
+    if (_jugadores[i]._sanciones >= 5) {
+      // Lo agrego al conjunto de expulsados.
+      expulsados.AgregarRapido(_jugadores[i]._id);
+    }
+  }
 }
 
 const Conj<Coordenada>& Juego::PosConPokemons() const{

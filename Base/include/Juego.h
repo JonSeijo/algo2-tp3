@@ -36,7 +36,7 @@ class Juego{
 
     DiccString<Pokemon>::Iterador Pokemons(Jugador e);
 
-    const Conj<Jugador>& Expulsados() const;
+    Conj<Jugador> Expulsados() const;
 
     const Conj<Coordenada>& PosConPokemons() const;
 
