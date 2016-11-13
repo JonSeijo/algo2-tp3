@@ -683,5 +683,16 @@ bool Juego::MovValido(Jugador e, const Coordenada& c) const{
 
 
 void Juego::SumarUnoEnJug(Pokemon p, ColaPrioridad<jugYCantCapt>::Iterador e){
-  assert(false);
+  // Si ya tiene alguna de la misma especie...
+  if (_jugadores[e.Siguiente().id]._pokemons.Definido(p)) {
+    // Le sumo uno.
+    Nat actual = _jugadores[e.Siguiente().id]._pokemons.Significado(p);
+    _jugadores[e.Siguiente().id]._pokemons.Definir(p, actual + 1);
+  } else {
+    // Si no lo defino en 1.
+    _jugadores[e.Siguiente().id]._pokemons.Definir(p, 1);
+
+  }
+
+
 }
