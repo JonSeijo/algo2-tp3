@@ -10,7 +10,7 @@ using namespace aed2;
 void test_vacio() {
   	Mapa map;
   	ASSERT(map.Tam() == 0);
-  	// tambien chequear que el conjunto de coordenadas es vacio
+  	ASSERT(map.Coordenadas().EsVacio());
 }
 
 void test_agregar_coordenada(){
