@@ -57,7 +57,10 @@ struct jugYCantCapt{
 
 //TODO: Implementar...
 inline bool operator < (const jugYCantCapt & j1, const jugYCantCapt & j2) {
-	return false;
+	if (j1.cant == j2.cant) {
+		return j1.id < j2.id;
+	}
+	return j1.cant < j2.cant;
 }
 
 #endif

@@ -1,10 +1,8 @@
 #include "modulos.h"
-#include <cassert>
 #include <iostream>
 #include <string>
 #include "aed2.h"
 #include "TiposJuego.h"
-
 
 
 using namespace aed2;
