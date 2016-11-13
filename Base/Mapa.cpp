@@ -53,7 +53,7 @@ bool Mapa::PosExistente(const Coordenada &c) const{
 
 
 bool Mapa::HayCamino(const Coordenada &c1, const Coordenada &c2) const{
-    assert(false);
+    return this->_grilla[c1.latitud][c1.longitud][c2.latitud][c2.longitud];   
 }
 
 Nat Mapa::Tam() const{
