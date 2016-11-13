@@ -4,7 +4,6 @@
 
 #include "../TiposJuego.h"
 #include "../aed2.h"
-#include <vector>
 
 using namespace aed2;
 using namespace std;
@@ -27,13 +26,13 @@ class Mapa {
     private:
 
         void copiarCoordenadas(
-            vector<vector<vector<vector<bool> > > > grillaNueva,
-            vector<vector<vector<vector<bool> > > > grillaVieja
+            Vector<Vector<Vector<Vector<bool> > > > grillaNueva,
+            Vector<Vector<Vector<Vector<bool> > > > grillaVieja
         );
 
-        vector<vector<vector<vector<bool> > > > crearGrilla(const Nat n);   
+        Vector<Vector<Vector<Vector<bool> > > > crearGrilla(const Nat n);   
     
-        vector<vector<vector<vector<bool> > > > _grilla;
+        Vector<Vector<Vector<Vector<bool> > > > _grilla;
         Nat _tam;
 
         Nat max(Nat x, Nat y);
