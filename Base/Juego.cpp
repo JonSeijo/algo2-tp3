@@ -248,8 +248,8 @@ Coordenada Juego::Posicion(Jugador e) const{
   return _jugadores[e]._pos;
 }
 
-DiccString<Pokemon>::Iterador Juego::Pokemons(Jugador e){
-  assert(false);
+DiccString<Nat>::Iterador Juego::Pokemons(Jugador e){
+  return _cantPokemon.CrearIt();
 }
 
 Conj<Jugador> Juego::Expulsados() const{
