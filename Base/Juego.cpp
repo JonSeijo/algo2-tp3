@@ -672,8 +672,13 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
   
 }
 
-bool Juego::MovValido(Jugador e, const Coordenada& c2) const{
-  assert(false);
+bool Juego::MovValido(Jugador e, const Coordenada& c) const{
+  bool camino = _mapa->HayCamino(c, _jugadores[e]._pos);
+  bool distancia = distEuclidea(c, _jugadores[e]._pos) <= 100;
+
+  // Hay camino y esta a menos de 100 de dsitancia.
+  return camino && distancia;
+
 }
 
 
