@@ -342,7 +342,37 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
 
 void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& nueva){
-  assert(false);
+  // Lo borro de entrenadores.
+  _jugadores[e]._itAEntrenadores.Borrar();
+
+    // Itero sobre los pokenodos
+  Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
+
+  while (it.HaySiguiente()) {
+
+    Nat x = it.Siguiente().latitud;
+    Nat y = it.Siguiente().longitud;
+
+    pokeStruc* pokeNodo = _pokenodos[x][y];
+   
+    // Aumento su contador.
+    pokeNodo->_contador++;
+
+    // Si el contador llego a 10...
+    if (pokeNodo->_contador == 10) {
+      // Agrego el pokemon al entrenador que captura.
+      SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo());
+    
+      // Borro el pokenodo.
+      it.EliminarSiguiente();
+
+      delete pokeNodo;
+      _pokenodos[x][y] = NULL;
+    }
+  
+
+    it.Avanzar();
+  }
 }
 
 void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& nueva){
