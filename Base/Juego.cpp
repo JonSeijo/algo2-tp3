@@ -267,7 +267,7 @@ const Pokemon& Juego::PokemonEnPos(const Coordenada &c) const{
 }
 
 Nat Juego::CantMovimientosParaCaptura(const Coordenada &c) const{
-  assert(false);
+  return _pokenodos[c.latitud][c.longitud]->_contador;
 }
 
 bool Juego::HayPokemonCercano(const Coordenada &c) const{
