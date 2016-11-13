@@ -36,6 +36,8 @@ class Mapa {
         vector<vector<vector<vector<bool> > > > _grilla;
         Nat _tam;
 
+        Nat max(Nat x, Nat y);
+
 };
 
 #endif

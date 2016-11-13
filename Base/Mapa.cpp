@@ -60,6 +60,10 @@ Nat Mapa::Tam() const{
     return this->_tam;
 }
 
+void AgregarCoord(Coordenada c) {
+
+}
+
 vector<vector<vector<vector<bool> > > > crearGrilla(const Nat n) {
     vector<vector<vector<vector<bool> > > > nuevaGrilla;
     nuevaGrilla = vector<vector<vector<vector<bool> > > >(n,
@@ -67,7 +71,6 @@ vector<vector<vector<vector<bool> > > > crearGrilla(const Nat n) {
                         vector<vector<bool> >(n, 
                             vector<bool>(n, false))));
 }   
-
 
 void copiarCoordenadas(
     vector<vector<vector<vector<bool> > > > grillaNueva,
@@ -80,3 +83,6 @@ void copiarCoordenadas(
     }
 }
 
+Nat max(Nat x, Nat y) {
+    return (x >= y) ? x : y;
+}
