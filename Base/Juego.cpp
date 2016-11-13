@@ -404,7 +404,7 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
       pokeNodo->_contador = 0;
 
 
-    } else if (_pokenodos[x][y]->_contador == 10) {
+    } else if (pokeNodo->_contador == 10) {
         // Si el contador llego a 10...
 
         // Agrego el pokemon al entrenador que captura.
@@ -423,7 +423,37 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
 }
 
 void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp){
-  assert(false);
+
+  // Itero sobre los pokenodos
+  Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
+
+  while (it.HaySiguiente()) {
+
+    Nat x = it.Siguiente().latitud;
+    Nat y = it.Siguiente().longitud;
+
+    pokeStruc* pokeNodo = _pokenodos[x][y];
+
+    // Aumento el contador del pokenodo.
+    pokeNodo->_contador++;
+
+    // Si no es al que entro el jugador...
+    if (pokeNodo->_contador == 10) {
+        // Si el contador llego a 10...
+
+        // Agrego el pokemon al entrenador que captura.
+        SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo());
+    
+        // Borro el pokenodo.
+        it.EliminarSiguiente();
+
+        delete pokeNodo;
+        _pokenodos[x][y] = NULL;
+    }
+    
+
+    it.Avanzar();
+  }
 }
 
 void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp){
