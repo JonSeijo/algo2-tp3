@@ -33,6 +33,8 @@ class Juego{
     Nat Sanciones(Jugador e) const;
 
     Coordenada Posicion(Jugador e) const;
+    bool EstaConectado(Jugador e) const;
+
 
     DiccString<Nat>::Iterador Pokemons(Jugador e);
 
@@ -119,6 +121,7 @@ class Juego{
 
     void SumarUnoEnJug(Pokemon, ColaPrioridad<jugYCantCapt>::Iterador);
 
+    void AgregarAtrasJugsQueEstanEnPos(Vector<Jugador>, Nat, Nat) const;
 
 
 };
