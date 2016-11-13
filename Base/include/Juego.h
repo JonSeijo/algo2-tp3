@@ -46,7 +46,9 @@ class Juego{
 
     bool HayPokemonCercano(const Coordenada &c) const;
 
-    const Coordenada& PosPokemonCercano(const Coordenada &c) const;
+    bool PuedoAgregarPokemon(const Coordenada&) const;
+
+    Coordenada PosPokemonCercano(const Coordenada &c) const;
 
     Conj<Jugador> EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &es) const;
 
@@ -118,9 +120,8 @@ class Juego{
     void SumarUnoEnJug(Pokemon, ColaPrioridad<jugYCantCapt>::Iterador);
 
 
+
 };
-
-
 
 
 #endif // JUEGO_H_

@@ -233,7 +233,7 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
 }
 
 Mapa& Juego::mapa(){
-  assert(false);
+  return *_mapa;
 }
 
 Conj<Jugador>::Iterador Juego::Jugadores(){
@@ -322,9 +322,88 @@ bool Juego::HayPokemonCercano(const Coordenada &c) const{
 
 }
 
-const Coordenada& Juego::PosPokemonCercano(const Coordenada &c) const{
-  assert(false);
+Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
+  Nat x = c.latitud;
+  Nat y = c.longitud;
+
+  Nat m = _mapa->Tam();
+
+  Coordenada posConPoke;
+  if (_pokenodos[x][y] != NULL) {
+    posConPoke = Coordenada(x, y);
+  }
+  if (x > 0) {
+
+    if ( _pokenodos[x-1][y] != NULL) {
+      posConPoke = Coordenada(x-1, y);
+    }
+
+    if (y > 0 && (_pokenodos[x-1][y-1] != NULL)) {
+      posConPoke = Coordenada(x-1, y-1);
+    } 
+
+    if (y < m-1  && (_pokenodos[x-1][y+1] != NULL)) {
+      posConPoke = Coordenada(x-1, y+1);
+    }
+    if (x-1 > 0  && (_pokenodos[x-2][y] != NULL)) {
+      posConPoke = Coordenada(x-2, y);
+    }
+
+  }
+
+  if (y > 0) {
+    if (_pokenodos[x][y-1] != NULL) {
+      posConPoke = Coordenada(x, y-1);
+    }
+
+    if (y-1 < 0  && (_pokenodos[x][y-2] != NULL)) {
+      posConPoke = Coordenada(x, y-2);
+    }
+
+  } 
+
+  if (y < m-1) {
+
+    if (_pokenodos[x][y+1] != NULL) {
+      posConPoke = Coordenada(x, y+1);
+    }
+    if (m > 1 && y < m-2  && (_pokenodos[x][y+2] != NULL)) {
+      posConPoke = Coordenada(x, y+2);
+    } 
+
+  }
+  if (x < m-1) {
+    if (_pokenodos[x+1][y] != NULL) {
+      posConPoke = Coordenada(x+1, y);
+    }
+
+    if (y > 0 && (_pokenodos[x+1][y-1] != NULL)) {
+      posConPoke = Coordenada(x+1, y-1);
+    } 
+
+    if (y < m-1 && (_pokenodos[x+1][y+1] != NULL)) {
+      posConPoke = Coordenada(x+1, y+1);
+    }
+
+  }
+
+  if (m > 1 && x < m-2  && (_pokenodos[x+2][y] != NULL)) {
+    posConPoke = Coordenada(x+2, y);
+  }
+
+  return posConPoke;
 }
+
+bool Juego::PuedoAgregarPokemon(const Coordenada& c) const{
+  // Si la posicion existe en el mapa.
+  bool puedo = _mapa->PosExistente(c);
+
+  // Y no hay un pokemon cerca.
+  puedo &= !HayPokemonCercano(c);
+
+  return puedo;
+}
+
 
 Conj<Jugador> Juego::EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &es) const{
   

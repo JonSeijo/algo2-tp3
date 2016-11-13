@@ -12,6 +12,8 @@ struct Coordenada{
 	Nat latitud;
 	Nat longitud;
 
+	Coordenada(): latitud(0), longitud(0) {}
+
 	Coordenada(Nat latitud, Nat longitud)
 	 : latitud(latitud), longitud(longitud) {}
 

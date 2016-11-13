@@ -5,6 +5,11 @@ LIBS = modulos.h aed2.h
 
 TARGET = tests
 
+$(TARGET): $(OBJS)
+	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
+
+all: $(TARGET)
+
 test_mapa: Mapa.o
 	$(CXX) -o test_mapa test_mapa.cpp Mapa.o $(LIBS)
 
@@ -17,10 +22,6 @@ test_dicc:
 %.o: %.cpp
 	$(CXX) -c $<
 
-$(TARGET): $(OBJS)
-	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
-
-all: $(TARGET)
 
 clean:
 	rm -f $(OBJS) $(TARGET) test_mapa test_cola test_dicc
