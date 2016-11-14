@@ -142,13 +142,7 @@ Coordenada Driver::posPokemonCercano(const Coordenada & c) const{
 
 
 Conj<Jugador> Driver::entrenadoresPosibles(const Coordenada & c) const{
-  assert(false);
-  /*
-   * Lucas C:
-   * EntrenadoresPosibles de jeugo toma un conjuto de jugadores
-   * pór parametro, no tengo idea que pasarle ni porque lo usa.
-   */
-  //return _juego->EntrenadoresPosibles(c);
+  return _juego->EntrenadoresPosibles(c, jugadores());
 }
 
 
