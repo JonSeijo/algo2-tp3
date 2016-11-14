@@ -22,8 +22,6 @@ struct Coordenada{
 										 longitud(otra.longitud){}
 
 
-
-
 };
 
 inline bool operator == (const Coordenada& c1, const Coordenada& c2){
@@ -40,7 +38,6 @@ inline Nat distEuclidea(const Coordenada& c1, const Coordenada& c2){
 
 	Nat z = (x*x) + (y*y);
 
-	// TODO: Chequear si redondear o que onda.
 	return z;
 }
 
@@ -55,7 +52,6 @@ struct jugYCantCapt{
 };
 
 
-//TODO: Implementar...
 inline bool operator < (const jugYCantCapt & j1, const jugYCantCapt & j2) {
 	if (j1.cant == j2.cant) {
 		return j1.id < j2.id;

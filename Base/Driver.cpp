@@ -107,55 +107,61 @@ Dicc< Pokemon , Nat > Driver::pokemons(const Jugador & j) const{
 
 
 Conj< Jugador > Driver::expulsados() const{
-  assert(false);
+  return _juego->Expulsados();
 }
 
 
 Conj< Coordenada > Driver::posConPokemons() const{
-  assert(false);
+  return _juego->PosConPokemons();
 }
 
 
 Pokemon Driver::pokemonEnPos(const Coordenada & c) const{
-  assert(false);
+  return _juego->PokemonEnPos(c);
 }
 
 
 Nat Driver::cantMovimientosParaCaptura(const Coordenada & c) const{
-  assert(false);
+  return _juego->CantMovimientosParaCaptura(c);
 }
 
 
 bool Driver::puedoAgregarPokemon(const Coordenada & c) const{
-  assert(false);
+  return _juego->PuedoAgregarPokemon(c);
 }
 
 
 bool Driver::hayPokemonCercano(const Coordenada & c) const{
-  assert(false);
+  return _juego->HayPokemonCercano(c);
 }
 
 
 Coordenada Driver::posPokemonCercano(const Coordenada & c) const{
-  assert(false);
+  return _juego->PosPokemonCercano(c);
 }
 
 
 Conj<Jugador> Driver::entrenadoresPosibles(const Coordenada & c) const{
   assert(false);
+  /*
+   * Lucas C:
+   * EntrenadoresPosibles de jeugo toma un conjuto de jugadores
+   * pór parametro, no tengo idea que pasarle ni porque lo usa.
+   */
+  //return _juego->EntrenadoresPosibles(c);
 }
 
 
-Nat Driver::indiceRareza(const Pokemon & p) const{
-  assert(false);
+Nat Driver::indiceRareza(const Pokemon& p) const{
+  return _juego->IndiceRareza(p);
 }
 
 
 Nat Driver::cantPokemonsTotales() const{
-  assert(false);
+  return _juego->CantPokemnsTotales();
 }
 
 
-Nat Driver::cantMismaEspecie(const Pokemon & p) const{
-  assert(false);
+Nat Driver::cantMismaEspecie(const Pokemon& p) const{
+  return _juego->CantMismaEspecie(p);
 }
