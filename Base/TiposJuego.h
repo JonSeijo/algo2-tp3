@@ -2,7 +2,7 @@
 #define TIPOSJUEGO_H_
 
 #include "aed2/TiposBasicos.h"
-#include <cmath>
+
 
 typedef unsigned int Jugador;
 typedef unsigned int Nat;

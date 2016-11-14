@@ -12,12 +12,15 @@ all: $(TARGET)
 
 test_mapa: Mapa.o
 	$(CXX) -o test_mapa test_mapa.cpp Mapa.o $(LIBS)
+	./test_mapa
 
 test_cola: 
 	$(CXX) -o test_cola test_cola.cpp $(LIBS)
+	./test_cola
 
 test_dicc: 
 	$(CXX) -o test_dicc test_dicc.cpp $(LIBS)
+	./test_dicc
 
 %.o: %.cpp
 	$(CXX) -c $<
