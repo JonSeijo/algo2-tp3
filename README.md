@@ -9,6 +9,7 @@ Archivos en la carpeta "Base" (puede cambiarse)
 
 ##### para el test general:
  `make`
+
  `make valgrind`
 
 ##### para el test de Mapa:
