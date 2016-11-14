@@ -25,7 +25,6 @@ test_dicc:
 %.o: %.cpp
 	$(CXX) -c $<
 
-
 clean:
 	rm -f $(OBJS) $(TARGET) test_mapa test_cola test_dicc
 
