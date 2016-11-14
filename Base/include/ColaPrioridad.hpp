@@ -143,7 +143,7 @@ T& ColaPrioridad<T>::Iterador::Siguiente(){
 	assert(iteradorConElemento());
 	return siguiente -> elemento;
 }
-#endif
+
 
 template<class T>
 void ColaPrioridad<T>::AsesinarHeap(Nodo* aBorrar){
@@ -242,3 +242,5 @@ template<class T>
 bool ColaPrioridad<T>::Iterador::iteradorConElemento() const{
 	return siguiente != NULL;
 }
+
+#endif
