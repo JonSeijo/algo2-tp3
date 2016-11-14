@@ -5,17 +5,37 @@
 using namespace aed2;
 
 void test_vacia() {
-  ASSERT( false );
+  ColaPrioridad<int> c;
+  ASSERT(c.EsVacia());
 }
 
 void test_encolar(){
 	ASSERT( false );
 }
 
+void test_desencolar(){
+	ASSERT( false );
+}
+
+void test_borrar(){
+	ASSERT( false );
+}
+
+void test_siguiente(){
+	ASSERT( false );
+}
+
+void test_casosraros(){
+	ASSERT( false );
+}
 
 int main(int argc, char **argv){
   RUN_TEST(test_vacia);
   RUN_TEST(test_encolar);
+  RUN_TEST(test_desencolar);
+  RUN_TEST(test_borrar);
+  RUN_TEST(test_siguiente);
+  RUN_TEST(test_casosraros);
 
   return 0;
 }
