@@ -71,14 +71,14 @@ class ColaPrioridad{
 
 template<class T>
 ColaPrioridad<T>::ColaPrioridad(){
-	raiz = NULL;
-	ultimo = NULL;
+	this->raiz = NULL;
+	this->ultimo = NULL;
 }
 
 
 template<class T>
 ColaPrioridad<T>::~ColaPrioridad(){
-	AsesinarHeap(raiz);
+	AsesinarHeap(this->raiz);
 }
 
 
@@ -86,24 +86,24 @@ template<class T>
 typename ColaPrioridad<T>::Iterador ColaPrioridad<T>::Encolar(const T t){
 	if(EsVacia()){
 		Nodo* nuevoNodo = new Nodo(t, NULL, NULL, NULL); 
-		raiz = nuevoNodo;
-		ultimo = nuevoNodo;
+		this->raiz = nuevoNodo;
+		this->ultimo = nuevoNodo;
 	}
 	else if(EstaCompleto()){
-		Nodo* nodoActual = raiz;
+		Nodo* nodoActual = this->raiz;
 		while(nodoActual -> izq != NULL){
 			nodoActual = nodoActual -> izq;
 		}
 		Nodo* nuevoNodo = new Nodo(t, nodoActual, NULL, NULL);
 		nodoActual -> izq = nuevoNodo;
-		ultimo = nuevoNodo;		
+		this->ultimo = nuevoNodo;		
 	}
-	else if(EsHijoIzquierdo(ultimo)){
-		Nodo* nuevoNodo = new Nodo(t, ultimo -> padre, NULL, NULL);
-		ultimo -> padre -> der = nuevoNodo;
-		ultimo = nuevoNodo;
+	else if(EsHijoIzquierdo(this->ultimo)){
+		Nodo* nuevoNodo = new Nodo(t, this->ultimo -> padre, NULL, NULL);
+		this->ultimo -> padre -> der = nuevoNodo;
+		this->ultimo = nuevoNodo;
 	}
-	else if(EsHijoDerecho(ultimo)){
+	else if(EsHijoDerecho(this->ultimo)){
 		EncolarSiUltimoEsHijoDerechoNoCompleto(t);
 	}
 
@@ -111,7 +111,7 @@ typename ColaPrioridad<T>::Iterador ColaPrioridad<T>::Encolar(const T t){
 
 template<class T>
 bool ColaPrioridad<T>::EsVacia() const{
-	return (raiz == NULL) && (ultimo == NULL);
+	return (this->raiz == NULL) && (this->ultimo == NULL);
 }
 
 template<class T>
@@ -172,11 +172,11 @@ bool ColaPrioridad<T>::pertenece(const ColaPrioridad<T>::Nodo* buscador, const T
 template<class T>
 bool ColaPrioridad<T>::EstaCompleto() const{
 	assert(!EsVacia());
-	Nodo* nodoActual = raiz;
+	Nodo* nodoActual = this->raiz;
 	while(nodoActual -> der != NULL){
 		nodoActual = nodoActual -> der;
 	}
-	return nodoActual == ultimo;
+	return nodoActual == this->ultimo;
 }
 
 //Pre: nodoEnCuestion no es NULL
@@ -203,7 +203,7 @@ bool ColaPrioridad<T>::EsHijoDerecho(const Nodo* nodoEnCuestion) const{
 
 template<class T>
 void ColaPrioridad<T>::EncolarSiUltimoEsHijoDerechoNoCompleto(const T t){
-	Nodo* nuevoUltimoPadre = ultimo;
+	Nodo* nuevoUltimoPadre = this->ultimo;
 	while(!EsHijoIzquierdo(nuevoUltimoPadre)){
 		nuevoUltimoPadre = nuevoUltimoPadre -> padre;
 	}
@@ -218,7 +218,7 @@ void ColaPrioridad<T>::EncolarSiUltimoEsHijoDerechoNoCompleto(const T t){
 	}
 	Nodo* nuevoNodo = new Nodo(t, nuevoUltimoPadre, NULL, NULL);
 	nuevoUltimoPadre -> izq = nuevoNodo;
-	ultimo = nuevoNodo; 
+	this->ultimo = nuevoNodo; 
 }
 
 template<class T>
