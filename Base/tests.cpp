@@ -20,7 +20,26 @@ void test_constructor_con_mapa() {
 }
 
 void test_agregar_jugadores(){
-	ASSERT( false );
+  Conj<Coordenada> cc;
+  cc.Agregar(Coordenada(0,0));
+  cc.Agregar(Coordenada(0,1));
+  cc.Agregar(Coordenada(0,2));
+  cc.Agregar(Coordenada(1,2));
+  cc.Agregar(Coordenada(10,0));
+  cc.Agregar(Coordenada(1,4));
+  Driver d(cc);
+
+  Jugador e = d.agregarJugador();
+
+  ASSERT(e == 0);
+
+  ASSERT(!d.estaConectado(e));
+  ASSERT(d.sanciones(e) == 0);
+
+  ASSERT(d.jugadores().Pertenece(e));
+  ASSERT(!d.expulsados().Pertenece(e));
+
+
 }
 
 void test_agregar_pokemones(){
