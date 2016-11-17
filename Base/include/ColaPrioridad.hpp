@@ -1,10 +1,9 @@
 #ifndef COLA_PRIORIDAD_H_
 #define COLA_PRIORIDAD_H_
-//NOTA PARA MÁS TARDE: TERMINAR ENCOLAR Y SWAP NODOS CON TODAS SUS AUXILIARES
 
 #include "../aed2.h"
 #include <cassert>
-
+#include <iostream> //Para probar como queda el heap después de encolar y desencolar
 
 template<class T>
 class ColaPrioridad{
@@ -38,8 +37,9 @@ class ColaPrioridad{
 
 				//En los módulos están privadas estas funciones
 				Iterador(): siguiente(NULL), estructura(NULL){};
-				Iterador(typename ColaPrioridad<T>::Nodo* sig, ColaPrioridad<T> &c): siguiente(sig), estructura(&c){} ;
+				Iterador(typename ColaPrioridad<T>::Nodo* sig, ColaPrioridad<T>* c): siguiente(sig), estructura(c){} ;
 				bool iteradorConElemento() const;
+				friend typename ColaPrioridad<T>::Iterador ColaPrioridad<T>::Encolar(const T t);
 
 		};
 
@@ -67,18 +67,31 @@ class ColaPrioridad{
 		void EncolarSiUltimoEsHijoDerechoNoCompleto(const T t);
 		void SiftUp(Nodo* n);
 		void SwapNodos(Nodo* a, Nodo* b);
+		void SwapConHijo(Nodo* a, Nodo* b);
+		void SwapConHijoIzquierdo(Nodo* a, Nodo* b);
+		void SwapConHijoDerecho(Nodo* a, Nodo* b);
+		void SwapDisjunto(Nodo* a, Nodo* b);
+
+		//Prueba para ver al heap y testear, es algo-order y muestra en este orden:
+		// izquierdo, derecho, raiz
+		void mostrar(std::ostream&) const;
+		friend std::ostream& operator<<(std::ostream& os, const ColaPrioridad<T> &c){
+			c.mostrar(os);
+			return os;
+		};
+		void mostrarRecursivo(std::ostream&, const Nodo* puntero) const;
 };
 
 template<class T>
 ColaPrioridad<T>::ColaPrioridad(){
-	this->raiz = NULL;
-	this->ultimo = NULL;
+	this -> raiz = NULL;
+	this -> ultimo = NULL;
 }
 
 
 template<class T>
 ColaPrioridad<T>::~ColaPrioridad(){
-	AsesinarHeap(this->raiz);
+	AsesinarHeap(this -> raiz);
 }
 
 
@@ -86,27 +99,30 @@ template<class T>
 typename ColaPrioridad<T>::Iterador ColaPrioridad<T>::Encolar(const T t){
 	if(EsVacia()){
 		Nodo* nuevoNodo = new Nodo(t, NULL, NULL, NULL); 
-		this->raiz = nuevoNodo;
-		this->ultimo = nuevoNodo;
+		this -> raiz = nuevoNodo;
+		this -> ultimo = nuevoNodo;
 	}
 	else if(EstaCompleto()){
-		Nodo* nodoActual = this->raiz;
+		Nodo* nodoActual = this -> raiz;
 		while(nodoActual -> izq != NULL){
 			nodoActual = nodoActual -> izq;
 		}
 		Nodo* nuevoNodo = new Nodo(t, nodoActual, NULL, NULL);
 		nodoActual -> izq = nuevoNodo;
-		this->ultimo = nuevoNodo;		
+		this -> ultimo = nuevoNodo;		
 	}
-	else if(EsHijoIzquierdo(this->ultimo)){
-		Nodo* nuevoNodo = new Nodo(t, this->ultimo -> padre, NULL, NULL);
-		this->ultimo -> padre -> der = nuevoNodo;
-		this->ultimo = nuevoNodo;
+	else if(EsHijoIzquierdo(this -> ultimo)){
+		Nodo* nuevoNodo = new Nodo(t, this -> ultimo -> padre, NULL, NULL);
+		this -> ultimo -> padre -> der = nuevoNodo;
+		this -> ultimo = nuevoNodo;
 	}
 	else if(EsHijoDerecho(this->ultimo)){
-		EncolarSiUltimoEsHijoDerechoNoCompleto(t);
+		this -> EncolarSiUltimoEsHijoDerechoNoCompleto(t);
 	}
-
+	Nodo* m = this -> ultimo;
+	SiftUp(m);
+	Nodo* p = m;
+	return Iterador(m, this);
 }
 
 template<class T>
@@ -141,7 +157,7 @@ void ColaPrioridad<T>::Iterador::Borrar(){
 template<class T>
 T& ColaPrioridad<T>::Iterador::Siguiente(){
 	assert(iteradorConElemento());
-	return siguiente -> elemento;
+	return siguiente -> elem;
 }
 
 
@@ -220,11 +236,11 @@ void ColaPrioridad<T>::EncolarSiUltimoEsHijoDerechoNoCompleto(const T t){
 	nuevoUltimoPadre -> izq = nuevoNodo;
 	this->ultimo = nuevoNodo; 
 }
-
+//Pre: n != NULL
 template<class T>
 void ColaPrioridad<T>::SiftUp(Nodo* n){
 	while(n -> padre != NULL){
-		if((n -> elemento) < (n -> padre -> elemento)){
+		if((n -> elem) < (n -> padre -> elem)){
 			SwapNodos(n, n -> padre);
 		}
 		else{
@@ -232,10 +248,181 @@ void ColaPrioridad<T>::SiftUp(Nodo* n){
 		}
 	}
 }
-
+//Pre: a y b != NULL
 template<class T>
 void ColaPrioridad<T>::SwapNodos(Nodo* a, Nodo* b){
-	
+	if((a -> padre) == b){
+		SwapConHijo(a, b);
+	}
+	else{
+		if(b == a){
+			SwapConHijo(b, a);
+		}
+		else{
+			SwapDisjunto(a, b);
+		}
+	}
+	if(this -> raiz == a){
+		this -> raiz = b;
+	}
+	else{
+		if(this -> raiz = b){
+			this -> raiz = a;
+		}
+	}
+	if(this -> ultimo == a){
+		this -> ultimo = b;
+	}
+	else{
+		if(this -> ultimo == b){
+			this -> ultimo = a;
+		}
+	}
+}
+
+template<class T>
+void ColaPrioridad<T>::SwapConHijo(Nodo* b, Nodo* a){
+	if(a -> izq == b){
+		SwapConHijoIzquierdo(a, b);
+	}
+	else{
+		if(a -> der == b){
+			SwapConHijoDerecho(a, b);
+		}
+	}
+}
+
+template<class T>
+void ColaPrioridad<T>::SwapConHijoIzquierdo(Nodo* a, Nodo* b){
+	Nodo* tmpderA = a -> der;
+	a -> der = b -> der;
+	if(a -> der != NULL){
+		a -> der -> padre = a;
+	}
+	b -> der = tmpderA;
+	if(b -> der != NULL){
+		b -> der -> padre = b;
+	}
+	if(EsHijoIzquierdo(a)){
+		a -> padre -> izq = b;
+	}
+	else if(EsHijoDerecho(a)){
+		a -> padre -> der = b;
+	}
+	b -> padre = a -> padre;
+	if(b -> izq != NULL){
+		b -> izq -> padre = a;
+	}
+	a -> izq = b -> izq;
+	b -> izq = a;
+	a -> padre = b;
+}
+
+template<class T>
+void ColaPrioridad<T>::SwapConHijoDerecho(Nodo* a, Nodo* b){
+	Nodo* tmpizqA = a -> izq;
+	a -> izq = b -> izq;
+	if(a -> izq != NULL){
+		a -> izq -> padre = a;
+	}
+	b -> izq = tmpizqA;
+	if(b -> izq != NULL){
+		b -> izq -> padre = b;
+	}
+	if(EsHijoIzquierdo(a)){
+		a -> padre -> izq = b;
+	}
+	else if(EsHijoDerecho(a)){
+		a -> padre -> der = b;
+	}
+	b -> padre = a -> padre;
+	if(b -> der != NULL){
+		b -> der -> padre = a;
+	}
+	a -> der = b -> der;
+	b -> der = a;
+	a -> padre = b;
+}
+
+template<class T>
+void ColaPrioridad<T>::SwapDisjunto(Nodo* a, Nodo* b){
+	if(EsHijoIzquierdo(b)){
+		b -> padre -> izq = a;
+	}
+	else{
+		if(EsHijoDerecho(b)){
+			b -> padre -> der = b;
+		}
+	}
+	if(b -> der != NULL){
+		b -> der -> padre = a;
+	}
+	if(b -> izq != NULL){
+		b -> izq -> padre = a;
+	}
+	if(EsHijoIzquierdo(a)){
+		a -> padre -> izq = b;
+	}
+	else{
+	//Acá hay un error en el módulo, en vez de preguntar por a preguntaba por b.
+		if(EsHijoDerecho(a)){
+			a -> padre -> der = b;
+		}
+	}
+	if(a -> der != NULL){
+		a -> der -> padre = b;
+	}
+	if(a -> izq != NULL){
+		a -> izq -> padre = b;
+	}
+	Nodo* tmpPadreB = b -> padre;
+	Nodo* tmpIzqB = b -> izq;
+	Nodo* tmpDerB = b -> der;
+	b -> padre = a -> padre;
+	b -> izq = a -> izq;
+	b -> der = a -> der;
+	a -> padre = tmpPadreB;
+	a -> izq = tmpIzqB;
+	a -> der = tmpDerB;
+}
+
+template<class T>
+void ColaPrioridad<T>::mostrar(std::ostream& os) const{
+	os << "{";
+	if(this -> raiz == NULL){
+		os << "}";
+	}
+	else{
+		if((this -> raiz -> izq == NULL) && (this -> raiz -> der == NULL)){
+			os << raiz -> elem << "}";
+		}
+		else{
+			if((this -> raiz -> izq == NULL) && (this -> raiz -> der != NULL)){
+				mostrarRecursivo(os, this -> raiz -> der);
+				os << raiz -> elem << "}" << std::endl;
+			}
+			else{
+				if((this -> raiz -> izq != NULL) && (this -> raiz -> der == NULL)){
+					mostrarRecursivo(os, this -> raiz -> izq);
+					os << raiz -> elem << "}" << std::endl;
+				}
+				else{
+					mostrarRecursivo(os, this -> raiz -> izq);
+					mostrarRecursivo(os, this -> raiz -> der);
+					os << raiz -> elem << "}" << std::endl;
+				}
+			}
+		}
+	}
+}
+
+template<class T>
+void ColaPrioridad<T>::mostrarRecursivo(std::ostream& os, const Nodo* puntero) const{
+	if(puntero != NULL){
+		mostrarRecursivo(os, puntero -> izq);
+		mostrarRecursivo(os, puntero -> der);
+		os << puntero -> elem << ", ";
+	}
 }
 
 template<class T>

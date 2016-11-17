@@ -10,7 +10,20 @@ void test_vacia() {
 }
 
 void test_encolar(){
-	ASSERT( false );
+  ColaPrioridad<int> c;
+  c.Encolar(20);
+  c.Encolar(10);
+  c.Encolar(30);
+  //c.Encolar(3);
+  //c.Encolar(0);
+  c.Encolar(40);
+  c.Encolar(15);
+  //c.Encolar(1);
+  //c.Encolar(-6);
+
+
+  std::cout << c << std::endl;
+	//ASSERT(true);
 }
 
 void test_desencolar(){
