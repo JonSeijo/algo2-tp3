@@ -94,11 +94,7 @@ class DiccString{
       Arreglo< Nodo* > siguientes;
       Conj<string>::Iterador* itClave;
 
-      Nodo() : definicion(NULL), siguientes(), itClave(NULL){
-
-  		    siguientes = Arreglo<Nodo*>(256);
-
-  		};
+      Nodo() : definicion(NULL), siguientes(256),  itClave(NULL){	}
     };
 
     Conj<string> _claves;
@@ -159,19 +155,21 @@ DiccString<S>::DiccString(const DiccString<S>& otro){
 template<class S>
 void DiccString<S>::Definir(const string& clave, const S& significado){
 	if (_claves.Cardinal() == 0 || _raiz == NULL) {
-        _raiz = new Nodo;
+    _raiz = new Nodo();
+  }
+
+  Nodo* nodoActual = _raiz;
+
+  for (Nat i = 0; i < clave.size(); i++) {
+
+
+    if (!nodoActual->siguientes.Definido(int(clave[i]))) {
+        Nodo* nuevo = new Nodo();
+        nodoActual->siguientes.Definir(int(clave[i]), nuevo);
     }
 
-    Nodo* nodoActual = _raiz;
-
-    for (Nat i = 0; i < clave.size(); i++) {
-
-        if (nodoActual->siguientes[int(clave[i])] == NULL) {
-            nodoActual->siguientes[int(clave[i])] = new Nodo();
-        }
-
-        nodoActual = nodoActual->siguientes[int(clave[i])];
-    }
+    nodoActual = nodoActual->siguientes[int(clave[i])];
+  }
 
 	if(nodoActual->definicion != NULL){
 
@@ -179,14 +177,13 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
 		nodoActual->definicion = NULL;
 		delete valor;
 
-	}else{
+	} else {
+    Conj<string>::Iterador* it = new Conj<string>::Iterador();
+    *it = _claves.AgregarRapido(clave);
+    nodoActual->itClave = it;
+  }
 
-
-		nodoActual->definicion = new S(significado);
-
-		*(nodoActual->itClave) = _claves.AgregarRapido(clave);
-	}
-
+	nodoActual->definicion = new S(significado);
 
 }
 
@@ -198,11 +195,11 @@ bool DiccString<S>::Definido(const string& clave) const{
 
   for (Nat i = 0; i < clave.size(); i++) {
 
-      if (nodoActual->siguientes[int(clave[i])] == NULL) {
-          nodoActual->siguientes[int(clave[i])] = new Nodo();
-      }
-
-      nodoActual = nodoActual->siguientes[int(clave[i])];
+    if (!nodoActual->siguientes.Definido(int(clave[i]))) {
+      return false;
+    }
+ 
+    nodoActual = nodoActual->siguientes[int(clave[i])];
   }
 
 
@@ -211,18 +208,16 @@ bool DiccString<S>::Definido(const string& clave) const{
 
 template< class S>
 const S& DiccString<S>::Significado(const string& clave) const {
-  #ifdef DEBUG
-  assert( Definido(clave) );
-  #endif
+
   Nodo* nodoActual = _raiz;
 
     for (Nat i = 0; i < clave.size(); i++) {
 
-        if (nodoActual->siguientes[int(clave[i])] == NULL) {
-            nodoActual->siguientes[int(clave[i])] = new Nodo();
+        if (nodoActual->siguientes.Definido(int(clave[i]))) {
+          nodoActual = nodoActual->siguientes[int(clave[i])];
+
         }
 
-        nodoActual = nodoActual->siguientes[int(clave[i])];
     }
 
 
@@ -232,19 +227,16 @@ const S& DiccString<S>::Significado(const string& clave) const {
 
 template<class S>
 S& DiccString<S>::Significado(const string& clave) {
-  #ifdef DEBUG
-  assert( Definido(clave) );
-  #endif
 
   Nodo* nodoActual = _raiz;
 
     for (Nat i = 0; i < clave.size(); i++) {
 
-        if (nodoActual->siguientes[int(clave[i])] == NULL) {
-            nodoActual->siguientes[int(clave[i])] = new Nodo();
+        if (nodoActual->siguientes.Definido(int(clave[i]))) {
+          nodoActual = nodoActual->siguientes[int(clave[i])];
+
         }
 
-        nodoActual = nodoActual->siguientes[int(clave[i])];
     }
 
 
@@ -255,9 +247,6 @@ S& DiccString<S>::Significado(const string& clave) {
 
 template<class S>
 void DiccString<S>::Borrar(const string& clave){
-  #ifdef DEBUG
-  assert( Definido(clave) );
-  #endif
 
   bool borrarRaiz = _claves.Cardinal() == 1;
 
@@ -307,7 +296,7 @@ template<class S>
 Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
   Nat hijos = 0;
   for (Nat i = 0; i < 256; i++) {
-    if(padre->siguientes[i] != NULL){
+    if(padre->siguientes.Definido(i)){
       hijos++;
     }
 
@@ -318,20 +307,29 @@ Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
 template<class S>
 void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat index) {
 
-  desde = desde->siguientes[index];
-  bool sigue = false;
+
+  if (desde->siguientes.Definido(index)) {
+    desde = desde->siguientes[index];
+  } 
+
   while (desde != NULL) {
     Nodo* temp = desde;
-    for (Nat i = 0; i < 256; i++) {
-      if(desde->siguientes[i] != NULL){
+
+    Nat i = 0;
+    while (i < 256) {
+      if(desde->siguientes.Definido(i)){
         desde = desde->siguientes[i];
-        sigue = true;
+        break;
+      }
+      i++;
+      if (i == 256) {
+        return;
       }
     }
+
     delete temp;
-  }
-  if(!sigue){
-    delete desde;
+
+
   }
 
 }

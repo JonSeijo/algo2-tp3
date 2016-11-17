@@ -4,11 +4,14 @@
 using namespace aed2;
 
 void test_vacio() {
-  	ASSERT( false );
+	DiccString<int> d;
+
 }
 
 void test_definir(){
-	ASSERT( false );
+	DiccString<int> d;
+	d.Definir("uno", 1);
+	//ASSERT(d.Definido("uno"));
 }
 
 
