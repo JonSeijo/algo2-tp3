@@ -19,7 +19,7 @@ class ColaPrioridad{
 
 		bool EsVacia() const;
 
-		Iterador Proximo() const;
+		T Proximo() const;
 
 		void Desencolar();
 
@@ -131,8 +131,8 @@ bool ColaPrioridad<T>::EsVacia() const{
 }
 
 template<class T>
-typename ColaPrioridad<T>::Iterador ColaPrioridad<T>::Proximo() const{
-	assert(false);
+T ColaPrioridad<T>::Proximo() const{
+	return this->raiz->elem;
 }
 
 template<class T>

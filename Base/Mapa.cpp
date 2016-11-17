@@ -10,10 +10,6 @@ Mapa::Mapa(){
     cout << "Creando mapa" << endl;
     this->_tam = 0;
     this->_grilla;
-    // this->_grilla = Vector<Vector<Vector<Vector<bool> > > >(0,
-    //                     Vector<Vector<Vector<bool> > >(0, 
-    //                         Vector<Vector<bool> >(0, 
-    //                             Vector<bool>(false))));
 }
 
 Mapa::~Mapa(){
