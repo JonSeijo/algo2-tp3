@@ -17,8 +17,8 @@ void test_encolar(){
   //c.Encolar(3);
   //c.Encolar(0);
   c.Encolar(40);
-  c.Encolar(15);
-  //c.Encolar(1);
+  c.Encolar(50);
+  c.Encolar(1);
   //c.Encolar(-6);
 
 
