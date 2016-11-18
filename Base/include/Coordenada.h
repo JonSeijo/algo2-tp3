@@ -17,7 +17,7 @@ class Coordenada{
         Nat Longitud();
 
 
-        Nat distEuclidea(const Coordenada& c2);
+        Nat DistEuclidea(const Coordenada& c2);
 
         bool operator == (const Coordenada& c2);
         // bool operator != (const Coordenada& c2);

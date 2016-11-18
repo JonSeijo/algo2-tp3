@@ -38,7 +38,7 @@ bool Coordenada::operator == (const Coordenada& c2){
 //  return not (this == c2);
 // }
 
-Nat Coordenada::distEuclidea(const Coordenada& c2){
+Nat Coordenada::DistEuclidea(const Coordenada& c2){
     Nat x =  this->latitud  - c2.latitud;
     Nat y =  this->longitud - c2.longitud;
 

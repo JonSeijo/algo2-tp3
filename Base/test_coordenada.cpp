@@ -15,9 +15,20 @@ void test_constructor() {
     ASSERT(c.Longitud() == 10);    
 }
 
+void test_distEuclid() {
+    Coordenada c1(0, 0);    
+    Coordenada c2(0, 2);
+    ASSERT(c1.DistEuclidea(c2) == 4);    
+
+    Coordenada c3(0, 0);    
+    Coordenada c4(2, 0);
+    ASSERT(c3.DistEuclidea(c4) == 4);    
+}
+
 int main(int argc, char **argv){
     RUN_TEST(test_vacia);
     RUN_TEST(test_constructor);
+    RUN_TEST(test_distEuclid);
 
     return 0;
 }
