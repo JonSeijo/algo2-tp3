@@ -1,0 +1,488 @@
+diff --git a/Base/aed2/Arreglo.h b/Base/aed2/Arreglo.h
+index 533d96b..72ac13c 100644
+--- a/Base/aed2/Arreglo.h
++++ b/Base/aed2/Arreglo.h
+@@ -2,6 +2,7 @@
+ #ifndef AED2_ARREGLO_H_INCLUDED
+ #define AED2_ARREGLO_H_INCLUDED
+ 
++#include <iostream>
+ #include "TiposBasicos.h"
+ 
+ namespace aed2 {
+@@ -193,7 +194,9 @@ Arreglo<T>& Arreglo<T>::Definir(Nat pos, const T& valor) {
+ template<class T>
+ Arreglo<T>& Arreglo<T>::Borrar(Nat pos) {
+     assert(pos < size);
++    // std::cout << "ANTES DEL .DELETE: " << "pos: " << pos << "  size: " << size << "  elem:  " << array[pos] << "  " << "\n";
+     array[pos].Delete();
++    // std::cout << "DESPUES DEL .DELETE\n";
+     return *this;
+ }
+ 
+@@ -249,7 +252,9 @@ Arreglo<T>& Arreglo<T>::Swap(Nat posA, Nat posB) {
+ 
+ template<class T>
+ void Arreglo<T>::Destruir() {
+-    for(Nat p = 0; p < size; ++p) Borrar(p);
++    for(Nat p = 0; p < size; ++p)
++        Borrar(p);
++
+     delete[] array;
+     array = NULL;
+ }
+diff --git a/Base/include/DiccString.hpp b/Base/include/DiccString.hpp
+index 8228f7b..8b578e5 100644
+--- a/Base/include/DiccString.hpp
++++ b/Base/include/DiccString.hpp
+@@ -42,7 +42,7 @@ class DiccString{
+ 
+     Iterador CrearIt();
+ 
+-    Conj<string>::const_Iterador Claves() const; 
++    Conj<string>::const_Iterador Claves() const;
+ 
+    struct par {
+       S dato;
+@@ -56,7 +56,7 @@ class DiccString{
+     class Iterador{
+     public:
+ 
+-      
++
+       Iterador();
+ 
+       Iterador(DiccString<S> &d);
+@@ -69,7 +69,7 @@ class DiccString{
+       par Actual() const;
+ 
+       void Avanzar();
+-     
++
+ 
+       DiccString<S>::Iterador& operator = (const DiccString<S>::Iterador& otro) {
+         this->_dicc = otro._dicc;
+@@ -79,22 +79,30 @@ class DiccString{
+ 
+     private:
+ 
+-
+       DiccString<S>* _dicc;
+ 
+       Conj<string>::Iterador _itClave;
+ 
+-
+     };
+ 
+   private:
+ 
+     struct Nodo {
+-      S* definicion;
+-      Arreglo< Nodo* > siguientes;
+-      Conj<string>::Iterador itClave;
+-
+-      Nodo() : definicion(NULL), siguientes(256),  itClave(){	}
++        S* definicion;
++        Arreglo< Nodo* > siguientes;
++        Conj<string>::Iterador itClave;
++
++        Nodo() : definicion(NULL), siguientes(256),  itClave(){	}
++        ~Nodo() {
++            // for (Nat i = 0; i < 256; i++) {
++            //     if (siguientes.Definido(i)){
++            //         delete siguientes[i];
++            //     }
++            // }
++
++            delete definicion;
++            // delete siguientes;
++        }
+     };
+ 
+     Conj<string> _claves;
+@@ -121,10 +129,8 @@ template< class S>
+ DiccString<S>::~DiccString(){
+ 
+ 	Conj<string>::Iterador it = _claves.CrearIt();
+-
+ 	while(it.HaySiguiente()){
+-		Borrar(it.Siguiente());
+-
++		this->Borrar(it.Siguiente());
+ 		it.Avanzar();
+ 	}
+ 
+@@ -153,57 +159,76 @@ DiccString<S>::DiccString(const DiccString<S>& otro){
+ 
+ template<class S>
+ void DiccString<S>::Definir(const string& clave, const S& significado){
+-	if (_claves.Cardinal() == 0 || _raiz == NULL) { 
+-    _raiz = new Nodo();
+-  }
++	if (_claves.Cardinal() == 0 || _raiz == NULL) {
++        _raiz = new Nodo();
++    }
+ 
+-  Nodo* nodoActual = _raiz;
++    std::cout << "termino de crear raiz\n";
++
++    Nodo* nodoActual = _raiz;
+ 
+-  for (Nat i = 0; i < clave.size(); i++) {
++    std::cout << "entro al for\n";
++
++    for (Nat i = 0; i < clave.size(); i++) {
+ 
++        // CREO que aca hay leaks porque creo un nuevo nodo y lo asigno, sin hacer delete del viejo
+ 
+-    if (!nodoActual->siguientes.Definido(int(clave[i]))) {
+-        Nodo* nuevo = new Nodo();
+-        nodoActual->siguientes.Definir(int(clave[i]), nuevo);
++        if (!nodoActual->siguientes.Definido(int(clave[i]))) {
++            Nodo* nuevo = new Nodo();
++            nodoActual->siguientes.Definir(int(clave[i]), nuevo);
++        }
++
++        nodoActual = nodoActual->siguientes[int(clave[i])];
+     }
+ 
+-    nodoActual = nodoActual->siguientes[int(clave[i])];
+-  }
++    std::cout << "termino de salir del for\n";
++    std::cout << "entro a if final\n";
+ 
+-	if(nodoActual->definicion != NULL){
++    // Calculo que estro intenta sobreescribir la definicion
++    if(nodoActual->definicion != NULL){
++        std::cout << "entro a if final\n";
+ 
+-		S* valor = nodoActual->definicion;
+-		nodoActual->definicion = NULL;
+-		delete valor;
++        S* valor = nodoActual->definicion;
++        nodoActual->definicion = NULL;
++        delete valor;
+ 
+-	} else {
+-    //Conj<string>::Iterador* it = new Conj<string>::Iterador();
+-    //*it = _claves.AgregarRapido(clave);
+-    nodoActual->itClave = _claves.AgregarRapido(clave);
+-  }
++        std::cout << "salgo del if final\n";
+ 
+-	nodoActual->definicion = new S(significado);
++    } else {
++        //Conj<string>::Iterador* it = new Conj<string>::Iterador();
++        //*it = _claves.AgregarRapido(clave);
++        nodoActual->itClave = _claves.AgregarRapido(clave);
++    }
+ 
++    nodoActual->definicion = new S(significado);
+ 
++    std::cout << "Salgo FINNNNNN\n";
+ }
+ 
+ 
+ template<class S>
+ bool DiccString<S>::Definido(const string& clave) const{
+ 
+-  Nodo* nodoActual = _raiz;
++    Nodo* nodoActual = _raiz;
+ 
+-  for (Nat i = 0; i < clave.size(); i++) {
++    for (Nat i = 0; i < clave.size(); i++) {
++
++        if (nodoActual == NULL) {
++            return false;
++        }
+ 
+-    if (!nodoActual->siguientes.Definido(int(clave[i]))) {
+-      return false;
++        if (!nodoActual->siguientes.Definido(int(clave[i]))) {
++            return false;
++        }
++
++        nodoActual = nodoActual->siguientes[int(clave[i])];
+     }
+- 
+-    nodoActual = nodoActual->siguientes[int(clave[i])];
+-  }
+ 
++    if (nodoActual == NULL) {
++        return false;
++    }
+ 
+-  return nodoActual->definicion != NULL;
++    return nodoActual->definicion != NULL;
+ }
+ 
+ template< class S>
+@@ -229,86 +254,100 @@ template<class S>
+ S& DiccString<S>::Significado(const string& clave) {
+ 
+   Nodo* nodoActual = _raiz;
+-
+     for (Nat i = 0; i < clave.size(); i++) {
+-
+         if (nodoActual->siguientes.Definido(int(clave[i]))) {
+           nodoActual = nodoActual->siguientes[int(clave[i])];
+-
+         }
+-
+     }
+ 
+-
+-
+-  return *nodoActual->definicion;
+-
++    return *nodoActual->definicion;
+ }
+ 
+ template<class S>
+ void DiccString<S>::Borrar(const string& clave){
+ 
+-  bool borrarRaiz = _claves.Cardinal() == 1;
++    std::cout << "entro a borrar\n";
+ 
+-  Nat rindex = 0;
++    bool borrarRaiz = _claves.Cardinal() == 1;
+ 
+-  Nodo* nodoActual = _raiz;
+-  Nodo* reserva = _raiz;
++    Nat rindex = 0;
+ 
+-  for (Nat i = 0; i < clave.size(); i++) {
+-    if (nodoActual->siguientes.Definido(int(clave[i]))) {
+-      nodoActual = nodoActual->siguientes[int(clave[i])];
+-    }
+-    bool definido = i != clave.size() - 1 &&
++    Nodo* nodoActual = _raiz;
++    Nodo* reserva = _raiz;
++
++    for (Nat i = 0; i < clave.size(); i++) {
++        if (nodoActual->siguientes.Definido(int(clave[i]))) {
++            nodoActual = nodoActual->siguientes[int(clave[i])];
++        }
++        bool definido = i != clave.size() - 1 &&
+                   nodoActual->definicion != NULL;
+ 
+-    if (CuentaHijos(nodoActual) > 1 || definido) {
+-      reserva = nodoActual;
+-      rindex = i + 1;
++        if (CuentaHijos(nodoActual) > 1 || definido) {
++            reserva = nodoActual;
++            rindex = i + 1;
++        }
++
+     }
+ 
+-  }
++    std::cout << "termino el primer for\n";
++
++    if (nodoActual != NULL ) {
+ 
+-  if (nodoActual != NULL ) {
+-    
+    // if (nodoActual->itClave != NULL) {
+ 
+-      if( nodoActual->itClave.HaySiguiente()) {
+-        nodoActual->itClave.EliminarSiguiente();
+-      }
++        if(nodoActual->itClave.HaySiguiente()) {
++            nodoActual->itClave.EliminarSiguiente();
++        }
+     //}
+    // delete (nodoActual->itClave);
+     //nodoActual->itClave = NULL;
++    }
+ 
+-  }
++    std::cout << "termino if de itClave\n";
+ 
+-  
+-  Nat hijos = CuentaHijos(nodoActual);
++    Nat hijos = CuentaHijos(nodoActual);
+ 
+-  if(hijos > 1){
++    if(hijos > 1){
+ 
+-		S* valor = nodoActual->definicion;
+-		nodoActual->definicion = NULL;
+-		delete valor;
++        S* valor = nodoActual->definicion;
++        nodoActual->definicion = NULL;
++        delete valor;
+ 
+-	}
++    }
++    std::cout << "termino if de hijos > 1\n";
+ 
+-  if (hijos == 0) {
+-    BorrarDesde(reserva, rindex);
+-  }
+-  if (borrarRaiz) {
+-    // Esta mierda es para que no muera al borrar un diccString
+-    /*for (Nat i = 0; i < 256; i++) {
+-      _raiz->siguientes.Definir(i, new Nodo);
+-      
+-    }*/
+-    Nodo* t = _raiz;
+-    _raiz = NULL;
+-    delete t;
+-  }
++    if (hijos == 0 && !borrarRaiz) {
++        std::cout << "entro a borra desde\n";
++        delete reserva;
++        // BorrarDesde(reserva, rindex);
++        std::cout << "sali de borra desde" << std::endl;
++    }
++    std::cout << "termino if de hijos == 0\n";
+ 
++    if (borrarRaiz) {
++        // Esta mierda es para que no muera al borrar un diccString
++        /*for (Nat i = 0; i < 256; i++) {
++          _raiz->siguientes.Definir(i, new Nodo);
++
++        }*/
++
++        std::cout << "puntero a raiz : " << this->_raiz << "\n";
++        // std::cout << "valor de raiz : " << *(this->_raiz) << "\n";
++
++        Nodo* t = _raiz;
++        _raiz = NULL;
++        delete t;
++
++        std::cout << "hice delete de la raiz\n";
++
++    }
++
++    std::cout << "termino borrarRaiz\n";
++
++    std::cout << "salgo de borrar\n";
+ 
+ }
++
+ template<class S>
+ Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
+   Nat hijos = 0;
+@@ -324,45 +363,44 @@ Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
+ template<class S>
+ void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat index) {
+ 
++    Nodo* inicial = desde;
+ 
+-  if (desde->siguientes.Definido(index)) {
+-    desde = desde->siguientes[index];
+-  } 
++    std::cout << "Entrando a BorrarDesde\n";
+ 
++    if (desde->siguientes.Definido(index)) {
++        desde = desde->siguientes[index];
++    }
+ 
+-  while (desde != NULL) {
+-
+-    Nodo* temp = desde;
+-
+-    Nat i = 0;
+-    while (i < 256) {
+-      Nodo* t = desde;
++    while (desde != NULL) {
+ 
+-      if(desde->siguientes.Definido(i)){
+-        desde = desde->siguientes[i];
++        // Nodo* temp = desde;
+ 
+-        break;
+-      }
+-      i++;
+-      if (i == 256) {
+-        return;
+-      }
+-    }    
++        Nat i = 0;
++        while (i < 256) {
++            // Nodo* t = desde;
++            if(desde->siguientes.Definido(i)){
++                std::cout << "d:   " << char(i) << " \n";
++                desde = desde->siguientes[i];
++                break;
++            }
+ 
++            i++;
++            if (i == 256) {
++                desde = NULL;
++            }
++        }
++        std::cout << "Agrego para borrar: " << desde << "\n";
++        // delete temp;
++    }
+ 
+-    /*
+-     * Solucion rara para que no alla punteros invalidos al momento del delete.
+-     * REVISAR... 
+-     */
+-   /* for (Nat i = 0; i < 256; i++) {
+-      temp->siguientes.Definir(i, new Nodo);
+-    }*/
+-    delete temp;
++    delete inicial;
+ 
+-  }
++    // std::cout << "Termino de borrar vector de nodos\n";
+ 
++    std::cout << "Saliendo de BorrarDesde" << std::endl;
+ 
+ }
++
+ template<class S>
+ Nat DiccString<S>::CantClaves() const{
+   return _claves.Cardinal();
+diff --git a/Base/test_dicc.cpp b/Base/test_dicc.cpp
+index b5a7d98..0c29e5b 100644
+--- a/Base/test_dicc.cpp
++++ b/Base/test_dicc.cpp
+@@ -1,17 +1,20 @@
++#include <iostream>
+ #include "include/DiccString.hpp"
+ #include "mini_test.h"
+ 
+ using namespace aed2;
+ 
+ void test_vacio() {
+-	DiccString<int> d;
+-
++    DiccString<int> d;
+ }
+ 
+ void test_definir(){
+-	DiccString<int> d;
+-	d.Definir("uno", 1);
+-	//ASSERT(d.Definido("uno"));
++    DiccString<int> d;
++    d.Definir("uno", 1);
++    // d.Definir("un", 1);
++    d.Borrar("uno");
++    ASSERT(d.Definido("uno"));
++    std::cout << "saliendo\n";
+ }
+ 
+ 
+diff --git a/Base/tests.cpp b/Base/tests.cpp
+index 47d7e08..509e468 100644
+--- a/Base/tests.cpp
++++ b/Base/tests.cpp
+@@ -22,7 +22,12 @@ void test_constructor_con_mapa() {
+   Driver d(cc);
+ 
+   std::cout << "\nno llego" << "\n";
+-  ASSERT( d.mapa() == cc );
++
++  // Este assert no tiene mucho sentido, un mapa no es un conjunto de coordenadas
++  // ASSERT( d.mapa() == cc );
++  ASSERT( d.mapa().Coordenadas() == cc );
++
++  std::cout << "\nno llego2" << "\n";
+ }
+ 
+ void test_agregar_jugadores(){
