@@ -1,3 +1,12 @@
+// Compilar:
+//   g++ -g test_cola.cpp -o test_cola
+
+// Ejecutar:
+//  ./test_cola
+
+// Valgrind:
+//   valgrind --leak-check=full ./test_cola
+
 #include "include/ColaPrioridad.hpp"
 #include "mini_test.h"
 
