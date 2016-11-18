@@ -157,9 +157,20 @@ ColaPrioridad<T>::Iterador::Iterador(){
 */
 template<class T>
 void ColaPrioridad<T>::Iterador::Borrar(){
-	(this -> estructura).SwapNodos(this -> siguiente, this -> estructura -> ultimo);
-	(this -> estructura).EliminarUltimo();
-	(this -> estructura).SiftUp(this -> siguiente);
+	Nodo* intercambiado = this -> estructura -> ultimo;
+	(this -> estructura) -> SwapNodos(this -> siguiente, this -> estructura -> ultimo);
+	(this -> estructura) -> EliminarUltimo();
+	if(intercambiado -> padre != NULL){
+		if((intercambiado -> elem) < (intercambiado -> padre -> elem)){	
+			(this -> estructura) -> SiftUp(intercambiado);
+		}
+		else{
+			(this -> estructura) -> SiftDown(intercambiado);
+		}
+	}
+	else{
+		(this -> estructura) -> SiftDown(intercambiado);
+	}
 }
 
 template<class T>
