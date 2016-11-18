@@ -23,10 +23,10 @@ void Mapa::AgregarCoord(const Coordenada &c) {
 
     if (maximo > this->_tam) {
         Vector<Vector<Vector<Vector<bool> > > > nGrilla;
-        nGrilla = this->crearGrilla(maximo);
+        nGrilla = this->crearGrilla(maximo+1);
         this->copiarCoordenadas(nGrilla, this->_grilla);
         this->_grilla = nGrilla;
-        this->_tam = maximo;
+        this->_tam = maximo+1;
     }
 
     this->_grilla[c.Latitud()][c.Longitud()][c.Latitud()][c.Longitud()] = true;
@@ -50,8 +50,8 @@ void Mapa::AgregarCoord(const Coordenada &c) {
         // aRecorrer = aRecorrer.Fin();
 
         // if (c.Latitud() > 0) {
-            // Nat x = act 
-            // LO DEJO COLGADO ACA PORQUE VOY A PONERME A IMPLEMENTAR LA CLASE COORDENADA 
+            // Nat x = act
+            // LO DEJO COLGADO ACA PORQUE VOY A PONERME A IMPLEMENTAR LA CLASE COORDENADA
         // }
 
 
@@ -90,7 +90,7 @@ bool Mapa::PosExistente(const Coordenada &c) const{
 
 
 bool Mapa::HayCamino(const Coordenada &c1, const Coordenada &c2) const{
-    return this->_grilla[c1.Latitud()][c1.Longitud()][c2.Latitud()][c2.Longitud()];   
+    return this->_grilla[c1.Latitud()][c1.Longitud()][c2.Latitud()][c2.Longitud()];
 }
 
 Nat Mapa::Tam() const{
@@ -112,17 +112,17 @@ Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(const Nat n) {
                     nGrilla4.AgregarAtras(false);
                 }
                 nGrilla3.AgregarAtras(nGrilla4);
-            }            
+            }
             nGrilla2.AgregarAtras(nGrilla3);
-        }        
+        }
         nuevaGrilla.AgregarAtras(nGrilla2);
     }
 
     // std::cout << "n: " << n << "\n";
     // std::cout << "tam: " << nuevaGrilla.Longitud() << "\n";
- 
+
     return nuevaGrilla;
-}   
+}
 
 void Mapa::copiarCoordenadas(
     Vector<Vector<Vector<Vector<bool> > > > grillaNueva,
@@ -131,7 +131,7 @@ void Mapa::copiarCoordenadas(
     for (int i = 0; i < grillaVieja.Longitud(); i++) {
         for (int j = 0; j < grillaVieja.Longitud(); j++) {
             grillaNueva[i][j][i][j] = grillaVieja[i][j][i][j];
-        }        
+        }
     }
 }
 
