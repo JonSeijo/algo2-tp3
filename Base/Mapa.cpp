@@ -39,16 +39,24 @@ void Mapa::AgregarCoord(const Coordenada &c) {
         visitados.AgregarAtras(visitadosAux);
     }
 
-    
+    // Uso una Lista como si fuese una Cola
+    Lista<Coordenada> aRecorrer;
+    aRecorrer.AgregarAtras(c);
 
-    // Ya no puedo hacer esto en teoria lpm ...
-    // Vector<Vector<bool> > visitados = Vector<Vector<bool> >(this->_tam,
-    //                                      Vector<bool>(this->_tam, false));
+    while (!aRecorrer.EsVacia()) {
+        // Tomo el proximo y desencolo
+        Coordenada act = aRecorrer.Primero();
+        aRecorrer = aRecorrer.Fin();
 
-    // ACA NECESITO USAR UNA COLA, QUE NO ESTA IMPLEMENTADA.
-    // DESPUES VEO DE COPIAR LA DEL TALLER Y SEGUIR CON EL ALGORITMO
+        if (c.latitud > 0) {
+            // Nat x = act 
+            // LO DEJO COLGADO ACA PORQUE VOY A PONERME A IMPLEMENTAR LA CLASE COORDENADA 
+        }
 
-    // linea 20 tp2
+
+    }
+
+
 
 }
 
