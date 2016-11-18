@@ -153,7 +153,7 @@ DiccString<S>::DiccString(const DiccString<S>& otro){
 
 template<class S>
 void DiccString<S>::Definir(const string& clave, const S& significado){
-	if (_claves.Cardinal() == 0 || _raiz == NULL) {
+	if (_claves.Cardinal() == 0 || _raiz == NULL) { 
     _raiz = new Nodo();
   }
 

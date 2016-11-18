@@ -1,4 +1,4 @@
-SOURCES = tests.cpp Juego.cpp Mapa.cpp Driver.cpp
+SOURCES = tests.cpp Juego.cpp Coordenada.cpp Mapa.cpp Driver.cpp 
 OBJS = $(SOURCES:.cpp=.o)
 
 LIBS = modulos.h aed2.h
