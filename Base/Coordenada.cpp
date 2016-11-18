@@ -87,3 +87,12 @@ Nat Coordenada::DistEuclidea(const Coordenada& c2){
     return z;
 }
 
+Nat Coordenada::DistEuclidea(const Coordenada& c2) const{
+    Nat x =  this->latitud  - c2.latitud;
+    Nat y =  this->longitud - c2.longitud;
+
+    Nat z = (x*x) + (y*y);
+
+    return z;
+}
+

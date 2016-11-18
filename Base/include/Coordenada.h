@@ -20,6 +20,7 @@ class Coordenada{
         Nat Longitud() const;
 
         Nat DistEuclidea(const Coordenada& c2);
+        Nat DistEuclidea(const Coordenada& c2) const;
 
         Coordenada CoordenadaArriba();
         Coordenada CoordenadaAbajo();
