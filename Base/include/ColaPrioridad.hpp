@@ -71,6 +71,10 @@ class ColaPrioridad{
 		void SwapConHijoIzquierdo(Nodo* a, Nodo* b);
 		void SwapConHijoDerecho(Nodo* a, Nodo* b);
 		void SwapDisjunto(Nodo* a, Nodo* b);
+		void EliminarUltimo();
+		bool HayUnicoNodoEnUltimoNivel() const;
+		void SiftDown(Nodo* a);
+		bool EsMenorNodos(Nodo* a, Nodo* b) const;
 
 		//Prueba para ver al heap y testear, es algo-order y muestra en este orden:
 		// izquierdo, derecho, raiz
@@ -137,7 +141,9 @@ T ColaPrioridad<T>::Proximo() const{
 
 template<class T>
 void ColaPrioridad<T>::Desencolar(){
-	assert(false);
+	SwapNodos(this -> raiz, this -> ultimo);
+	EliminarUltimo();
+	SiftDown(this -> raiz);
 }
 
 /*******************************/
@@ -151,7 +157,9 @@ ColaPrioridad<T>::Iterador::Iterador(){
 */
 template<class T>
 void ColaPrioridad<T>::Iterador::Borrar(){
-	assert(false);
+	(this -> estructura).SwapNodos(this -> siguiente, this -> estructura -> ultimo);
+	(this -> estructura).EliminarUltimo();
+	(this -> estructura).SiftUp(this -> siguiente);
 }
 
 template<class T>
@@ -384,6 +392,113 @@ void ColaPrioridad<T>::SwapDisjunto(Nodo* a, Nodo* b){
 	a -> padre = tmpPadreB;
 	a -> izq = tmpIzqB;
 	a -> der = tmpDerB;
+}
+
+template<class T>
+void ColaPrioridad<T>::EliminarUltimo(){
+	if(this -> ultimo == this -> raiz){
+		delete this -> ultimo;
+		this -> ultimo = NULL;
+		this -> raiz = NULL;
+	}
+	else{
+		if(EsHijoDerecho(this -> ultimo)){
+			Nodo* antiguoUltimo = this -> ultimo;
+			this -> ultimo = this -> ultimo -> padre -> izq;
+			this -> ultimo -> padre -> der = NULL;
+			delete antiguoUltimo;
+			antiguoUltimo = NULL;
+		}
+		else{
+			if(HayUnicoNodoEnUltimoNivel()){
+				this -> ultimo -> padre -> izq = NULL;
+				delete this -> ultimo;
+				this -> ultimo = NULL;
+				Nodo* nodoActual = this -> raiz;
+				while(nodoActual -> der != NULL){
+					nodoActual = nodoActual -> der;
+				}
+				this -> ultimo = nodoActual;
+			}
+			else{
+				Nodo* nuevoUltimo = this -> ultimo;
+				while(!EsHijoDerecho(nuevoUltimo)){
+					nuevoUltimo = nuevoUltimo -> padre;
+				}
+				nuevoUltimo = nuevoUltimo -> padre -> izq;
+				while(nuevoUltimo -> der != NULL){
+					nuevoUltimo = nuevoUltimo -> der;
+				}
+				delete this -> ultimo;
+				this -> ultimo = nuevoUltimo;
+			}
+		}
+	}
+}
+
+template<class T>
+bool ColaPrioridad<T>::HayUnicoNodoEnUltimoNivel() const{
+	Nodo* nodoActual = this -> raiz;
+	while(nodoActual -> izq != NULL){
+		nodoActual = nodoActual -> izq;
+	}
+	return nodoActual == this -> ultimo;
+}
+
+//Se rompe con n == NULL (pasa cuando desencolamos un heap con un solo elemento)
+//No lo tomamos en cuenta en el tp2
+template<class T>
+void ColaPrioridad<T>::SiftDown(Nodo* n){
+	if(n != NULL){
+		bool sigueBajando = true;
+		while(sigueBajando){
+			if(EsMenorNodos(n -> izq, n -> der)){
+				if((n -> izq -> elem) < (n -> elem)){
+					SwapNodos(n, n -> izq);
+				}
+				else{
+					sigueBajando = false;
+				}
+			}
+			else{
+				if(EsMenorNodos(n -> der, n -> izq)){
+					if((n -> der -> elem) < (n -> elem)){
+						SwapNodos(n, n -> der);
+					}
+					else{
+						sigueBajando = false;
+					}
+				}
+				sigueBajando = false;
+			}
+		}
+	}
+}
+
+template<class T>
+bool ColaPrioridad<T>::EsMenorNodos(Nodo* a, Nodo* b) const{
+	if(a != NULL || b != NULL){
+		if(a == NULL && b != NULL){
+			return false;
+		}
+		else{
+			if(a != NULL && b == NULL){
+				return true;
+			}
+			else{
+				if((a -> elem) <= (b -> elem)){
+					return true;
+				}
+				//Este else no estaba en los módulos
+				else{
+					return false;
+				}
+			}
+		}
+	}
+	else{
+		return false;
+	}
 }
 
 template<class T>
