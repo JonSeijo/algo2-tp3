@@ -119,7 +119,7 @@ class Juego{
     void CasoMov4(Jugador , const Coordenada&, const Coordenada&);
     void CasoMov5(Jugador , const Coordenada&, const Coordenada&);
 
-    void SumarUnoEnJug(Pokemon, ColaPrioridad<jugYCantCapt>::Iterador);
+    void SumarUnoEnJug(Pokemon, Jugador);
 
     void AgregarAtrasJugsQueEstanEnPos(Vector<Jugador>, Nat, Nat) const;
 
