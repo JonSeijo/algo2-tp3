@@ -29,6 +29,7 @@
 *.app
 tests
 test_coor
+test_arr
 test_cola
 test_dicc
 test_mapa
