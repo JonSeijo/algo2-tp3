@@ -1,7 +1,7 @@
 #ifndef COORDENADA_H_
 #define COORDENADA_H_
 
-// #include "../aed2.h"
+#include "../aed2.h"
 #include <cassert>
 #include <iostream> 
 
