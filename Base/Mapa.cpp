@@ -1,4 +1,5 @@
-#include "modulos.h"
+// #include "modulos.h"
+#include "./include/Mapa.h"
 #include <cassert>
 #include <iostream>
 #include "aed2.h"
@@ -10,10 +11,6 @@ Mapa::Mapa(){
     cout << "Creando mapa" << endl;
     this->_tam = 0;
     this->_grilla;
-    // this->_grilla = Vector<Vector<Vector<Vector<bool> > > >(0,
-    //                     Vector<Vector<Vector<bool> > >(0, 
-    //                         Vector<Vector<bool> >(0, 
-    //                             Vector<bool>(false))));
 }
 
 Mapa::~Mapa(){
@@ -32,6 +29,17 @@ void Mapa::AgregarCoord(const Coordenada &c) {
     }
 
     this->_grilla[c.latitud][c.longitud][c.latitud][c.longitud] = true;
+
+    Vector<Vector<bool> > visitados;
+    for (int i = 0; i < this->_tam; i++) {
+        Vector<bool> visitadosAux;
+        for (int j = 0; j < this->_tam; j++) {
+            visitadosAux.AgregarAtras(false);
+        }
+        visitados.AgregarAtras(visitadosAux);
+    }
+
+    
 
     // Ya no puedo hacer esto en teoria lpm ...
     // Vector<Vector<bool> > visitados = Vector<Vector<bool> >(this->_tam,
@@ -101,6 +109,9 @@ Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(const Nat n) {
         nuevaGrilla.AgregarAtras(nGrilla2);
     }
 
+    // std::cout << "n: " << n << "\n";
+    // std::cout << "tam: " << nuevaGrilla.Longitud() << "\n";
+ 
     return nuevaGrilla;
 }   
 

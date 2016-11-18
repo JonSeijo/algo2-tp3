@@ -19,7 +19,7 @@ class ColaPrioridad{
 
 		bool EsVacia() const;
 
-		Iterador Proximo() const;
+		T Proximo() const;
 
 		void Desencolar();
 
@@ -122,7 +122,7 @@ typename ColaPrioridad<T>::Iterador ColaPrioridad<T>::Encolar(const T t){
 	Nodo* m = this -> ultimo;
 	SiftUp(m);
 	Nodo* p = m;
-	return Iterador(m, this);
+	return Iterador(p, this);
 }
 
 template<class T>
@@ -131,8 +131,8 @@ bool ColaPrioridad<T>::EsVacia() const{
 }
 
 template<class T>
-typename ColaPrioridad<T>::Iterador ColaPrioridad<T>::Proximo() const{
-	assert(false);
+T ColaPrioridad<T>::Proximo() const{
+	return this->raiz->elem;
 }
 
 template<class T>
@@ -252,11 +252,11 @@ void ColaPrioridad<T>::SiftUp(Nodo* n){
 template<class T>
 void ColaPrioridad<T>::SwapNodos(Nodo* a, Nodo* b){
 	if((a -> padre) == b){
-		SwapConHijo(a, b);
+		SwapConHijo(b, a);
 	}
 	else{
-		if(b == a){
-			SwapConHijo(b, a);
+		if(b -> padre == a){
+			SwapConHijo(a, b);
 		}
 		else{
 			SwapDisjunto(a, b);
@@ -266,7 +266,7 @@ void ColaPrioridad<T>::SwapNodos(Nodo* a, Nodo* b){
 		this -> raiz = b;
 	}
 	else{
-		if(this -> raiz = b){
+		if(this -> raiz == b){
 			this -> raiz = a;
 		}
 	}
@@ -281,7 +281,7 @@ void ColaPrioridad<T>::SwapNodos(Nodo* a, Nodo* b){
 }
 
 template<class T>
-void ColaPrioridad<T>::SwapConHijo(Nodo* b, Nodo* a){
+void ColaPrioridad<T>::SwapConHijo(Nodo* a, Nodo* b){
 	if(a -> izq == b){
 		SwapConHijoIzquierdo(a, b);
 	}

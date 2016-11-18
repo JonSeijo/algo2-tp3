@@ -10,20 +10,22 @@ void test_vacia() {
 }
 
 void test_encolar(){
-  ColaPrioridad<int> c;
-  c.Encolar(20);
-  c.Encolar(10);
-  c.Encolar(30);
-  //c.Encolar(3);
-  //c.Encolar(0);
-  c.Encolar(40);
-  c.Encolar(15);
-  //c.Encolar(1);
-  //c.Encolar(-6);
+    ColaPrioridad<int> c;
 
+    c.Encolar(3);
+    ASSERT(c.Proximo() == 3);
 
-  std::cout << c << std::endl;
-	//ASSERT(true);
+    c.Encolar(1);
+    ASSERT(c.Proximo() == 1);
+
+    c.Encolar(1);
+    ASSERT(c.Proximo() == 1);
+   
+    c.Encolar(2);
+    ASSERT(c.Proximo() == 1);
+
+    c.Encolar(0);
+    ASSERT(c.Proximo() == 0);
 }
 
 void test_desencolar(){
@@ -45,10 +47,10 @@ void test_casosraros(){
 int main(int argc, char **argv){
   RUN_TEST(test_vacia);
   RUN_TEST(test_encolar);
-  RUN_TEST(test_desencolar);
-  RUN_TEST(test_borrar);
-  RUN_TEST(test_siguiente);
-  RUN_TEST(test_casosraros);
+  // RUN_TEST(test_desencolar);
+  // RUN_TEST(test_borrar);
+  // RUN_TEST(test_siguiente);
+  // RUN_TEST(test_casosraros);
 
   return 0;
 }
