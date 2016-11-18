@@ -30,6 +30,14 @@ Nat Coordenada::Longitud() {
     return this->longitud;
 }
 
+Nat Coordenada::Latitud() const{
+    return this->latitud;
+}
+
+Nat Coordenada::Longitud() const{
+    return this->longitud;
+}
+
 Coordenada Coordenada::CoordenadaArriba(){
     return Coordenada(this->latitud, this->longitud+1);
 }
@@ -46,11 +54,27 @@ Coordenada Coordenada::CoordenadaALaIzquierda(){
     return Coordenada(this->latitud-1, this->longitud);
 }
 
-bool Coordenada::operator == (const Coordenada& c2){
-    return this->latitud == c2.latitud and this->longitud == c2.longitud;
+bool Coordenada::operator == (const Coordenada& c2) const {
+    return this->Latitud() == c2.Latitud() && this->Longitud() == c2.Longitud();
 }
 
-bool Coordenada::operator != (const Coordenada& c2){
+bool Coordenada::operator != (const Coordenada& c2) const {
+    return this->Latitud() != c2.Latitud() || this->Longitud() != c2.Longitud();
+}
+
+bool Coordenada::operator == (const Coordenada& c2) {
+    return this->Latitud() == c2.Latitud() && this->Longitud() == c2.Longitud();
+}
+
+bool Coordenada::operator != (const Coordenada& c2) {
+    return this->Latitud() != c2.Latitud() || this->Longitud() != c2.Longitud();
+}
+
+bool Coordenada::operator == (Coordenada& c2) {
+    return this->latitud == c2.latitud && this->longitud == c2.longitud;
+}
+
+bool Coordenada::operator != (Coordenada& c2) {
     return this->latitud != c2.latitud || this->longitud != c2.longitud;
 }
 
