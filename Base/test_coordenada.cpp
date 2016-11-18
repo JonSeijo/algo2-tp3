@@ -1,3 +1,12 @@
+// Compilar:
+//  g++ -g test_coordenada.cpp -o test_coor
+
+// Ejecutar:
+//  ./test_coor
+
+// Valgrind:
+//   valgrind --leak-check=full ./test_coor
+
 #include "Coordenada.cpp"
 #include "mini_test.h"
 
