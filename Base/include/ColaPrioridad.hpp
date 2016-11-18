@@ -29,6 +29,7 @@ class ColaPrioridad{
 			
 				T& Siguiente(); 
 				void Borrar();
+				Iterador(): siguiente(NULL), estructura(NULL){};
 
 			private:
 				
@@ -36,7 +37,6 @@ class ColaPrioridad{
 				ColaPrioridad<T>* estructura;
 
 				//En los módulos están privadas estas funciones
-				Iterador(): siguiente(NULL), estructura(NULL){};
 				Iterador(typename ColaPrioridad<T>::Nodo* sig, ColaPrioridad<T>* c): siguiente(sig), estructura(c){} ;
 				bool iteradorConElemento() const;
 				friend typename ColaPrioridad<T>::Iterador ColaPrioridad<T>::Encolar(const T t);
