@@ -16,14 +16,15 @@ class Coordenada{
         Nat Latitud();
         Nat Longitud();
 
-
         Nat DistEuclidea(const Coordenada& c2);
 
+        Coordenada CoordenadaArriba();
+        Coordenada CoordenadaAbajo();
+        Coordenada CoordenadaALaDerecha();
+        Coordenada CoordenadaALaIzquierda();
+
         bool operator == (const Coordenada& c2);
-        // bool operator != (const Coordenada& c2);
-
-
-
+        bool operator != (const Coordenada& c2);
 
     private:
         Nat latitud;

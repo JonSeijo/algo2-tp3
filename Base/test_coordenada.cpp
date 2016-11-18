@@ -25,10 +25,21 @@ void test_distEuclid() {
     ASSERT(c3.DistEuclidea(c4) == 4);    
 }
 
+void test_igualdad() {
+    Coordenada c1(0, 0);    
+    Coordenada c2(0, 2);
+    ASSERT(c1 != c2);    
+
+    Coordenada c3(2, 2);    
+    Coordenada c4(2, 2);
+    ASSERT(c3 == c4);    
+}
+
 int main(int argc, char **argv){
     RUN_TEST(test_vacia);
     RUN_TEST(test_constructor);
     RUN_TEST(test_distEuclid);
+    RUN_TEST(test_igualdad);
 
     return 0;
 }
