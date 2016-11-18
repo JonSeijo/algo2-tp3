@@ -10,25 +10,26 @@ using namespace aed2;
 Juego::Juego(const Mapa &map) : _cantPokemon(), _cantPokemonesTotales(0), _mapa(),
  _jugadores(), _jugadoresNoEliminados(), _grillaJugadores(), _pokenodos(), _posPokemons(){
 
-  *_mapa = map; 
+  // *_mapa = map;
+  this->_mapa = new Mapa(map);
 
   for (Nat i = 0; i < map.Tam(); i++) {
     Vector < Lista <Jugador> > inter;
 
     for (Nat j = 0; j < map.Tam(); j++) {
       Lista < Jugador > vacia;
-      inter.AgregarAtras(vacia); 
+      inter.AgregarAtras(vacia);
     }
 
     _grillaJugadores.AgregarAtras(inter);
   }
- 
+
   for (Nat i = 0; i < map.Tam(); i++) {
     Vector<pokeStruc*> inter;
 
     for (Nat j = 0; j < map.Tam(); j++) {
       pokeStruc* nuevo = NULL;
-      inter.AgregarAtras(nuevo); 
+      inter.AgregarAtras(nuevo);
     }
 
     _pokenodos.AgregarAtras(inter);
@@ -74,9 +75,9 @@ void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){
   Vector<Jugador> posibles = DameJugadoreseEnPokerango(c);
   Nat i = 0;
   while (i < posibles.Longitud()) {
-    Nat cant = _jugadores[posibles[i] ]._cantCap;    
+    Nat cant = _jugadores[posibles[i] ]._cantCap;
     jugYCantCapt aInsertar(posibles[i], cant);
-    _jugadores[posibles[i] ]._itAEntrenadores = 
+    _jugadores[posibles[i] ]._itAEntrenadores =
                         _pokenodos[x][y]->_entrenadores.Encolar(aInsertar);
 
     i++;
@@ -95,24 +96,24 @@ Nat Juego::AgregarJugador(){
 
   _jugadores.AgregarAtras(e);
 
-  return proxId;  
+  return proxId;
 }
 
 void Juego::Conectarse(Jugador e, const Coordenada &c){
   // Se conecta el jugador.
   _jugadores[e]._conectado = true;
-  
+
   // Se lo ubica en la posicion correspondiente.
   Nat x = c.Latitud();
   Nat y = c.Longitud();
-  
+
   _jugadores[e]._itAPos = _grillaJugadores[x][y].AgregarAtras(e);
   _jugadores[e]._pos = Coordenada(x, y);
 
   // Se verifica si el jugador entra en un pokenodo.
   if (HayPokemonCercano(c)) {
     if (_mapa->HayCamino(c, PosPokemonCercano(c))) {
-      
+
       Nat latPok = PosPokemonCercano(c).Latitud();
       Nat lonPok = PosPokemonCercano(c).Longitud();
 
@@ -121,7 +122,7 @@ void Juego::Conectarse(Jugador e, const Coordenada &c){
 
       // Se encola el jugador en el pokenodo.
       jugYCantCapt t(e, _jugadores[e]._cantCap);
-      _jugadores[e]._itAEntrenadores = 
+      _jugadores[e]._itAEntrenadores =
             _pokenodos[latPok][lonPok]->_entrenadores.Encolar(t);
 
     }
@@ -141,7 +142,7 @@ void Juego::Desconectarse(Jugador e){
    // Se verifica si el jugador estaba en un pokenodo.
   if (HayPokemonCercano(c)) {
     if (_mapa->HayCamino(c, PosPokemonCercano(c))) {
-      
+
       Nat latPok = PosPokemonCercano(c).Latitud();
       Nat lonPok = PosPokemonCercano(c).Longitud();
 
@@ -190,7 +191,7 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
       }
 
 
-    } 
+    }
   }// Si el movimiento es valido..
   else{
 
@@ -218,11 +219,11 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
   _jugadores[e]._itAPos.EliminarSiguiente();
 
   // Se lo agrega en la posicion nueva.
-  _jugadores[e]._itAPos = _grillaJugadores[c.Latitud()][c.Longitud()].AgregarAtras(e); 
+  _jugadores[e]._itAPos = _grillaJugadores[c.Latitud()][c.Longitud()].AgregarAtras(e);
   _jugadores[e]._pos = c;
 
   }
- 
+
 }
 
 Mapa& Juego::mapa(){
@@ -346,7 +347,7 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
 
     if (y > 0 && (_pokenodos[x-1][y-1] != NULL)) {
       posConPoke = Coordenada(x-1, y-1);
-    } 
+    }
 
     if (y < m-1  && (_pokenodos[x-1][y+1] != NULL)) {
       posConPoke = Coordenada(x-1, y+1);
@@ -366,7 +367,7 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
       posConPoke = Coordenada(x, y-2);
     }
 
-  } 
+  }
 
   if (y < m-1) {
 
@@ -375,7 +376,7 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
     }
     if (m > 1 && y < m-2  && (_pokenodos[x][y+2] != NULL)) {
       posConPoke = Coordenada(x, y+2);
-    } 
+    }
 
   }
   if (x < m-1) {
@@ -385,7 +386,7 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
 
     if (y > 0 && (_pokenodos[x+1][y-1] != NULL)) {
       posConPoke = Coordenada(x+1, y-1);
-    } 
+    }
 
     if (y < m-1 && (_pokenodos[x+1][y+1] != NULL)) {
       posConPoke = Coordenada(x+1, y+1);
@@ -412,7 +413,7 @@ bool Juego::PuedoAgregarPokemon(const Coordenada& c) const{
 
 
 Conj<Jugador> Juego::EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &es) const{
-  
+
   Conj< Jugador > posibles;
   Coordenada pokeCoor(PosPokemonCercano(c));
   Vector<Jugador> jugsEnNodo = DameJugadoreseEnPokerango(pokeCoor);
@@ -471,7 +472,7 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
 
     if (y > 0 && (_pokenodos[x-1][y-1] != NULL)) {
       AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y-1);
-    } 
+    }
 
     if (y < m-1  && (_pokenodos[x-1][y+1] != NULL)) {
       AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y+1);
@@ -491,7 +492,7 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
       AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y-2);
     }
 
-  } 
+  }
 
   if (y < m-1) {
 
@@ -500,7 +501,7 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
     }
     if (m > 1 && y < m-2  && (_pokenodos[x][y+2] != NULL)) {
       AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y+2);
-    } 
+    }
 
   }
   if (x < m-1) {
@@ -510,7 +511,7 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
 
     if (y > 0 && (_pokenodos[x+1][y-1] != NULL)) {
       AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y-1);
-    } 
+    }
 
     if (y < m-1 && (_pokenodos[x+1][y+1] != NULL)) {
       AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y+1);
@@ -543,10 +544,10 @@ void Juego::AgregarAtrasJugsQueEstanEnPos(Vector<Jugador> jugs, Nat x, Nat y) co
 }
 
 void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp){
-  
-  // El pokenodo al que entro el jugador. 
+
+  // El pokenodo al que entro el jugador.
   Coordenada pokePos = PosPokemonCercano(desp);
- 
+
   // Itero sobre los pokenodos
   Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
@@ -595,7 +596,7 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
     Nat y = it.Siguiente().Longitud();
 
     pokeStruc* pokeNodo = _pokenodos[x][y];
-   
+
     // Aumento su contador.
     pokeNodo->_contador++;
 
@@ -603,21 +604,21 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
     if (pokeNodo->_contador == 10) {
       // Agrego el pokemon al entrenador que captura.
       SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
-    
+
       // Borro el pokenodo.
       it.EliminarSiguiente();
 
       delete pokeNodo;
       _pokenodos[x][y] = NULL;
     }
-  
+
 
     it.Avanzar();
   }
 }
 
 void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp){
-  // El pokenodo al que entro el jugador. 
+  // El pokenodo al que entro el jugador.
   Coordenada pokePos = PosPokemonCercano(desp);
 
   Nat lat = pokePos.Latitud();
@@ -625,9 +626,9 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
   // Agrego el entrenador al pokenodo.
   jugYCantCapt jug(e, _jugadores[e]._cantCap);
-  _jugadores[e]._itAEntrenadores = _pokenodos[lat][lon]->_entrenadores.Encolar(jug); 
+  _jugadores[e]._itAEntrenadores = _pokenodos[lat][lon]->_entrenadores.Encolar(jug);
 
-  
+
   // Itero sobre los pokenodos
   Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
@@ -650,14 +651,14 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
         // Agrego el pokemon al entrenador que captura.
         SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
-    
+
         // Borro el pokenodo.
         it.EliminarSiguiente();
 
         delete pokeNodo;
         _pokenodos[x][y] = NULL;
     }
-    
+
 
     it.Avanzar();
   }
@@ -684,21 +685,21 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
         // Agrego el pokemon al entrenador que captura.
         SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
-    
+
         // Borro el pokenodo.
         it.EliminarSiguiente();
 
         delete pokeNodo;
         _pokenodos[x][y] = NULL;
     }
-    
+
 
     it.Avanzar();
   }
 }
 
 void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp){
-  // El pokenodo al que entro el jugador. 
+  // El pokenodo al que entro el jugador.
   Coordenada pokePos = PosPokemonCercano(desp);
 
   Nat lat = pokePos.Latitud();
@@ -706,7 +707,7 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
   // Agrego el entrenador al pokenodo.
   jugYCantCapt jug(e, _jugadores[e]._cantCap);
-  _jugadores[e]._itAEntrenadores = _pokenodos[lat][lon]->_entrenadores.Encolar(jug); 
+  _jugadores[e]._itAEntrenadores = _pokenodos[lat][lon]->_entrenadores.Encolar(jug);
 
 
   // Itero sobre los pokenodos
@@ -738,20 +739,20 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
       // Agrego el pokemon al entrenador que captura.
       SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
-    
+
       // Borro el pokenodo.
       it.EliminarSiguiente();
 
       delete pokeNodo;
       _pokenodos[x][y] = NULL;
     }
-    
+
   }
 
-  
+
     it.Avanzar();
   }
-  
+
 }
 
 bool Juego::MovValido(Jugador e, const Coordenada& c) const{
