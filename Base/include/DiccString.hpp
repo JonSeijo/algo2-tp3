@@ -123,7 +123,6 @@ DiccString<S>::~DiccString(){
 	Conj<string>::Iterador it = _claves.CrearIt();
 
 	while(it.HaySiguiente()){
-
 		Borrar(it.Siguiente());
 
 		it.Avanzar();
@@ -184,6 +183,7 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
   }
 
 	nodoActual->definicion = new S(significado);
+
 
 }
 
@@ -256,8 +256,9 @@ void DiccString<S>::Borrar(const string& clave){
   Nodo* reserva = _raiz;
 
   for (Nat i = 0; i < clave.size(); i++) {
-
-    nodoActual = nodoActual->siguientes[int(clave[i])];
+    if (nodoActual->siguientes.Definido(int(clave[i]))) {
+      nodoActual = nodoActual->siguientes[int(clave[i])];
+    }
     bool definido = i != clave.size() - 1 &&
                   nodoActual->definicion != NULL;
 
@@ -268,10 +269,12 @@ void DiccString<S>::Borrar(const string& clave){
 
   }
   // No existe EliminarSiguiente
-  //nodoActual->itClave->EliminarSiguiente();
+ /* if ( nodoActual->itClave->HaySiguiente()) {
+    nodoActual->itClave->EliminarSiguiente();
+  }
   delete nodoActual->itClave;
   nodoActual->itClave = NULL;
-
+*/
   Nat hijos = CuentaHijos(nodoActual);
 
   if(hijos > 1){
@@ -286,8 +289,14 @@ void DiccString<S>::Borrar(const string& clave){
     BorrarDesde(reserva, rindex);
   }
   if (borrarRaiz) {
-    delete _raiz;
+    // Esta mierda es para que no muera al borrar un diccString
+    for (Nat i = 0; i < 256; i++) {
+      _raiz->siguientes.Definir(i, new Nodo);
+      
+    }
+    Nodo* t = _raiz;
     _raiz = NULL;
+    delete t;
   }
 
 
@@ -312,25 +321,38 @@ void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat index) {
     desde = desde->siguientes[index];
   } 
 
+
   while (desde != NULL) {
+
     Nodo* temp = desde;
 
     Nat i = 0;
     while (i < 256) {
+      Nodo* t = desde;
+
       if(desde->siguientes.Definido(i)){
         desde = desde->siguientes[i];
+
         break;
       }
       i++;
       if (i == 256) {
         return;
       }
-    }
+    }    
 
+
+    /*
+     * Solucion rara para que no alla punteros invalidos al momento del delete.
+     * REVISAR... 
+     */
+    for (Nat i = 0; i < 256; i++) {
+      temp->siguientes.Definir(i, new Nodo);
+    }
     delete temp;
 
-
   }
+
 
 }
 template<class S>
