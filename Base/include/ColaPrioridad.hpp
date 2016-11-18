@@ -359,7 +359,7 @@ void ColaPrioridad<T>::SwapDisjunto(Nodo* a, Nodo* b){
 	}
 	else{
 		if(EsHijoDerecho(b)){
-			b -> padre -> der = b;
+			b -> padre -> der = a;
 		}
 	}
 	if(b -> der != NULL){
@@ -422,6 +422,7 @@ void ColaPrioridad<T>::EliminarUltimo(){
 			}
 			else{
 				Nodo* nuevoUltimo = this -> ultimo;
+				this -> ultimo -> padre -> izq = NULL;
 				while(!EsHijoDerecho(nuevoUltimo)){
 					nuevoUltimo = nuevoUltimo -> padre;
 				}
@@ -469,7 +470,9 @@ void ColaPrioridad<T>::SiftDown(Nodo* n){
 						sigueBajando = false;
 					}
 				}
-				sigueBajando = false;
+				else{
+					sigueBajando = false;
+				}
 			}
 		}
 	}
