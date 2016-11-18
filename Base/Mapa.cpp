@@ -1,5 +1,6 @@
 // #include "modulos.h"
 #include "./include/Mapa.h"
+#include "./include/Coordenada.h"
 #include <cassert>
 #include <iostream>
 #include "aed2.h"
@@ -18,7 +19,7 @@ Mapa::~Mapa(){
 }
 
 void Mapa::AgregarCoord(const Coordenada &c) {
-    Nat maximo = this->max(c.latitud, c.longitud);
+    Nat maximo = this->max(c.Latitud(), c.Longitud());
 
     if (maximo > this->_tam) {
         Vector<Vector<Vector<Vector<bool> > > > nGrilla;
@@ -28,7 +29,7 @@ void Mapa::AgregarCoord(const Coordenada &c) {
         this->_tam = maximo;
     }
 
-    this->_grilla[c.latitud][c.longitud][c.latitud][c.longitud] = true;
+    this->_grilla[c.Latitud()][c.Longitud()][c.Latitud()][c.Longitud()] = true;
 
     Vector<Vector<bool> > visitados;
     for (int i = 0; i < this->_tam; i++) {
@@ -39,16 +40,24 @@ void Mapa::AgregarCoord(const Coordenada &c) {
         visitados.AgregarAtras(visitadosAux);
     }
 
-    
+    // Uso una Lista como si fuese una Cola
+    Lista<Coordenada> aRecorrer;
+    aRecorrer.AgregarAtras(c);
 
-    // Ya no puedo hacer esto en teoria lpm ...
-    // Vector<Vector<bool> > visitados = Vector<Vector<bool> >(this->_tam,
-    //                                      Vector<bool>(this->_tam, false));
+    // while (!aRecorrer.EsVacia()) {
+        // Tomo el proximo y desencolo
+        // Coordenada act = aRecorrer.Primero();
+        // aRecorrer = aRecorrer.Fin();
 
-    // ACA NECESITO USAR UNA COLA, QUE NO ESTA IMPLEMENTADA.
-    // DESPUES VEO DE COPIAR LA DEL TALLER Y SEGUIR CON EL ALGORITMO
+        // if (c.Latitud() > 0) {
+            // Nat x = act 
+            // LO DEJO COLGADO ACA PORQUE VOY A PONERME A IMPLEMENTAR LA CLASE COORDENADA 
+        // }
 
-    // linea 20 tp2
+
+    // }
+
+
 
 }
 
@@ -66,22 +75,22 @@ Conj<Coordenada> Mapa::Coordenadas() const{
 
 bool Mapa::PosExistente(const Coordenada &c) const{
 
-    if (c.latitud < 0 || c.longitud < 0) {
+    if (c.Latitud() < 0 || c.Longitud() < 0) {
         return false;
     }
 
-    if (c.latitud >= this->_tam || c.longitud >= this->_tam) {
+    if (c.Latitud() >= this->_tam || c.Longitud() >= this->_tam) {
         return false;
     }
 
-    Nat x = c.latitud;
-    Nat y = c.longitud;
+    Nat x = c.Latitud();
+    Nat y = c.Longitud();
     return this->_grilla[x][y][x][y];
 }
 
 
 bool Mapa::HayCamino(const Coordenada &c1, const Coordenada &c2) const{
-    return this->_grilla[c1.latitud][c1.longitud][c2.latitud][c2.longitud];   
+    return this->_grilla[c1.Latitud()][c1.Longitud()][c2.Latitud()][c2.Longitud()];   
 }
 
 Nat Mapa::Tam() const{

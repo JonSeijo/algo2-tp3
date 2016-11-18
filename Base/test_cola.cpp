@@ -1,3 +1,11 @@
+// Compilar:
+//   g++ -g test_cola.cpp -o test_cola
+
+// Ejecutar:
+//  ./test_cola
+
+// Valgrind:
+//   valgrind --leak-check=full ./test_cola
 
 #include "include/ColaPrioridad.hpp"
 #include "mini_test.h"
@@ -29,19 +37,19 @@ void test_encolar(){
 }
 
 void test_desencolar(){
-	ASSERT( false );
+    ASSERT( false );
 }
 
 void test_borrar(){
-	ASSERT( false );
+    ASSERT( false );
 }
 
 void test_siguiente(){
-	ASSERT( false );
+    ASSERT( false );
 }
 
 void test_casosraros(){
-	ASSERT( false );
+    ASSERT( false );
 }
 
 int main(int argc, char **argv){

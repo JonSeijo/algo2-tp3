@@ -28,9 +28,13 @@
 *.out
 *.app
 tests
+test_coor
 test_cola
 test_dicc
 test_mapa
+mapa
+cola
+include/cola
 
 
 

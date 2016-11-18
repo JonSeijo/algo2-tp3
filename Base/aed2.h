@@ -18,6 +18,8 @@
 #include "aed2/Conj.h"
 #include "aed2/ConjAcotado.h"
 
+#include "aed2/Dicc.h"
+
 using namespace aed2;
 
 #endif //AED2_INCLUDED_H
