@@ -1,5 +1,5 @@
 // Compilar usando:
-//  g++ -o tests_mapa tests_mapa.cpp Mapa.cpp 
+//  g++ -o test_mapa test_mapa.cpp Mapa.cpp 
 //  valgrind --leak-check=full ./tests
 
 #include "include/Mapa.h"
