@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Driver.h"
 using namespace aed2;
 
@@ -15,8 +17,8 @@ Driver::Driver(const Conj< Coordenada > & cs) : _juego(NULL){
     it.Avanzar();
   }
 
-	this->_juego = new Juego(map);
-  
+  // ESTO PROVOCA SEG FAULT !!!
+  this->_juego = new Juego(map);
 }
 
 Driver::~Driver(){

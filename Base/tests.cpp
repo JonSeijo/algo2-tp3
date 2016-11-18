@@ -2,6 +2,7 @@
 //	g++ -o tests tests.cpp Driver.cpp <lista de archivos *.cpp propios>
 //	valgrind --leak-check=full ./tests
 
+#include <iostream>
 #include "Driver.h"
 #include "mini_test.h"
 
@@ -15,7 +16,12 @@ void test_constructor_con_mapa() {
   cc.Agregar(Coordenada(1,2));
   cc.Agregar(Coordenada(10,0));
   cc.Agregar(Coordenada(1,4));
+
+  std::cout << "\nllego" << "\n";
+
   Driver d(cc);
+
+  std::cout << "\nno llego" << "\n";
   ASSERT( d.mapa() == cc );
 }
 
