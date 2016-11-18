@@ -30,11 +30,11 @@ void test_tam() {
 }
 
 int main(int argc, char **argv){
-  RUN_TEST(test_vacio);
-  RUN_TEST(test_agregar_coordenada);
-  RUN_TEST(test_posExistente);
-  RUN_TEST(test_hayCamino);
-  RUN_TEST(test_tam);
+    RUN_TEST(test_vacio);
+    RUN_TEST(test_agregar_coordenada);
+    RUN_TEST(test_posExistente);
+    RUN_TEST(test_hayCamino);
+    RUN_TEST(test_tam);
 
-  return 0;
+    return 0;
 }
