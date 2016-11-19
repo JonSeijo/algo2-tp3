@@ -51,6 +51,7 @@ class DiccString{
             bool HayMas() const;
             par Actual() const;
             void Avanzar();
+            void BorrarActual();
      
             DiccString<S>::Iterador& operator = (const DiccString<S>::Iterador& otro) {
                 this->_dicc = otro._dicc;
@@ -215,7 +216,7 @@ Nat DiccString<S>::CantClaves() const{
 
 template<class S>
 Conj<string>::const_Iterador DiccString<S>::Claves() const{
-  return _claves.CrearIt();
+    return _claves.CrearIt();
 }
 
 
@@ -235,8 +236,20 @@ DiccString<S>::Iterador::~Iterador(){
 
 template <class S>
 bool DiccString<S>::Iterador::HayMas() const{
-  return _itClave.HaySiguiente();
+    return _itClave.HaySiguiente();
 }
+
+// @LEAK
+// Nueva para probar en el destructor
+template <class S>
+void DiccString<S>::Iterador::BorrarActual(){
+    string clave = _itClave.Siguiente();
+    this->Borrar(clave);
+    if (_itClave.HaySiguiente()) {
+        _itClave.Avanzar();
+    }
+}
+
 
 template <class S>
 typename DiccString<S>::par DiccString<S>::Iterador::Actual() const{
