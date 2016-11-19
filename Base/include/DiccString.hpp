@@ -174,12 +174,22 @@ bool DiccString<S>::Definido(const string& clave) const{
 
 template< class S>
 const S& DiccString<S>::Significado(const string& clave) const {
-    ASSERT(false);
+    Nodo* nodoActual = this->_raiz;
+    // Recorro la clave siguiendo el camino de nodos
+    for (Nat i = 0; i < clave.size(); i++) {
+        nodoActual = nodoActual->siguientes[int(clave[i])];
+    }
+    return *(nodoActual->definicion);
 }
 
 template<class S>
 S& DiccString<S>::Significado(const string& clave) {
-    ASSERT(false);
+    Nodo* nodoActual = this->_raiz;
+    // Recorro la clave siguiendo el camino de nodos
+    for (Nat i = 0; i < clave.size(); i++) {
+        nodoActual = nodoActual->siguientes[int(clave[i])];
+    }
+    return *(nodoActual->definicion);
 }
 
 template<class S>

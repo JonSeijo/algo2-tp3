@@ -39,10 +39,20 @@ void test_definir(){
     ASSERT(d.CantClaves() == 5);
 }
 
+void test_significado() {
+    DiccString<int> d;
+    d.Definir("uno", 1);
+    ASSERT(d.Significado("uno") == 1);
+    d.Definir("uno", 2);
+    ASSERT(d.Significado("uno") == 2);
+    d.Definir("cinco", 5);
+    ASSERT(d.Significado("cinco") == 5);
+}
 
 int main(int argc, char **argv){
     RUN_TEST(test_vacio);
     RUN_TEST(test_definir);
+    RUN_TEST(test_significado);
 
     // Habria que hacer tambien tests de iterador
     return 0;
