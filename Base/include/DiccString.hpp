@@ -195,7 +195,49 @@ S& DiccString<S>::Significado(const string& clave) {
 
 template<class S>
 void DiccString<S>::Borrar(const string& clave){
-    ASSERT(false);
+    
+    bool borrarRaiz = (this->_claves.Cardinal() == 1);
+    // @LEAK
+    // Reserva deberia asignarle a null al final?
+    Nodo* nodoReserva = this->_raiz; 
+    Nat rindex = 0;
+
+    // Notar que la raiz no puede ser null porque hay al menos una clave
+    // Recorro toda la clave por los nodos viendo a partir de donde tengo un "camino recto" de nodos
+    Nodo* nodoActual = this->_raiz;
+    for (Nat i = 0; i < clave.size(); i++) {
+        nodoActual = nodoActual->siguientes[int(clave[i])];
+        bool definido = (i != clave.size()-1) && (nodoActual->definicion != NULL);
+
+        if (this->CuentaHijos(nodoActual) > 1 || definido) {
+            nodoReserva = nodoActual;
+            rindex = i+1;
+        }
+    }
+
+    // nodoActual contiene el nodo al ultimo caracter
+    // por invariante tiene una defincion
+    if(!nodoActual->itClave.HaySiguiente()) {
+        std::cout << "\nHAY UN PROBLEMA\n";
+        std::cout << "\nEL NODO NO APUNTA A NINGUNA CLAVE\n";
+    }
+    
+    // @LEAK
+    // Elimino el significado
+    nodoActual->itClave.EliminarSiguiente();
+    S* tmp = nodoActual->definicion;
+    nodoActual->definicion = NULL;
+    delete tmp;
+
+    if (nodoActual != nodoReserva) {
+        this->BorrarDesde(nodoReserva, rindex);
+    }
+
+    if (borrarRaiz && this->_raiz != NULL) {
+        Nodo* tmp = this->_raiz;
+        this->_raiz = NULL;
+        delete tmp;
+    }
 }
 
 template<class S>
@@ -214,7 +256,7 @@ Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
 
 template<class S>
 void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &inicial, Nat index) {
-    ASSERT(false);
+    std::cout << "Falta implementar BorrarDesde\n";
 }
 
 

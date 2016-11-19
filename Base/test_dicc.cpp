@@ -50,10 +50,27 @@ void test_significado() {
     ASSERT(d.Significado("cinco") == 5);
 }
 
+void test_borrar() {
+    DiccString<int> d;
+    d.Definir("uno", 1);
+    d.Borrar("uno");
+    ASSERT(!d.Definido("uno"));
+    ASSERT(d.CantClaves() == 0);
+
+
+    d.Definir("dos", 2);
+    ASSERT(d.Definido("dos"));
+    ASSERT(d.CantClaves() == 1);
+    d.Borrar("dos");
+    ASSERT(!d.Definido("dos"));
+    ASSERT(d.CantClaves() == 0);
+}
+
 int main(int argc, char **argv){
     RUN_TEST(test_vacio);
     RUN_TEST(test_definir);
     RUN_TEST(test_significado);
+    RUN_TEST(test_borrar);
 
     // Habria que hacer tambien tests de iterador
     return 0;
