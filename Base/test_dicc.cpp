@@ -17,6 +17,25 @@ void test_definir(){
     d.Definir("uno", 1);
     ASSERT(d.Definido("uno"));
     ASSERT(d.CantClaves() == 1);
+    d.Definir("uno", 2);
+    ASSERT(d.Definido("uno"));
+    ASSERT(d.CantClaves() == 1);
+
+    d.Definir("tres", 3);
+    ASSERT(d.Definido("tres"));
+    ASSERT(d.CantClaves() == 2);
+
+
+    d.Definir("trese", 33);
+    ASSERT(d.Definido("trese"));
+    ASSERT(d.CantClaves() == 3);
+
+    d.Definir("tre", 333);
+    ASSERT(d.Definido("tre"));
+    ASSERT(d.CantClaves() == 4);
+
+    // EL PROBLEMA ESTA EN DEFINIR, CON LA CONDICION EN LA QUE AGREGO UNA NUEVA CLAVE AL CONJUNTO DE CLAVES
+
 }
 
 

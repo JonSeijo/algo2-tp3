@@ -116,7 +116,6 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
     }
  
     Nodo* nodoActual = this->_raiz;
-    bool esNueva = false;
 
     // En este for voy recorriendo los nodos correspondientes (o creandolos)
     // Hasta llegar al nodo qu contiene el ultimo caracter
@@ -125,7 +124,6 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
         if (!nodoActual->siguientes.Definido(int(clave[i]))) {
             Nodo* nuevo = new Nodo();
             nodoActual->siguientes.Definir(int(clave[i]), nuevo);
-            esNueva = true;
         }
 
         // Avanzo el nodo actual hasta donde corresponda
@@ -137,19 +135,18 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
         S* tmp = nodoActual->definicion;
         nodoActual->definicion = NULL;
         delete tmp;
-    }
-    
-    // Guardo un puntero con la nueva definicion
-    nodoActual->definicion = new S(significado);
-    
-    // Agrego la clave a mi conjunto de claves,
-    // Me guardo un iterador a la clave en el conjunto
-    if (esNueva) {
+    } else {
+        // Agrego la clave a mi conjunto de claves,
+        // Me guardo un iterador a la clave en el conjunto
+
         // @LEAK 
         // Tengo que ver si este iterador se mantiene en cuando modifico el conjunto
         // Porque de ultima, en vez de un conjunto podria usar una lista y chau, PENSAR
         nodoActual->itClave = this->_claves.AgregarRapido(clave);
     }
+    
+    // Guardo un puntero con la nueva definicion
+    nodoActual->definicion = new S(significado);
 }
 
 
