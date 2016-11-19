@@ -103,8 +103,8 @@ class DiccString{
 
 
     Nat CuentaHijos(Nodo* padre) const;
-    void BorrarDesde(Nodo* &reserva, Nat rindex);;
-
+    void BorrarDesde(Nodo* &reserva, Nat rindex);
+    
 
 };
 
@@ -129,9 +129,15 @@ DiccString<S>::~DiccString(){
 	}
 
 	if(_raiz != NULL){
-		Nodo* temp = _raiz;
-		delete temp;
-		_raiz = NULL;
+		for (Nat i = 0; i < 256; i++) {
+	      if (_raiz->siguientes.Definido(i)) {
+	      	_raiz->siguientes.Borrar(i);
+	      }	  
+		}
+	    Nodo* t = _raiz;
+	    _raiz = NULL;
+		delete t;
+		
 	}
 }
 
@@ -163,8 +169,8 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
 
 
     if (!nodoActual->siguientes.Definido(int(clave[i]))) {
-        Nodo* nuevo = new Nodo();
-        nodoActual->siguientes.Definir(int(clave[i]), nuevo);
+
+        nodoActual->siguientes.Definir(int(clave[i]), new Nodo);
     }
 
     nodoActual = nodoActual->siguientes[int(clave[i])];
@@ -271,14 +277,11 @@ void DiccString<S>::Borrar(const string& clave){
 
   if (nodoActual != NULL ) {
     
-   // if (nodoActual->itClave != NULL) {
 
       if( nodoActual->itClave.HaySiguiente()) {
         nodoActual->itClave.EliminarSiguiente();
       }
-    //}
-   // delete (nodoActual->itClave);
-    //nodoActual->itClave = NULL;
+
 
   }
 
@@ -298,10 +301,12 @@ void DiccString<S>::Borrar(const string& clave){
   }
   if (borrarRaiz) {
     // Esta mierda es para que no muera al borrar un diccString
-    /*for (Nat i = 0; i < 256; i++) {
-      _raiz->siguientes.Definir(i, new Nodo);
+    for (Nat i = 0; i < 256; i++) {
+      if (_raiz->siguientes.Definido(i)) {
+      	_raiz->siguientes.Borrar(i);
+      }
       
-    }*/
+    }
     Nodo* t = _raiz;
     _raiz = NULL;
     delete t;
@@ -324,45 +329,51 @@ Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
 template<class S>
 void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat index) {
 
+	Lista<Nodo*> aBorrar;
 
-  if (desde->siguientes.Definido(index)) {
-    desde = desde->siguientes[index];
-  } 
+	if (desde->siguientes.Definido(index)) {
+		aBorrar.AgregarAdelante(desde->siguientes[index]);
+		desde = desde->siguientes[index];
+	}
+
+	Nat i = 0;
+	while (desde != NULL && i < 256) {
+
+		Nodo* temp = desde;
+
+		while (i < 256) {
+
+			if(desde->siguientes.Definido(i)){
+				desde = desde->siguientes[i];
+				break;
+			}
+			i++;
+
+		}    
+
+		aBorrar.AgregarAdelante(temp);
+
+	}	
+
+	typename Lista<Nodo*>::Iterador it;
+
+	for (it = aBorrar.CrearIt(); it.HaySiguiente(); it.Avanzar()) {
 
 
-  while (desde != NULL) {
+		for (Nat i = 0; i < 256; i++) {
+	      	if (it.Siguiente()->siguientes.Definido(i)) {
+	      		Nodo* t = it.Siguiente()->siguientes[i];
+	      		it.Siguiente()->siguientes.Borrar(i);
+     			delete t;
+     		}
+      
+   		}
 
-    Nodo* temp = desde;
-
-    Nat i = 0;
-    while (i < 256) {
-      Nodo* t = desde;
-
-      if(desde->siguientes.Definido(i)){
-        desde = desde->siguientes[i];
-
-        break;
-      }
-      i++;
-      if (i == 256) {
-        return;
-      }
-    }    
-
-
-    /*
-     * Solucion rara para que no alla punteros invalidos al momento del delete.
-     * REVISAR... 
-     */
-   /* for (Nat i = 0; i < 256; i++) {
-      temp->siguientes.Definir(i, new Nodo);
-    }*/
-    delete temp;
-
-  }
+	}
 
 
 }
+
 template<class S>
 Nat DiccString<S>::CantClaves() const{
   return _claves.Cardinal();

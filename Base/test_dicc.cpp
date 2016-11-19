@@ -11,6 +11,8 @@ void test_vacio() {
 void test_definir(){
 	DiccString<int> d;
 	d.Definir("uno", 1);
+	ASSERT(d.Definido("uno"));
+	d.Borrar("uno");
 	//ASSERT(d.Definido("uno"));
 }
 
