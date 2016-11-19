@@ -199,8 +199,17 @@ void DiccString<S>::Borrar(const string& clave){
 }
 
 template<class S>
-Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
-    ASSERT(false);
+Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{   
+    if (padre == NULL) {
+        return 0;
+    }
+    Nat cantHijos = 0;
+    for (int i = 0; i < 256; i++) {
+        if (padre->siguientes.Definido(i)) {
+            cantHijos++;
+        }
+    }
+    return cantHijos;
 }
 
 template<class S>

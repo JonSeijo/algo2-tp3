@@ -1,5 +1,6 @@
 #include <iostream>
-#include "include/DiccString.hpp"
+#include "./include/DiccString.hpp"
+// #include "./include/DiccStringOriginal.hpp"
 #include "mini_test.h"
 
 using namespace aed2;
