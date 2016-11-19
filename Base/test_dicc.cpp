@@ -34,8 +34,9 @@ void test_definir(){
     ASSERT(d.Definido("tre"));
     ASSERT(d.CantClaves() == 4);
 
-    // EL PROBLEMA ESTA EN DEFINIR, CON LA CONDICION EN LA QUE AGREGO UNA NUEVA CLAVE AL CONJUNTO DE CLAVES
-
+    d.Definir("c", 5);
+    ASSERT(d.Definido("c"));
+    ASSERT(d.CantClaves() == 5);
 }
 
 
