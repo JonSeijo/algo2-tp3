@@ -67,7 +67,7 @@ class DiccString{
 
         struct Nodo {
             S* definicion;
-            Arreglo< Nodo* > siguientes;
+            Arreglo<Nodo*> siguientes;
             Conj<string>::Iterador itClave;
 
             Nodo() : definicion(NULL), siguientes(256),  itClave(){}
@@ -111,7 +111,45 @@ DiccString<S>::DiccString(const DiccString<S>& otro){
 
 template<class S>
 void DiccString<S>::Definir(const string& clave, const S& significado){
-    ASSERT(false);
+    if (this->_raiz == NULL) {
+        this->_raiz = new Nodo();
+    }
+ 
+    Nodo* nodoActual = this->_raiz;
+    bool esNueva = false;
+
+    // En este for voy recorriendo los nodos correspondientes (o creandolos)
+    // Hasta llegar al nodo qu contiene el ultimo caracter
+    for (int i = 0; i < clave.size(); i++) {
+        // Si donde debe ir el caracter el nodo no esta definido, creo uno
+        if (!nodoActual->siguientes.Definido(int(clave[i]))) {
+            Nodo* nuevo = new Nodo();
+            nodoActual->siguientes.Definir(int(clave[i]), nuevo);
+            esNueva = true;
+        }
+
+        // Avanzo el nodo actual hasta donde corresponda
+        nodoActual = nodoActual->siguientes[int(clave[i])];
+    }
+
+    // Si ya existia otra definicion, la elimino
+    if (nodoActual->definicion != NULL) {
+        S* tmp = nodoActual->definicion;
+        nodoActual->definicion = NULL;
+        delete tmp;
+    }
+    
+    // Guardo un puntero con la nueva definicion
+    nodoActual->definicion = new S(significado);
+    
+    // Agrego la clave a mi conjunto de claves,
+    // Me guardo un iterador a la clave en el conjunto
+    if (esNueva) {
+        // @LEAK 
+        // Tengo que ver si este iterador se mantiene en cuando modifico el conjunto
+        // Porque de ultima, en vez de un conjunto podria usar una lista y chau, PENSAR
+        nodoActual->itClave = this->_claves.AgregarRapido(clave);
+    }
 }
 
 
@@ -119,7 +157,7 @@ template<class S>
 bool DiccString<S>::Definido(const string& clave) const{
     Nat i = 0;
     bool pertenece = true;
-    
+
     if (this->_raiz == NULL) {
         return false;
     }
@@ -128,7 +166,7 @@ bool DiccString<S>::Definido(const string& clave) const{
 
     // Recorro la clave siguiendo el camino de nodos
     for (Nat i = 0; i < clave.size(); i++) {
-        if (nodoActual->siguientes[int(clave[i])] == NULL) {
+        if (! (nodoActual->siguientes.Definido(int(clave[i])))) {
             return false;
         }
         nodoActual = nodoActual->siguientes[int(clave[i])];

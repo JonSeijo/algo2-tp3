@@ -64,6 +64,7 @@ void test_definir() {
     c.Definir(1, test2);
     ASSERT(c.Definido(0));
     ASSERT(c.Definido(1));
+    ASSERT(!c.Definido(2));
     ASSERT(c.Tamanho() == 10);
 
     delete test1;
