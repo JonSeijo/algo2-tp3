@@ -25,6 +25,15 @@ class DiccString{
     //no esta en el modulo.
     DiccString(const DiccString<S>& otro);
 
+    // @LEAK
+    // PARA DEBUG
+
+    static Nat newsNodos;
+    static Nat deletesNodos;
+
+
+
+
     void Definir(const string &clave, const S& significado);
     bool Definido(const string &clave) const;
     //Creo que siempre se devuelve como referencia modificable
@@ -75,24 +84,68 @@ class DiccString{
             // Revisar destructor de nodo
             ~Nodo() {
                 delete definicion;
+                for (int i = 0; i < 256; i++){
+                    if (siguientes.Definido(i)){
+                        Nodo* tmp = siguientes[i];
+                        siguientes[i] = NULL;
+                        delete tmp;
+                        DiccString<S>::deletesNodos++;
+                        std::cout << "DELETE: nodo en destructor\n";    
+                    }
+                }
+                // definicion = NULL;
             }
         };
 
         Conj<string> _claves;
         Nodo* _raiz;
+
+        Lista<Nodo*> _listaNodos;
+
         Nat CuentaHijos(Nodo* padre) const;
-        void BorrarDesde(Nodo* &reserva, Nat rindex);;
+        void BorrarDesde(Nodo* &reserva, Nat rindex, const string &clave);;
 };
+
+// @LEAK
+template< class S>
+Nat DiccString<S>::newsNodos = 0;
+template< class S>
+Nat DiccString<S>::deletesNodos = 0;
+
 
 // Implementacion Dicc
 template< class S>
 DiccString<S>::DiccString()
- : _claves(), _raiz(NULL) {}
+ : _claves(), _raiz(NULL) {
+
+    DiccString<S>::newsNodos = 0;
+    DiccString<S>::deletesNodos = 0;
+
+
+ }
 
 
 template< class S>
 DiccString<S>::~DiccString(){
+
+    std::cout << "\n\nNEWS:   " << DiccString<S>::newsNodos << " \n";
+    std::cout << "\nDELETES:   " << DiccString<S>::deletesNodos << " \n";
+
+
+    // DiccString<S>::newsNodos = 0;
+    // DiccString<S>::deletesNodos = 0;
+    
     // ASSERT(false);
+
+    // typename Lista<Nodo*>::Iterador iter = _listaNodos.CrearIt();
+
+    // while (iter.HaySiguiente()) {
+    //     Nodo* tmp = iter.Siguiente();
+    //     iter.Siguiente() = NULL;
+    //     delete tmp;
+    //     iter.EliminarSiguiente();
+    // }
+
     if(_raiz != NULL){
         Nodo* temp = _raiz;
         _raiz = NULL;
@@ -117,8 +170,11 @@ DiccString<S>::DiccString(const DiccString<S>& otro){
 
 template<class S>
 void DiccString<S>::Definir(const string& clave, const S& significado){
+    std::cout << "Definiendo: " << clave << "\n";
     if (this->_raiz == NULL) {
         this->_raiz = new Nodo();
+        DiccString<S>::newsNodos++;
+        std::cout << "NEW: _raiz\n";
     }
  
     Nodo* nodoActual = this->_raiz;
@@ -128,8 +184,13 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
     for (int i = 0; i < clave.size(); i++) {
         // Si donde debe ir el caracter el nodo no esta definido, creo uno
         if (!nodoActual->siguientes.Definido(int(clave[i]))) {
-            Nodo* nuevo = new Nodo();
+            Nodo* nuevo = new Nodo;
+            DiccString<S>::newsNodos++;
+            std::cout << "NEW: nodo caracter:  " << clave[i] << "\n";
+            
             nodoActual->siguientes.Definir(int(clave[i]), nuevo);
+            // _listaNodos.AgregarAtras(nuevo);
+            // Nodo* tmp = nuevo;
             // delete nuevo;
         }
 
@@ -154,6 +215,7 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
     
     // Guardo un puntero con la nueva definicion
     nodoActual->definicion = new S(significado);
+    std::cout << "Termino definir: " << clave << "\n";
 }
 
 
@@ -207,22 +269,22 @@ void DiccString<S>::Borrar(const string& clave){
     // @LEAK
     // Reserva deberia asignarle a null al final?
     Nodo* nodoReserva = this->_raiz; 
-    Nat rindex = int(clave[0]);
+    // Nat rindex = int(clave[0]);
+    Nat rindex = 0;
 
     // Notar que la raiz no puede ser null porque hay al menos una clave
     // Recorro toda la clave por los nodos viendo a partir de donde tengo un "camino recto" de nodos
     Nodo* nodoActual = this->_raiz;
     for (Nat i = 0; i < clave.size(); i++) {
         nodoActual = nodoActual->siguientes[int(clave[i])];
-        bool definido = (i != clave.size()-1) && (nodoActual->definicion != NULL);
-
-        std::cout << "Cuenta hijos:   " << this->CuentaHijos(nodoActual) << "\n";
+        bool definido = ((i != clave.size()-1) && (nodoActual->definicion != NULL));
 
         if (this->CuentaHijos(nodoActual) > 1 || definido) {
+            std::cout << "Muevo la reserva: " << clave[i] << "\n";
             nodoReserva = nodoActual;
-            // rindex = i+1;
-            rindex = int(clave[i+1]);
-            std::cout << "Actualizo rindex\n";
+            rindex = i+1;
+            // rindex = int(clave[i+1]);
+            // std::cout << "Actualizo rindex\n";
         }
     }
 
@@ -233,17 +295,42 @@ void DiccString<S>::Borrar(const string& clave){
         std::cout << "\nEL NODO NO APUNTA A NINGUNA CLAVE\n";
     }
     
-    // @LEAK
-    // Elimino el significado
-    nodoActual->itClave.EliminarSiguiente();
-    S* tmp = nodoActual->definicion;
-    nodoActual->definicion = NULL;
-    delete tmp;
+    // // @LEAK
+    // // Elimino el significado
+    // nodoActual->itClave.EliminarSiguiente();
+    // S* tmp = nodoActual->definicion;
+    // nodoActual->definicion = NULL;
+    // delete tmp;
 
-    if (this->CuentaHijos(nodoActual) == 0) {
+    // if (this->CuentaHijos(nodoActual) == 0) {
+
+    std::cout << "---------\ncant:\n"; 
+    std::cout << this->CuentaHijos(nodoActual) << "\n";
+    std::cout << "---------\n"; 
+
+
+    nodoActual->itClave.EliminarSiguiente();
+    
+    if (this->CuentaHijos(nodoActual) > 0) {
+        // @LEAK
+        // Elimino el significado
+        S* tmp = nodoActual->definicion;
+        nodoActual->definicion = NULL;
+        delete tmp;
+
+    } else {
+    // if (this->CuentaHijos(nodoActual) == 0) {
         std::cout << "Entre al borrarDesde\n";
-        this->BorrarDesde(nodoReserva, rindex);
+        this->BorrarDesde(nodoReserva, rindex, clave);
+
+        if (nodoReserva->siguientes[int(clave[rindex])] != NULL) {
+            std::cout << "TENEMOS UN PROBLEMA\n";
+        }
         std::cout << "Sali del borrarDesde\n";
+
+        std::cout << "---------\ncant de reserva:\n"; 
+        std::cout << this->CuentaHijos(nodoReserva) << "\n";
+        std::cout << "---------\n"; 
 
         // Nodo* tempor = nodoActual;
         // nodoActual = NULL;
@@ -251,14 +338,28 @@ void DiccString<S>::Borrar(const string& clave){
         // std::cout << "nodoActual: " << nodoActual << "\n";
     }
 
+    // else if (this->CuentaHijos(nodoActual) == 0) {
+    //     Nodo* tmp = nodoActual;
+    //     nodoActual = NULL;
+    //     delete tmp;
+    //     DiccString<S>::deletesNodos++;
+    //     std::cout << "DELETE: ultimoNodo\n";
+    // }
 
+    // @LEAK
+    // if (this->_raiz->siguientes.Definido(int(clave[0]))) {
+    //     std::cout << "PRIMERA LETRA QUEDO DEFINIDA\n";
+    // }
 
     if (borrarRaiz && this->_raiz != NULL) {
-        std::cout << "hijos raiz: " << this->CuentaHijos(this->_raiz) << "\n";  
         Nodo* tempe = this->_raiz;
         this->_raiz = NULL;
         delete tempe;
+        DiccString<S>::deletesNodos++;
+        std::cout << "DELETE: _raiz\n";
     }
+
+    std::cout << "Salgo de borrar: " << clave << "\n";
 }
 
 template<class S>
@@ -269,6 +370,7 @@ Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
     Nat cantHijos = 0;
     for (int i = 0; i < 256; i++) {
         if (padre->siguientes.Definido(i)) {
+            std::cout << "Hijo: " << char(i) << "\n";
             cantHijos++;
         }
     }
@@ -276,47 +378,131 @@ Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
 }
 
 template<class S>
-void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat index) {
+void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat rindex, const string &clave) {
 
-    Nodo* nodoActual = desde->siguientes[index];
-    Nodo* inicial = desde->siguientes[index];
-    desde->siguientes[index] = NULL;
-    std::cout << "Primeros indices fin\n";
+    std::cout << "rindex: " << rindex << "\n";
+    std::cout << "rindex: " << clave[rindex] << "\n";
 
-    // @LEAK
-    // No estoy dejando el nodoActual "vivo"?
-    // Quiza despues hacer un delete desde->siguientes[index];
+    // Nodo* aBorrar[clave.size()];
+    Vector<Nodo*> aBorrar; 
 
-    Vector<Nodo*> aBorrar;
+    // aBorrar.AgregarAtras(desde);
 
-    bool sigue = true;
-    
-    while (nodoActual != NULL && sigue) {
-        sigue = false;
+    // Agrego todos los que quiero borrar al array (la reserva no la borro)
+    Nodo* nodoActual = desde;
+    for (Nat i = rindex; i < clave.size(); i++) {
+        // Nodo* anterior = nodoActual;
+        // nodoActual = nodoActual->siguientes[int(clave[i])];
+        // anterior->siguientes[int(clave[i])] = NULL;
+        // std::cout << "Se intenta borrar caracter: " << clave[i] <<"\n";     
+        // aBorrar.AgregarAtras(nodoActual);
+        Nodo* tmp = nodoActual->siguientes[int(clave[i])];
+        nodoActual->siguientes[int(clave[i])] = NULL;
+        aBorrar.AgregarAtras(tmp);
+        nodoActual = tmp;
+        std::cout << "Se intenta borrar caracter: " << clave[i] <<"\n";     
 
-        for (Nat i = 0; i < 256; i++) {
-            if (nodoActual->siguientes.Definido(i)) {
-                std::cout << "caracter:  " << char(i) << "\n";
-                
-                sigue = true;
-                Nodo* tmp = nodoActual->siguientes[i];
-                aBorrar.AgregarAtras(tmp);
-                nodoActual->siguientes[i] = NULL;
-                nodoActual = tmp;
-                // delete tmp;
-                break;
+    }
+
+    // Borro el significado
+//    cout << "BORRADO: " << nodoActual->definicion << " " << *(nodoActual->definicion) << "\n";
+
+    // en teoria ya lo borre antes
+    // T* valor = nodoActual->definicion;
+    // nodoActual->definicion = NULL;
+    // delete valor;
+
+    // Borro el vector
+    // for (Nat i = rindex; i < clave.size(); i++) {
+    desde->siguientes[int(clave[rindex])] = NULL;
+    for (Nat i = 0; i < aBorrar.Longitud(); i++) {
+        Nodo* nodoABorrar = aBorrar[i];
+
+        for (Nat j = 0; j < 256; j++) {
+            if (nodoABorrar->siguientes.Definido(j)) {
+                // std::cout << "RED FLAG\n";
+                nodoABorrar->siguientes[j] = NULL;
             }
         }
-    }
 
-    for (Nat i = 0; i < aBorrar.Longitud(); i++) {
-        Nodo* tmp = aBorrar[i];
+
         aBorrar[i] = NULL;
-        delete tmp;
+        delete nodoABorrar;
+        // DiccString<S>::deletesNodos++;
+        std::cout << "DELETE: caracter\n";     
     }
 
-    // Se supone que cuando llego aca, nodoActual recorrio todo
-    delete inicial;
+
+
+
+    // std::cout << "index: " << index << "\n";
+    // std::cout << "caracter de index: " << char(index) << "\n";
+    // std::cout << "nodoDesde: " << desde << "\n";    
+    // Nodo* nodoActual = desde->siguientes[index];
+    // // Nodo* nodoActual = desde;
+    // Nodo* inicial = desde->siguientes[index];
+    // std::cout << "nodoActual: " << nodoActual << "\n";    
+    
+    // // Nodo* inicial = desde->siguientes[index];
+    // desde->siguientes[index] = NULL;
+
+    // // @LEAK
+    // // No estoy dejando el nodoActual "vivo"?
+    // // Quiza despues hacer un delete desde->siguientes[index];
+
+    // Vector<Nodo*> aBorrar;
+
+    // bool sigue = true;
+    
+    // // while cuentahijos nodoActual == 0
+    // while (nodoActual != NULL && sigue) {
+    //     sigue = false;
+
+    //     for (Nat i = 0; i < 256; i++) {
+    //         // std::cout << "entro";
+    //         if (nodoActual->siguientes.Definido(i)) {
+    //             std::cout << "Toca borrar caracter:  " << char(i) << "\n";
+                
+    //             sigue = true;
+    //             Nodo* tmp = nodoActual->siguientes[i];
+    //             aBorrar.AgregarAtras(tmp);
+    //             nodoActual->siguientes[i] = NULL;
+    //             nodoActual = tmp;
+    //             if (this->CuentaHijos(nodoActual) == 0) {
+    //                 aBorrar.AgregarAtras(nodoActual);
+    //                 sigue = false;
+    //             }
+    //             // delete tmp;
+    //             break;
+    //         }
+    //     }
+    // }
+
+    // if (nodoActual != NULL && nodoActual != inicial) {
+    //     // aBorrar.AgregarAtras(nodoActual);
+    // }
+
+    // // for (Nat i = 0; i < aBorrar.Longitud(); i++) {
+    // for (Nat i = aBorrar.Longitud()-1; i >= 0; i--) {
+    //     Nodo* tmp = aBorrar[i];
+    //     aBorrar[i] = NULL;
+    //     delete tmp;
+    //     DiccString<S>::deletesNodos++;
+    //     std::cout << "DELETE: en teoria un caracter pero no se\n";       
+    // }
+    // std::cout << "Sali de borrar los caracteres\n";
+
+    // // desde->siguientes[index] = NULL;
+    // delete inicial;
+    // // DiccString<S>::deletesNodos++;
+
+    // // std::cout << "Borre el inicial\n";
+    
+    // if (nodoActual != NULL) {
+    //     delete nodoActual;
+    //     // Se supone que cuando llego aca, nodoActual recorrio todo
+    //     // delete inicial;
+    // }
 }
 
 
