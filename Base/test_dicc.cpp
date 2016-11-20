@@ -125,6 +125,21 @@ void test_borrar() {
     ASSERT(d.CantClaves() == 0);
 
     // //-------------------------
+
+    d.Definir("hol", 0);
+    d.Definir("hola", 0);
+    d.Definir("holas", 0);
+
+    d.Borrar("hol");
+    d.Borrar("hola");
+    d.Borrar("holas");
+
+    ASSERT(!d.Definido("holas"));
+    ASSERT(!d.Definido("hola"));
+    ASSERT(!d.Definido("hol"));
+    ASSERT(d.CantClaves() == 0);
+
+    // //-------------------------
     
     d.Definir("a", 0);
     d.Definir("b", 0);
@@ -138,6 +153,30 @@ void test_borrar() {
     ASSERT(!d.Definido("b"));
     ASSERT(!d.Definido("a"));
     ASSERT(d.CantClaves() == 0);
+    
+    // //-------------------------
+
+    d.Definir("pikachu", 1);
+    d.Definir("pikachu", 1);
+    d.Definir("pikachu", 1);
+    d.Borrar("pikachu");
+    ASSERT(!d.Definido("pikachu"));
+    ASSERT(d.CantClaves() == 0);
+    
+    // //-------------------------
+
+    d.Definir("pikachu", 1);
+    d.Definir("pikachuchu", 1);
+    d.Definir("raichu", 1);
+    d.Borrar("pikachu");
+    d.Borrar("raichu");
+    d.Borrar("pikachuchu");
+    ASSERT(!d.Definido("pikachu"));
+    ASSERT(!d.Definido("raichu"));
+    ASSERT(!d.Definido("pikachuchu"));
+    ASSERT(d.CantClaves() == 0);
+
+
 }
 
 int main(int argc, char **argv){
