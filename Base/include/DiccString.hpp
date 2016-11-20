@@ -93,6 +93,11 @@ DiccString<S>::DiccString()
 template< class S>
 DiccString<S>::~DiccString(){
     // ASSERT(false);
+    if(_raiz != NULL){
+        Nodo* temp = _raiz;
+        _raiz = NULL;
+        delete temp;
+    }
     std::cout << "\n!!!Falta hacer el destructor de dicc!!!\n";
 }
 
@@ -125,6 +130,7 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
         if (!nodoActual->siguientes.Definido(int(clave[i]))) {
             Nodo* nuevo = new Nodo();
             nodoActual->siguientes.Definir(int(clave[i]), nuevo);
+            // delete nuevo;
         }
 
         // Avanzo el nodo actual hasta donde corresponda
@@ -200,7 +206,7 @@ void DiccString<S>::Borrar(const string& clave){
     // @LEAK
     // Reserva deberia asignarle a null al final?
     Nodo* nodoReserva = this->_raiz; 
-    Nat rindex = 0;
+    Nat rindex = int(clave[0]);
 
     // Notar que la raiz no puede ser null porque hay al menos una clave
     // Recorro toda la clave por los nodos viendo a partir de donde tengo un "camino recto" de nodos
@@ -209,9 +215,13 @@ void DiccString<S>::Borrar(const string& clave){
         nodoActual = nodoActual->siguientes[int(clave[i])];
         bool definido = (i != clave.size()-1) && (nodoActual->definicion != NULL);
 
+        std::cout << "Cuenta hijos:   " << this->CuentaHijos(nodoActual) << "\n";
+
         if (this->CuentaHijos(nodoActual) > 1 || definido) {
             nodoReserva = nodoActual;
-            rindex = i+1;
+            // rindex = i+1;
+            rindex = int(clave[i+1]);
+            std::cout << "Actualizo rindex\n";
         }
     }
 
@@ -230,7 +240,9 @@ void DiccString<S>::Borrar(const string& clave){
     delete tmp;
 
     if (nodoActual != nodoReserva) {
+        std::cout << "Entre al borrarDesde\n";
         this->BorrarDesde(nodoReserva, rindex);
+        std::cout << "Sali del borrarDesde\n";
     }
 
     if (borrarRaiz && this->_raiz != NULL) {
@@ -255,8 +267,47 @@ Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
 }
 
 template<class S>
-void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &inicial, Nat index) {
-    std::cout << "Falta implementar BorrarDesde\n";
+void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat index) {
+
+    Nodo* nodoActual = desde->siguientes[index];
+    Nodo* inicial = desde->siguientes[index];
+    desde->siguientes[index] = NULL;
+    std::cout << "Primeros indices fin\n";
+
+    // @LEAK
+    // No estoy dejando el nodoActual "vivo"?
+    // Quiza despues hacer un delete desde->siguientes[index];
+
+    Vector<Nodo*> aBorrar;
+
+    bool sigue = true;
+    
+    while (nodoActual != NULL && sigue) {
+        sigue = false;
+
+        for (Nat i = 0; i < 256; i++) {
+            if (nodoActual->siguientes.Definido(i)) {
+                std::cout << "caracter:  " << char(i) << "\n";
+                
+                sigue = true;
+                Nodo* tmp = nodoActual->siguientes[i];
+                aBorrar.AgregarAtras(tmp);
+                nodoActual->siguientes[i] = NULL;
+                nodoActual = tmp;
+                // delete tmp;
+                break;
+            }
+        }
+    }
+
+    for (Nat i = 0; i < aBorrar.Longitud(); i++) {
+        Nodo* tmp = aBorrar[i];
+        aBorrar[i] = NULL;
+        delete tmp;
+    }
+
+    // Se supone que cuando llego aca, nodoActual recorrio todo
+    delete inicial;
 }
 
 

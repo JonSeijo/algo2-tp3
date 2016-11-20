@@ -1,3 +1,14 @@
+// Compilar:
+//  g++ -g test_dicc.cpp -o test_dicc
+
+// Ejecutar:
+//  ./test_dicc
+
+// Valgrind:
+//   valgrind --leak-check=full ./test_dicc
+
+
+
 #include <iostream>
 #include "./include/DiccString.hpp"
 // #include "./include/DiccStringOriginal.hpp"
@@ -52,24 +63,27 @@ void test_significado() {
 
 void test_borrar() {
     DiccString<int> d;
-    d.Definir("uno", 1);
-    d.Borrar("uno");
-    ASSERT(!d.Definido("uno"));
-    ASSERT(d.CantClaves() == 0);
 
+    d.Definir("a", 1);
+    d.Borrar("a");
 
-    d.Definir("dos", 2);
-    ASSERT(d.Definido("dos"));
-    ASSERT(d.CantClaves() == 1);
-    d.Borrar("dos");
-    ASSERT(!d.Definido("dos"));
-    ASSERT(d.CantClaves() == 0);
+    // d.Definir("uno", 1);
+    // d.Borrar("uno");
+    // ASSERT(!d.Definido("uno"));
+    // ASSERT(d.CantClaves() == 0);
+
+    // d.Definir("dos", 2);
+    // ASSERT(d.Definido("dos"));
+    // ASSERT(d.CantClaves() == 1);
+    // d.Borrar("dos");
+    // ASSERT(!d.Definido("dos"));
+    // ASSERT(d.CantClaves() == 0);
 }
 
 int main(int argc, char **argv){
-    RUN_TEST(test_vacio);
-    RUN_TEST(test_definir);
-    RUN_TEST(test_significado);
+    // RUN_TEST(test_vacio);
+    // RUN_TEST(test_definir);
+    // RUN_TEST(test_significado);
     RUN_TEST(test_borrar);
 
     // Habria que hacer tambien tests de iterador
