@@ -315,129 +315,35 @@ Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
 template<class S>
 void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat rindex, const string &clave) {
 
-    std::cout << "rindex: " << rindex << "\n";
-    std::cout << "rindex: " << clave[rindex] << "\n";
-
-    // Nodo* aBorrar[clave.size()];
     Vector<Nodo*> aBorrar; 
 
-    // aBorrar.AgregarAtras(desde);
-
-    // Agrego todos los que quiero borrar al array (la reserva no la borro)
+    // Agrego todos los que quiero borrar al vector (la reserva no la borro)
+    // En peor caso agrego al vector tantos nodos como caracteres:   O(|clave|)
     Nodo* nodoActual = desde;
     for (Nat i = rindex; i < clave.size(); i++) {
-        // Nodo* anterior = nodoActual;
-        // nodoActual = nodoActual->siguientes[int(clave[i])];
-        // anterior->siguientes[int(clave[i])] = NULL;
-        // std::cout << "Se intenta borrar caracter: " << clave[i] <<"\n";     
-        // aBorrar.AgregarAtras(nodoActual);
         Nodo* tmp = nodoActual->siguientes[int(clave[i])];
         nodoActual->siguientes[int(clave[i])] = NULL;
         aBorrar.AgregarAtras(tmp);
         nodoActual = tmp;
         std::cout << "Se intenta borrar caracter: " << clave[i] <<"\n";     
-
     }
 
-    // Borro el significado
-//    cout << "BORRADO: " << nodoActual->definicion << " " << *(nodoActual->definicion) << "\n";
-
-    // en teoria ya lo borre antes
-    // T* valor = nodoActual->definicion;
-    // nodoActual->definicion = NULL;
-    // delete valor;
-
     // Borro el vector
-    // for (Nat i = rindex; i < clave.size(); i++) {
     desde->siguientes[int(clave[rindex])] = NULL;
+
+    // En peor caso recorro todas los caracteres : O(|clave|)
     for (Nat i = 0; i < aBorrar.Longitud(); i++) {
         Nodo* nodoABorrar = aBorrar[i];
 
+        // O(1), aunque no estoy 100% seguro que sea necesario, podria encargarse el destructor
         for (Nat j = 0; j < 256; j++) {
             if (nodoABorrar->siguientes.Definido(j)) {
-                // std::cout << "RED FLAG\n";
                 nodoABorrar->siguientes[j] = NULL;
             }
         }
-
-
         aBorrar[i] = NULL;
         delete nodoABorrar;
-        // DiccString<S>::deletesNodos++;
-        std::cout << "DELETE: caracter\n";     
     }
-
-
-
-
-    // std::cout << "index: " << index << "\n";
-    // std::cout << "caracter de index: " << char(index) << "\n";
-    // std::cout << "nodoDesde: " << desde << "\n";    
-    // Nodo* nodoActual = desde->siguientes[index];
-    // // Nodo* nodoActual = desde;
-    // Nodo* inicial = desde->siguientes[index];
-    // std::cout << "nodoActual: " << nodoActual << "\n";    
-    
-    // // Nodo* inicial = desde->siguientes[index];
-    // desde->siguientes[index] = NULL;
-
-    // // @LEAK
-    // // No estoy dejando el nodoActual "vivo"?
-    // // Quiza despues hacer un delete desde->siguientes[index];
-
-    // Vector<Nodo*> aBorrar;
-
-    // bool sigue = true;
-    
-    // // while cuentahijos nodoActual == 0
-    // while (nodoActual != NULL && sigue) {
-    //     sigue = false;
-
-    //     for (Nat i = 0; i < 256; i++) {
-    //         // std::cout << "entro";
-    //         if (nodoActual->siguientes.Definido(i)) {
-    //             std::cout << "Toca borrar caracter:  " << char(i) << "\n";
-                
-    //             sigue = true;
-    //             Nodo* tmp = nodoActual->siguientes[i];
-    //             aBorrar.AgregarAtras(tmp);
-    //             nodoActual->siguientes[i] = NULL;
-    //             nodoActual = tmp;
-    //             if (this->CuentaHijos(nodoActual) == 0) {
-    //                 aBorrar.AgregarAtras(nodoActual);
-    //                 sigue = false;
-    //             }
-    //             // delete tmp;
-    //             break;
-    //         }
-    //     }
-    // }
-
-    // if (nodoActual != NULL && nodoActual != inicial) {
-    //     // aBorrar.AgregarAtras(nodoActual);
-    // }
-
-    // // for (Nat i = 0; i < aBorrar.Longitud(); i++) {
-    // for (Nat i = aBorrar.Longitud()-1; i >= 0; i--) {
-    //     Nodo* tmp = aBorrar[i];
-    //     aBorrar[i] = NULL;
-    //     delete tmp;
-    //     DiccString<S>::deletesNodos++;
-    //     std::cout << "DELETE: en teoria un caracter pero no se\n";       
-    // }
-    // std::cout << "Sali de borrar los caracteres\n";
-
-    // // desde->siguientes[index] = NULL;
-    // delete inicial;
-    // // DiccString<S>::deletesNodos++;
-
-    // // std::cout << "Borre el inicial\n";
-    
-    // if (nodoActual != NULL) {
-    //     delete nodoActual;
-    //     // Se supone que cuando llego aca, nodoActual recorrio todo
-    //     // delete inicial;
-    // }
 }
 
 
