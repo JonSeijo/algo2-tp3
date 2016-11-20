@@ -128,30 +128,27 @@ DiccString<S>::DiccString()
 template< class S>
 DiccString<S>::~DiccString(){
 
+    Conj<string>::Iterador it = _claves.CrearIt();
+    Vector<string> vectorClaves;
+
+    // Workaround para dejar de romper iteradores
+    while (it.HaySiguiente()) {
+        vectorClaves.AgregarAtras(it.Siguiente());
+        it.Avanzar();
+    }
+    
+    for (Nat i = 0; i < vectorClaves.Longitud(); i++) {
+        this->Borrar(vectorClaves[i]);
+    }    
+
     std::cout << "\n\nNEWS:   " << DiccString<S>::newsNodos << " \n";
     std::cout << "\nDELETES:   " << DiccString<S>::deletesNodos << " \n";
-
-
-    // DiccString<S>::newsNodos = 0;
-    // DiccString<S>::deletesNodos = 0;
-    
-    // ASSERT(false);
-
-    // typename Lista<Nodo*>::Iterador iter = _listaNodos.CrearIt();
-
-    // while (iter.HaySiguiente()) {
-    //     Nodo* tmp = iter.Siguiente();
-    //     iter.Siguiente() = NULL;
-    //     delete tmp;
-    //     iter.EliminarSiguiente();
-    // }
 
     if(_raiz != NULL){
         Nodo* temp = _raiz;
         _raiz = NULL;
         delete temp;
     }
-    std::cout << "\n!!!Falta hacer el destructor de dicc!!!\n";
 }
 
 //Constructor por copia.

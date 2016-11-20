@@ -180,9 +180,9 @@ void test_borrar() {
 }
 
 int main(int argc, char **argv){
-    // RUN_TEST(test_vacio);
-    // RUN_TEST(test_definir);
-    // RUN_TEST(test_significado);
+    RUN_TEST(test_vacio);
+    RUN_TEST(test_definir);
+    RUN_TEST(test_significado);
     RUN_TEST(test_borrar);
 
     // Habria que hacer tambien tests de iterador
