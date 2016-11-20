@@ -32,8 +32,6 @@ class DiccString{
     static Nat deletesNodos;
 
 
-
-
     void Definir(const string &clave, const S& significado);
     bool Definido(const string &clave) const;
     //Creo que siempre se devuelve como referencia modificable
@@ -60,7 +58,6 @@ class DiccString{
             bool HayMas() const;
             par Actual() const;
             void Avanzar();
-            void BorrarActual();
      
             DiccString<S>::Iterador& operator = (const DiccString<S>::Iterador& otro) {
                 this->_dicc = otro._dicc;
@@ -376,18 +373,6 @@ template <class S>
 bool DiccString<S>::Iterador::HayMas() const{
     return _itClave.HaySiguiente();
 }
-
-// @LEAK
-// Nueva para probar en el destructor
-template <class S>
-void DiccString<S>::Iterador::BorrarActual(){
-    string clave = _itClave.Siguiente();
-    this->Borrar(clave);
-    if (_itClave.HaySiguiente()) {
-        _itClave.Avanzar();
-    }
-}
-
 
 template <class S>
 typename DiccString<S>::par DiccString<S>::Iterador::Actual() const{
