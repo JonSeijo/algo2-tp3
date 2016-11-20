@@ -93,7 +93,6 @@ class DiccString{
                         std::cout << "DELETE: nodo en destructor\n";    
                     }
                 }
-                // definicion = NULL;
             }
         };
 
@@ -117,13 +116,9 @@ Nat DiccString<S>::deletesNodos = 0;
 template< class S>
 DiccString<S>::DiccString()
  : _claves(), _raiz(NULL) {
-
     DiccString<S>::newsNodos = 0;
     DiccString<S>::deletesNodos = 0;
-
-
- }
-
+}
 
 template< class S>
 DiccString<S>::~DiccString(){
@@ -145,6 +140,7 @@ DiccString<S>::~DiccString(){
     std::cout << "\nDELETES:   " << DiccString<S>::deletesNodos << " \n";
 
     if(_raiz != NULL){
+        std::cout << "DELETE: _raiz desde destructor\n";
         Nodo* temp = _raiz;
         _raiz = NULL;
         delete temp;
@@ -171,7 +167,6 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
     if (this->_raiz == NULL) {
         this->_raiz = new Nodo();
         DiccString<S>::newsNodos++;
-        std::cout << "NEW: _raiz\n";
     }
  
     Nodo* nodoActual = this->_raiz;
@@ -184,11 +179,7 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
             Nodo* nuevo = new Nodo;
             DiccString<S>::newsNodos++;
             std::cout << "NEW: nodo caracter:  " << clave[i] << "\n";
-            
             nodoActual->siguientes.Definir(int(clave[i]), nuevo);
-            // _listaNodos.AgregarAtras(nuevo);
-            // Nodo* tmp = nuevo;
-            // delete nuevo;
         }
 
         // Avanzo el nodo actual hasta donde corresponda
@@ -203,10 +194,6 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
     } else {
         // Agrego la clave a mi conjunto de claves,
         // Me guardo un iterador a la clave en el conjunto
-
-        // @LEAK 
-        // Tengo que ver si este iterador se mantiene en cuando modifico el conjunto
-        // Porque de ultima, en vez de un conjunto podria usar una lista y chau, PENSAR
         nodoActual->itClave = this->_claves.AgregarRapido(clave);
     }
     
@@ -263,10 +250,7 @@ void DiccString<S>::Borrar(const string& clave){
     std::cout << "\n\nPalabra a borrar: " << clave << "\n";
     
     bool borrarRaiz = (this->_claves.Cardinal() == 1);
-    // @LEAK
-    // Reserva deberia asignarle a null al final?
     Nodo* nodoReserva = this->_raiz; 
-    // Nat rindex = int(clave[0]);
     Nat rindex = 0;
 
     // Notar que la raiz no puede ser null porque hay al menos una clave
@@ -277,11 +261,8 @@ void DiccString<S>::Borrar(const string& clave){
         bool definido = ((i != clave.size()-1) && (nodoActual->definicion != NULL));
 
         if (this->CuentaHijos(nodoActual) > 1 || definido) {
-            std::cout << "Muevo la reserva: " << clave[i] << "\n";
             nodoReserva = nodoActual;
             rindex = i+1;
-            // rindex = int(clave[i+1]);
-            // std::cout << "Actualizo rindex\n";
         }
     }
 
@@ -291,69 +272,27 @@ void DiccString<S>::Borrar(const string& clave){
         std::cout << "\nHAY UN PROBLEMA\n";
         std::cout << "\nEL NODO NO APUNTA A NINGUNA CLAVE\n";
     }
-    
-    // // @LEAK
-    // // Elimino el significado
-    // nodoActual->itClave.EliminarSiguiente();
-    // S* tmp = nodoActual->definicion;
-    // nodoActual->definicion = NULL;
-    // delete tmp;
-
-    // if (this->CuentaHijos(nodoActual) == 0) {
-
-    std::cout << "---------\ncant:\n"; 
-    std::cout << this->CuentaHijos(nodoActual) << "\n";
-    std::cout << "---------\n"; 
-
 
     nodoActual->itClave.EliminarSiguiente();
     
     if (this->CuentaHijos(nodoActual) > 0) {
-        // @LEAK
-        // Elimino el significado
         S* tmp = nodoActual->definicion;
         nodoActual->definicion = NULL;
         delete tmp;
 
     } else {
-    // if (this->CuentaHijos(nodoActual) == 0) {
-        std::cout << "Entre al borrarDesde\n";
         this->BorrarDesde(nodoReserva, rindex, clave);
-
         if (nodoReserva->siguientes[int(clave[rindex])] != NULL) {
             std::cout << "TENEMOS UN PROBLEMA\n";
         }
-        std::cout << "Sali del borrarDesde\n";
-
-        std::cout << "---------\ncant de reserva:\n"; 
-        std::cout << this->CuentaHijos(nodoReserva) << "\n";
-        std::cout << "---------\n"; 
-
-        // Nodo* tempor = nodoActual;
-        // nodoActual = NULL;
-        // delete tempor;
-        // std::cout << "nodoActual: " << nodoActual << "\n";
     }
-
-    // else if (this->CuentaHijos(nodoActual) == 0) {
-    //     Nodo* tmp = nodoActual;
-    //     nodoActual = NULL;
-    //     delete tmp;
-    //     DiccString<S>::deletesNodos++;
-    //     std::cout << "DELETE: ultimoNodo\n";
-    // }
-
-    // @LEAK
-    // if (this->_raiz->siguientes.Definido(int(clave[0]))) {
-    //     std::cout << "PRIMERA LETRA QUEDO DEFINIDA\n";
-    // }
 
     if (borrarRaiz && this->_raiz != NULL) {
         Nodo* tempe = this->_raiz;
         this->_raiz = NULL;
         delete tempe;
         DiccString<S>::deletesNodos++;
-        std::cout << "DELETE: _raiz\n";
+        std::cout << "DELETE: _raiz   desde Borrar\n";
     }
 
     std::cout << "Salgo de borrar: " << clave << "\n";
@@ -367,7 +306,6 @@ Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
     Nat cantHijos = 0;
     for (int i = 0; i < 256; i++) {
         if (padre->siguientes.Definido(i)) {
-            std::cout << "Hijo: " << char(i) << "\n";
             cantHijos++;
         }
     }
