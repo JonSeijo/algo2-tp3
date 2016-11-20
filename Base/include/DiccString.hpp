@@ -201,6 +201,7 @@ S& DiccString<S>::Significado(const string& clave) {
 
 template<class S>
 void DiccString<S>::Borrar(const string& clave){
+    std::cout << "\n\nPalabra a borrar: " << clave << "\n";
     
     bool borrarRaiz = (this->_claves.Cardinal() == 1);
     // @LEAK
@@ -239,16 +240,24 @@ void DiccString<S>::Borrar(const string& clave){
     nodoActual->definicion = NULL;
     delete tmp;
 
-    if (nodoActual != nodoReserva) {
+    if (this->CuentaHijos(nodoActual) == 0) {
         std::cout << "Entre al borrarDesde\n";
         this->BorrarDesde(nodoReserva, rindex);
         std::cout << "Sali del borrarDesde\n";
+
+        // Nodo* tempor = nodoActual;
+        // nodoActual = NULL;
+        // delete tempor;
+        // std::cout << "nodoActual: " << nodoActual << "\n";
     }
 
+
+
     if (borrarRaiz && this->_raiz != NULL) {
-        Nodo* tmp = this->_raiz;
+        std::cout << "hijos raiz: " << this->CuentaHijos(this->_raiz) << "\n";  
+        Nodo* tempe = this->_raiz;
         this->_raiz = NULL;
-        delete tmp;
+        delete tempe;
     }
 }
 

@@ -64,8 +64,8 @@ void test_significado() {
 void test_borrar() {
     DiccString<int> d;
 
-    d.Definir("a", 1);
-    d.Borrar("a");
+    // d.Definir("a", 1);
+    // d.Borrar("a");
 
     // d.Definir("uno", 1);
     // d.Borrar("uno");
@@ -78,6 +78,29 @@ void test_borrar() {
     // d.Borrar("dos");
     // ASSERT(!d.Definido("dos"));
     // ASSERT(d.CantClaves() == 0);
+
+    // d.Definir("hola", 0);
+    // d.Definir("holas", 0);
+    // d.Definir("hol", 0);
+
+    // d.Borrar("holas");
+    // d.Borrar("hola");
+    // d.Borrar("hol");
+
+    // ASSERT(!d.Definido("holas"));
+    // ASSERT(!d.Definido("hola"));
+    // ASSERT(!d.Definido("hol"));
+    // ASSERT(d.CantClaves() == 0);
+
+
+    d.Definir("hol", 0);
+    d.Definir("hola", 0);
+    d.Definir("holas", 0);
+    
+    d.Borrar("hola");
+    d.Borrar("hol");
+    // d.Borrar("holas");
+
 }
 
 int main(int argc, char **argv){
