@@ -22,7 +22,10 @@ void test_constructor_con_mapa() {
   Driver d(cc);
 
   std::cout << "\nno llego" << "\n";
-  ASSERT( d.mapa() == cc );
+
+  ASSERT( d.mapa().Coordenadas() == cc );
+
+  std::cout << "\nno llego2" << "\n";
 }
 
 void test_agregar_jugadores(){
