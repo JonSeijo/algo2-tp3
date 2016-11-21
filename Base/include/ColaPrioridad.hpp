@@ -500,7 +500,7 @@ bool ColaPrioridad<T>::EsMenorNodos(Nodo* a, Nodo* b) const{
 				return true;
 			}
 			else{
-				if((a -> elem) <= (b -> elem)){
+				if((a -> elem) < (b -> elem) || (a -> elem) == (b -> elem)){
 					return true;
 				}
 				//Este else no estaba en los módulos
