@@ -1,6 +1,5 @@
 // #include "modulos.h"
 #include "./include/Mapa.h"
-// #include "./include/Coordenada.h"
 #include <cassert>
 #include <iostream>
 #include "aed2.h"
@@ -19,7 +18,7 @@ Mapa::~Mapa(){
 }
 
 void Mapa::AgregarCoord(const Coordenada &c) {
-    Nat maximo = this->max(c.latitud, c.Longitud());
+    Nat maximo = this->max(c.latitud, c.longitud);
 
     if (maximo > this->_tam) {
         Vector<Vector<Vector<Vector<bool> > > > nGrilla;
