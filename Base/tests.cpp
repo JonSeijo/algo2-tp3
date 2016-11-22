@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Driver.h"
+#include "modulos.h"
 #include "mini_test.h"
 
 using namespace aed2;

@@ -4,7 +4,6 @@
 
 #include "./include/Juego.h"
 #include "./include/Mapa.h"
-// #include "./include/Coordenada.h"
 #include "./include/ColaPrioridad.hpp"
 #include "./include/DiccString.hpp"
 
