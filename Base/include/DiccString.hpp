@@ -9,7 +9,7 @@
 #include <string>
 #include "../aed2.h"
 #include "../aed2.h"
-#include "./../mini_test.h"
+// #include "./../mini_test.h"
 // #include "./../TiposJuego.h"
 
 
@@ -43,7 +43,7 @@ class DiccString{
     void Borrar(const string& clave);
     Nat CantClaves() const;
     Iterador CrearIt();
-    Conj<string>::const_Iterador Claves() const; 
+    Conj<string>::const_Iterador Claves() const;
     struct par {
         S dato;
         string clave;
@@ -61,7 +61,7 @@ class DiccString{
             bool HayMas() const;
             par Actual() const;
             void Avanzar();
-     
+
             DiccString<S>::Iterador& operator = (const DiccString<S>::Iterador& otro) {
                 this->_dicc = otro._dicc;
                 this->_itClave(otro._itClave);
@@ -90,7 +90,7 @@ class DiccString{
                         siguientes[i] = NULL;
                         delete tmp;
                         DiccString<S>::deletesNodos++;
-                        std::cout << "DELETE: nodo en destructor\n";    
+                        std::cout << "DELETE: nodo en destructor\n";
                     }
                 }
             }
@@ -131,10 +131,10 @@ DiccString<S>::~DiccString(){
         vectorClaves.AgregarAtras(it.Siguiente());
         it.Avanzar();
     }
-    
+
     for (Nat i = 0; i < vectorClaves.Longitud(); i++) {
         this->Borrar(vectorClaves[i]);
-    }    
+    }
 
     std::cout << "\n\nNEWS:   " << DiccString<S>::newsNodos << " \n";
     std::cout << "\nDELETES:   " << DiccString<S>::deletesNodos << " \n";
@@ -168,7 +168,7 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
         this->_raiz = new Nodo();
         DiccString<S>::newsNodos++;
     }
- 
+
     Nodo* nodoActual = this->_raiz;
 
     // En este for voy recorriendo los nodos correspondientes (o creandolos)
@@ -196,7 +196,7 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
         // Me guardo un iterador a la clave en el conjunto
         nodoActual->itClave = this->_claves.AgregarRapido(clave);
     }
-    
+
     // Guardo un puntero con la nueva definicion
     nodoActual->definicion = new S(significado);
     std::cout << "Termino definir: " << clave << "\n";
@@ -248,9 +248,9 @@ S& DiccString<S>::Significado(const string& clave) {
 template<class S>
 void DiccString<S>::Borrar(const string& clave){
     std::cout << "\n\nPalabra a borrar: " << clave << "\n";
-    
+
     bool borrarRaiz = (this->_claves.Cardinal() == 1);
-    Nodo* nodoReserva = this->_raiz; 
+    Nodo* nodoReserva = this->_raiz;
     Nat rindex = 0;
 
     // Notar que la raiz no puede ser null porque hay al menos una clave
@@ -274,7 +274,7 @@ void DiccString<S>::Borrar(const string& clave){
     }
 
     nodoActual->itClave.EliminarSiguiente();
-    
+
     if (this->CuentaHijos(nodoActual) > 0) {
         S* tmp = nodoActual->definicion;
         nodoActual->definicion = NULL;
@@ -299,7 +299,7 @@ void DiccString<S>::Borrar(const string& clave){
 }
 
 template<class S>
-Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{   
+Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
     if (padre == NULL) {
         return 0;
     }
@@ -315,7 +315,7 @@ Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
 template<class S>
 void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat rindex, const string &clave) {
 
-    Vector<Nodo*> aBorrar; 
+    Vector<Nodo*> aBorrar;
 
     // Agrego todos los que quiero borrar al vector (la reserva no la borro)
     // En peor caso agrego al vector tantos nodos como caracteres:   O(|clave|)
@@ -325,7 +325,7 @@ void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat rindex, const s
         nodoActual->siguientes[int(clave[i])] = NULL;
         aBorrar.AgregarAtras(tmp);
         nodoActual = tmp;
-        std::cout << "Se intenta borrar caracter: " << clave[i] <<"\n";     
+        std::cout << "Se intenta borrar caracter: " << clave[i] <<"\n";
     }
 
     // Borro el vector
@@ -364,7 +364,7 @@ Conj<string>::const_Iterador DiccString<S>::Claves() const{
 template <class S>
 DiccString<S>::Iterador::Iterador(DiccString<S> &d) : _itClave(d._claves.CrearIt()){
     *_dicc = d;
-    ASSERT(false);
+    // ASSERT(false);
 }
 
 template <class S>
