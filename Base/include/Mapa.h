@@ -4,7 +4,6 @@
 
 #include "../TiposJuego.h"
 #include "../aed2.h"
-// #include "Coordenada.h"
 
 using namespace aed2;
 using namespace std;
@@ -31,8 +30,8 @@ class Mapa {
             Vector<Vector<Vector<Vector<bool> > > > grillaVieja
         );
 
-        Vector<Vector<Vector<Vector<bool> > > > crearGrilla(const Nat n);   
-    
+        Vector<Vector<Vector<Vector<bool> > > > crearGrilla(const Nat n);
+
         Vector<Vector<Vector<Vector<bool> > > > _grilla;
         Nat _tam;
 

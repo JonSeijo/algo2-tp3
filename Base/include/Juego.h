@@ -7,8 +7,8 @@
 #include "../aed2/Conj.h"
 #include "../aed2/Arreglo.h"
 #include "Mapa.h"
-// #include "ColaPrioridad.hpp"
-// #include "DiccString.hpp"
+#include "ColaPrioridad.hpp"
+#include "DiccString.hpp"
 
 using namespace aed2;
 
