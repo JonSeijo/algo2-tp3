@@ -45,7 +45,8 @@ void Mapa::AgregarCoord(const Coordenada &c) {
     aRecorrer.AgregarAtras(c);
 
     // @BUG
-    // Deberia poner c en visitadas?? creo que si
+    // Deberia poner c en visitadas?? creo que si, para evitar ciclos infinitos
+    visitados[c.latitud][c.longitud] = true;
 
     while (!aRecorrer.EsVacia()) {
         // Tomo el proximo y desencolo
@@ -65,6 +66,24 @@ void Mapa::AgregarCoord(const Coordenada &c) {
                 }
             }
         }
+
+        if (c.longitud > 0) {
+            Coordenada laAbajo = act.CoordenadaAbajo();
+            Nat x = laAbajo.latitud;
+            Nat y = laAbajo.longitud;
+            if (!visitados[x][y]) {
+                visitados[x][y] = true;
+                if (this->PosExistente(laAbajo)) {
+                    this->_grilla[c.latitud][c.longitud][x][y] = true;
+                    this->_grilla[x][y][c.latitud][c.longitud] = true;
+                    aRecorrer.AgregarAtras(laAbajo);
+                }
+            }
+        }
+
+
+
+
 
 
     }
