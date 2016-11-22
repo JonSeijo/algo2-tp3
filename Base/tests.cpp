@@ -23,7 +23,8 @@ void test_constructor_con_mapa() {
 
   std::cout << "\nno llego" << "\n";
 
-  ASSERT( d.mapa().Coordenadas() == cc );
+  // d.mapa() ya tira las coordenadas... weird
+  ASSERT( d.mapa() == cc );
 
   std::cout << "\nno llego2" << "\n";
 }

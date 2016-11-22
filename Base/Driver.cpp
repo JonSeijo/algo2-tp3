@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Driver.h"
+#include "Juego.cpp"
 using namespace aed2;
 
 // Instanciar un mapa y un juego

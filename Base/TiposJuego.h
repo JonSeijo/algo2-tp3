@@ -67,12 +67,15 @@ struct jugYCantCapt{
 
 };
 
-
 inline bool operator < (const jugYCantCapt & j1, const jugYCantCapt & j2) {
     if (j1.cant == j2.cant) {
         return j1.id < j2.id;
     }
     return j1.cant < j2.cant;
+}
+
+inline bool operator == (const jugYCantCapt & j1, const jugYCantCapt & j2) {
+    return (j1.id == j2.id) && (j1.cant == j2.cant);
 }
 
 #endif

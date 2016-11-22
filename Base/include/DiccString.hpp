@@ -8,7 +8,10 @@
 #include <ostream>
 #include <string>
 #include "../aed2.h"
+#include "../aed2.h"
 #include "./../mini_test.h"
+#include "./../TiposJuego.h"
+
 
 using namespace aed2;
 using namespace std;

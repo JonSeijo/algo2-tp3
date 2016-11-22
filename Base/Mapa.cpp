@@ -1,6 +1,6 @@
 // #include "modulos.h"
 #include "./include/Mapa.h"
-#include "./include/Coordenada.h"
+// #include "./include/Coordenada.h"
 #include <cassert>
 #include <iostream>
 #include "aed2.h"

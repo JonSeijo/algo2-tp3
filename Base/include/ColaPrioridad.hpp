@@ -2,6 +2,7 @@
 #define COLA_PRIORIDAD_H_
 
 #include "../aed2.h"
+#include "./../TiposJuego.h"
 #include <cassert>
 #include <iostream> //Para probar como queda el heap después de encolar y desencolar
 
