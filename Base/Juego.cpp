@@ -66,8 +66,8 @@ void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){
   }
 
   // Se crea el pokenodo.
-  Nat x = c.Latitud();
-  Nat y = c.Longitud();
+  Nat x = c.latitud;
+  Nat y = c.longitud;
   _pokenodos[x][y] = new pokeStruc(p);
 
 
@@ -104,8 +104,8 @@ void Juego::Conectarse(Jugador e, const Coordenada &c){
   _jugadores[e]._conectado = true;
 
   // Se lo ubica en la posicion correspondiente.
-  Nat x = c.Latitud();
-  Nat y = c.Longitud();
+  Nat x = c.latitud;
+  Nat y = c.longitud;
 
   _jugadores[e]._itAPos = _grillaJugadores[x][y].AgregarAtras(e);
   _jugadores[e]._pos = Coordenada(x, y);
@@ -114,8 +114,8 @@ void Juego::Conectarse(Jugador e, const Coordenada &c){
   if (HayPokemonCercano(c)) {
     if (_mapa->HayCamino(c, PosPokemonCercano(c))) {
 
-      Nat latPok = PosPokemonCercano(c).Latitud();
-      Nat lonPok = PosPokemonCercano(c).Longitud();
+      Nat latPok = PosPokemonCercano(c).latitud;
+      Nat lonPok = PosPokemonCercano(c).longitud;
 
       // Se reinicia el contador.
       _pokenodos[latPok][lonPok]->_contador = 0;
@@ -143,8 +143,8 @@ void Juego::Desconectarse(Jugador e){
   if (HayPokemonCercano(c)) {
     if (_mapa->HayCamino(c, PosPokemonCercano(c))) {
 
-      Nat latPok = PosPokemonCercano(c).Latitud();
-      Nat lonPok = PosPokemonCercano(c).Longitud();
+      Nat latPok = PosPokemonCercano(c).latitud;
+      Nat lonPok = PosPokemonCercano(c).longitud;
 
 
       // Se lo elimina del pokenodo
@@ -219,7 +219,7 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
   _jugadores[e]._itAPos.EliminarSiguiente();
 
   // Se lo agrega en la posicion nueva.
-  _jugadores[e]._itAPos = _grillaJugadores[c.Latitud()][c.Longitud()].AgregarAtras(e);
+  _jugadores[e]._itAPos = _grillaJugadores[c.latitud][c.longitud].AgregarAtras(e);
   _jugadores[e]._pos = c;
 
   }
@@ -268,18 +268,18 @@ const Conj<Coordenada>& Juego::PosConPokemons() const{
 }
 
 const Pokemon& Juego::PokemonEnPos(const Coordenada &c) const{
-  Nat x = c.Latitud();
-  Nat y = c.Longitud();
+  Nat x = c.latitud;
+  Nat y = c.longitud;
   return _pokenodos[x][y]->_poke;
 }
 
 Nat Juego::CantMovimientosParaCaptura(const Coordenada &c) const{
-  return _pokenodos[c.Latitud()][c.Longitud()]->_contador;
+  return _pokenodos[c.latitud][c.longitud]->_contador;
 }
 
 bool Juego::HayPokemonCercano(const Coordenada &c) const{
-  Nat x = c.Latitud();
-  Nat y = c.Longitud();
+  Nat x = c.latitud;
+  Nat y = c.longitud;
 
   Nat m = _mapa->Tam();
 
@@ -330,8 +330,8 @@ bool Juego::HayPokemonCercano(const Coordenada &c) const{
 }
 
 Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
-  Nat x = c.Latitud();
-  Nat y = c.Longitud();
+  Nat x = c.latitud;
+  Nat y = c.longitud;
 
   Nat m = _mapa->Tam();
 
@@ -456,8 +456,8 @@ Nat Juego::CantMismaEspecie(const Pokemon &p) const{
 
 Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
   Vector<Jugador> jugsRadio;
-  Nat x = c.Latitud();
-  Nat y = c.Longitud();
+  Nat x = c.latitud;
+  Nat y = c.longitud;
 
   Nat m = _mapa->Tam();
 
@@ -553,8 +553,8 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
   while (it.HaySiguiente()) {
 
-    Nat x = it.Siguiente().Latitud();
-    Nat y = it.Siguiente().Longitud();
+    Nat x = it.Siguiente().latitud;
+    Nat y = it.Siguiente().longitud;
 
     // Si no es al que entro el jugador...
     if (it.Siguiente() != pokePos) {
@@ -592,8 +592,8 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
   while (it.HaySiguiente()) {
 
-    Nat x = it.Siguiente().Latitud();
-    Nat y = it.Siguiente().Longitud();
+    Nat x = it.Siguiente().latitud;
+    Nat y = it.Siguiente().longitud;
 
     pokeStruc* pokeNodo = _pokenodos[x][y];
 
@@ -621,8 +621,8 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
   // El pokenodo al que entro el jugador.
   Coordenada pokePos = PosPokemonCercano(desp);
 
-  Nat lat = pokePos.Latitud();
-  Nat lon = pokePos.Longitud();
+  Nat lat = pokePos.latitud;
+  Nat lon = pokePos.longitud;
 
   // Agrego el entrenador al pokenodo.
   jugYCantCapt jug(e, _jugadores[e]._cantCap);
@@ -634,8 +634,8 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
   while (it.HaySiguiente()) {
 
-    Nat x = it.Siguiente().Latitud();
-    Nat y = it.Siguiente().Longitud();
+    Nat x = it.Siguiente().latitud;
+    Nat y = it.Siguiente().longitud;
 
     pokeStruc* pokeNodo = _pokenodos[x][y];
 
@@ -671,8 +671,8 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
   while (it.HaySiguiente()) {
 
-    Nat x = it.Siguiente().Latitud();
-    Nat y = it.Siguiente().Longitud();
+    Nat x = it.Siguiente().latitud;
+    Nat y = it.Siguiente().longitud;
 
     pokeStruc* pokeNodo = _pokenodos[x][y];
 
@@ -702,8 +702,8 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
   // El pokenodo al que entro el jugador.
   Coordenada pokePos = PosPokemonCercano(desp);
 
-  Nat lat = pokePos.Latitud();
-  Nat lon = pokePos.Longitud();
+  Nat lat = pokePos.latitud;
+  Nat lon = pokePos.longitud;
 
   // Agrego el entrenador al pokenodo.
   jugYCantCapt jug(e, _jugadores[e]._cantCap);
@@ -715,8 +715,8 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
   while (it.HaySiguiente()) {
 
-    Nat x = it.Siguiente().Latitud();
-    Nat y = it.Siguiente().Longitud();
+    Nat x = it.Siguiente().latitud;
+    Nat y = it.Siguiente().longitud;
 
     pokeStruc* pokeNodo = _pokenodos[x][y];
 
