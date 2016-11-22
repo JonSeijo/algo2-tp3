@@ -1,14 +1,14 @@
 // Compilar usando:
-//   g++ -g test_mapa.cpp Mapa.cpp Coordenada.cpp -o test_mapa
+//   g++ -g test_mapa.cpp Mapa.cpp -o test_mapa
 
-// Ejecutar:     
+// Ejecutar:
 //   ./test_mapa
 
 // Valgrind
 //    valgrind --leak-check=full ./test_mapa
 
 
-#include "include/Coordenada.h"
+// #include "include/Coordenada.h"
 #include "include/Mapa.h"
 #include "mini_test.h"
 

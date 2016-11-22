@@ -3,12 +3,12 @@
 
 #include "../aed2.h"
 #include <cassert>
-#include <iostream> 
+#include <iostream>
 
 class Coordenada{
     public:
         Coordenada();
-        Coordenada(Nat latitud, Nat longitud);        
+        Coordenada(Nat latitud, Nat longitud);
         Coordenada(const Coordenada &otra);
 
         ~Coordenada();
@@ -38,7 +38,7 @@ class Coordenada{
 
     private:
         Nat latitud;
-        Nat longitud;                
+        Nat longitud;
 };
 
 #endif
