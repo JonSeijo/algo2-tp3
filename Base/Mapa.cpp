@@ -81,15 +81,34 @@ void Mapa::AgregarCoord(const Coordenada &c) {
             }
         }
 
+        if (c.latitud < (this->_tam - 1)) {
+            Coordenada laDerecha = act.CoordenadaALaDerecha();
+            Nat x = laDerecha.latitud;
+            Nat y = laDerecha.longitud;
+            if (!visitados[x][y]) {
+                visitados[x][y] = true;
+                if (this->PosExistente(laDerecha)) {
+                    this->_grilla[c.latitud][c.longitud][x][y] = true;
+                    this->_grilla[x][y][c.latitud][c.longitud] = true;
+                    aRecorrer.AgregarAtras(laDerecha);
+                }
+            }
+        }
 
-
-
-
-
+        if (c.longitud < (this->_tam - 1)) {
+            Coordenada laArriba = act.CoordenadaArriba();
+            Nat x = laArriba.latitud;
+            Nat y = laArriba.longitud;
+            if (!visitados[x][y]) {
+                visitados[x][y] = true;
+                if (this->PosExistente(laArriba)) {
+                    this->_grilla[c.latitud][c.longitud][x][y] = true;
+                    this->_grilla[x][y][c.latitud][c.longitud] = true;
+                    aRecorrer.AgregarAtras(laArriba);
+                }
+            }
+        }
     }
-
-
-
 }
 
 Conj<Coordenada> Mapa::Coordenadas() const{
