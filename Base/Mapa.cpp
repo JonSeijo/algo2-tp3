@@ -20,7 +20,9 @@ Mapa::~Mapa(){
 void Mapa::AgregarCoord(const Coordenada &c) {
     Nat maximo = this->max(c.latitud, c.longitud);
 
-    if (maximo > this->_tam) {
+    std::cout << "Maximo: " << maximo << "\n";
+
+    if (maximo+1 > this->_tam) {
         Vector<Vector<Vector<Vector<bool> > > > nGrilla;
         nGrilla = this->crearGrilla(maximo+1);
         this->copiarCoordenadas(nGrilla, this->_grilla);
@@ -28,8 +30,11 @@ void Mapa::AgregarCoord(const Coordenada &c) {
         this->_tam = maximo+1;
     }
 
+    std::cout << "Termine la expansion\n";
     // ACA TENGO QUE USAR EL .DEFINIR .... 4 VECES creo
     this->_grilla[c.latitud][c.longitud][c.latitud][c.longitud] = true;
+
+    std::cout << "Asigno true a la grilla\n";
 
     Vector<Vector<bool> > visitados;
     for (int i = 0; i < this->_tam; i++) {
@@ -40,6 +45,8 @@ void Mapa::AgregarCoord(const Coordenada &c) {
         visitados.AgregarAtras(visitadosAux);
     }
 
+    std::cout << "Cree grilla de visitados\n";
+    
     // Uso una Lista como si fuese una Cola
     Lista<Coordenada> aRecorrer; 
     aRecorrer.AgregarAtras(c);
@@ -47,6 +54,7 @@ void Mapa::AgregarCoord(const Coordenada &c) {
     // @BUG
     // Deberia poner c en visitadas?? creo que si, para evitar ciclos infinitos
     visitados[c.latitud][c.longitud] = true;
+
 
     while (!aRecorrer.EsVacia()) {
         // Tomo el proximo y desencolo
