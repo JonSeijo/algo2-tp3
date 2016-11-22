@@ -19,7 +19,7 @@ Mapa::~Mapa(){
 }
 
 void Mapa::AgregarCoord(const Coordenada &c) {
-    Nat maximo = this->max(c.Latitud(), c.Longitud());
+    Nat maximo = this->max(c.latitud, c.Longitud());
 
     if (maximo > this->_tam) {
         Vector<Vector<Vector<Vector<bool> > > > nGrilla;
@@ -29,7 +29,7 @@ void Mapa::AgregarCoord(const Coordenada &c) {
         this->_tam = maximo+1;
     }
 
-    this->_grilla[c.Latitud()][c.Longitud()][c.Latitud()][c.Longitud()] = true;
+    this->_grilla[c.latitud][c.longitud][c.latitud][c.longitud] = true;
 
     Vector<Vector<bool> > visitados;
     for (int i = 0; i < this->_tam; i++) {
@@ -49,7 +49,7 @@ void Mapa::AgregarCoord(const Coordenada &c) {
         // Coordenada act = aRecorrer.Primero();
         // aRecorrer = aRecorrer.Fin();
 
-        // if (c.Latitud() > 0) {
+        // if (c.latitud > 0) {
             // Nat x = act
             // LO DEJO COLGADO ACA PORQUE VOY A PONERME A IMPLEMENTAR LA CLASE COORDENADA
         // }
@@ -75,22 +75,22 @@ Conj<Coordenada> Mapa::Coordenadas() const{
 
 bool Mapa::PosExistente(const Coordenada &c) const{
 
-    if (c.Latitud() < 0 || c.Longitud() < 0) {
+    if (c.latitud < 0 || c.longitud < 0) {
         return false;
     }
 
-    if (c.Latitud() >= this->_tam || c.Longitud() >= this->_tam) {
+    if (c.latitud >= this->_tam || c.longitud >= this->_tam) {
         return false;
     }
 
-    Nat x = c.Latitud();
-    Nat y = c.Longitud();
+    Nat x = c.latitud;
+    Nat y = c.longitud;
     return this->_grilla[x][y][x][y];
 }
 
 
 bool Mapa::HayCamino(const Coordenada &c1, const Coordenada &c2) const{
-    return this->_grilla[c1.Latitud()][c1.Longitud()][c2.Latitud()][c2.Longitud()];
+    return this->_grilla[c1.latitud][c1.longitud][c2.latitud][c2.longitud];
 }
 
 Nat Mapa::Tam() const{
@@ -119,7 +119,7 @@ Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(const Nat n) {
     }
 
     // std::cout << "n: " << n << "\n";
-    // std::cout << "tam: " << nuevaGrilla.Longitud() << "\n";
+    // std::cout << "tam: " << nuevaGrilla.longitud << "\n";
 
     return nuevaGrilla;
 }
