@@ -3,6 +3,21 @@ TP3 Implementacion
 
 Archivos en la carpeta "Base" (puede cambiarse)
 
+# Como hacer un rebase
+
+http://stackoverflow.com/questions/5601931/best-and-safest-way-to-merge-a-git-branch-into-master
+
+
+```
+git checkout master
+git pull
+git checkout NombreDelBranch
+git pull
+git rebase -i master
+git checkout master
+git merge NombreDelBranch
+```
+
 # Como se compila (en teoria)
 
 *desde la carpeta "Base"*
