@@ -28,6 +28,7 @@ void Mapa::AgregarCoord(const Coordenada &c) {
         this->_tam = maximo+1;
     }
 
+    // ACA TENGO QUE USAR EL .DEFINIR .... 4 VECES creo
     this->_grilla[c.latitud][c.longitud][c.latitud][c.longitud] = true;
 
     Vector<Vector<bool> > visitados;
@@ -40,21 +41,33 @@ void Mapa::AgregarCoord(const Coordenada &c) {
     }
 
     // Uso una Lista como si fuese una Cola
-    Lista<Coordenada> aRecorrer;
+    Lista<Coordenada> aRecorrer; 
     aRecorrer.AgregarAtras(c);
 
-    // while (!aRecorrer.EsVacia()) {
+    // @BUG
+    // Deberia poner c en visitadas?? creo que si
+
+    while (!aRecorrer.EsVacia()) {
         // Tomo el proximo y desencolo
-        // Coordenada act = aRecorrer.Primero();
-        // aRecorrer = aRecorrer.Fin();
+        Coordenada act = aRecorrer.Primero();
+        aRecorrer.Fin(); // Elimina la cabeza
 
-        // if (c.latitud > 0) {
-            // Nat x = act
-            // LO DEJO COLGADO ACA PORQUE VOY A PONERME A IMPLEMENTAR LA CLASE COORDENADA
-        // }
+        if (c.latitud > 0) {
+            Coordenada laIzquierda = act.CoordenadaALaIzquierda();
+            Nat x = laIzquierda.latitud;
+            Nat y = laIzquierda.longitud;
+            if (!visitados[x][y]) {
+                visitados[x][y] = true;
+                if (this->PosExistente(laIzquierda)) {
+                    this->_grilla[c.latitud][c.longitud][x][y] = true;
+                    this->_grilla[x][y][c.latitud][c.longitud] = true;
+                    aRecorrer.AgregarAtras(laIzquierda);
+                }
+            }
+        }
 
 
-    // }
+    }
 
 
 
