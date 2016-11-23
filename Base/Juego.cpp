@@ -264,6 +264,8 @@ Conj<Jugador> Juego::Expulsados() const{
             expulsados.AgregarRapido(_jugadores[i]._id);
         }
     }
+
+    return expulsados;
 }
 
 const Conj<Coordenada>& Juego::PosConPokemons() const{
