@@ -3,11 +3,66 @@
 //  valgrind --leak-check=full ./tests
 
 #include <iostream>
-#include "Driver.h"
+#include "Driver.cpp"
 #include "modulos.h"
 #include "mini_test.h"
 
 using namespace aed2;
+
+void ag(Conj<Coordenada> &cc, Nat x, Nat y) {
+    cc.Agregar(Coordenada(x, y));
+}
+
+Conj<Coordenada> mapaTipo1() {
+    /*
+    Mapa tipo 1 tiene esta pinta:
+    (X son las posisiones validas)
+    Tamanio: 10x10
+
+         0 1 2 3 4 5 6 7 8 9
+    0    X X X - - - - - - -
+    1    X X X - - - - - - -
+    2    X X X X X - - - - -
+    3    - - X X X - - - - -
+    4    - - X X X - - - - -
+    5    - - - - X X X X - -
+    6    - - - - - X X X - -
+    7    - - - - - X X X - -
+    8    - - - - - - - - - -
+    9    - - - - - - - - - -
+    */
+
+    Conj<Coordenada> cc;
+    ag(cc, 0, 0);
+    ag(cc, 1, 0);
+    ag(cc, 2, 0);
+    ag(cc, 0, 1);
+    ag(cc, 1, 1);
+    ag(cc, 2, 1);
+    ag(cc, 0, 2);
+    ag(cc, 1, 2);
+    ag(cc, 2, 2);
+    ag(cc, 3, 2);
+    ag(cc, 4, 2);
+    ag(cc, 2, 3);
+    ag(cc, 3, 3);
+    ag(cc, 4, 3);
+    ag(cc, 2, 4);
+    ag(cc, 3, 4);
+    ag(cc, 4, 4);
+    ag(cc, 4, 5);
+    ag(cc, 5, 5);
+    ag(cc, 6, 5);
+    ag(cc, 7, 5);
+    ag(cc, 5, 6);
+    ag(cc, 6, 6);
+    ag(cc, 7, 6);
+    ag(cc, 5, 7);
+    ag(cc, 6, 7);
+    ag(cc, 7, 7);
+
+    return cc;
+}
 
 void test_constructor_con_mapa() {
     Conj<Coordenada> cc;
@@ -24,14 +79,7 @@ void test_constructor_con_mapa() {
 }
 
 void test_agregar_jugadores(){
-    Conj<Coordenada> cc;
-    cc.Agregar(Coordenada(0,0));
-    cc.Agregar(Coordenada(0,1));
-    cc.Agregar(Coordenada(0,2));
-    cc.Agregar(Coordenada(1,2));
-    cc.Agregar(Coordenada(10,0));
-    cc.Agregar(Coordenada(1,4));
-    Driver d(cc);
+    Driver d(mapaTipo1());
 
     Jugador e = d.agregarJugador();
 
