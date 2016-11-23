@@ -33,33 +33,14 @@ Conj<Coordenada> mapaTipo1() {
     */
 
     Conj<Coordenada> cc;
-    ag(cc, 0, 0);
-    ag(cc, 1, 0);
-    ag(cc, 2, 0);
-    ag(cc, 0, 1);
-    ag(cc, 1, 1);
-    ag(cc, 2, 1);
-    ag(cc, 0, 2);
-    ag(cc, 1, 2);
-    ag(cc, 2, 2);
-    ag(cc, 3, 2);
-    ag(cc, 4, 2);
-    ag(cc, 2, 3);
-    ag(cc, 3, 3);
-    ag(cc, 4, 3);
-    ag(cc, 2, 4);
-    ag(cc, 3, 4);
-    ag(cc, 4, 4);
-    ag(cc, 4, 5);
-    ag(cc, 5, 5);
-    ag(cc, 6, 5);
-    ag(cc, 7, 5);
-    ag(cc, 5, 6);
-    ag(cc, 6, 6);
-    ag(cc, 7, 6);
-    ag(cc, 5, 7);
-    ag(cc, 6, 7);
-    ag(cc, 7, 7);
+    ag(cc, 0, 0);  ag(cc, 1, 0);    ag(cc, 2, 0);
+    ag(cc, 0, 1);  ag(cc, 1, 1);    ag(cc, 2, 1);
+    ag(cc, 0, 2);  ag(cc, 1, 2);    ag(cc, 2, 2);  ag(cc, 3, 2);  ag(cc, 4, 2);
+                                    ag(cc, 2, 3);  ag(cc, 3, 3);  ag(cc, 4, 3);
+                                    ag(cc, 2, 4);  ag(cc, 3, 4);  ag(cc, 4, 4);  
+                                                                  ag(cc, 4, 5); ag(cc, 5, 5);  ag(cc, 6, 5);  ag(cc, 7, 5);
+                                                                                ag(cc, 5, 6);  ag(cc, 6, 6);  ag(cc, 7, 6);
+                                                                                ag(cc, 5, 7);  ag(cc, 6, 7);  ag(cc, 7, 7);
 
     return cc;
 }
@@ -93,6 +74,7 @@ void test_agregar_jugadores(){
 }
 
 void test_agregar_pokemones(){
+    Driver d(mapaTipo1());
     ASSERT( false );
 }
 
