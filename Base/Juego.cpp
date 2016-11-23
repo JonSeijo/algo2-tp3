@@ -88,12 +88,15 @@ void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){
 
 Nat Juego::AgregarJugador(){
     Nat proxId = this->_jugadores.Longitud();
+    Coordenada pos = Coordenada(0, 0);
+    // dicc de pokes se crea vacio en constructor
+    // itEntrenadores no apunta a nada
+    // iteradorAPos no apunta a nada
 
-    Coordenada c = Coordenada(0, 0);
-    jugStruc e(proxId, c);
-
-    _jugadoresNoEliminados.AgregarRapido(e);
-
+    Conj<Jugador>::Iterador iteradorAJuego = _jugadoresNoEliminados.AgregarRapido(proxId);
+    
+    jugStruc e(proxId, pos, iteradorAJuego);
+    
     _jugadores.AgregarAtras(e);
 
     return proxId;
@@ -231,7 +234,7 @@ Mapa& Juego::mapa(){
 }
 
 Conj<Jugador>::Iterador Juego::Jugadores(){
-    assert(false);
+    return this->_jugadoresNoEliminados.CrearIt();
 }
 
 Nat Juego::Sanciones(Jugador e) const{

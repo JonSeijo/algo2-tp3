@@ -72,11 +72,9 @@ class Juego{
             Conj<Jugador>::Iterador _itAJuego;
             Nat _cantCap;
 
-            // @BUG
-            // Creo que deberia estar desconectado por defecto 
-            jugStruc(Nat id, Coordenada pos)
-             : _id(id), _sanciones(0), _conectado(true), _pos(pos), _pokemons(),
-                 _itAJuego(), _itAEntrenadores(), _itAPos(), _cantCap(0){};
+            jugStruc(Nat id, Coordenada pos, Conj<Jugador>::Iterador iteradorAJuego)
+             : _id(id), _sanciones(0), _conectado(false), _pos(pos), _pokemons(),
+                 _itAJuego(iteradorAJuego), _itAEntrenadores(), _itAPos(), _cantCap(0){};
 
         };
 
@@ -97,7 +95,7 @@ class Juego{
 
         Vector<jugStruc> _jugadores;
 
-        Conj<jugStruc> _jugadoresNoEliminados;
+        Conj<Jugador> _jugadoresNoEliminados;
         Vector< Vector < Lista <Jugador> > > _grillaJugadores;
 
         Vector< Vector<pokeStruc*> > _pokenodos;
