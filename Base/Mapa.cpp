@@ -145,9 +145,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
 
         it.Avanzar(); // No olvidar!
 
-
     }
-
 }
 
 Conj<Coordenada> Mapa::Coordenadas() const{
@@ -190,8 +188,7 @@ Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(
     Vector<Vector<Vector<Vector<bool> > > > &nuevaGrilla,
     const Nat n
 ) {
-    // Vector<Vector<Vector<Vector<bool> > > > nuevaGrilla;
-
+    // Cambio con respecto a la aridad para pasar por referencia
     for (int i = 0; i < n; i++) {
         Vector<Vector<Vector<bool> > > nGrilla2;
 
@@ -209,9 +206,6 @@ Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(
         }
         nuevaGrilla.AgregarAtras(nGrilla2);
     }
-
-// std::cout << "n: " << n << "\n";
-    // std::cout << "tam: " << nuevaGrilla.longitud << "\n";
 
     return nuevaGrilla;
 }
@@ -236,15 +230,6 @@ void Mapa::copiarCoordenadas(
     Vector<Vector<Vector<Vector<bool> > > > &grillaNueva,
     Vector<Vector<Vector<Vector<bool> > > > &grillaVieja) {
 
-    // for (int i = 0; i < grillaVieja.Longitud(); i++) {
-    //     for (int j = 0; j < grillaVieja.Longitud(); j++) {
-    //         for (int k = 0; k < grillaVieja.Longitud(); k++) {
-    //             for (int l = 0; l < grillaVieja.Longitud(); l++) {
-    //                 grillaNueva[i][j][k][l] = grillaVieja[i][j][k][l];
-    //             }
-    //         }
-    //     }
-    // }
     for (int i = 0; i < grillaVieja.Longitud(); i++) {
         for (int j = 0; j < grillaVieja.Longitud(); j++) {
             grillaNueva[i][j][i][j] = grillaVieja[i][j][i][j ];
