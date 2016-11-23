@@ -26,8 +26,8 @@ class Mapa {
     private:
 
         void copiarCoordenadas(
-            Vector<Vector<Vector<Vector<bool> > > > grillaNueva,
-            Vector<Vector<Vector<Vector<bool> > > > grillaVieja
+            Vector<Vector<Vector<Vector<bool> > > > &grillaNueva,
+            Vector<Vector<Vector<Vector<bool> > > > &grillaVieja
         );
 
         Vector<Vector<Vector<Vector<bool> > > > crearGrilla(const Nat n);

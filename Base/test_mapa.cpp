@@ -28,12 +28,29 @@ void test_agregar_coordenada_tam(){
     map.AgregarCoord(Coordenada(9,9));
     ASSERT(map.Tam() == 10);
     map.AgregarCoord(Coordenada(10,9));
-    ASSERT(map.Tam() == 11);
-    
+    ASSERT(map.Tam() == 11);   
+    map.AgregarCoord(Coordenada(10,11));
+    ASSERT(map.Tam() == 12);   
+    map.AgregarCoord(Coordenada(11,11));
+    ASSERT(map.Tam() == 12);   
 }
 
 void test_posExistente() {
-    ASSERT( false );
+    Mapa map;
+    map.AgregarCoord(Coordenada(1,1));
+    ASSERT(map.PosExistente(Coordenada(1,1)));
+    ASSERT(!map.PosExistente(Coordenada(0,0)));
+    ASSERT(!map.PosExistente(Coordenada(0,1)));
+    ASSERT(!map.PosExistente(Coordenada(1,0)));
+    ASSERT(!map.PosExistente(Coordenada(2,2)));
+    map.AgregarCoord(Coordenada(5,5));
+    ASSERT(map.PosExistente(Coordenada(1,1)));
+    ASSERT(map.PosExistente(Coordenada(5,5)));
+    ASSERT(!map.PosExistente(Coordenada(0,0)));
+    ASSERT(!map.PosExistente(Coordenada(0,1)));
+    ASSERT(!map.PosExistente(Coordenada(1,0)));
+    ASSERT(!map.PosExistente(Coordenada(2,2)));
+
 }
 
 void test_hayCamino() {
