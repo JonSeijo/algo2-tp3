@@ -40,6 +40,12 @@ void test_agregar_coordenada_tam(){
     ASSERT(map.Tam() == 12);   
 }
 
+void test_tam() {
+    // Testeado indirectamente con el agregarCoordenada
+    Mapa map;
+    ASSERT(map.Tam() == 0);
+}
+
 void test_posExistente() {
     Mapa map;
     map.AgregarCoord(Coordenada(1,1));
@@ -48,6 +54,7 @@ void test_posExistente() {
     ASSERT(!map.PosExistente(Coordenada(0,1)));
     ASSERT(!map.PosExistente(Coordenada(1,0)));
     ASSERT(!map.PosExistente(Coordenada(2,2)));
+
     map.AgregarCoord(Coordenada(5,5));
     ASSERT(map.PosExistente(Coordenada(1,1)));
     ASSERT(map.PosExistente(Coordenada(5,5)));
@@ -55,6 +62,7 @@ void test_posExistente() {
     ASSERT(!map.PosExistente(Coordenada(0,1)));
     ASSERT(!map.PosExistente(Coordenada(1,0)));
     ASSERT(!map.PosExistente(Coordenada(2,2)));
+    
     map.AgregarCoord(Coordenada(5,5));
     ASSERT(map.PosExistente(Coordenada(1,1)));
     ASSERT(map.PosExistente(Coordenada(5,5)));
@@ -62,6 +70,7 @@ void test_posExistente() {
     ASSERT(!map.PosExistente(Coordenada(0,1)));
     ASSERT(!map.PosExistente(Coordenada(1,0)));
     ASSERT(!map.PosExistente(Coordenada(2,2)));
+    
     map.AgregarCoord(Coordenada(3,3));
     ASSERT(map.PosExistente(Coordenada(1,1)));
     ASSERT(map.PosExistente(Coordenada(3,3)));
@@ -81,32 +90,48 @@ void test_hayCamino_casoFeliz() {
     ASSERT(map.HayCamino(Coordenada(0,1), Coordenada(1,1)));
     ASSERT(map.HayCamino(Coordenada(0,0), Coordenada(0,1)));
     ASSERT(map.HayCamino(Coordenada(0,0), Coordenada(1,1)));
+
+    // Vale si pregunto con las coordenadas invertidas
+    ASSERT(map.HayCamino(Coordenada(1,1), Coordenada(0,1)));
+    ASSERT(map.HayCamino(Coordenada(0,1), Coordenada(0,0)));
+    ASSERT(map.HayCamino(Coordenada(1,1), Coordenada(0,0)));
 }
 
 void test_hayCamino_casoTriste() {
     Mapa map;
 
+    // Caso que no actualiza viejos del medio vertical
     map.AgregarCoord(Coordenada(0,0));
     map.AgregarCoord(Coordenada(0,2));
-
     ASSERT(!map.HayCamino(Coordenada(0,0), Coordenada(0,2)));
     map.AgregarCoord(Coordenada(0,1));
     // map.imprimir();
     // Deberia haber camino entre el (0,0) y el (0,2) pues ahora hay una coordenada entre ellos
     ASSERT(map.HayCamino(Coordenada(0,0), Coordenada(0,2)));
-}
+    ASSERT(map.HayCamino(Coordenada(0,0), Coordenada(0,1)));
+    ASSERT(map.HayCamino(Coordenada(0,2), Coordenada(0,1)));
 
-void test_tam() {
-    ASSERT( false );
+    // El HyaCamino funciona en ambas direcciones
+    ASSERT(map.HayCamino(Coordenada(0,2), Coordenada(0,0)));
+    ASSERT(map.HayCamino(Coordenada(0,1), Coordenada(0,0)));
+    ASSERT(map.HayCamino(Coordenada(0,1), Coordenada(0,2)));
+
+
+    // Caso que no actualiza viejos del medio horizontal
+    map.AgregarCoord(Coordenada(5,5));
+    map.AgregarCoord(Coordenada(7,5));
+    ASSERT(!map.HayCamino(Coordenada(5,5), Coordenada(7,5)));
+    map.AgregarCoord(Coordenada(6,5));
+    ASSERT(map.HayCamino(Coordenada(5,5), Coordenada(7,5)));
 }
 
 int main(int argc, char **argv){
     RUN_TEST(test_vacio);
     RUN_TEST(test_agregar_coordenada_tam);
+    RUN_TEST(test_tam);
     RUN_TEST(test_posExistente);
     RUN_TEST(test_hayCamino_casoFeliz);
     RUN_TEST(test_hayCamino_casoTriste);
-    RUN_TEST(test_tam);
 
     return 0;
 }
