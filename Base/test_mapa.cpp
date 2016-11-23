@@ -72,14 +72,28 @@ void test_posExistente() {
     ASSERT(!map.PosExistente(Coordenada(2,2)));
 }
 
-void test_hayCamino() {
+void test_hayCamino_casoFeliz() {
     Mapa map;
+    // Casos comunes funcionan bien
+    map.AgregarCoord(Coordenada(0,1));
     map.AgregarCoord(Coordenada(1,1));
-    map.AgregarCoord(Coordenada(2,2));
-    ASSERT(!map.HayCamino(Coordenada(1,1), Coordenada(2,2)));
-    map.AgregarCoord(Coordenada(2,1));
-    ASSERT(map.HayCamino(Coordenada(1,1), Coordenada(2,2)));
+    map.AgregarCoord(Coordenada(0,0));
+    ASSERT(map.HayCamino(Coordenada(0,1), Coordenada(1,1)));
+    ASSERT(map.HayCamino(Coordenada(0,0), Coordenada(0,1)));
+    ASSERT(map.HayCamino(Coordenada(0,0), Coordenada(1,1)));
+}
 
+void test_hayCamino_casoTriste() {
+    Mapa map;
+
+    map.AgregarCoord(Coordenada(0,0));
+    map.AgregarCoord(Coordenada(0,2));
+
+    ASSERT(!map.HayCamino(Coordenada(0,0), Coordenada(0,2)));
+    map.AgregarCoord(Coordenada(0,1));
+    // map.imprimir();
+    // Deberia haber camino entre el (0,0) y el (0,2) pues ahora hay una coordenada entre ellos
+    ASSERT(map.HayCamino(Coordenada(0,0), Coordenada(0,2)));
 }
 
 void test_tam() {
@@ -90,7 +104,8 @@ int main(int argc, char **argv){
     RUN_TEST(test_vacio);
     RUN_TEST(test_agregar_coordenada_tam);
     RUN_TEST(test_posExistente);
-    RUN_TEST(test_hayCamino);
+    RUN_TEST(test_hayCamino_casoFeliz);
+    RUN_TEST(test_hayCamino_casoTriste);
     RUN_TEST(test_tam);
 
     return 0;

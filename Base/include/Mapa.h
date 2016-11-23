@@ -23,6 +23,10 @@ class Mapa {
 
         Nat Tam() const;
 
+        // ESTO ESTA PARA DEBBUGUEAR
+        void imprimir();
+
+
     private:
 
         void copiarCoordenadas(
@@ -40,7 +44,6 @@ class Mapa {
 
         Nat max(Nat x, Nat y);
 
-        void imprimir();
 
 };
 

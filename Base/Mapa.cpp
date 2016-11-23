@@ -17,8 +17,8 @@ Mapa::~Mapa(){
 
 }
 
-void Mapa::AgregarCoord(const Coordenada &c) {
-    Nat maximo = this->max(c.latitud, c.longitud);
+void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
+    Nat maximo = this->max(nuevaCoor.latitud, nuevaCoor.longitud);
 
     if (maximo+1 > this->_tam) {
         Vector<Vector<Vector<Vector<bool> > > > nGrilla;
@@ -32,96 +32,122 @@ void Mapa::AgregarCoord(const Coordenada &c) {
     }
 
     // std::cout << "\n---------------------\n\n";
-    // std::cout << "lat: " << c.latitud <<"\n";
-    // std::cout << "lon: " << c.longitud <<"\n";
+    // std::cout << "lat: " << nuevaCoor.latitud <<"\n";
+    // std::cout << "lon: " << nuevaCoor.longitud <<"\n";
 
-    this->_grilla[c.latitud][c.longitud][c.latitud][c.longitud] = true;
+    this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud][nuevaCoor.latitud][nuevaCoor.longitud] = true;
 
-    Vector<Vector<bool> > visitados;
-    for (int i = 0; i < this->_tam; i++) {
-        Vector<bool> visitadosAux;
-        for (int j = 0; j < this->_tam; j++) {
-            visitadosAux.AgregarAtras(false);
-        }
-        visitados.AgregarAtras(visitadosAux);
-    }  
+    /*
+    Habia un bug groso en el tp2 (que se arregla facil)
+    Basicamente se actualizaban los HayCamino para todas las coordenadas en relacion a la nueva que agregaba
+    Pero no se actualizaban las viejas con las viejas
+    Ej de algo que funcionaba mal:
 
-    // Uso una Lista como si fuese una Cola
-    Lista<Coordenada> aRecorrer; 
-    aRecorrer.AgregarAtras(c);
+    Tengo el (0,0) y el (2,0) en el mapa, NO hay camino (esto esta bien)
+    Agrego el (0,1) al mapa, ahora SI deberia haber camino (porque estan unidas por la nueva que agregaba)
+    Pero esto no estaba siendo actualizado
 
-    // @BUG
-    // Deberia poner c en visitadas?? creo que si, para evitar ciclos infinitos
-    visitados[c.latitud][c.longitud] = true;
+    La solucion fue recalcular los HayCamino para toda coordenada
+    Esto no cambia la complejidad, como maximo hay tam^2 coordenadas (mapa lleno)
+    y para cada coordenada la comparo con todas las demas:  tam^2 * tam^2 = tam^4 = O(tam^4) 
+    */
+
+    Conj<Coordenada> coors = this->Coordenadas(); // Esto incluye la que acabo de agregar
+    Conj<Coordenada>::Iterador it = coors.CrearIt();
+    while (it.HaySiguiente()) {
+        Coordenada c = it.Siguiente();
+
+        Vector<Vector<bool> > visitados;
+        for (int i = 0; i < this->_tam; i++) {
+            Vector<bool> visitadosAux;
+            for (int j = 0; j < this->_tam; j++) {
+                visitadosAux.AgregarAtras(false);
+            }
+            visitados.AgregarAtras(visitadosAux);
+        }  
+
+        // Uso una Lista como si fuese una Cola
+        Lista<Coordenada> aRecorrer; 
+        aRecorrer.AgregarAtras(c);
+
+        // @BUG
+        // Deberia poner c en visitadas?? creo que si, para evitar ciclos infinitos
+        visitados[c.latitud][c.longitud] = true;
 
 
-    while (!aRecorrer.EsVacia()) {
-        // Tomo el proximo y desencolo
-        Coordenada act = aRecorrer.Primero();
-        aRecorrer.Fin(); // Elimina la cabeza
+        while (!aRecorrer.EsVacia()) {
+            // Tomo el proximo y desencolo
+            Coordenada act = aRecorrer.Primero();
+            aRecorrer.Fin(); // Elimina la cabeza
 
-        // std::cout << "\n\nact: " << act << "\n";
+            // std::cout << "\n\nact: " << act << "\n";
 
-        if (act.latitud > 0) {
-            Coordenada laIzquierda = act.CoordenadaALaIzquierda();
-            Nat x = laIzquierda.latitud;
-            Nat y = laIzquierda.longitud;
-            // std::cout << "laIzquierda: " << laIzquierda << "\n";
-            if (!visitados[x][y]) {
-                visitados[x][y] = true;
-                if (this->PosExistente(laIzquierda)) {
-                    this->_grilla[c.latitud][c.longitud][x][y] = true;
-                    this->_grilla[x][y][c.latitud][c.longitud] = true;
-                    aRecorrer.AgregarAtras(laIzquierda);
+            if (act.latitud > 0) {
+                Coordenada laIzquierda = act.CoordenadaALaIzquierda();
+                Nat x = laIzquierda.latitud;
+                Nat y = laIzquierda.longitud;
+                // std::cout << "laIzquierda: " << laIzquierda << "\n";
+                if (!visitados[x][y]) {
+                    visitados[x][y] = true;
+                    if (this->PosExistente(laIzquierda)) {
+                        this->_grilla[c.latitud][c.longitud][x][y] = true;
+                        this->_grilla[x][y][c.latitud][c.longitud] = true;
+                        aRecorrer.AgregarAtras(laIzquierda);
+                    }
+                }
+            }
+
+            if (act.longitud > 0) {
+                Coordenada laAbajo = act.CoordenadaAbajo();
+                Nat x = laAbajo.latitud;
+                Nat y = laAbajo.longitud;
+                // std::cout << "laAbajo: " << laAbajo << "\n";
+                if (!visitados[x][y]) {
+                    visitados[x][y] = true;
+                    if (this->PosExistente(laAbajo)) {
+                        this->_grilla[c.latitud][c.longitud][x][y] = true;
+                        this->_grilla[x][y][c.latitud][c.longitud] = true;
+                        aRecorrer.AgregarAtras(laAbajo);
+                    }
+                }
+            }
+
+            if (act.latitud < (this->_tam - 1)) {
+                Coordenada laDerecha = act.CoordenadaALaDerecha();
+                Nat x = laDerecha.latitud;
+                Nat y = laDerecha.longitud;
+                // std::cout << "laDerecha: " << laDerecha << "\n";
+                if (!visitados[x][y]) {
+                    visitados[x][y] = true;
+                    if (this->PosExistente(laDerecha)) {
+                        this->_grilla[c.latitud][c.longitud][x][y] = true;
+                        this->_grilla[x][y][c.latitud][c.longitud] = true;
+                        aRecorrer.AgregarAtras(laDerecha);
+                    }
+                }
+            }
+
+            if (act.longitud < (this->_tam - 1)) {
+                Coordenada laArriba = act.CoordenadaArriba();
+                Nat x = laArriba.latitud;
+                Nat y = laArriba.longitud;
+                // std::cout << "laArriba: " << laArriba << "\n";
+                if (!visitados[x][y]) {
+                    visitados[x][y] = true;
+                    if (this->PosExistente(laArriba)) {
+                        this->_grilla[c.latitud][c.longitud][x][y] = true;
+                        this->_grilla[x][y][c.latitud][c.longitud] = true;
+                        aRecorrer.AgregarAtras(laArriba);
+                    }
                 }
             }
         }
 
-        if (act.longitud > 0) {
-            Coordenada laAbajo = act.CoordenadaAbajo();
-            Nat x = laAbajo.latitud;
-            Nat y = laAbajo.longitud;
-            // std::cout << "laAbajo: " << laAbajo << "\n";
-            if (!visitados[x][y]) {
-                visitados[x][y] = true;
-                if (this->PosExistente(laAbajo)) {
-                    this->_grilla[c.latitud][c.longitud][x][y] = true;
-                    this->_grilla[x][y][c.latitud][c.longitud] = true;
-                    aRecorrer.AgregarAtras(laAbajo);
-                }
-            }
-        }
+        it.Avanzar(); // No olvidar!
 
-        if (act.latitud < (this->_tam - 1)) {
-            Coordenada laDerecha = act.CoordenadaALaDerecha();
-            Nat x = laDerecha.latitud;
-            Nat y = laDerecha.longitud;
-            // std::cout << "laDerecha: " << laDerecha << "\n";
-            if (!visitados[x][y]) {
-                visitados[x][y] = true;
-                if (this->PosExistente(laDerecha)) {
-                    this->_grilla[c.latitud][c.longitud][x][y] = true;
-                    this->_grilla[x][y][c.latitud][c.longitud] = true;
-                    aRecorrer.AgregarAtras(laDerecha);
-                }
-            }
-        }
 
-        if (act.longitud < (this->_tam - 1)) {
-            Coordenada laArriba = act.CoordenadaArriba();
-            Nat x = laArriba.latitud;
-            Nat y = laArriba.longitud;
-            // std::cout << "laArriba: " << laArriba << "\n";
-            if (!visitados[x][y]) {
-                visitados[x][y] = true;
-                if (this->PosExistente(laArriba)) {
-                    this->_grilla[c.latitud][c.longitud][x][y] = true;
-                    this->_grilla[x][y][c.latitud][c.longitud] = true;
-                    aRecorrer.AgregarAtras(laArriba);
-                }
-            }
-        }
     }
+
 }
 
 Conj<Coordenada> Mapa::Coordenadas() const{
@@ -210,9 +236,18 @@ void Mapa::copiarCoordenadas(
     Vector<Vector<Vector<Vector<bool> > > > &grillaNueva,
     Vector<Vector<Vector<Vector<bool> > > > &grillaVieja) {
 
+    // for (int i = 0; i < grillaVieja.Longitud(); i++) {
+    //     for (int j = 0; j < grillaVieja.Longitud(); j++) {
+    //         for (int k = 0; k < grillaVieja.Longitud(); k++) {
+    //             for (int l = 0; l < grillaVieja.Longitud(); l++) {
+    //                 grillaNueva[i][j][k][l] = grillaVieja[i][j][k][l];
+    //             }
+    //         }
+    //     }
+    // }
     for (int i = 0; i < grillaVieja.Longitud(); i++) {
         for (int j = 0; j < grillaVieja.Longitud(); j++) {
-            grillaNueva[i][j][i][j] = grillaVieja[i][j][i][j];
+            grillaNueva[i][j][i][j] = grillaVieja[i][j][i][j ];
         }
     }
 }
