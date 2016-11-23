@@ -248,6 +248,7 @@ Coordenada Juego::Posicion(Jugador e) const{
 DiccString<Nat>::Iterador Juego::Pokemons(Jugador e){
     return _cantPokemon.CrearIt();
 }
+
 bool Juego::EstaConectado(Jugador e) const{
     return _jugadores[e]._conectado;
 }

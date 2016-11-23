@@ -55,8 +55,13 @@ void test_constructor_con_mapa() {
     cc.Agregar(Coordenada(1,4));
     Driver d(cc);
 
-    // d.mapa() ya tira las coordenadas... weird
     ASSERT( d.mapa() == cc );
+
+    // @TEST
+    // Faltaria chequear los otros metodos que se tocan al construir el juego  
+
+    ASSERT(d.posConPokemons().EsVacio());
+    ASSERT(d.jugadores().EsVacio());
 }
 
 void test_agregar_jugadores(){
@@ -82,6 +87,11 @@ void test_agregar_jugadores(){
     ASSERT(d.sanciones(e2) == 0);
     ASSERT(d.jugadores().Pertenece(e2));
     ASSERT(!d.expulsados().Pertenece(e2));
+
+    ASSERT(d.jugadores().Pertenece(e));
+    ASSERT(d.jugadores().Pertenece(e1));
+
+
 
 }
 
