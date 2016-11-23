@@ -30,12 +30,17 @@ class Mapa {
             Vector<Vector<Vector<Vector<bool> > > > &grillaVieja
         );
 
-        Vector<Vector<Vector<Vector<bool> > > > crearGrilla(const Nat n);
+        Vector<Vector<Vector<Vector<bool> > > > crearGrilla(
+            Vector<Vector<Vector<Vector<bool> > > > &nuevaGrilla,
+            const Nat n
+        );
 
         Vector<Vector<Vector<Vector<bool> > > > _grilla;
         Nat _tam;
 
         Nat max(Nat x, Nat y);
+
+        void imprimir();
 
 };
 

@@ -2,6 +2,7 @@
 #ifndef AED2_VECTOR_H_INCLUDED
 #define AED2_VECTOR_H_INCLUDED
 
+#include <iostream>
 #include "TiposBasicos.h"
 #include "Arreglo.h"
 
@@ -137,6 +138,9 @@ const T& Vector<T>::operator[](Nat pos) const {
 
 template<class T>
 T& Vector<T>::operator[](Nat pos) {
+    // std::cout << "pos: " << pos << "\n";
+    // std::cout << elementos << "\n";
+    // std::cout << "\n";
     assert(pos < longitud);
     return elementos[pos];
 }

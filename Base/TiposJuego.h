@@ -1,6 +1,7 @@
 #ifndef TIPOSJUEGO_H_
 #define TIPOSJUEGO_H_
 
+#include <ostream>
 #include "aed2/TiposBasicos.h"
 
 
@@ -45,6 +46,10 @@ inline bool operator == (const Coordenada& c1, const Coordenada& c2){
 
 inline bool operator != (const Coordenada& c1, const Coordenada& c2){
     return not (c1 == c2);
+}
+
+inline std::ostream& operator << (std::ostream& os, const Coordenada& c) {
+    os << "<" << c.latitud << "," << c.longitud << ">"; 
 }
 
 inline Nat distEuclidea(const Coordenada& c1, const Coordenada& c2){

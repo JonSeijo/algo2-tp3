@@ -22,8 +22,13 @@ void test_vacio() {
 
 void test_agregar_coordenada_tam(){
     Mapa map;
-    map.AgregarCoord(Coordenada(5,5));
     map.AgregarCoord(Coordenada(1,1));
+    map.AgregarCoord(Coordenada(0,1));  // <--- Se rompe
+    map.AgregarCoord(Coordenada(1,0));  // <--- Se rompe
+
+
+
+    map.AgregarCoord(Coordenada(5,5));
     ASSERT(map.Tam() == 6);
     map.AgregarCoord(Coordenada(9,9));
     ASSERT(map.Tam() == 10);
@@ -32,6 +37,8 @@ void test_agregar_coordenada_tam(){
     map.AgregarCoord(Coordenada(10,11));
     ASSERT(map.Tam() == 12);   
     map.AgregarCoord(Coordenada(11,11));
+    ASSERT(map.Tam() == 12);   
+    map.AgregarCoord(Coordenada(11,10));
     ASSERT(map.Tam() == 12);   
 }
 
@@ -50,11 +57,31 @@ void test_posExistente() {
     ASSERT(!map.PosExistente(Coordenada(0,1)));
     ASSERT(!map.PosExistente(Coordenada(1,0)));
     ASSERT(!map.PosExistente(Coordenada(2,2)));
-
+    map.AgregarCoord(Coordenada(5,5));
+    ASSERT(map.PosExistente(Coordenada(1,1)));
+    ASSERT(map.PosExistente(Coordenada(5,5)));
+    ASSERT(!map.PosExistente(Coordenada(0,0)));
+    ASSERT(!map.PosExistente(Coordenada(0,1)));
+    ASSERT(!map.PosExistente(Coordenada(1,0)));
+    ASSERT(!map.PosExistente(Coordenada(2,2)));
+    map.AgregarCoord(Coordenada(3,3));
+    ASSERT(map.PosExistente(Coordenada(1,1)));
+    ASSERT(map.PosExistente(Coordenada(3,3)));
+    ASSERT(map.PosExistente(Coordenada(5,5)));
+    ASSERT(!map.PosExistente(Coordenada(0,0)));
+    ASSERT(!map.PosExistente(Coordenada(0,1)));
+    ASSERT(!map.PosExistente(Coordenada(1,0)));
+    ASSERT(!map.PosExistente(Coordenada(2,2)));
 }
 
 void test_hayCamino() {
-    ASSERT( false );
+    Mapa map;
+    map.AgregarCoord(Coordenada(1,1));
+    map.AgregarCoord(Coordenada(2,2));
+    ASSERT(!map.HayCamino(Coordenada(1,1), Coordenada(2,2)));
+    map.AgregarCoord(Coordenada(2,1));
+    ASSERT(map.HayCamino(Coordenada(1,1), Coordenada(2,2)));
+
 }
 
 void test_tam() {

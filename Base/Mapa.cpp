@@ -22,11 +22,18 @@ void Mapa::AgregarCoord(const Coordenada &c) {
 
     if (maximo+1 > this->_tam) {
         Vector<Vector<Vector<Vector<bool> > > > nGrilla;
-        nGrilla = this->crearGrilla(maximo+1);
+        this->crearGrilla(nGrilla, maximo+1);
+        
         this->copiarCoordenadas(nGrilla, this->_grilla);
+        
         this->_grilla = nGrilla;
+        
         this->_tam = maximo+1;
     }
+
+    // std::cout << "\n---------------------\n\n";
+    // std::cout << "lat: " << c.latitud <<"\n";
+    // std::cout << "lon: " << c.longitud <<"\n";
 
     this->_grilla[c.latitud][c.longitud][c.latitud][c.longitud] = true;
 
@@ -37,9 +44,8 @@ void Mapa::AgregarCoord(const Coordenada &c) {
             visitadosAux.AgregarAtras(false);
         }
         visitados.AgregarAtras(visitadosAux);
-    }
+    }  
 
-    
     // Uso una Lista como si fuese una Cola
     Lista<Coordenada> aRecorrer; 
     aRecorrer.AgregarAtras(c);
@@ -54,10 +60,13 @@ void Mapa::AgregarCoord(const Coordenada &c) {
         Coordenada act = aRecorrer.Primero();
         aRecorrer.Fin(); // Elimina la cabeza
 
-        if (c.latitud > 0) {
+        // std::cout << "\n\nact: " << act << "\n";
+
+        if (act.latitud > 0) {
             Coordenada laIzquierda = act.CoordenadaALaIzquierda();
             Nat x = laIzquierda.latitud;
             Nat y = laIzquierda.longitud;
+            // std::cout << "laIzquierda: " << laIzquierda << "\n";
             if (!visitados[x][y]) {
                 visitados[x][y] = true;
                 if (this->PosExistente(laIzquierda)) {
@@ -68,10 +77,11 @@ void Mapa::AgregarCoord(const Coordenada &c) {
             }
         }
 
-        if (c.longitud > 0) {
+        if (act.longitud > 0) {
             Coordenada laAbajo = act.CoordenadaAbajo();
             Nat x = laAbajo.latitud;
             Nat y = laAbajo.longitud;
+            // std::cout << "laAbajo: " << laAbajo << "\n";
             if (!visitados[x][y]) {
                 visitados[x][y] = true;
                 if (this->PosExistente(laAbajo)) {
@@ -82,10 +92,11 @@ void Mapa::AgregarCoord(const Coordenada &c) {
             }
         }
 
-        if (c.latitud < (this->_tam - 1)) {
+        if (act.latitud < (this->_tam - 1)) {
             Coordenada laDerecha = act.CoordenadaALaDerecha();
             Nat x = laDerecha.latitud;
             Nat y = laDerecha.longitud;
+            // std::cout << "laDerecha: " << laDerecha << "\n";
             if (!visitados[x][y]) {
                 visitados[x][y] = true;
                 if (this->PosExistente(laDerecha)) {
@@ -96,10 +107,11 @@ void Mapa::AgregarCoord(const Coordenada &c) {
             }
         }
 
-        if (c.longitud < (this->_tam - 1)) {
+        if (act.longitud < (this->_tam - 1)) {
             Coordenada laArriba = act.CoordenadaArriba();
             Nat x = laArriba.latitud;
             Nat y = laArriba.longitud;
+            // std::cout << "laArriba: " << laArriba << "\n";
             if (!visitados[x][y]) {
                 visitados[x][y] = true;
                 if (this->PosExistente(laArriba)) {
@@ -148,8 +160,11 @@ Nat Mapa::Tam() const{
     return this->_tam;
 }
 
-Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(const Nat n) {
-    Vector<Vector<Vector<Vector<bool> > > > nuevaGrilla;
+Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(
+    Vector<Vector<Vector<Vector<bool> > > > &nuevaGrilla,
+    const Nat n
+) {
+    // Vector<Vector<Vector<Vector<bool> > > > nuevaGrilla;
 
     for (int i = 0; i < n; i++) {
         Vector<Vector<Vector<bool> > > nGrilla2;
@@ -169,10 +184,26 @@ Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(const Nat n) {
         nuevaGrilla.AgregarAtras(nGrilla2);
     }
 
-    // std::cout << "n: " << n << "\n";
+// std::cout << "n: " << n << "\n";
     // std::cout << "tam: " << nuevaGrilla.longitud << "\n";
 
     return nuevaGrilla;
+}
+
+void Mapa::imprimir() {
+    Nat n = this->_grilla.Longitud();
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            for (int k = 0; k < n; k++) {
+                for (int l = 0; l < n; l++) {
+                    std::cout << this->_grilla[i][j][k][l] << " ";
+                }
+                std::cout << "\n";
+            }
+            std::cout << "\n";
+        }
+        std::cout << "\n";
+    }
 }
 
 void Mapa::copiarCoordenadas(
