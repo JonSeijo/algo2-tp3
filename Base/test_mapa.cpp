@@ -23,10 +23,8 @@ void test_vacio() {
 void test_agregar_coordenada_tam(){
     Mapa map;
     map.AgregarCoord(Coordenada(1,1));
-    map.AgregarCoord(Coordenada(0,1));  // <--- Se rompe
-    map.AgregarCoord(Coordenada(1,0));  // <--- Se rompe
-
-
+    map.AgregarCoord(Coordenada(0,1));  
+    map.AgregarCoord(Coordenada(1,0));  
 
     map.AgregarCoord(Coordenada(5,5));
     ASSERT(map.Tam() == 6);
