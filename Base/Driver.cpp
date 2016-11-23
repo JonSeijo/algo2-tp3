@@ -8,22 +8,16 @@ using namespace aed2;
 // Instanciar un mapa y un juego
 Driver::Driver(const Conj< Coordenada > & cs) : _juego(NULL){
     Mapa map;
-
     Conj< Coordenada >::const_Iterador it = cs.CrearIt();
-
     while (it.HaySiguiente()) {
-
-      map.AgregarCoord(it.Siguiente());
-
+        map.AgregarCoord(it.Siguiente());
         it.Avanzar();
     }
-
-    // ESTO PROVOCA SEG FAULT !!!
     this->_juego = new Juego(map);
 }
 
-Driver::~Driver(){
-	delete _juego;
+Driver::~Driver() {
+    delete this->_juego;
 }
 
 void Driver::agregarPokemon(const Pokemon & p, const Coordenada & c){
