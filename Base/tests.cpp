@@ -72,12 +72,30 @@ void test_constructor_con_mapa() {
     cc.Agregar(Coordenada(1,4));
     Driver d(cc);
 
-    ASSERT( d.mapa() == cc );
+    ASSERT(d.mapa() == cc);
     ASSERT(d.posConPokemons().EsVacio());
     ASSERT(d.jugadores().EsVacio());
     ASSERT(d.expulsados().EsVacio());
     ASSERT(d.posConPokemons().EsVacio());
     ASSERT(d.cantPokemonsTotales() == 0);
+
+    Conj<Coordenada> cc2 = mapaTipo0();
+    Driver d2(cc2);
+    ASSERT(d2.mapa() == cc2);
+    ASSERT(d2.posConPokemons().EsVacio());
+    ASSERT(d2.jugadores().EsVacio());
+    ASSERT(d2.expulsados().EsVacio());
+    ASSERT(d2.posConPokemons().EsVacio());
+    ASSERT(d2.cantPokemonsTotales() == 0);
+
+    Conj<Coordenada> cc3 = mapaTipo1();
+    Driver d3(cc3);
+    ASSERT(d3.mapa() == cc3);
+    ASSERT(d3.posConPokemons().EsVacio());
+    ASSERT(d3.jugadores().EsVacio());
+    ASSERT(d3.expulsados().EsVacio());
+    ASSERT(d3.posConPokemons().EsVacio());
+    ASSERT(d3.cantPokemonsTotales() == 0);
 }
 
 void test_agregar_jugadores(){
@@ -106,6 +124,8 @@ void test_agregar_jugadores(){
 
     ASSERT(d.jugadores().Pertenece(e));
     ASSERT(d.jugadores().Pertenece(e1));
+
+
 }
 
 void test_agregar_pokemones(){
