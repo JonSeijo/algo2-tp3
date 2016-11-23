@@ -56,12 +56,11 @@ void test_constructor_con_mapa() {
     Driver d(cc);
 
     ASSERT( d.mapa() == cc );
-
-    // @TEST
-    // Faltaria chequear los otros metodos que se tocan al construir el juego  
-
     ASSERT(d.posConPokemons().EsVacio());
     ASSERT(d.jugadores().EsVacio());
+    ASSERT(d.expulsados().EsVacio());
+    ASSERT(d.posConPokemons().EsVacio());
+    ASSERT(d.cantPokemonsTotales() == 0);
 }
 
 void test_agregar_jugadores(){
