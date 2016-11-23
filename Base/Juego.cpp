@@ -40,7 +40,7 @@ Juego::Juego(const Mapa &map) : _cantPokemon(), _cantPokemonesTotales(0), _mapa(
 Juego::~Juego(){
 
     for (Nat i = 0; i < _pokenodos.Longitud(); i++) {
-        for (Nat j = 0; _pokenodos[i].Longitud(); j++) {
+        for (Nat j = 0; j < _pokenodos[i].Longitud(); j++) {
             delete _pokenodos[i][j];
         }
 
