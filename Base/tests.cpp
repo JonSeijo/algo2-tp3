@@ -1,5 +1,5 @@
 // Compilar usando:
-//	g++ -o tests tests.cpp Driver.cpp <lista de archivos *.cpp propios>
+//  g++ -g tests.cpp Driver.cpp -o tests
 //	valgrind --leak-check=full ./tests
 
 #include <iostream>
