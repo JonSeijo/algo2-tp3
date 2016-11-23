@@ -1,5 +1,5 @@
 // Compilar usando:
-//  g++ -g tests.cpp Driver.cpp -o tests
+//  g++ -g tests.cpp -o tests
 //  valgrind --leak-check=full ./tests
 
 #include <iostream>
@@ -63,14 +63,26 @@ void test_agregar_jugadores(){
     Driver d(mapaTipo1());
 
     Jugador e = d.agregarJugador();
-
     ASSERT(e == 0);
-
     ASSERT(!d.estaConectado(e));
     ASSERT(d.sanciones(e) == 0);
-
     ASSERT(d.jugadores().Pertenece(e));
     ASSERT(!d.expulsados().Pertenece(e));
+
+    Jugador e1 = d.agregarJugador();
+    ASSERT(e1 == 1);
+    ASSERT(!d.estaConectado(e1));
+    ASSERT(d.sanciones(e1) == 0);
+    ASSERT(d.jugadores().Pertenece(e1));
+    ASSERT(!d.expulsados().Pertenece(e1));
+
+    Jugador e2 = d.agregarJugador();
+    ASSERT(e2 == 2);
+    ASSERT(!d.estaConectado(e2));
+    ASSERT(d.sanciones(e2) == 0);
+    ASSERT(d.jugadores().Pertenece(e2));
+    ASSERT(!d.expulsados().Pertenece(e2));
+
 }
 
 void test_agregar_pokemones(){
