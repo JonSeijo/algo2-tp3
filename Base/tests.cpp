@@ -1,6 +1,6 @@
 // Compilar usando:
 //  g++ -g tests.cpp Driver.cpp -o tests
-//	valgrind --leak-check=full ./tests
+//  valgrind --leak-check=full ./tests
 
 #include <iostream>
 #include "Driver.h"
@@ -10,60 +10,60 @@
 using namespace aed2;
 
 void test_constructor_con_mapa() {
-  Conj<Coordenada> cc;
-  cc.Agregar(Coordenada(0,0));
-  cc.Agregar(Coordenada(0,1));
-  cc.Agregar(Coordenada(0,2));
-  cc.Agregar(Coordenada(1,2));
-  cc.Agregar(Coordenada(10,0));
-  cc.Agregar(Coordenada(1,4));
+    Conj<Coordenada> cc;
+    cc.Agregar(Coordenada(0,0));
+    cc.Agregar(Coordenada(0,1));
+    cc.Agregar(Coordenada(0,2));
+    cc.Agregar(Coordenada(1,2));
+    cc.Agregar(Coordenada(10,0));
+    cc.Agregar(Coordenada(1,4));
 
-  std::cout << "\nllego" << "\n";
+    std::cout << "\nllego" << "\n";
 
-  Driver d(cc);
+    Driver d(cc);
 
-  std::cout << "\nno llego" << "\n";
+    std::cout << "\nno llego" << "\n";
 
-  // d.mapa() ya tira las coordenadas... weird
-  // ASSERT( d.mapa() == cc );
+    // d.mapa() ya tira las coordenadas... weird
+    // ASSERT( d.mapa() == cc );
 
-  std::cout << "\nno llego2" << "\n";
+    std::cout << "\nno llego2" << "\n";
 }
 
 void test_agregar_jugadores(){
-  Conj<Coordenada> cc;
-  cc.Agregar(Coordenada(0,0));
-  cc.Agregar(Coordenada(0,1));
-  cc.Agregar(Coordenada(0,2));
-  cc.Agregar(Coordenada(1,2));
-  cc.Agregar(Coordenada(10,0));
-  cc.Agregar(Coordenada(1,4));
-  Driver d(cc);
+    Conj<Coordenada> cc;
+    cc.Agregar(Coordenada(0,0));
+    cc.Agregar(Coordenada(0,1));
+    cc.Agregar(Coordenada(0,2));
+    cc.Agregar(Coordenada(1,2));
+    cc.Agregar(Coordenada(10,0));
+    cc.Agregar(Coordenada(1,4));
+    Driver d(cc);
 
-  Jugador e = d.agregarJugador();
+    Jugador e = d.agregarJugador();
 
-  ASSERT(e == 0);
+    ASSERT(e == 0);
 
-  ASSERT(!d.estaConectado(e));
-  ASSERT(d.sanciones(e) == 0);
+    ASSERT(!d.estaConectado(e));
+    ASSERT(d.sanciones(e) == 0);
 
-  ASSERT(d.jugadores().Pertenece(e));
-  ASSERT(!d.expulsados().Pertenece(e));
+    ASSERT(d.jugadores().Pertenece(e));
+    ASSERT(!d.expulsados().Pertenece(e));
 
 
 }
 
 void test_agregar_pokemones(){
-	ASSERT( false );
+    ASSERT( false );
 }
 
 // TODO: Agregar más tests
 
 
 int main(int argc, char **argv){
-  RUN_TEST(test_constructor_con_mapa);
-  RUN_TEST(test_agregar_jugadores);
-  RUN_TEST(test_agregar_pokemones);
+    RUN_TEST(test_constructor_con_mapa);
+    RUN_TEST(test_agregar_jugadores);
+    RUN_TEST(test_agregar_pokemones);
 
-  return 0;
+    return 0;
 }
