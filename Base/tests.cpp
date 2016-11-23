@@ -13,6 +13,21 @@ void ag(Conj<Coordenada> &cc, Nat x, Nat y) {
     cc.Agregar(Coordenada(x, y));
 }
 
+Conj<Coordenada> mapaTipo0() {
+    /*
+      0 1 2
+    0 - - -
+    1 - X -
+    2 - - X
+    
+    */
+    
+    Conj<Coordenada> cc;
+    ag(cc, 1, 1);
+    ag(cc, 2, 2);
+    return cc;
+}
+
 Conj<Coordenada> mapaTipo1() {
     /*
     Mapa tipo 1 tiene esta pinta:
@@ -29,7 +44,7 @@ Conj<Coordenada> mapaTipo1() {
     6    - - - - - X X X - -
     7    - - - - - X X X - -
     8    - - - - - - - - - -
-    9    - - - - - - - - - -
+    9    - - - - - - - - - X
     */
 
     Conj<Coordenada> cc;
@@ -42,6 +57,8 @@ Conj<Coordenada> mapaTipo1() {
                                                                                 ag(cc, 5, 6);  ag(cc, 6, 6);  ag(cc, 7, 6);
                                                                                 ag(cc, 5, 7);  ag(cc, 6, 7);  ag(cc, 7, 7);
 
+
+    ag(cc, 9, 9);
     return cc;
 }
 
@@ -89,9 +106,6 @@ void test_agregar_jugadores(){
 
     ASSERT(d.jugadores().Pertenece(e));
     ASSERT(d.jugadores().Pertenece(e1));
-
-
-
 }
 
 void test_agregar_pokemones(){
