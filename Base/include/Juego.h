@@ -72,6 +72,8 @@ class Juego{
             Conj<Jugador>::Iterador _itAJuego;
             Nat _cantCap;
 
+            // @BUG
+            // Creo que deberia estar desconectado por defecto 
             jugStruc(Nat id, Coordenada pos)
              : _id(id), _sanciones(0), _conectado(true), _pos(pos), _pokemons(),
                  _itAJuego(), _itAEntrenadores(), _itAPos(), _cantCap(0){};
