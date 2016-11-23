@@ -136,8 +136,8 @@ DiccString<S>::~DiccString(){
         this->Borrar(vectorClaves[i]);
     }
 
-    std::cout << "\n\nNEWS:   " << DiccString<S>::newsNodos << " \n";
-    std::cout << "\nDELETES:   " << DiccString<S>::deletesNodos << " \n";
+    // std::cout << "\n\nNEWS:   " << DiccString<S>::newsNodos << " \n";
+    // std::cout << "\nDELETES:   " << DiccString<S>::deletesNodos << " \n";
 
     if(_raiz != NULL){
         std::cout << "DELETE: _raiz desde destructor\n";

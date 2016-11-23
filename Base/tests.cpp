@@ -17,17 +17,10 @@ void test_constructor_con_mapa() {
     cc.Agregar(Coordenada(1,2));
     cc.Agregar(Coordenada(10,0));
     cc.Agregar(Coordenada(1,4));
-
-    std::cout << "\nllego" << "\n";
-
     Driver d(cc);
 
-    std::cout << "\nno llego" << "\n";
-
     // d.mapa() ya tira las coordenadas... weird
-    // ASSERT( d.mapa() == cc );
-
-    std::cout << "\nno llego2" << "\n";
+    ASSERT( d.mapa() == cc );
 }
 
 void test_agregar_jugadores(){
