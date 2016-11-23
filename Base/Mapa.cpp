@@ -8,7 +8,6 @@ using namespace aed2;
 using namespace std;
 
 Mapa::Mapa(){
-    cout << "Creando mapa" << endl;
     this->_tam = 0;
     this->_grilla;
 }
