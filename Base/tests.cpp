@@ -125,6 +125,32 @@ void test_agregar_jugadores(){
     ASSERT(d.jugadores().Pertenece(e));
     ASSERT(d.jugadores().Pertenece(e1));
 
+    // tipo0 no tiene la coordenada (0,0), y los jugadores se inicializan en (0,0)
+    // No deberia romperse nada, por eso el test
+    Driver d2(mapaTipo0());
+    Jugador e20 = d2.agregarJugador();
+    ASSERT(e20 == 0);
+    ASSERT(!d2.estaConectado(e20));
+    ASSERT(d2.sanciones(e20) == 0);
+    ASSERT(d2.jugadores().Pertenece(e20));
+    ASSERT(!d2.expulsados().Pertenece(e20));
+
+    Jugador e21 = d2.agregarJugador();
+    ASSERT(e21 == 1);
+    ASSERT(!d2.estaConectado(e21));
+    ASSERT(d2.sanciones(e21) == 0);
+    ASSERT(d2.jugadores().Pertenece(e21));
+    ASSERT(!d2.expulsados().Pertenece(e21));
+
+    Jugador e22 = d2.agregarJugador();
+    ASSERT(e22 == 2);
+    ASSERT(!d2.estaConectado(e22));
+    ASSERT(d2.sanciones(e22) == 0);
+    ASSERT(d2.jugadores().Pertenece(e22));
+    ASSERT(!d2.expulsados().Pertenece(e22));
+
+    ASSERT(d2.jugadores().Pertenece(e20));
+    ASSERT(d2.jugadores().Pertenece(e21));
 
 }
 
