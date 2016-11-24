@@ -154,78 +154,39 @@ void test_agregar_jugadores(){
 
 }
 
-void test_puedoAgregarPokemon() {
-    ASSERT(false);
+void test_agregar_pokemones(){
+    Driver d(mapaTipo0());
+    Conj<Coordenada> coordDeMapa = d.mapa();
+    Conj<Coordenada>::Iterador it = coordDeMapa.CrearIt();
+    Pokemon pikachu = "Pikachu";
+    Pokemon charmander = "Charmander";
+    Pokemon agumon = "Agumon";
+    Pokemon caracteresRaros = "2$&&/&(/&020.202}{+{[^`~~'¿?'¿¿'";
+    std::cout << "Agrego pikachu en la coordenada: " << it.Siguiente() << std::endl;
+    Coordenada coorPikachu = it.Siguiente();
+    d.agregarPokemon(pikachu, it.Siguiente());
+    it.Avanzar();
+    //En el mapa hay dos coordenadas, pongo al pikachu en una y me fijo si es la pos cercana de la otra
+    //Faltan 40 mil cosas todavía, pero es un avance (?)
+    std::cout << "Coordenada libre: " << it.Siguiente() << std::endl;
+    ASSERT(d.posPokemonCercano(it.Siguiente()) == coorPikachu);
+
+    Jugador AshKetchup = d.agregarJugador();
+    d.conectarse(AshKetchup, it.Siguiente());
+    d.moverse(AshKetchup, coorPikachu);
+    d.moverse(AshKetchup, it.Siguiente());
+    std::cout << "Hasta acá no se rompió nada" << std::endl;
+    ASSERT(d.jugadores().Pertenece(AshKetchup));
+    ASSERT(d.cantMovimientosParaCaptura(d.posPokemonCercano(d.posicion(AshKetchup))) == 8);
 }
 
-// Esto se va a poner feo
-void test_agregar_pokemones_sinJugs(){
-    Driver d(mapaTipo1());
-    ASSERT(false);
-}
-
-void test_agregar_pokemones_conJugs(){
-    Driver d(mapaTipo1());
-    ASSERT(false);
-}
-
-void test_posPokeCercano() {
-    ASSERT(false);
-}
-
-void test_entrenadoresPosibles() {
-    ASSERT(false);
-}
-
-void test_conectar() {    
-    ASSERT(false);
-}
-
-void test_desconectar() {    
-    ASSERT(false);
-}
-
-void test_mover_sinPokes() {    
-    ASSERT(false);
-}
-
-void test_mover_sinPokesYSancionar() {    
-    ASSERT(false);
-}
-
-void test_mover_conPokes() {    
-    ASSERT(false);
-}
-
-void test_mover_conPokesYCapturar() {    
-    ASSERT(false);
-}
-
-void test_indice_rareza() {
-    ASSERT(false);
-}
-
+// TODO: Agregar más tests
 
 
 int main(int argc, char **argv){
     RUN_TEST(test_constructor_con_mapa);
-    RUN_TEST(test_agregar_jugadores);
-    RUN_TEST(test_agregar_pokemones_sinJugs);
-    RUN_TEST(test_agregar_pokemones_conJugs);
-    RUN_TEST(test_puedoAgregarPokemon); 
-    RUN_TEST(test_agregar_pokemones_sinJugs);
-    RUN_TEST(test_agregar_pokemones_conJugs);
-    RUN_TEST(test_posPokeCercano); 
-    RUN_TEST(test_entrenadoresPosibles); 
-    RUN_TEST(test_conectar);     
-    RUN_TEST(test_desconectar);     
-    RUN_TEST(test_mover_sinPokes);     
-    RUN_TEST(test_mover_sinPokesYSancionar);     
-    RUN_TEST(test_mover_conPokes);     
-    RUN_TEST(test_mover_conPokesYCapturar);     
-    RUN_TEST(test_indice_rareza); 
-
-    std:cout << "HAY QUE HACER UN TEST PARA CADA METODO PUBLICO. FALTAN MAS DE LOS QUE HAY\n";
+    //RUN_TEST(test_agregar_jugadores);
+    RUN_TEST(test_agregar_pokemones);
 
     return 0;
 }
