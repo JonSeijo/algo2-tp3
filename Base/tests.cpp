@@ -435,7 +435,35 @@ void test_posPokeCercano() {
 
 }
 
+void test_movimientosParaCaptura() {
+    ASSERT(false);
+}
+
+void test_capturarSeEliminaElPokemon() {
+    ASSERT(false);
+}
+
+void test_jugadorCorrectoEsQuienCaptura() {
+    ASSERT(false);
+}
+
+void test_capturarJugadorTieneNuevoPoke() {
+    ASSERT(false);
+}
+
+void test_capturarContadoresDeTriesEstanBien() {
+    ASSERT(false);
+}
+
 void test_entrenadoresPosibles() {
+    ASSERT(false);
+}
+
+void test_sancionar() {
+    ASSERT(false);
+}
+
+void test_eliminarDeJuego() {
     ASSERT(false);
 }
 
@@ -509,7 +537,15 @@ int main(int argc, char **argv){
     RUN_TEST(test_hayPokemonCercano); 
     RUN_TEST(test_entrenadoresPosibles); 
     RUN_TEST(test_conectar);     
-    RUN_TEST(test_desconectar);     
+    RUN_TEST(test_desconectar);   
+    RUN_TEST(test_movimientosParaCaptura);
+    RUN_TEST(test_capturarSeEliminaElPokemon);
+    RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
+    RUN_TEST(test_capturarJugadorTieneNuevoPoke);
+    RUN_TEST(test_capturarContadoresDeTriesEstanBien);
+    RUN_TEST(test_entrenadoresPosibles);
+    RUN_TEST(test_sancionar);
+    RUN_TEST(test_eliminarDeJuego);
     RUN_TEST(test_mover_sinPokes);     
     RUN_TEST(test_mover_sinPokesYSancionar);     
     RUN_TEST(test_mover_conPokes);     
