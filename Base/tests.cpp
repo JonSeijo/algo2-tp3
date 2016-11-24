@@ -276,7 +276,16 @@ void test_conectar() {
 }
 
 void test_desconectar() {    
-    ASSERT(false);
+    Driver d(mapaTipo1());
+    Jugador j = d.agregarJugador();
+
+    Coordenada c(0,0);
+
+    d.conectarse(j, c);
+    ASSERT(d.estaConectado(j));
+
+    d.desconectarse(j);
+    ASSERT(!d.estaConectado(j));
 }
 
 void test_mover_sinPokes() {    
