@@ -205,7 +205,6 @@ void test_indice_rareza() {
     ASSERT(false);
 }
 
-// TODO: Agregar más tests
 
 
 int main(int argc, char **argv){
@@ -225,6 +224,8 @@ int main(int argc, char **argv){
     RUN_TEST(test_mover_conPokes);     
     RUN_TEST(test_mover_conPokesYCapturar);     
     RUN_TEST(test_indice_rareza); 
+
+    std:cout << "HAY QUE HACER UN TEST PARA CADA METODO PUBLICO. FALTAN MAS DE LOS QUE HAY\n";
 
     return 0;
 }
