@@ -227,9 +227,9 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
 
     // Se lo agrega en la posicion nueva.
     _jugadores[e]._itAPos = _grillaJugadores[c.latitud][c.longitud].AgregarAtras(e);
-    _jugadores[e]._pos = c;
 
     }
+    _jugadores[e]._pos = c;
 
 }
 
