@@ -264,7 +264,15 @@ void test_entrenadoresPosibles() {
 }
 
 void test_conectar() {    
-    ASSERT(false);
+    Driver d(mapaTipo1());
+    Jugador j = d.agregarJugador();
+
+    Coordenada c(0,0);
+
+    d.conectarse(j, c);
+    ASSERT(d.estaConectado(j));
+
+    ASSERT(d.posicion(j) == c);
 }
 
 void test_desconectar() {    

@@ -1,4 +1,4 @@
-SOURCES = tests.cpp Juego.cpp Coordenada.cpp Mapa.cpp Driver.cpp 
+SOURCES = tests.cpp
 OBJS = $(SOURCES:.cpp=.o)
 
 LIBS = modulos.h aed2.h
@@ -7,6 +7,7 @@ TARGET = tests
 
 $(TARGET): $(OBJS)
 	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
+	./$(TARGET)
 
 all: $(TARGET)
 
@@ -21,9 +22,6 @@ test_cola:
 test_dicc: 
 	$(CXX) -o test_dicc test_dicc.cpp $(LIBS)
 	./test_dicc
-
-%.o: %.cpp
-	$(CXX) -c $<
 
 clean:
 	rm -f $(OBJS) $(TARGET) test_mapa test_cola test_dicc
