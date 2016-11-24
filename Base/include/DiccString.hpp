@@ -139,12 +139,12 @@ DiccString<S>::~DiccString(){
     // std::cout << "\n\nNEWS:   " << DiccString<S>::newsNodos << " \n";
     // std::cout << "\nDELETES:   " << DiccString<S>::deletesNodos << " \n";
 
-    if(_raiz != NULL){
-        std::cout << "DELETE: _raiz desde destructor\n";
-        Nodo* temp = _raiz;
-        _raiz = NULL;
-        delete temp;
-    }
+    // if(_raiz != NULL){
+    //     std::cout << "DELETE: _raiz desde destructor\n";
+    //     Nodo* temp = _raiz;
+    //     _raiz = NULL;
+    //     delete temp;
+    // }
 }
 
 //Constructor por copia.
