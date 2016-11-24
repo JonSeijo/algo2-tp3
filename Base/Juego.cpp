@@ -289,6 +289,11 @@ bool Juego::HayPokemonCercano(const Coordenada &c) const{
 
     Nat m = _mapa->Tam();
 
+    // Esto es para evitar problemas, podria quitarse peeeeero..
+    if (x >= m || y >= m) {
+        return false;
+    }
+
     bool hayPokemon = false;
 
     // Hay un pokemon en (x, y).
