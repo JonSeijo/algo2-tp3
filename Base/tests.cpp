@@ -298,7 +298,16 @@ void test_hayPokemonCercano() {
 }
 
 void test_posPokeCercano() {
-    ASSERT(false);
+	Driver d(mapaTipo1());
+	Coordenada c(0,0);
+    d.agregarPokemon("Vileplume", c);
+
+    Coordenada c1 = d.posPokemonCercano(Coordenada(1,0));
+
+    ASSERT(c == c1);
+
+
+
 }
 
 void test_entrenadoresPosibles() {
