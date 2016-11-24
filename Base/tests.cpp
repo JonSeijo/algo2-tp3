@@ -172,44 +172,37 @@ void test_agregar_pokemones(){
    
   /*  ASSERT(d.posPokemonCercano(it.Siguiente()) == coorPikachu);
     ASSERT(!d.puedoAgregarPokemon(coorPikachu));
-    */ASSERT(d.hayPokemonCercano(coorPikachu) && d.hayPokemonCercano(laotracoord));
+    */
+
+    ASSERT(d.hayPokemonCercano(coorPikachu));
+    ASSERT(d.hayPokemonCercano(laotracoord));
     ASSERT(d.cantPokemonsTotales() == 1);
     ASSERT(d.cantMismaEspecie(pikachu) == 1);
     ASSERT(d.indiceRareza(pikachu) == 0);
-/*
+
     Driver e(mapaTipo1());
-    Conj<Coordenada> coordDeMapa2 = d.mapa();
-    Conj<Coordenada>::Iterador it2 = coordDeMapa.CrearIt();
-    Coordenada c00 = Coordenada(0, 0);
-    Coordenada c99 = Coordenada(9, 9);
-    Coordenada c55 = Coordenada(5, 5);
+    Conj<Coordenada> coordDeMapa2 = e.mapa();
+
+    e.agregarPokemon(agumon, Coordenada(9, 9));
+    e.agregarPokemon(caracteresRaros, Coordenada(0, 0));
+    e.agregarPokemon(caracteresRaros, Coordenada(5, 5));
+        
+    ASSERT(e.posPokemonCercano(Coordenada(1, 1)) == Coordenada(0, 0));
+    ASSERT(e.posPokemonCercano(Coordenada(5, 6)) == Coordenada(5, 5));
+    ASSERT(e.posPokemonCercano(Coordenada(9, 9)) == Coordenada(9, 9));
+
+    ASSERT(!e.puedoAgregarPokemon(Coordenada(1, 1)));
+    ASSERT(!e.puedoAgregarPokemon(Coordenada(5, 6)));
+
+    // ASSERT(e.cantPokemonsTotales() == 3);
+    // ASSERT(e.cantMismaEspecie(pikachu) == 0);
+    // ASSERT(e.cantMismaEspecie(agumon) == 1);
+    // ASSERT(e.cantMismaEspecie(caracteresRaros) == 2);
     
-    Coordenada c11 = Coordenada(1, 1);
-    Coordenada c56 = Coordenada(5, 6);
+    // ASSERT(e.indiceRareza(pikachu) == 100);
+    // ASSERT(e.indiceRareza(agumon) == 100 - 33);
+    // ASSERT(e.indiceRareza(caracteresRaros) == 100 - 66);
 
-*/
-    //e.agregarPokemon(agumon, c99);
-    //e.agregarPokemon(caracteresRaros, c00);
-    //e.agregarPokemon(caracteresRaros, c55);
-    
-    /*
-    ASSERT(e.posPokemonCercano(c11) == c00);
-    ASSERT(e.posPokemonCercano(c56) == c55);
-    ASSERT(e.posPokemonCercano(c99) == c99);
-
-
-    ASSERT(!e.puedoAgregarPokemon(c11));
-    ASSERT(!e.puedoAgregarPokemon(c56));
-
-    ASSERT(e.cantPokemonsTotales() == 3);
-    ASSERT(e.cantMismaEspecie(pikachu) == 0);
-    ASSERT(e.cantMismaEspecie(agumon) == 1);
-    ASSERT(e.cantMismaEspecie(caracteresRaros) == 2);
-    
-    ASSERT(e.indiceRareza(pikachu) == 100);
-    ASSERT(e.indiceRareza(agumon) == 100 - 33);
-    ASSERT(e.indiceRareza(caracteresRaros) == 100 - 66);
-*/
 }
 
 

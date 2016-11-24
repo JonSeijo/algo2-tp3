@@ -289,6 +289,7 @@ bool Juego::HayPokemonCercano(const Coordenada &c) const{
 
     Nat m = _mapa->Tam();
 
+
     // Esto es para evitar problemas, podria quitarse peeeeero..
     if (x >= m || y >= m) {
         return false;
@@ -324,7 +325,7 @@ bool Juego::HayPokemonCercano(const Coordenada &c) const{
     hayPokemon |= ((m > 1 && y+2 < m) && (_pokenodos[x][y+2] != NULL));
 
     // Hay un pokemon en (x+1, y).
-    hayPokemon |= ((x < m + 1) && (_pokenodos[x+1][y] != NULL));
+    hayPokemon |= ((x + 1 < m) && (_pokenodos[x+1][y] != NULL));
 
     // Hay un pokemon en (x+1, y-1).
     hayPokemon |= ((x + 1 < m && y > 0) && (_pokenodos[x+1][y-1] != NULL));
@@ -373,8 +374,8 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
         if (_pokenodos[x][y-1] != NULL) {
             posConPoke = Coordenada(x, y-1);
         }
-
-        if (y < 1  && (_pokenodos[x][y-2] != NULL)) {
+        // @BUG cambio < por >
+        if (y > 1  && (_pokenodos[x][y-2] != NULL)) {
             posConPoke = Coordenada(x, y-2);
         }
 
@@ -399,7 +400,7 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
             posConPoke = Coordenada(x+1, y-1);
         }
 
-        if (y < m-1 && (_pokenodos[x+1][y+1] != NULL)) {
+        if (y + 1 < m && (_pokenodos[x+1][y+1] != NULL)) {
             posConPoke = Coordenada(x+1, y+1);
         }
 
@@ -498,8 +499,8 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
         if (_pokenodos[x][y-1] != NULL) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y-1);
         }
-
-        if (y < 1  && (_pokenodos[x][y-2] != NULL)) {
+        // @BUG cambio < por >
+        if (y > 1  && (_pokenodos[x][y-2] != NULL)) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y-2);
         }
 
