@@ -799,7 +799,7 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             for(Nat i = 0; i <= x + 4; i++){
                 for(Nat j = 0; j <= y + 4; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
-                        if(this -> _pokenodos[x][y] != NULL){
+                        if(this -> _pokenodos[x][y] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) < 25){
                             return true;
                         }
                     }
@@ -810,7 +810,7 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             for(Nat i = 0; i <= x + 4; i++){
                 for(Nat j = y - 4; j <= y + 4; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
-                        if(this -> _pokenodos[x][y] != NULL){
+                        if(this -> _pokenodos[x][y] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) < 25){
                             return true;
                         }
                     }
@@ -823,7 +823,7 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             for(Nat i = x - 4; i <= x + 4; i++){
                 for(Nat j = 0; j <= y + 4; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
-                        if(this -> _pokenodos[x][y] != NULL){
+                        if(this -> _pokenodos[x][y] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) < 25){
                             return true;
                         }
                     }
@@ -834,7 +834,7 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             for(Nat i = x - 4; i <= x + 4; i++){
                 for(Nat j = y - 4; j <= y + 4; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
-                        if(this -> _pokenodos[x][y] != NULL){
+                        if(this -> _pokenodos[x][y] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) < 25){
                             return true;
                         }
                     }
