@@ -163,7 +163,7 @@ DiccString<S>::DiccString(const DiccString<S>& otro){
 
 template<class S>
 void DiccString<S>::Definir(const string& clave, const S& significado){
-    std::cout << "\nDefiniendo: " << clave << "\n";
+    //std::cout << "\nDefiniendo: " << clave << "\n";
     if (this->_raiz == NULL) {
         this->_raiz = new Nodo();
         DiccString<S>::newsNodos++;
@@ -199,7 +199,7 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
 
     // Guardo un puntero con la nueva definicion
     nodoActual->definicion = new S(significado);
-    std::cout << "Termino definir: " << clave << "\n";
+   // std::cout << "Termino definir: " << clave << "\n";
 }
 
 
@@ -247,7 +247,7 @@ S& DiccString<S>::Significado(const string& clave) {
 
 template<class S>
 void DiccString<S>::Borrar(const string& clave){
-    std::cout << "Palabra a borrar: " << clave << "\n";
+    //std::cout << "Palabra a borrar: " << clave << "\n";
 
     bool borrarRaiz = (this->_claves.Cardinal() == 1);
     Nodo* nodoReserva = this->_raiz;
@@ -268,10 +268,10 @@ void DiccString<S>::Borrar(const string& clave){
 
     // nodoActual contiene el nodo al ultimo caracter
     // por invariante tiene una defincion
-    if(!nodoActual->itClave.HaySiguiente()) {
+   /* if(!nodoActual->itClave.HaySiguiente()) {
         std::cout << "\nHAY UN PROBLEMA\n";
         std::cout << "\nEL NODO NO APUNTA A NINGUNA CLAVE\n";
-    }
+    }*/
 
     nodoActual->itClave.EliminarSiguiente();
 
@@ -283,7 +283,7 @@ void DiccString<S>::Borrar(const string& clave){
     } else {
         this->BorrarDesde(nodoReserva, rindex, clave);
         if (nodoReserva->siguientes[int(clave[rindex])] != NULL) {
-            std::cout << "TENEMOS UN PROBLEMA\n";
+            //std::cout << "TENEMOS UN PROBLEMA\n";
         }
     }
 
@@ -295,7 +295,7 @@ void DiccString<S>::Borrar(const string& clave){
         // std::cout << "DELETE: _raiz   desde Borrar\n";
     }
 
-    std::cout << "Salgo de borrar: " << clave << "\n";
+   // std::cout << "Salgo de borrar: " << clave << "\n";
 }
 
 template<class S>
