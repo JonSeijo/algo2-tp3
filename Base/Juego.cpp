@@ -301,34 +301,34 @@ bool Juego::HayPokemonCercano(const Coordenada &c) const{
     hayPokemon |= ((x > 0 && y > 0) && (_pokenodos[x - 1][y-1] != NULL));
 
     // Hay un pokemon en (x-1, y+1).
-    hayPokemon |= ((x > 0 && y < m-1) && (_pokenodos[x-1][y+1] != NULL));
+    hayPokemon |= ((x > 0 && y + 1 < m) && (_pokenodos[x-1][y+1] != NULL));
 
     // Hay un pokemon en (x-2, y).
-    hayPokemon |= ((x - 1 > 0) && (_pokenodos[x-2][y] != NULL));
+    hayPokemon |= ((x > 1) && (_pokenodos[x-2][y] != NULL));
 
     // Hay un pokemon en (x, y-1).
     hayPokemon |= ((y > 0) && (_pokenodos[x][y-1] != NULL));
 
     // Hay un pokemon en (x, y-2).
-    hayPokemon |= ((y - 1 > 0) && (_pokenodos[x][y-2] != NULL));
+    hayPokemon |= ((y > 1) && (_pokenodos[x][y-2] != NULL));
 
     // Hay un pokemon en (x, y+1).
-    hayPokemon |= ((y < m - 1) && (_pokenodos[x][y+1] != NULL));
+    hayPokemon |= ((y + 1 < m) && (_pokenodos[x][y+1] != NULL));
 
     // Hay un pokemon en (x, y+2).
-    hayPokemon |= ((m > 1 && y < m-2) && (_pokenodos[x][y+2] != NULL));
+    hayPokemon |= ((m > 1 && y+2 < m) && (_pokenodos[x][y+2] != NULL));
 
     // Hay un pokemon en (x+1, y).
-    hayPokemon |= ((x < m-1) && (_pokenodos[x+1][y] != NULL));
+    hayPokemon |= ((x < m + 1) && (_pokenodos[x+1][y] != NULL));
 
     // Hay un pokemon en (x+1, y-1).
-    hayPokemon |= ((x < m-1 && y > 0) && (_pokenodos[x+1][y-1] != NULL));
+    hayPokemon |= ((x + 1 < m && y > 0) && (_pokenodos[x+1][y-1] != NULL));
 
     // Hay un pokemon en (x+1, y+1).
-    hayPokemon |= ((y < m-1 && x < m-1) && (_pokenodos[x+1][y+1] != NULL));
+    hayPokemon |= ((y + 1 < m && x + 1 < m) && (_pokenodos[x+1][y+1] != NULL));
 
     // Hay un pokemon en (x+2, y).
-    hayPokemon |= ((m > 1 && x < m-2) && (_pokenodos[x+2][y] != NULL));
+    hayPokemon |= ((m > 1 && x + 2 < m) && (_pokenodos[x+2][y] != NULL));
 
 
     return hayPokemon;
