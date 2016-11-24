@@ -383,12 +383,27 @@ void test_agregar_pokemones_conJugs(){
     d.moverse(AshMayonesa, Coordenada(9, 9));
     ASSERT(Coordenada(9,9) == d.posicion(AshMayonesa));
 
-    // ASSERT(d.hayPokemonCercano(Coordenada(6, 5)));
-    // ASSERT(d.hayCamino(Coordenada(9, 9), d.posPokemonCercano(Coordenada(9, 9))));
-
+    ASSERT(!d.hayPokemonCercano(Coordenada(6, 5)));
+    ASSERT(d.hayPokemonCercano(Coordenada(2,2)));
     d.desconectarse(AshMayonesa);
-    d.conectarse(AshMostaza, Coordenada(7, 7));
-    d.moverse(AshMostaza, Coordenada(1, 1));
+
+    // Si agrego poke cerca deberia tener poke cerca
+    d.conectarse(AshMostaza, Coordenada(7,7));
+    d.agregarPokemon("Godzila", Coordenada(5,7));
+    ASSERT(d.hayPokemonCercano(Coordenada(7,7)));  // Hay pokemon cerca de mostaza
+    ASSERT(d.posPokemonCercano(Coordenada(7,7)) == Coordenada(5,7));
+    ASSERT(d.hayCamino(Coordenada(7,7), Coordenada(5,7)));
+    
+    d.moverse(AshMostaza, Coordenada(1,1));
+
+    // Si me muevo hacia poke tambien deberia tener poke cerca
+    d.moverse(AshMostaza, Coordenada(7,7));
+    ASSERT(d.hayPokemonCercano(Coordenada(7,7)));  // Hay pokemon cerca de mostaza
+    ASSERT(d.posPokemonCercano(Coordenada(7,7)) == Coordenada(5,7));
+    ASSERT(d.hayCamino(Coordenada(7,7), Coordenada(5,7)));
+    
+    d.desconectarse(AshMostaza);
+
     d.desconectarse(AshMayonesa);
 
     d.agregarPokemon("Mew", Coordenada(6, 5));
