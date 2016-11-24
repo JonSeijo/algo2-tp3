@@ -218,7 +218,10 @@ void test_agregar_pokemones_conJugs(){
 
 void test_hayPokemonCercano() {
     Driver d(mapaTipo1());
-
+    d.agregarPokemon("pikachu", Coordenada(0,0));
+    ASSERT(d.hayPokemonCercano(Coordenada(0,0)));
+    ASSERT(d.hayPokemonCercano(Coordenada(1,1)));
+    ASSERT(d.hayPokemonCercano(Coordenada(2,0)));
 }
 
 void test_posPokeCercano() {

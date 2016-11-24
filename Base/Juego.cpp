@@ -289,6 +289,11 @@ bool Juego::HayPokemonCercano(const Coordenada &c) const{
 
     Nat m = _mapa->Tam();
 
+    // Esto es para evitar problemas, podria quitarse peeeeero..
+    if (x >= m || y >= m) {
+        return false;
+    }
+
     bool hayPokemon = false;
 
     // Hay un pokemon en (x, y).
@@ -301,34 +306,34 @@ bool Juego::HayPokemonCercano(const Coordenada &c) const{
     hayPokemon |= ((x > 0 && y > 0) && (_pokenodos[x - 1][y-1] != NULL));
 
     // Hay un pokemon en (x-1, y+1).
-    hayPokemon |= ((x > 0 && y < m-1) && (_pokenodos[x-1][y+1] != NULL));
+    hayPokemon |= ((x > 0 && y + 1 < m) && (_pokenodos[x-1][y+1] != NULL));
 
     // Hay un pokemon en (x-2, y).
-    hayPokemon |= ((x - 1 > 0) && (_pokenodos[x-2][y] != NULL));
+    hayPokemon |= ((x > 1) && (_pokenodos[x-2][y] != NULL));
 
     // Hay un pokemon en (x, y-1).
     hayPokemon |= ((y > 0) && (_pokenodos[x][y-1] != NULL));
 
     // Hay un pokemon en (x, y-2).
-    hayPokemon |= ((y - 1 > 0) && (_pokenodos[x][y-2] != NULL));
+    hayPokemon |= ((y > 1) && (_pokenodos[x][y-2] != NULL));
 
     // Hay un pokemon en (x, y+1).
-    hayPokemon |= ((y < m - 1) && (_pokenodos[x][y+1] != NULL));
+    hayPokemon |= ((y + 1 < m) && (_pokenodos[x][y+1] != NULL));
 
     // Hay un pokemon en (x, y+2).
-    hayPokemon |= ((m > 1 && y < m-2) && (_pokenodos[x][y+2] != NULL));
+    hayPokemon |= ((m > 1 && y+2 < m) && (_pokenodos[x][y+2] != NULL));
 
     // Hay un pokemon en (x+1, y).
-    hayPokemon |= ((x < m-1) && (_pokenodos[x+1][y] != NULL));
+    hayPokemon |= ((x < m + 1) && (_pokenodos[x+1][y] != NULL));
 
     // Hay un pokemon en (x+1, y-1).
-    hayPokemon |= ((x < m-1 && y > 0) && (_pokenodos[x+1][y-1] != NULL));
+    hayPokemon |= ((x + 1 < m && y > 0) && (_pokenodos[x+1][y-1] != NULL));
 
     // Hay un pokemon en (x+1, y+1).
-    hayPokemon |= ((y < m-1 && x < m-1) && (_pokenodos[x+1][y+1] != NULL));
+    hayPokemon |= ((y + 1 < m && x + 1 < m) && (_pokenodos[x+1][y+1] != NULL));
 
     // Hay un pokemon en (x+2, y).
-    hayPokemon |= ((m > 1 && x < m-2) && (_pokenodos[x+2][y] != NULL));
+    hayPokemon |= ((m > 1 && x + 2 < m) && (_pokenodos[x+2][y] != NULL));
 
 
     return hayPokemon;
@@ -355,10 +360,10 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
             posConPoke = Coordenada(x-1, y-1);
         }
 
-        if (y < m-1  && (_pokenodos[x-1][y+1] != NULL)) {
+        if (y + 1 < m  && (_pokenodos[x-1][y+1] != NULL)) {
             posConPoke = Coordenada(x-1, y+1);
         }
-        if (x-1 > 0  && (_pokenodos[x-2][y] != NULL)) {
+        if (x > 1  && (_pokenodos[x-2][y] != NULL)) {
             posConPoke = Coordenada(x-2, y);
         }
 
@@ -369,23 +374,23 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
             posConPoke = Coordenada(x, y-1);
         }
 
-        if (y-1 < 0  && (_pokenodos[x][y-2] != NULL)) {
+        if (y < 1  && (_pokenodos[x][y-2] != NULL)) {
             posConPoke = Coordenada(x, y-2);
         }
 
     }
 
-    if (y < m-1) {
+    if (y + 1 < m) {
 
         if (_pokenodos[x][y+1] != NULL) {
             posConPoke = Coordenada(x, y+1);
         }
-        if (m > 1 && y < m-2  && (_pokenodos[x][y+2] != NULL)) {
+        if (m > 1 && y + 2 < m  && (_pokenodos[x][y+2] != NULL)) {
             posConPoke = Coordenada(x, y+2);
         }
 
     }
-    if (x < m-1) {
+    if (x + 1 < m) {
         if (_pokenodos[x+1][y] != NULL) {
             posConPoke = Coordenada(x+1, y);
         }
@@ -400,7 +405,7 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
 
     }
 
-    if (m > 1 && x < m-2  && (_pokenodos[x+2][y] != NULL)) {
+    if (m > 1 && x + 2 < m  && (_pokenodos[x+2][y] != NULL)) {
         posConPoke = Coordenada(x+2, y);
     }
 
@@ -480,10 +485,10 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y-1);
         }
 
-        if (y < m-1  && (_pokenodos[x-1][y+1] != NULL)) {
+        if (y + 1 < m  && (_pokenodos[x-1][y+1] != NULL)) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y+1);
         }
-        if (x-1 > 0  && (_pokenodos[x-2][y] != NULL)) {
+        if (x > 1  && (_pokenodos[x-2][y] != NULL)) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-2, y);
         }
 
@@ -494,23 +499,23 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y-1);
         }
 
-        if (y-1 < 0  && (_pokenodos[x][y-2] != NULL)) {
+        if (y < 1  && (_pokenodos[x][y-2] != NULL)) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y-2);
         }
 
     }
 
-    if (y < m-1) {
+    if (y + 1 < m) {
 
         if (_pokenodos[x][y+1] != NULL) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y+1);
         }
-        if (m > 1 && y < m-2  && (_pokenodos[x][y+2] != NULL)) {
+        if (m > 1 && y + 2 < m  && (_pokenodos[x][y+2] != NULL)) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y+2);
         }
 
     }
-    if (x < m-1) {
+    if (x + 1 < m) {
         if (_pokenodos[x+1][y] != NULL) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y);
         }
@@ -519,13 +524,13 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y-1);
         }
 
-        if (y < m-1 && (_pokenodos[x+1][y+1] != NULL)) {
+        if (y + 1 < m && (_pokenodos[x+1][y+1] != NULL)) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y+1);
         }
 
     }
 
-    if (m > 1 && x < m-2  && (_pokenodos[x+2][y] != NULL)) {
+    if (m > 1 && x + 2 < m  && (_pokenodos[x+2][y] != NULL)) {
         AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+2, y);
     }
 
