@@ -163,6 +163,7 @@ void test_agregar_pokemones(){
     Pokemon agumon = "Agumon";
     Pokemon caracteresRaros = "2$&&/&(/&020.202}{+{[^`~~'987987987987";
     Pokemon vacio = "";
+    Pokemon agumo = "Agumo";
    
 
     Coordenada coorPikachu = Coordenada(1, 1);
@@ -170,10 +171,6 @@ void test_agregar_pokemones(){
 
     d.agregarPokemon(pikachu, coorPikachu);
    
-  /*  ASSERT(d.posPokemonCercano(it.Siguiente()) == coorPikachu);
-    ASSERT(!d.puedoAgregarPokemon(coorPikachu));
-    */
-
     ASSERT(d.hayPokemonCercano(coorPikachu));
     ASSERT(d.hayPokemonCercano(laotracoord));
     ASSERT(d.cantPokemonsTotales() == 1);
@@ -181,8 +178,7 @@ void test_agregar_pokemones(){
     ASSERT(d.indiceRareza(pikachu) == 0);
     
     Driver e(mapaTipo1());
-    Conj<Coordenada> coordDeMapa2 = e.mapa();
-
+    
     e.agregarPokemon(agumon, Coordenada(9, 9));
     e.agregarPokemon(caracteresRaros, Coordenada(0, 0));
     e.agregarPokemon(caracteresRaros, Coordenada(5, 5));
@@ -201,6 +197,30 @@ void test_agregar_pokemones(){
     ASSERT(e.indiceRareza(agumon) == 100 - 33);
     ASSERT(e.indiceRareza(caracteresRaros) == 100 - 66);
 
+    Driver f(mapaTipo1());
+
+    f.agregarPokemon(agumon, Coordenada(1, 2));
+    f.agregarPokemon(agumo, Coordenada(4, 5));
+    f.agregarPokemon(vacio, Coordenada(7, 7));
+
+    ASSERT(!f.puedoAgregarPokemon(Coordenada(1, 1)));
+    ASSERT(!f.puedoAgregarPokemon(Coordenada(5, 6)));
+    ASSERT(!f.puedoAgregarPokemon(Coordenada(7, 6)));
+
+    ASSERT(f.posPokemonCercano(Coordenada(1, 1)) == Coordenada(1, 2));
+    ASSERT(f.posPokemonCercano(Coordenada(5, 6)) == Coordenada(4, 5));
+    ASSERT(!f.hayPokemonCercano(Coordenada(9, 9)));
+
+    ASSERT(f.cantPokemonsTotales() == 3);
+    
+    ASSERT(f.cantMismaEspecie(agumon) == 1);
+    ASSERT(f.cantMismaEspecie(agumo) == 1);
+    ASSERT(f.cantMismaEspecie(vacio) == 1);
+    
+    ASSERT(f.indiceRareza(agumon) == 100 - 33);
+    ASSERT(f.indiceRareza(vacio) == 100 - 33);
+    ASSERT(f.indiceRareza(agumo) == 100 - 33);
+
 }
 
 
@@ -216,6 +236,12 @@ void test_agregar_pokemones_sinJugs(){
 
 void test_agregar_pokemones_conJugs(){
     Driver d(mapaTipo1());
+
+    Jugador AshKetchup = d.agregarJugador();
+    Jugador AshMostaza = d.agregarJugador();
+
+    //Completar
+
     ASSERT(false);
 }
 
