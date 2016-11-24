@@ -156,15 +156,13 @@ void test_agregar_jugadores(){
 
 
 void test_agregar_pokemones(){
-    // COPIPASTIE A MANO
-    
     Driver d(mapaTipo0());
     Conj<Coordenada> coordDeMapa = d.mapa();
     Conj<Coordenada>::Iterador it = coordDeMapa.CrearIt();
     Pokemon pikachu = "Pikachu";
     Pokemon charmander = "Charmander";
     Pokemon agumon = "Agumon";
-    Pokemon caracteresRaros = "2$&&/&(/&020.202}{{[^`~~'¿?'¿¿'";
+    Pokemon caracteresRaros = "2$&&/&(/&020.202}{+{[^`~~'¿?'¿¿'";
     std::cout << "Agrego pikachu en la coordenada: " << it.Siguiente() << std::endl;
     Coordenada coorPikachu = it.Siguiente();
     d.agregarPokemon(pikachu, it.Siguiente());
@@ -240,6 +238,8 @@ void test_indice_rareza() {
     ASSERT(false);
 }
 
+
+// TODO: Agregar más tests
 
 
 int main(int argc, char **argv){
