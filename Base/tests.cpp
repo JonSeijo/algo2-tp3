@@ -154,6 +154,36 @@ void test_agregar_jugadores(){
 
 }
 
+
+void test_agregar_pokemones(){
+    // COPIPASTIE A MANO
+    
+    Driver d(mapaTipo0());
+    Conj<Coordenada> coordDeMapa = d.mapa();
+    Conj<Coordenada>::Iterador it = coordDeMapa.CrearIt();
+    Pokemon pikachu = "Pikachu";
+    Pokemon charmander = "Charmander";
+    Pokemon agumon = "Agumon";
+    Pokemon caracteresRaros = "2$&&/&(/&020.202}{{[^`~~'¿?'¿¿'";
+    std::cout << "Agrego pikachu en la coordenada: " << it.Siguiente() << std::endl;
+    Coordenada coorPikachu = it.Siguiente();
+    d.agregarPokemon(pikachu, it.Siguiente());
+    it.Avanzar();
+    //En el mapa hay dos coordenadas, pongo al pikachu en una y me fijo si es la pos cercana de la otra
+    //Faltan 40 mil cosas todavía, pero es un avance (?)
+    std::cout << "Coordenada libre: " << it.Siguiente() << std::endl;
+    ASSERT(d.posPokemonCercano(it.Siguiente()) == coorPikachu);
+
+    Jugador AshKetchup = d.agregarJugador();
+    d.conectarse(AshKetchup, it.Siguiente());
+    d.moverse(AshKetchup, coorPikachu);
+    d.moverse(AshKetchup, it.Siguiente());
+    ASSERT(d.jugadores().Pertenece(AshKetchup));
+    std::cout << "Hasta acá no se rompió nada" << std::endl;
+    ASSERT(d.cantMovimientosParaCaptura(d.posPokemonCercano(d.posicion(AshKetchup))) == 8);
+}
+
+
 void test_puedoAgregarPokemon() {
     ASSERT(false);
 }
@@ -167,6 +197,11 @@ void test_agregar_pokemones_sinJugs(){
 void test_agregar_pokemones_conJugs(){
     Driver d(mapaTipo1());
     ASSERT(false);
+}
+
+void test_hayPokemonCercano() {
+    Driver d(mapaTipo1());
+
 }
 
 void test_posPokeCercano() {
@@ -210,12 +245,14 @@ void test_indice_rareza() {
 int main(int argc, char **argv){
     RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
+    RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
     RUN_TEST(test_agregar_pokemones_conJugs);
     RUN_TEST(test_puedoAgregarPokemon); 
     RUN_TEST(test_agregar_pokemones_sinJugs);
     RUN_TEST(test_agregar_pokemones_conJugs);
     RUN_TEST(test_posPokeCercano); 
+    RUN_TEST(test_hayPokemonCercano); 
     RUN_TEST(test_entrenadoresPosibles); 
     RUN_TEST(test_conectar);     
     RUN_TEST(test_desconectar);     
