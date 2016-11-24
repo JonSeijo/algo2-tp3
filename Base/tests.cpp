@@ -162,23 +162,42 @@ void test_agregar_pokemones(){
     Pokemon pikachu = "Pikachu";
     Pokemon charmander = "Charmander";
     Pokemon agumon = "Agumon";
-    Pokemon caracteresRaros = "2$&&/&(/&020.202}{+{[^`~~'¿?'¿¿'";
-    std::cout << "Agrego pikachu en la coordenada: " << it.Siguiente() << std::endl;
+    Pokemon caracteresRaros = "2$&&/&(/&020.202}{+{[^`~~'987987987987";
+    Pokemon vacio = "";
+    
+
     Coordenada coorPikachu = it.Siguiente();
     d.agregarPokemon(pikachu, it.Siguiente());
     it.Avanzar();
-    //En el mapa hay dos coordenadas, pongo al pikachu en una y me fijo si es la pos cercana de la otra
-    //Faltan 40 mil cosas todavía, pero es un avance (?)
-    std::cout << "Coordenada libre: " << it.Siguiente() << std::endl;
     ASSERT(d.posPokemonCercano(it.Siguiente()) == coorPikachu);
+    ASSERT(!d.puedoAgregarPokemon(coorPikachu));
+    ASSERT(d.hayPokemonCercano(coorPikachu) && d.hayPokemonCercano(it.Siguiente()));
+    ASSERT(d.cantPokemonsTotales() == 1);
+    ASSERT(d.cantMismaEspecie(pikachu) == 1);
+    ASSERT(d.indiceRareza(pikachu) == 0);
 
-    Jugador AshKetchup = d.agregarJugador();
-    d.conectarse(AshKetchup, it.Siguiente());
-    d.moverse(AshKetchup, coorPikachu);
-    d.moverse(AshKetchup, it.Siguiente());
-    ASSERT(d.jugadores().Pertenece(AshKetchup));
-    std::cout << "Hasta acá no se rompió nada" << std::endl;
-    ASSERT(d.cantMovimientosParaCaptura(d.posPokemonCercano(d.posicion(AshKetchup))) == 8);
+    Driver e(mapaTipo1());
+    Conj<Coordenada> coordDeMapa2 = d.mapa();
+    Conj<Coordenada>::Iterador it2 = coordDeMapa.CrearIt();
+    Coordenada c00 = Coordenada(0, 0);
+    Coordenada c99 = Coordenada(9, 9);
+    Coordenada c55 = Coordenada(5, 5);
+    
+    Coordenada c11 = Coordenada(1, 1);
+    Coordenada c56 = Coordenada(5, 6);
+
+
+    e.agregarPokemon(agumon, c99);
+    e.agregarPokemon(caracteresRaros, c00);
+    e.agregarPokemon(caracteresRaros, c55);
+    
+    
+    ASSERT(e.posPokemonCercano(c11) == c00);
+    ASSERT(e.posPokemonCercano(c56) == c55);
+    ASSERT(e.posPokemonCercano(c99) == c99);
+
+
+
 }
 
 
