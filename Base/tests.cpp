@@ -154,9 +154,55 @@ void test_agregar_jugadores(){
 
 }
 
-void test_agregar_pokemones(){
+void test_puedoAgregarPokemon() {
+    ASSERT(false);
+}
+
+// Esto se va a poner feo
+void test_agregar_pokemones_sinJugs(){
     Driver d(mapaTipo1());
-    
+    ASSERT(false);
+}
+
+void test_agregar_pokemones_conJugs(){
+    Driver d(mapaTipo1());
+    ASSERT(false);
+}
+
+void test_posPokeCercano() {
+    ASSERT(false);
+}
+
+void test_entrenadoresPosibles() {
+    ASSERT(false);
+}
+
+void test_conectar() {    
+    ASSERT(false);
+}
+
+void test_desconectar() {    
+    ASSERT(false);
+}
+
+void test_mover_sinPokes() {    
+    ASSERT(false);
+}
+
+void test_mover_sinPokesYSancionar() {    
+    ASSERT(false);
+}
+
+void test_mover_conPokes() {    
+    ASSERT(false);
+}
+
+void test_mover_conPokesYCapturar() {    
+    ASSERT(false);
+}
+
+void test_indice_rareza() {
+    ASSERT(false);
 }
 
 // TODO: Agregar más tests
@@ -165,7 +211,20 @@ void test_agregar_pokemones(){
 int main(int argc, char **argv){
     RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
-    RUN_TEST(test_agregar_pokemones);
+    RUN_TEST(test_agregar_pokemones_sinJugs);
+    RUN_TEST(test_agregar_pokemones_conJugs);
+    RUN_TEST(test_puedoAgregarPokemon); 
+    RUN_TEST(test_agregar_pokemones_sinJugs);
+    RUN_TEST(test_agregar_pokemones_conJugs);
+    RUN_TEST(test_posPokeCercano); 
+    RUN_TEST(test_entrenadoresPosibles); 
+    RUN_TEST(test_conectar);     
+    RUN_TEST(test_desconectar);     
+    RUN_TEST(test_mover_sinPokes);     
+    RUN_TEST(test_mover_sinPokesYSancionar);     
+    RUN_TEST(test_mover_conPokes);     
+    RUN_TEST(test_mover_conPokesYCapturar);     
+    RUN_TEST(test_indice_rareza); 
 
     return 0;
 }
