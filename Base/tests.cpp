@@ -383,7 +383,12 @@ void test_agregar_pokemones_conJugs(){
 
     d.moverse(AhsMayonesa, Coordenada(9, 9));
 
-    //d.desconectarse(AhsMayonesa);
+    //ASSERT(Coordenada(9,9) == d.posicion(AhsMayonesa));
+
+    //ASSERT(d.hayPokemonCercano(Coordenada(6, 5)));
+    //ASSERT(d.hayCamino(Coordenada(9, 9), d.posPokemonCercano(Coordenada(9, 9))));
+
+    d.desconectarse(AhsMayonesa);
 
     d.conectarse(AshMostaza, Coordenada(7, 7));
 

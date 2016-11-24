@@ -112,7 +112,6 @@ void test_borrar(){
     //std::cout << c << std::endl;
     it0.Borrar();
     //std::cout << c << std::endl;
-    ASSERT(true);
 
     ColaPrioridad<int> d;
     ColaPrioridad<int>::Iterador it0a = d.Encolar(0);

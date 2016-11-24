@@ -136,21 +136,23 @@ void Juego::Conectarse(Jugador e, const Coordenada &c){
 
 void Juego::Desconectarse(Jugador e){
     // Se desconecta al jugador.
+
     _jugadores[e]._conectado = false;
 
     _jugadores[e]._itAPos.EliminarSiguiente();
 
     Coordenada c(_jugadores[e]._pos);
 
+
      // Se verifica si el jugador estaba en un pokenodo.
-    if (HayPokemonCercano(c)) {
+    if (HayPokemonCercano(c)) {                
+
         if (_mapa->HayCamino(c, PosPokemonCercano(c))) {
 
-            Nat latPok = PosPokemonCercano(c).latitud;
-            Nat lonPok = PosPokemonCercano(c).longitud;
-
-
+        /*    Nat latPok = PosPokemonCercano(c).latitud;
+            Nat lonPok = PosPokemonCercano(c).longitud;*/
             // Se lo elimina del pokenodo
+
             _jugadores[e]._itAEntrenadores.Borrar();
 
         }
@@ -189,8 +191,10 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
             // Si esta en un pokenodo...
             // TODO: Falta ver si hay camino?
             if (HayPokemonCercano(_jugadores[e]._pos)) {
-                // Se lo borra del pokenodo.
-                _jugadores[e]._itAEntrenadores.Borrar();
+                if (_mapa->HayCamino(_jugadores[e]._pos, PosPokemonCercano(_jugadores[e]._pos))) {
+                     // Se lo borra del pokenodo.
+                    _jugadores[e]._itAEntrenadores.Borrar();
+                }
             }
 
 
