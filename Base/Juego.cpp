@@ -360,10 +360,10 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
             posConPoke = Coordenada(x-1, y-1);
         }
 
-        if (y < m-1  && (_pokenodos[x-1][y+1] != NULL)) {
+        if (y + 1 < m  && (_pokenodos[x-1][y+1] != NULL)) {
             posConPoke = Coordenada(x-1, y+1);
         }
-        if (x-1 > 0  && (_pokenodos[x-2][y] != NULL)) {
+        if (x > 1  && (_pokenodos[x-2][y] != NULL)) {
             posConPoke = Coordenada(x-2, y);
         }
 
@@ -374,23 +374,23 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
             posConPoke = Coordenada(x, y-1);
         }
 
-        if (y-1 < 0  && (_pokenodos[x][y-2] != NULL)) {
+        if (y < 1  && (_pokenodos[x][y-2] != NULL)) {
             posConPoke = Coordenada(x, y-2);
         }
 
     }
 
-    if (y < m-1) {
+    if (y + 1 < m) {
 
         if (_pokenodos[x][y+1] != NULL) {
             posConPoke = Coordenada(x, y+1);
         }
-        if (m > 1 && y < m-2  && (_pokenodos[x][y+2] != NULL)) {
+        if (m > 1 && y + 2 < m  && (_pokenodos[x][y+2] != NULL)) {
             posConPoke = Coordenada(x, y+2);
         }
 
     }
-    if (x < m-1) {
+    if (x + 1 < m) {
         if (_pokenodos[x+1][y] != NULL) {
             posConPoke = Coordenada(x+1, y);
         }
@@ -405,7 +405,7 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
 
     }
 
-    if (m > 1 && x < m-2  && (_pokenodos[x+2][y] != NULL)) {
+    if (m > 1 && x + 2 < m  && (_pokenodos[x+2][y] != NULL)) {
         posConPoke = Coordenada(x+2, y);
     }
 
