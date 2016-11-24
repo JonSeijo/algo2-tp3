@@ -146,7 +146,7 @@ void test_siguiente(){
 
 void test_casosraros(){
    //Quise hacer el operador < entre heaps pero no me salió, si sobra tiempo 
-   // estaría bueno hacerlo para probar esto jeje
+   // estaría bueno hacerlo para probar esto 
 
 
     /*ColaPrioridad<int> c;

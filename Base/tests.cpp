@@ -179,7 +179,7 @@ void test_agregar_pokemones(){
     ASSERT(d.cantPokemonsTotales() == 1);
     ASSERT(d.cantMismaEspecie(pikachu) == 1);
     ASSERT(d.indiceRareza(pikachu) == 0);
-
+    
     Driver e(mapaTipo1());
     Conj<Coordenada> coordDeMapa2 = e.mapa();
 
@@ -194,14 +194,12 @@ void test_agregar_pokemones(){
     ASSERT(!e.puedoAgregarPokemon(Coordenada(1, 1)));
     ASSERT(!e.puedoAgregarPokemon(Coordenada(5, 6)));
 
-    // ASSERT(e.cantPokemonsTotales() == 3);
-    // ASSERT(e.cantMismaEspecie(pikachu) == 0);
-    // ASSERT(e.cantMismaEspecie(agumon) == 1);
-    // ASSERT(e.cantMismaEspecie(caracteresRaros) == 2);
+    ASSERT(e.cantPokemonsTotales() == 3);
+    ASSERT(e.cantMismaEspecie(agumon) == 1);
+    ASSERT(e.cantMismaEspecie(caracteresRaros) == 2);
     
-    // ASSERT(e.indiceRareza(pikachu) == 100);
-    // ASSERT(e.indiceRareza(agumon) == 100 - 33);
-    // ASSERT(e.indiceRareza(caracteresRaros) == 100 - 66);
+    ASSERT(e.indiceRareza(agumon) == 100 - 33);
+    ASSERT(e.indiceRareza(caracteresRaros) == 100 - 66);
 
 }
 
