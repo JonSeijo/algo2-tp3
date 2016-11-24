@@ -372,10 +372,27 @@ void test_agregar_pokemones_conJugs(){
 
     Jugador AshKetchup = d.agregarJugador();
     Jugador AshMostaza = d.agregarJugador();
+    Jugador AhsMayonesa = d.agregarJugador();
 
-    //Completar
+    d.conectarse(AhsMayonesa, Coordenada(1, 0));
+    d.conectarse(AshKetchup, Coordenada(1, 0));
 
-    ASSERT(false);
+    d.agregarPokemon("Jose", Coordenada(1, 1));
+
+    ASSERT(d.pokemonEnPos(Coordenada(1, 1)) == "Jose");
+
+    d.moverse(AhsMayonesa, Coordenada(9, 9));
+
+    //d.desconectarse(AhsMayonesa);
+
+    d.conectarse(AshMostaza, Coordenada(7, 7));
+
+    d.moverse(AshMostaza, Coordenada(1, 1));
+
+    d.agregarPokemon("Jose", Coordenada(6, 5));
+
+    ASSERT(d.pokemonEnPos(Coordenada(1, 1)) == "Jose");
+    ASSERT(d.pokemonEnPos(Coordenada(6, 5)) == "Jose");
 }
 
 void test_hayPokemonCercano() {
