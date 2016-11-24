@@ -158,23 +158,23 @@ ColaPrioridad<T>::Iterador::Iterador(){
 */
 template<class T>
 void ColaPrioridad<T>::Iterador::Borrar(){
-	if (this->estructura == NULL) {
-		std::cout << "\nestructura es null\n";
-	}
+	// if (this->estructura == NULL) {
+	// 	std::cout << "\nestructura es null\n";
+	// }
 
 	Nodo* intercambiado = this -> estructura -> ultimo;
-	std::cout << "\n antes de swap\n";
+	// std::cout << "\n antes de swap\n";
 
 	(this -> estructura) -> SwapNodos(this -> siguiente, this -> estructura -> ultimo);
-	std::cout << "\n despues de swap\n";
+	// std::cout << "\n despues de swap\n";
 
 	(this -> estructura) -> EliminarUltimo();
 
-	std::cout << "\n despues de eliminar ultimo\n";
+	// std::cout << "\n despues de eliminar ultimo\n";
 
-	if (intercambiado == NULL){
-		std::cout << "\n intercambiado es null\n";
-	} 
+	// if (intercambiado == NULL){
+	// 	std::cout << "\n intercambiado es null\n";
+	// } 
 	if(intercambiado -> padre != NULL){
 		if((intercambiado -> elem) < (intercambiado -> padre -> elem)){	
 			(this -> estructura) -> SiftUp(intercambiado);
