@@ -302,11 +302,28 @@ void test_entrenadoresPosibles() {
 }
 
 void test_conectar() {    
-    ASSERT(false);
+    Driver d(mapaTipo1());
+    Jugador j = d.agregarJugador();
+
+    Coordenada c(0,0);
+
+    d.conectarse(j, c);
+    ASSERT(d.estaConectado(j));
+
+    ASSERT(d.posicion(j) == c);
 }
 
 void test_desconectar() {    
-    ASSERT(false);
+    Driver d(mapaTipo1());
+    Jugador j = d.agregarJugador();
+
+    Coordenada c(0,0);
+
+    d.conectarse(j, c);
+    ASSERT(d.estaConectado(j));
+
+    d.desconectarse(j);
+    ASSERT(!d.estaConectado(j));
 }
 
 void test_mover_sinPokes() {    
@@ -326,7 +343,15 @@ void test_mover_conPokesYCapturar() {
 }
 
 void test_indice_rareza() {
-    ASSERT(false);
+	Driver d(mapaTipo1());
+    d.agregarPokemon("pikachu", Coordenada(0,0));
+    d.agregarPokemon("rattata", Coordenada(7,7));
+    
+    ASSERT(d.indiceRareza("rattata") == 50);
+
+    ASSERT(d.indiceRareza("rattata") == d.indiceRareza("pikachu"));
+
+
 }
 
 
