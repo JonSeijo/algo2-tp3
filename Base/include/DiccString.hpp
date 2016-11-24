@@ -90,7 +90,7 @@ class DiccString{
                         siguientes[i] = NULL;
                         delete tmp;
                         DiccString<S>::deletesNodos++;
-                        std::cout << "DELETE: nodo en destructor\n";
+                        // std::cout << "DELETE: nodo en destructor\n";
                     }
                 }
             }
@@ -163,7 +163,7 @@ DiccString<S>::DiccString(const DiccString<S>& otro){
 
 template<class S>
 void DiccString<S>::Definir(const string& clave, const S& significado){
-    std::cout << "Definiendo: " << clave << "\n";
+    std::cout << "\nDefiniendo: " << clave << "\n";
     if (this->_raiz == NULL) {
         this->_raiz = new Nodo();
         DiccString<S>::newsNodos++;
@@ -178,7 +178,7 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
         if (!nodoActual->siguientes.Definido(int(clave[i]))) {
             Nodo* nuevo = new Nodo;
             DiccString<S>::newsNodos++;
-            std::cout << "NEW: nodo caracter:  " << clave[i] << "\n";
+            // std::cout << "NEW: nodo caracter:  " << clave[i] << "\n";
             nodoActual->siguientes.Definir(int(clave[i]), nuevo);
         }
 
@@ -292,7 +292,7 @@ void DiccString<S>::Borrar(const string& clave){
         this->_raiz = NULL;
         delete tempe;
         DiccString<S>::deletesNodos++;
-        std::cout << "DELETE: _raiz   desde Borrar\n";
+        // std::cout << "DELETE: _raiz   desde Borrar\n";
     }
 
     std::cout << "Salgo de borrar: " << clave << "\n";
@@ -325,7 +325,7 @@ void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat rindex, const s
         nodoActual->siguientes[int(clave[i])] = NULL;
         aBorrar.AgregarAtras(tmp);
         nodoActual = tmp;
-        std::cout << "Se intenta borrar caracter: " << clave[i] <<"\n";
+        // std::cout << "Se intenta borrar caracter: " << clave[i] <<"\n";
     }
 
     // Borro el vector
