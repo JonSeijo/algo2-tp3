@@ -247,7 +247,7 @@ S& DiccString<S>::Significado(const string& clave) {
 
 template<class S>
 void DiccString<S>::Borrar(const string& clave){
-    std::cout << "\n\nPalabra a borrar: " << clave << "\n";
+    std::cout << "Palabra a borrar: " << clave << "\n";
 
     bool borrarRaiz = (this->_claves.Cardinal() == 1);
     Nodo* nodoReserva = this->_raiz;
@@ -317,7 +317,7 @@ void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat rindex, const s
 
     Vector<Nodo*> aBorrar;
 
-    // Agrego todos los que quiero borrar al vector (la reserva no la borro)
+    // Agrego todos los que quiero borrar al vector la reserva no la borro)
     // En peor caso agrego al vector tantos nodos como caracteres:   O(|clave|)
     Nodo* nodoActual = desde;
     for (Nat i = rindex; i < clave.size(); i++) {
