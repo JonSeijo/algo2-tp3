@@ -123,6 +123,7 @@ class Juego{
 
         void AgregarAtrasJugsQueEstanEnPos(Vector<Jugador>, Nat, Nat) const;
 
+        bool HayPokemonEnTerritorioRango5(const Coordenada &c) const;
 
 };
 

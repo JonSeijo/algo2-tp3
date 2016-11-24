@@ -418,7 +418,7 @@ bool Juego::PuedoAgregarPokemon(const Coordenada& c) const{
     bool puedo = _mapa->PosExistente(c);
 
     // Y no hay un pokemon cerca.
-    puedo &= !HayPokemonCercano(c);
+    puedo &= !HayPokemonEnTerritorioRango5(c);
 
     return puedo;
 }
@@ -787,4 +787,60 @@ void Juego::SumarUnoEnJug(Pokemon p, Jugador e){
         // Si no lo defino en 1.
         _jugadores[e]._pokemons.Definir(p, 1);
     }
+}
+
+bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
+    Nat x = c.latitud;
+    Nat y = c.longitud;
+
+    //En teoría PosExistente se fija si se pasa del tamaño del mapa.
+    if(x < 5){
+        if(y < 5){
+            for(Nat i = 0; i <= x + 4; i++){
+                for(Nat j = 0; j <= y + 4; j++){
+                    if(this -> _mapa -> PosExistente(Coordenada(i, j))){
+                        if(this -> _pokenodos[x][y] != NULL){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            for(Nat i = 0; i <= x + 4; i++){
+                for(Nat j = y - 4; j <= y + 4; j++){
+                    if(this -> _mapa -> PosExistente(Coordenada(i, j))){
+                        if(this -> _pokenodos[x][y] != NULL){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    else{
+        if(y < 5){
+            for(Nat i = x - 4; i <= x + 4; i++){
+                for(Nat j = 0; j <= y + 4; j++){
+                    if(this -> _mapa -> PosExistente(Coordenada(i, j))){
+                        if(this -> _pokenodos[x][y] != NULL){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            for(Nat i = x - 4; i <= x + 4; i++){
+                for(Nat j = y - 4; j <= y + 4; j++){
+                    if(this -> _mapa -> PosExistente(Coordenada(i, j))){
+                        if(this -> _pokenodos[x][y] != NULL){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
 }

@@ -159,7 +159,6 @@ void test_agregar_pokemones(){
     Driver d(mapaTipo0());
 
     Pokemon pikachu = "Pikachu";
-    Pokemon charmander = "Charmander";
     Pokemon agumon = "Agumon";
     Pokemon caracteresRaros = "2$&&/&(/&020.202}{+{[^`~~'987987987987";
     Pokemon vacio = "";
@@ -225,8 +224,47 @@ void test_agregar_pokemones(){
 
 
 void test_puedoAgregarPokemon() {
-    ASSERT(false);
-}
+    Driver conductor(mapaTipo0());
+    
+    ASSERT(conductor.puedoAgregarPokemon(Coordenada(1, 1)) && conductor.puedoAgregarPokemon(Coordenada(2, 2)));
+
+    conductor.agregarPokemon("Ernesto", Coordenada(2, 2));
+
+    ASSERT(!conductor.puedoAgregarPokemon(Coordenada(1, 1)) && !conductor.puedoAgregarPokemon(Coordenada(2, 2)));
+
+    Driver d(mapaTipo1());
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 1)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 2)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(1, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(1, 1)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(1, 2)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(2, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(2, 1)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(2, 2)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(2, 3)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(2, 4)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(3, 2)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(3, 3)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(3, 4)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(4, 2)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(4, 3)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(4, 4)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(4, 5)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5, 5)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5, 6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5, 7)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6, 5)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6, 6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6, 7)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(7, 5)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(7, 6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(7, 7)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(9, 9)));
+
+    d.agregarPokemon("{}{}{}{}", Coordenada(3, 4));
+}   
 
 // Esto se va a poner feo
 void test_agregar_pokemones_sinJugs(){
