@@ -360,7 +360,11 @@ void test_puedoAgregarPokemon() {
 // Esto se va a poner feo
 void test_agregar_pokemones_sinJugs(){
     Driver d(mapaTipo1());
-    ASSERT(false);
+    Coordenada c(0,0);
+    d.agregarPokemon("Oddish", c);
+
+    ASSERT(d.pokemonEnPos(c) == "Oddish");
+
 }
 
 void test_agregar_pokemones_conJugs(){
@@ -385,7 +389,16 @@ void test_hayPokemonCercano() {
 }
 
 void test_posPokeCercano() {
-    ASSERT(false);
+	Driver d(mapaTipo1());
+	Coordenada c(0,0);
+    d.agregarPokemon("Vileplume", c);
+
+    Coordenada c1 = d.posPokemonCercano(Coordenada(1,0));
+
+    ASSERT(c == c1);
+
+
+
 }
 
 void test_entrenadoresPosibles() {
