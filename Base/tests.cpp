@@ -372,32 +372,29 @@ void test_agregar_pokemones_conJugs(){
 
     Jugador AshKetchup = d.agregarJugador();
     Jugador AshMostaza = d.agregarJugador();
-    Jugador AhsMayonesa = d.agregarJugador();
+    Jugador AshMayonesa = d.agregarJugador();
 
-    d.conectarse(AhsMayonesa, Coordenada(1, 0));
+    d.conectarse(AshMayonesa, Coordenada(1, 0));
     d.conectarse(AshKetchup, Coordenada(1, 0));
 
-    d.agregarPokemon("Jose", Coordenada(1, 1));
+    d.agregarPokemon("Mew", Coordenada(1, 1));
+    ASSERT(d.pokemonEnPos(Coordenada(1, 1)) == "Mew");
 
-    ASSERT(d.pokemonEnPos(Coordenada(1, 1)) == "Jose");
+    d.moverse(AshMayonesa, Coordenada(9, 9));
+    ASSERT(Coordenada(9,9) == d.posicion(AshMayonesa));
 
-    d.moverse(AhsMayonesa, Coordenada(9, 9));
+    // ASSERT(d.hayPokemonCercano(Coordenada(6, 5)));
+    // ASSERT(d.hayCamino(Coordenada(9, 9), d.posPokemonCercano(Coordenada(9, 9))));
 
-    //ASSERT(Coordenada(9,9) == d.posicion(AhsMayonesa));
-
-    //ASSERT(d.hayPokemonCercano(Coordenada(6, 5)));
-    //ASSERT(d.hayCamino(Coordenada(9, 9), d.posPokemonCercano(Coordenada(9, 9))));
-
-    d.desconectarse(AhsMayonesa);
-
+    d.desconectarse(AshMayonesa);
     d.conectarse(AshMostaza, Coordenada(7, 7));
-
     d.moverse(AshMostaza, Coordenada(1, 1));
+    d.desconectarse(AshMayonesa);
 
-    d.agregarPokemon("Jose", Coordenada(6, 5));
+    d.agregarPokemon("Mew", Coordenada(6, 5));
 
-    ASSERT(d.pokemonEnPos(Coordenada(1, 1)) == "Jose");
-    ASSERT(d.pokemonEnPos(Coordenada(6, 5)) == "Jose");
+    ASSERT(d.pokemonEnPos(Coordenada(1, 1)) == "Mew");
+    ASSERT(d.pokemonEnPos(Coordenada(6, 5)) == "Mew");
 }
 
 void test_hayPokemonCercano() {
