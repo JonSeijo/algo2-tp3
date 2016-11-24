@@ -203,6 +203,8 @@ void test_hayPokemonCercano() {
     ASSERT(d.hayPokemonCercano(Coordenada(0,0)));
     ASSERT(d.hayPokemonCercano(Coordenada(1,1)));
     ASSERT(d.hayPokemonCercano(Coordenada(2,0)));
+    ASSERT(!d.hayPokemonCercano(Coordenada(2,2)));
+    ASSERT(!d.hayPokemonCercano(Coordenada(100,100)));
 }
 
 void test_posPokeCercano() {

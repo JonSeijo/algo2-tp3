@@ -132,6 +132,7 @@ Nat Vector<T>::Longitud() const {
 
 template<class T>
 const T& Vector<T>::operator[](Nat pos) const {
+    if (pos >= longitud) std::cout << "pos: " << pos << "\n"; 
     assert(pos < longitud);
     return elementos[pos];
 }
