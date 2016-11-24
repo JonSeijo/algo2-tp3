@@ -305,7 +305,15 @@ void test_mover_conPokesYCapturar() {
 }
 
 void test_indice_rareza() {
-    ASSERT(false);
+	Driver d(mapaTipo1());
+    d.agregarPokemon("pikachu", Coordenada(0,0));
+    d.agregarPokemon("rattata", Coordenada(7,7));
+    
+    ASSERT(d.indiceRareza("rattata") == 50);
+
+    ASSERT(d.indiceRareza("rattata") == d.indiceRareza("pikachu"));
+
+
 }
 
 
