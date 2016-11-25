@@ -121,7 +121,7 @@ class Juego{
 
         void SumarUnoEnJug(Pokemon, Jugador);
 
-        void AgregarAtrasJugsQueEstanEnPos(Vector<Jugador>, Nat, Nat) const;
+        void AgregarAtrasJugsQueEstanEnPos(Vector<Jugador> &jugs, Nat, Nat) const;
 
         bool HayPokemonEnTerritorioRango5(const Coordenada &c) const;
 
