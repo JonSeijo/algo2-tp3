@@ -19,9 +19,9 @@ Conj<Coordenada> mapaTipo0() {
     0 - - -
     1 - X -
     2 - - X
-    
+
     */
-    
+
     Conj<Coordenada> cc;
     ag(cc, 1, 1);
     ag(cc, 2, 2);
@@ -52,7 +52,7 @@ Conj<Coordenada> mapaTipo1() {
     ag(cc, 0, 1);  ag(cc, 1, 1);    ag(cc, 2, 1);
     ag(cc, 0, 2);  ag(cc, 1, 2);    ag(cc, 2, 2);  ag(cc, 3, 2);  ag(cc, 4, 2);
                                     ag(cc, 2, 3);  ag(cc, 3, 3);  ag(cc, 4, 3);
-                                    ag(cc, 2, 4);  ag(cc, 3, 4);  ag(cc, 4, 4);  
+                                    ag(cc, 2, 4);  ag(cc, 3, 4);  ag(cc, 4, 4);
                                                                   ag(cc, 4, 5); ag(cc, 5, 5);  ag(cc, 6, 5);  ag(cc, 7, 5);
                                                                                 ag(cc, 5, 6);  ag(cc, 6, 6);  ag(cc, 7, 6);
                                                                                 ag(cc, 5, 7);  ag(cc, 6, 7);  ag(cc, 7, 7);
@@ -163,25 +163,25 @@ void test_agregar_pokemones(){
     Pokemon caracteresRaros = "2$&&/&(/&020.202}{+{[^`~~'987987987987";
     Pokemon vacio = "";
     Pokemon agumo = "Agumo";
-   
+
 
     Coordenada coorPikachu = Coordenada(1, 1);
     Coordenada laotracoord = Coordenada(2, 2);
 
     d.agregarPokemon(pikachu, coorPikachu);
-   
+
     ASSERT(d.hayPokemonCercano(coorPikachu));
     ASSERT(d.hayPokemonCercano(laotracoord));
     ASSERT(d.cantPokemonsTotales() == 1);
     ASSERT(d.cantMismaEspecie(pikachu) == 1);
     ASSERT(d.indiceRareza(pikachu) == 0);
-    
+
     Driver e(mapaTipo1());
-    
+
     e.agregarPokemon(agumon, Coordenada(9, 9));
     e.agregarPokemon(caracteresRaros, Coordenada(0, 0));
     e.agregarPokemon(caracteresRaros, Coordenada(5, 5));
-        
+
     ASSERT(e.posPokemonCercano(Coordenada(1, 1)) == Coordenada(0, 0));
     ASSERT(e.posPokemonCercano(Coordenada(5, 6)) == Coordenada(5, 5));
     ASSERT(e.posPokemonCercano(Coordenada(9, 9)) == Coordenada(9, 9));
@@ -192,7 +192,7 @@ void test_agregar_pokemones(){
     ASSERT(e.cantPokemonsTotales() == 3);
     ASSERT(e.cantMismaEspecie(agumon) == 1);
     ASSERT(e.cantMismaEspecie(caracteresRaros) == 2);
-    
+
     ASSERT(e.indiceRareza(agumon) == 100 - 33);
     ASSERT(e.indiceRareza(caracteresRaros) == 100 - 66);
 
@@ -211,11 +211,11 @@ void test_agregar_pokemones(){
     ASSERT(f.hayPokemonCercano(Coordenada(9, 9)));
 
     ASSERT(f.cantPokemonsTotales() == 3);
-    
+
     ASSERT(f.cantMismaEspecie(agumon) == 1);
     ASSERT(f.cantMismaEspecie(agumo) == 1);
     ASSERT(f.cantMismaEspecie(vacio) == 1);
-    
+
     ASSERT(f.indiceRareza(agumon) == 100 - 33);
     ASSERT(f.indiceRareza(vacio) == 100 - 33);
     ASSERT(f.indiceRareza(agumo) == 100 - 33);
@@ -225,7 +225,7 @@ void test_agregar_pokemones(){
 
 void test_puedoAgregarPokemon() {
     Driver conductor(mapaTipo0());
-    
+
     ASSERT(conductor.puedoAgregarPokemon(Coordenada(1, 1)) && conductor.puedoAgregarPokemon(Coordenada(2, 2)));
 
     conductor.agregarPokemon("Ernesto", Coordenada(2, 2));
@@ -355,7 +355,7 @@ void test_puedoAgregarPokemon() {
     ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 6)));
     ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 7)));
     ASSERT(!d.puedoAgregarPokemon(Coordenada(9, 9)));
-}   
+}
 
 // Esto se va a poner feo
 void test_agregar_pokemones_sinJugs(){
@@ -380,8 +380,9 @@ void test_agregar_pokemones_conJugs(){
     d.agregarPokemon("Mew", Coordenada(1, 1));
     ASSERT(d.pokemonEnPos(Coordenada(1, 1)) == "Mew");
 
+    // Si se mueve a una invalida, la posicion no cambia
     d.moverse(AshMayonesa, Coordenada(9, 9));
-    ASSERT(Coordenada(9,9) == d.posicion(AshMayonesa));
+    ASSERT(Coordenada(1,0) == d.posicion(AshMayonesa));
 
     ASSERT(!d.hayPokemonCercano(Coordenada(6, 5)));
     ASSERT(d.hayPokemonCercano(Coordenada(2,2)));
@@ -393,7 +394,7 @@ void test_agregar_pokemones_conJugs(){
     ASSERT(d.hayPokemonCercano(Coordenada(7,7)));  // Hay pokemon cerca de mostaza
     ASSERT(d.posPokemonCercano(Coordenada(7,7)) == Coordenada(5,7));
     ASSERT(d.hayCamino(Coordenada(7,7), Coordenada(5,7)));
-    
+
     d.moverse(AshMostaza, Coordenada(1,1));
 
     // Si me muevo hacia poke tambien deberia tener poke cerca
@@ -401,7 +402,7 @@ void test_agregar_pokemones_conJugs(){
     ASSERT(d.hayPokemonCercano(Coordenada(7,7)));  // Hay pokemon cerca de mostaza
     ASSERT(d.posPokemonCercano(Coordenada(7,7)) == Coordenada(5,7));
     ASSERT(d.hayCamino(Coordenada(7,7), Coordenada(5,7)));
-   
+
     d.desconectarse(AshMostaza);
 
     d.agregarPokemon("Mew", Coordenada(6, 5));
@@ -490,13 +491,15 @@ void test_entrenadoresPosibles() {
     d.agregarPokemon("Goku", Coordenada(2, 2));
 
     ASSERT(d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(HashKetchup));
-    
+
     d.conectarse(RickyFort, Coordenada(2, 2));
 
     ASSERT(d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(HashKetchup));
     ASSERT(d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(RickyFort));
 
-    d.moverse(RickyFort, Coordenada(1, 1));
+    // En vez de mover, conecto y desconecto pues los mover nunca van a ser validos
+    d.desconectarse(RickyFort);
+    d.conectarse(RickyFort, Coordenada(1, 1));
 
     ASSERT(d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(HashKetchup));
     ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(RickyFort));
@@ -513,13 +516,14 @@ void test_entrenadoresPosibles() {
     ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(RickyFort));
     ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(EquipoCohete));
 
-	d.desconectarse(HashKetchup);
+    d.desconectarse(HashKetchup);
 
     ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(HashKetchup));
     ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(RickyFort));
     ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(EquipoCohete));
 
-    d.moverse(EquipoCohete, Coordenada(2, 2));
+    d.desconectarse(EquipoCohete);
+    d.conectarse(EquipoCohete, Coordenada(2, 2));
 
     ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(HashKetchup));
     ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(RickyFort));
@@ -609,8 +613,8 @@ void test_entrenadoresPosibles() {
 
     ASSERT(e.entrenadoresPosibles(Coordenada(9, 9)).Pertenece(Cache) && e.entrenadoresPosibles(Coordenada(9, 9)).Pertenece(HojasA4) && e.entrenadoresPosibles(Coordenada(9, 9)).Pertenece(MaquinaOrga1));
     ASSERT(e.entrenadoresPosibles(Coordenada(6, 5)).EsVacio());
-    ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).EsVacio());    
-} 
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).EsVacio());
+}
 
 void test_sancionar() {
     ASSERT(false);
@@ -620,7 +624,7 @@ void test_eliminarDeJuego() {
     ASSERT(false);
 }
 
-void test_conectar() {    
+void test_conectar() {
     Driver d(mapaTipo1());
     Jugador j = d.agregarJugador();
 
@@ -632,7 +636,7 @@ void test_conectar() {
     ASSERT(d.posicion(j) == c);
 }
 
-void test_desconectar() {    
+void test_desconectar() {
     Driver d(mapaTipo1());
     Jugador j = d.agregarJugador();
 
@@ -645,19 +649,19 @@ void test_desconectar() {
     ASSERT(!d.estaConectado(j));
 }
 
-void test_mover_sinPokes() {    
+void test_mover_sinPokes() {
     ASSERT(false);
 }
 
-void test_mover_sinPokesYSancionar() {    
+void test_mover_sinPokesYSancionar() {
     ASSERT(false);
 }
 
-void test_mover_conPokes() {    
+void test_mover_conPokes() {
     ASSERT(false);
 }
 
-void test_mover_conPokesYCapturar() {    
+void test_mover_conPokesYCapturar() {
     ASSERT(false);
 }
 
@@ -665,7 +669,7 @@ void test_indice_rareza() {
 	Driver d(mapaTipo1());
     d.agregarPokemon("pikachu", Coordenada(0,0));
     d.agregarPokemon("rattata", Coordenada(7,7));
-    
+
     ASSERT(d.indiceRareza("rattata") == 50);
 
     ASSERT(d.indiceRareza("rattata") == d.indiceRareza("pikachu"));
@@ -688,12 +692,12 @@ int main(int argc, char **argv){
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
     RUN_TEST(test_agregar_pokemones_conJugs);
-    RUN_TEST(test_puedoAgregarPokemon); 
-    RUN_TEST(test_posPokeCercano); 
+    RUN_TEST(test_puedoAgregarPokemon);
+    RUN_TEST(test_posPokeCercano);
     RUN_TEST(test_hayPokemonCercano);
-    RUN_TEST(test_entrenadoresPosibles); 
-    RUN_TEST(test_conectar);     
-    RUN_TEST(test_desconectar);   
+    RUN_TEST(test_entrenadoresPosibles);
+    RUN_TEST(test_conectar);
+    RUN_TEST(test_desconectar);
     RUN_TEST(test_movimientosParaCaptura);
     RUN_TEST(test_capturarSeEliminaElPokemon);
     RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
@@ -701,12 +705,12 @@ int main(int argc, char **argv){
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
     RUN_TEST(test_sancionar);
     RUN_TEST(test_eliminarDeJuego);
-    RUN_TEST(test_mover_sinPokes);     
-    RUN_TEST(test_mover_sinPokesYSancionar);     
-    RUN_TEST(test_mover_conPokes);     
-    RUN_TEST(test_mover_conPokesYCapturar);     
-    RUN_TEST(test_indice_rareza); 
-    RUN_TEST(test_pokemon_cercano_coor_invalida); 
+    RUN_TEST(test_mover_sinPokes);
+    RUN_TEST(test_mover_sinPokesYSancionar);
+    RUN_TEST(test_mover_conPokes);
+    RUN_TEST(test_mover_conPokesYCapturar);
+    RUN_TEST(test_indice_rareza);
+    RUN_TEST(test_pokemon_cercano_coor_invalida);
 
 
     std:cout << "HAY QUE HACER UN TEST PARA CADA METODO PUBLICO. FALTAN MAS DE LOS QUE HAY\n";
