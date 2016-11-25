@@ -327,40 +327,6 @@ void test_definir_sin_asignacion()
 }
 
 
-//Se chequea que funcion la clase cuando el significado es una estructura compeja como un trie
-void test_trie_con_significado_tries() {
-	DiccString<int> d2;
-	d2.Definir("hola",42);
-	d2.Definir("casa",22);
-	d2.Definir("cono",6);
-	ASSERT( d2.Definido("hola") );
-	ASSERT( d2.Definido("casa") );
-	ASSERT( d2.Definido("cono") );
-
-	DiccString<int> d3;
-	d3.Definir("c",100);
-	d3.Definir("chau",13);
-	d3.Definir("pepe",2);
-	d3.Definir("casona",422);
-	ASSERT( d3.Definido("c") );
-	ASSERT( d3.Definido("chau") );
-	ASSERT( d3.Definido("pepe") );
-	ASSERT( d3.Definido("casona") );
-
-	DiccString<DiccString<int> > d;
-	d.Definir("dicc",d2);
-	d.Definir("trie",d3);
-
-	ASSERT( (d.Significado("dicc")).Significado("hola") == 42 );
-	ASSERT( (d.Significado("dicc")).Significado("casa") == 22 );
-	ASSERT( (d.Significado("dicc")).Significado("cono") == 6 );
-
-	ASSERT( (d.Significado("trie")).Significado("c") == 100 );
-	ASSERT( (d.Significado("trie")).Significado("chau") == 13);
-	ASSERT( (d.Significado("trie")).Significado("pepe") == 2 );
-	ASSERT( (d.Significado("trie")).Significado("casona") == 422 );
-}
-
 
 //Se chequea que funcione copiar  cuando el significado es una estructura compeja como un trie
 void test_copiar_trie_con_significado_tries() {
@@ -415,42 +381,6 @@ void test_dicc_vacio_con_definir_y_borrar() {
 	ASSERT( !d.Definido("hola") );
 	ASSERT(d.CantClaves()  == 0);
 }
-
-//Chequea el funcionamiento del borrar
-void test_dicc_borrar() {
-	DiccString<int> d;
-	d.Definir("hola",42);
-	d.Definir("casona",13);
-	d.Definir("casa",13);
-	ASSERT( d.Definido("hola") );
-	ASSERT( d.Definido("casa") );
-	ASSERT( d.Definido("casona") );
-	ASSERT(d.CantClaves()  == 3);
-
-	d.Borrar("casa");
-	ASSERT( d.Definido("hola") );
-	ASSERT( !d.Definido("casa") );
-	ASSERT( d.Definido("casona") );
-
-	d.Definir("casa",13);
-	d.Borrar("casona");
-	ASSERT( d.Definido("hola") );
-	ASSERT( d.Definido("casa") );
-	ASSERT( !d.Definido("casona") );
-
-	d.Definir("c",1300);
-	d.Borrar("casa");
-	ASSERT( d.Definido("hola") );
-	ASSERT( d.Definido("c") );
-	ASSERT( !d.Definido("casona") );
-	ASSERT( !d.Definido("casa") );
-	ASSERT(d.CantClaves()  == 2);
-	d.Borrar("c");
-	ASSERT(d.CantClaves()  == 1);
-	d.Borrar("hola");
-	ASSERT(d.CantClaves()  == 0);
-}
-
 
 void test_vacio() {
     DiccString<int> d;
@@ -513,10 +443,10 @@ void test_borrar() {
     ASSERT(d.CantClaves() == 1);
     d.Borrar("dos");
     ASSERT(!d.Definido("dos"));
+
     ASSERT(d.CantClaves() == 0);
 
     // //-------------------------
-
     d.Definir("hol", 0);
     d.Definir("hola", 0);
     d.Definir("holas", 0);
@@ -630,12 +560,8 @@ int main(int argc, char **argv){
 	RUN_TEST(test_claves);
 	RUN_TEST(test_obtener);
 	RUN_TEST(test_redefinir_obtener);
-	//RUN_TEST(test_constructor_copia);
-	//RUN_TEST(test_constructor_copia2);
 	RUN_TEST(test_definir_sin_asignacion);
-	RUN_TEST(test_trie_con_significado_tries);
 	RUN_TEST(test_dicc_vacio_con_definir_y_borrar);
-	RUN_TEST(test_dicc_borrar);
 
     // Habria que hacer tambien tests de iterador
 
