@@ -204,21 +204,21 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
 
         if (hayPokDesp) {
             if (!hayPokAntes) {
-                std::cout << "3" << std::endl;
+                // std::cout << "CasoMov 3" << std::endl;
                 CasoMov3(e, posAntes, c);
             } else if (PosPokemonCercano(posAntes) == PosPokemonCercano(c)) {
-                std::cout << "1" << std::endl;
+                // std::cout << "CasoMov 1" << std::endl;
                 CasoMov1(e, posAntes, c);
 
             } else {
-                std::cout << "5" << std::endl;
+                // std::cout << "CasoMov 5" << std::endl;
                 CasoMov5(e, posAntes, c);
             }
         } else if (hayPokAntes) {
-            std::cout << "2" << std::endl;
+            // std::cout << "CasoMov 2" << std::endl;
             CasoMov2(e, posAntes, c);
         } else {
-            std::cout << "4" << std::endl;
+            // std::cout << "CasoMov 4" << std::endl;
             CasoMov4(e, posAntes, c);
         }
 
@@ -592,8 +592,9 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 // Borro el pokenodo.
                 it.EliminarSiguiente();
 
-                delete pokeNodo;
                 _pokenodos[x][y] = NULL;
+                delete pokeNodo;
+                // continue;
             }
         }
 
@@ -675,6 +676,7 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 // Borro el pokenodo.
                 it.EliminarSiguiente();
 
+
                 delete pokeNodo;
                 _pokenodos[x][y] = NULL;
         }
@@ -702,18 +704,16 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
         // Si no es al que entro el jugador...
         if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
                 // Si el contador llego a 10...
-                std::cout << "Llego a 10" << std::endl;
+                // std::cout << "Llego a 10" << std::endl;
                 // Agrego el pokemon al entrenador que captura.
                 SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
-                std::cout << "Sumo Pokemon" << std::endl;
                 // Borro el pokenodo.
                 it.EliminarSiguiente();
-                std::cout << "Borrando pokeNodo" << std::endl;
-                delete pokeNodo;
                 _pokenodos[x][y] = NULL;
+                delete pokeNodo;
+        } else {
+            it.Avanzar();
         }
-
-        it.Avanzar();
     }
 }
 
@@ -789,16 +789,12 @@ bool Juego::MovValido(Jugador e, const Coordenada& c) const{
 
 void Juego::SumarUnoEnJug(Pokemon p, Jugador e){
     // Si ya tiene alguna de la misma especie...
-    std::cout << "Entramos a sumar 1" << std::endl;
-    std::cout << "Si después de esto hay segFault entonces se rompe cuando pregunta si el pokemon está definido, linea 794" << std::endl;
     if (_jugadores[e]._pokemons.Definido(p)) {
         // Le sumo uno.
-        std::cout << "No hay que definir" << std::endl;
         Nat actual = _jugadores[e]._pokemons.Significado(p);
         _jugadores[e]._pokemons.Definir(p, actual + 1);
     } else {
         // Si no lo defino en 1.
-        std::cout << "Hay que definir" << std::endl;
         _jugadores[e]._pokemons.Definir(p, 1);
     }
 }
