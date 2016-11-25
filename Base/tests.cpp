@@ -464,8 +464,49 @@ void test_movimientosParaCaptura() {
 }
 
 void test_capturarSeEliminaElPokemon() {
-    ASSERT(false);
-}
+    //TERMINAR
+
+    Driver d(mapaTipo1());
+
+    d.agregarPokemon("Cartucho de tinta negro 117 Epson", Coordenada(2, 2));
+
+    //AshSalsaGolf es la fusión entre AshKetchup y AshMayonesa
+    Jugador AshSalsaGolf = d.agregarJugador();
+    Jugador AshAdhereso = d.agregarJugador();
+
+    d.conectarse(AshSalsaGolf, Coordenada(2, 2));
+    d.conectarse(AshAdhereso, Coordenada(2, 1));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 0);
+    d.moverse(AshSalsaGolf, Coordenada(9, 9));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 0);
+    d.moverse(AshSalsaGolf, Coordenada(9, 9));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 0);
+    d.moverse(AshSalsaGolf, Coordenada(4, 5));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 1);
+    d.moverse(AshSalsaGolf, Coordenada(4, 5));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 2);
+    d.moverse(AshSalsaGolf, Coordenada(4, 5));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 3);
+    d.moverse(AshSalsaGolf, Coordenada(4, 5));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 4);
+    d.moverse(AshSalsaGolf, Coordenada(4, 5));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 5);
+    d.moverse(AshSalsaGolf, Coordenada(4, 5));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 6);
+    d.moverse(AshSalsaGolf, Coordenada(4, 5));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 7);
+    d.moverse(AshSalsaGolf, Coordenada(4, 5));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 8);
+    d.moverse(AshSalsaGolf, Coordenada(4, 5));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 9);
+    d.moverse(AshSalsaGolf, Coordenada(4, 5));
+    //ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 10);
+/*
+    ASSERT(!d.hayPokemonCercano(Coordenada(2, 2)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(2, 2)));
+    ASSERT(true);
+*/}
 
 void test_jugadorCorrectoEsQuienCaptura() {
     ASSERT(false);
@@ -687,7 +728,7 @@ void test_pokemon_cercano_coor_invalida(){
 
 
 int main(int argc, char **argv){
-    RUN_TEST(test_constructor_con_mapa);
+ /*   RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -699,8 +740,8 @@ int main(int argc, char **argv){
     RUN_TEST(test_conectar);
     RUN_TEST(test_desconectar);
     RUN_TEST(test_movimientosParaCaptura);
-    RUN_TEST(test_capturarSeEliminaElPokemon);
-    RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
+   */ RUN_TEST(test_capturarSeEliminaElPokemon);
+   /* RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
     RUN_TEST(test_capturarJugadorTieneNuevoPoke);
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
     RUN_TEST(test_sancionar);
@@ -714,6 +755,6 @@ int main(int argc, char **argv){
 
 
     std:cout << "HAY QUE HACER UN TEST PARA CADA METODO PUBLICO. FALTAN MAS DE LOS QUE HAY\n";
-
+*/
     return 0;
 }
