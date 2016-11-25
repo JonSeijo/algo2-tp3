@@ -216,14 +216,18 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
             CasoMov4(e, posAntes, c);
         }
 
-    // Se lo saca de la posicion anterior.
-    _jugadores[e]._itAPos.EliminarSiguiente();
+        // @JONATHAN
+        // Las lineas de abajo estaba fuera del else, las meti adentro para que se mueva cuando el mov es valido
+        // En caso de tests fallando revisar eso, pero el mail decia que el bot lo manejaba asi
 
-    // Se lo agrega en la posicion nueva.
-    _jugadores[e]._itAPos = _grillaJugadores[c.latitud][c.longitud].AgregarAtras(e);
+        // Se lo saca de la posicion anterior.
+        _jugadores[e]._itAPos.EliminarSiguiente();
 
+        // Se lo agrega en la posicion nueva.
+        _jugadores[e]._itAPos = _grillaJugadores[c.latitud][c.longitud].AgregarAtras(e);
+
+        _jugadores[e]._pos = c;
     }
-    _jugadores[e]._pos = c;
 
 }
 
