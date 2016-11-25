@@ -401,10 +401,8 @@ void test_agregar_pokemones_conJugs(){
     ASSERT(d.hayPokemonCercano(Coordenada(7,7)));  // Hay pokemon cerca de mostaza
     ASSERT(d.posPokemonCercano(Coordenada(7,7)) == Coordenada(5,7));
     ASSERT(d.hayCamino(Coordenada(7,7), Coordenada(5,7)));
-    
+   
     d.desconectarse(AshMostaza);
-
-    d.desconectarse(AshMayonesa);
 
     d.agregarPokemon("Mew", Coordenada(6, 5));
 
@@ -480,8 +478,53 @@ void test_capturarContadoresDeTriesEstanBien() {
 }
 
 void test_entrenadoresPosibles() {
-    ASSERT(false);
-}
+    Driver d(mapaTipo0());
+
+    Jugador HashKetchup = d.agregarJugador();
+    Jugador EquipoCohete = d.agregarJugador();
+    Jugador RickyFort = d.agregarJugador();
+
+    d.conectarse(HashKetchup, Coordenada(2, 2));
+
+    d.agregarPokemon("Goku", Coordenada(2, 2));
+
+    ASSERT(d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(HashKetchup));
+    
+    d.conectarse(RickyFort, Coordenada(2, 2));
+
+    ASSERT(d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(HashKetchup));
+    ASSERT(d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(RickyFort));
+
+    d.moverse(RickyFort, Coordenada(1, 1));
+
+    ASSERT(d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(HashKetchup));
+    ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(RickyFort));
+
+    d.conectarse(EquipoCohete, Coordenada(1, 1));
+
+    ASSERT(d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(HashKetchup));
+    ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(RickyFort));
+    ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(EquipoCohete));
+
+    d.desconectarse(RickyFort);
+
+    ASSERT(d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(HashKetchup));
+    ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(RickyFort));
+    ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(EquipoCohete));
+
+	d.desconectarse(HashKetchup);
+
+    ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(HashKetchup));
+    ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(RickyFort));
+    ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(EquipoCohete));
+
+    d.moverse(EquipoCohete, Coordenada(2, 2));
+
+    ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(HashKetchup));
+    ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(RickyFort));
+    ASSERT(d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(EquipoCohete));
+
+} 
 
 void test_sancionar() {
     ASSERT(false);
@@ -555,10 +598,9 @@ int main(int argc, char **argv){
     RUN_TEST(test_agregar_pokemones_sinJugs);
     RUN_TEST(test_agregar_pokemones_conJugs);
     RUN_TEST(test_puedoAgregarPokemon); 
-    RUN_TEST(test_agregar_pokemones_sinJugs);
-    RUN_TEST(test_agregar_pokemones_conJugs);
     RUN_TEST(test_posPokeCercano); 
-    RUN_TEST(test_hayPokemonCercano); 
+    RUN_TEST(test_hayPokemonCercano);
+    //De la que sigue hacer tests con el otro mapa, tiene pinta de que puede romperse porque estamos usando nats (unsigned int) 
     RUN_TEST(test_entrenadoresPosibles); 
     RUN_TEST(test_conectar);     
     RUN_TEST(test_desconectar);   

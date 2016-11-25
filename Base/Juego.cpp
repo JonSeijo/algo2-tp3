@@ -199,6 +199,16 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
 
 
         }
+        else{
+            //NOTA MENTAL: FALTA LO DE SUMAR LOS CONTADORES
+            //Nota mental: la niña sabe demasiado
+
+            // Se lo saca de la posicion anterior.
+            _jugadores[e]._itAPos.EliminarSiguiente();
+
+            // Se lo agrega en la posicion nueva.
+            _jugadores[e]._itAPos = _grillaJugadores[c.latitud][c.longitud].AgregarAtras(e);
+        }
     }// Si el movimiento es valido..
     else{
 
