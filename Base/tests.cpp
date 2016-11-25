@@ -423,20 +423,44 @@ void test_hayPokemonCercano() {
 }
 
 void test_posPokeCercano() {
-	Driver d(mapaTipo1());
-	Coordenada c(0,0);
+    Driver d(mapaTipo1());
+    Coordenada c(0,0);
     d.agregarPokemon("Vileplume", c);
-
     Coordenada c1 = d.posPokemonCercano(Coordenada(1,0));
-
     ASSERT(c == c1);
-
-
-
 }
 
 void test_movimientosParaCaptura() {
-    ASSERT(false);
+	Driver d(mapaTipo1());
+    d.agregarPokemon("Gandalf", Coordenada(0,0));
+    Jugador frodo = d.agregarJugador();
+    // Inicialmente cantMovs esta en 0
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0,0)) == 0);
+    d.conectarse(frodo, Coordenada(1,1));
+    // Cuando alguien se conecta se reinicia a 0
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0,0)) == 0);
+    // Si me muevo dentro del pokeradio no pasa nada
+    d.moverse(frodo, Coordenada(0,1));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0,0)) == 0);
+
+
+    Jugador gollum = d.agregarJugador();
+    // Alguien se conecta fuera del pokerango, NO aumenta el contador
+    // VER, quiza deberia
+    d.conectarse(gollum, Coordenada(5,5));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0,0)) == 0);
+
+    // Alguien se mueve fuera del pokerango
+    d.moverse(gollum, Coordenada(4,4));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0,0)) == 1);
+
+    // Alguien se mueve fuera del pokerango
+    d.moverse(gollum, Coordenada(4,5));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0,0)) == 2);
+
+    // Alguien se mueve dentro del pokerango, se reinicia contador
+    d.moverse(gollum, Coordenada(1,1));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0,0)) == 0);
 }
 
 void test_capturarSeEliminaElPokemon() {
