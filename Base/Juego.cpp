@@ -152,9 +152,7 @@ void Juego::Desconectarse(Jugador e){
         /*    Nat latPok = PosPokemonCercano(c).latitud;
             Nat lonPok = PosPokemonCercano(c).longitud;*/
             // Se lo elimina del pokenodo
-
             _jugadores[e]._itAEntrenadores.Borrar();
-
         }
     }
 
@@ -211,7 +209,6 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
         }
     }// Si el movimiento es valido..
     else{
-
         Coordenada posAntes(_jugadores[e]._pos);
 
         bool hayPokAntes = HayPokemonCercano(posAntes);
@@ -487,34 +484,34 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
 
     Nat m = _mapa->Tam();
 
-    if (_pokenodos[x][y] != NULL) {
+    if (!_grillaJugadores[x][y].EsVacia()) {
         AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y);
     }
     if (x > 0) {
 
-        if ( _pokenodos[x-1][y] != NULL) {
+        if (!_grillaJugadores[x-1][y].EsVacia()) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y);
         }
 
-        if (y > 0 && (_pokenodos[x-1][y-1] != NULL)) {
+        if (y > 0 && (!_grillaJugadores[x-1][y-1].EsVacia())) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y-1);
         }
 
-        if (y + 1 < m  && (_pokenodos[x-1][y+1] != NULL)) {
+        if (y + 1 < m  && (!_grillaJugadores[x-1][y+1].EsVacia())) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y+1);
         }
-        if (x > 1  && (_pokenodos[x-2][y] != NULL)) {
+        if (x > 1  && (!_grillaJugadores[x-2][y].EsVacia())) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-2, y);
         }
 
     }
 
     if (y > 0) {
-        if (_pokenodos[x][y-1] != NULL) {
+        if (!_grillaJugadores[x][y-1].EsVacia()) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y-1);
         }
         // @BUG cambio < por >
-        if (y > 1  && (_pokenodos[x][y-2] != NULL)) {
+        if (y > 1  && (!_grillaJugadores[x][y-2].EsVacia())) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y-2);
         }
 
@@ -522,30 +519,30 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
 
     if (y + 1 < m) {
 
-        if (_pokenodos[x][y+1] != NULL) {
+        if (!_grillaJugadores[x][y+1].EsVacia()) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y+1);
         }
-        if (m > 1 && y + 2 < m  && (_pokenodos[x][y+2] != NULL)) {
+        if (m > 1 && y + 2 < m  && (!_grillaJugadores[x][y+2].EsVacia())) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y+2);
         }
 
     }
     if (x + 1 < m) {
-        if (_pokenodos[x+1][y] != NULL) {
+        if (!_grillaJugadores[x+1][y].EsVacia()) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y);
         }
 
-        if (y > 0 && (_pokenodos[x+1][y-1] != NULL)) {
+        if (y > 0 && (!_grillaJugadores[x+1][y-1].EsVacia())) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y-1);
         }
 
-        if (y + 1 < m && (_pokenodos[x+1][y+1] != NULL)) {
+        if (y + 1 < m && (!_grillaJugadores[x+1][y+1].EsVacia())) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y+1);
         }
 
     }
 
-    if (m > 1 && x + 2 < m  && (_pokenodos[x+2][y] != NULL)) {
+    if (m > 1 && x + 2 < m  && (!_grillaJugadores[x+2][y].EsVacia())) {
         AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+2, y);
     }
 
@@ -730,6 +727,9 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
     Nat lat = pokePos.latitud;
     Nat lon = pokePos.longitud;
+
+    //Borro al jugador del heap anterior
+    _jugadores[e]._itAEntrenadores.Borrar();
 
     // Agrego el entrenador al pokenodo.
     jugYCantCapt jug(e, _jugadores[e]._cantCap);

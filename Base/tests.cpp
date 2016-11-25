@@ -408,6 +408,7 @@ void test_agregar_pokemones_conJugs(){
 
     ASSERT(d.pokemonEnPos(Coordenada(1, 1)) == "Mew");
     ASSERT(d.pokemonEnPos(Coordenada(6, 5)) == "Mew");
+
 }
 
 void test_hayPokemonCercano() {
@@ -524,6 +525,24 @@ void test_entrenadoresPosibles() {
     ASSERT(!d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(RickyFort));
     ASSERT(d.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(EquipoCohete));
 
+
+    Driver e(mapaTipo1());
+
+    Jugador MaquinaOrga1 = e.agregarJugador();
+
+    e.conectarse(MaquinaOrga1, Coordenada(1, 0));
+
+    e.moverse(MaquinaOrga1, Coordenada(0,0));
+    e.moverse(MaquinaOrga1, Coordenada(1, 0));
+
+    Jugador Cache = e.agregarJugador();
+
+    e.conectarse(Cache, Coordenada(2, 2));
+
+    e.agregarPokemon("PokemonRecursivo", Coordenada(2, 1));
+
+    //ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).Pertenece(Cache));
 } 
 
 void test_sancionar() {

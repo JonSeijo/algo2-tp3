@@ -163,15 +163,10 @@ void ColaPrioridad<T>::Iterador::Borrar(){
 	// }
 
 	Nodo* intercambiado = this -> estructura -> ultimo;
-	// std::cout << "\n antes de swap\n";
-
+	
 	(this -> estructura) -> SwapNodos(this -> siguiente, this -> estructura -> ultimo);
-	// std::cout << "\n despues de swap\n";
-
+	
 	(this -> estructura) -> EliminarUltimo();
-
-	// std::cout << "\n despues de eliminar ultimo\n";
-
 	// if (intercambiado == NULL){
 	// 	std::cout << "\n intercambiado es null\n";
 	// } 
