@@ -198,14 +198,36 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
 
         }
         else{
-            //NOTA MENTAL: FALTA LO DE SUMAR LOS CONTADORES
+            //CASO EN EL QUE HAY UN MOVIMIENTO INVÁLIDO PERO NO SE LLEGA A 5 SANCIONES
+            //IGUAL QUE EN LOS MOVIMIENTOS VÁLIDOS, COPIO CÓDIGO
+
             //Nota mental: la niña sabe demasiado
 
-            // Se lo saca de la posicion anterior.
-            _jugadores[e]._itAPos.EliminarSiguiente();
+            Coordenada posAntes(_jugadores[e]._pos);
 
-            // Se lo agrega en la posicion nueva.
-            _jugadores[e]._itAPos = _grillaJugadores[c.latitud][c.longitud].AgregarAtras(e);
+            bool hayPokAntes = HayPokemonCercano(posAntes);
+            bool hayPokDesp  = HayPokemonCercano(c);
+
+            if (hayPokDesp) {
+                if (!hayPokAntes) {
+                    CasoMov3(e, posAntes, c);
+                } else if (PosPokemonCercano(posAntes) == PosPokemonCercano(c)) {
+                    CasoMov1(e, posAntes, c);
+
+                } else {
+                    CasoMov5(e, posAntes, c);
+                }
+            } else if (hayPokAntes) {
+                CasoMov2(e, posAntes, c);
+            } else {
+                CasoMov4(e, posAntes, c);
+            }
+
+        // Se lo saca de la posicion anterior.
+        _jugadores[e]._itAPos.EliminarSiguiente();
+
+        // Se lo agrega en la posicion nueva.
+        _jugadores[e]._itAPos = _grillaJugadores[c.latitud][c.longitud].AgregarAtras(e);
         }
     }// Si el movimiento es valido..
     else{

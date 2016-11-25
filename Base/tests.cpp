@@ -543,6 +543,73 @@ void test_entrenadoresPosibles() {
 
     ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).Pertenece(MaquinaOrga1));
     ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 0)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 0)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(Cache));
+	ASSERT(e.entrenadoresPosibles(Coordenada(2, 3)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 3)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(3, 2)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(3, 2)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(1, 2)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(1, 2)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(1, 1)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(1, 1)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(1, 0)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(1, 0)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(0, 1)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(0, 1)).Pertenece(Cache));
+
+    e.agregarPokemon("LosDronesDeAlgo1", Coordenada(6, 5));
+
+    ASSERT(e.entrenadoresPosibles(Coordenada(6, 5)).EsVacio());
+
+    e.desconectarse(Cache);
+
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).Pertenece(MaquinaOrga1));
+    ASSERT(!e.entrenadoresPosibles(Coordenada(2, 1)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(MaquinaOrga1));
+    ASSERT(!e.entrenadoresPosibles(Coordenada(2, 0)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 0)).Pertenece(MaquinaOrga1));
+    ASSERT(!e.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(Cache));
+	ASSERT(e.entrenadoresPosibles(Coordenada(2, 3)).Pertenece(MaquinaOrga1));
+    ASSERT(!e.entrenadoresPosibles(Coordenada(2, 3)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(3, 2)).Pertenece(MaquinaOrga1));
+    ASSERT(!e.entrenadoresPosibles(Coordenada(3, 2)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(1, 2)).Pertenece(MaquinaOrga1));
+    ASSERT(!e.entrenadoresPosibles(Coordenada(1, 2)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(1, 1)).Pertenece(MaquinaOrga1));
+    ASSERT(!e.entrenadoresPosibles(Coordenada(1, 1)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(1, 0)).Pertenece(MaquinaOrga1));
+    ASSERT(!e.entrenadoresPosibles(Coordenada(1, 0)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(0, 1)).Pertenece(MaquinaOrga1));
+    ASSERT(!e.entrenadoresPosibles(Coordenada(0, 1)).Pertenece(Cache));
+    ASSERT(e.entrenadoresPosibles(Coordenada(6, 5)).EsVacio());
+
+    e.moverse(MaquinaOrga1, Coordenada(7, 7));
+
+    ASSERT(e.entrenadoresPosibles(Coordenada(6, 5)).EsVacio());
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).EsVacio());
+
+    ASSERT(e.puedoAgregarPokemon(Coordenada(9, 9)));
+
+    e.agregarPokemon("Taller De Haskell", Coordenada(9, 9));
+
+    Jugador HojasA4 = e.agregarJugador();
+    e.conectarse(HojasA4, Coordenada(7, 7));
+    e.moverse(HojasA4, Coordenada(9, 9));
+    e.moverse(HojasA4, Coordenada(1, 1));
+    e.moverse(HojasA4, Coordenada(3, 2));
+    e.moverse(MaquinaOrga1, Coordenada(9, 9));
+    e.desconectarse(HojasA4);
+    e.desconectarse(MaquinaOrga1);
+    e.conectarse(HojasA4, Coordenada(9, 9));
+    e.conectarse(MaquinaOrga1, Coordenada(9, 9));
+    e.conectarse(Cache, Coordenada(9, 9));
+
+    ASSERT(e.entrenadoresPosibles(Coordenada(9, 9)).Pertenece(Cache) && e.entrenadoresPosibles(Coordenada(9, 9)).Pertenece(HojasA4) && e.entrenadoresPosibles(Coordenada(9, 9)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(6, 5)).EsVacio());
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).EsVacio());    
 } 
 
 void test_sancionar() {
@@ -624,7 +691,6 @@ int main(int argc, char **argv){
     RUN_TEST(test_puedoAgregarPokemon); 
     RUN_TEST(test_posPokeCercano); 
     RUN_TEST(test_hayPokemonCercano);
-    //De la que sigue hacer tests con el otro mapa, tiene pinta de que puede romperse porque estamos usando nats (unsigned int) 
     RUN_TEST(test_entrenadoresPosibles); 
     RUN_TEST(test_conectar);     
     RUN_TEST(test_desconectar);   
@@ -633,7 +699,6 @@ int main(int argc, char **argv){
     RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
     RUN_TEST(test_capturarJugadorTieneNuevoPoke);
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
-    RUN_TEST(test_entrenadoresPosibles);
     RUN_TEST(test_sancionar);
     RUN_TEST(test_eliminarDeJuego);
     RUN_TEST(test_mover_sinPokes);     
