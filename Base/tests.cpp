@@ -501,12 +501,10 @@ void test_capturarSeEliminaElPokemon() {
     d.moverse(AshSalsaGolf, Coordenada(4, 5));
     ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 9);
     d.moverse(AshSalsaGolf, Coordenada(4, 5));
-    //ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 10);
-/*
     ASSERT(!d.hayPokemonCercano(Coordenada(2, 2)));
     ASSERT(d.puedoAgregarPokemon(Coordenada(2, 2)));
     ASSERT(true);
-*/}
+}
 
 void test_jugadorCorrectoEsQuienCaptura() {
     ASSERT(false);
@@ -728,7 +726,7 @@ void test_pokemon_cercano_coor_invalida(){
 
 
 int main(int argc, char **argv){
- /*   RUN_TEST(test_constructor_con_mapa);
+    RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -739,9 +737,11 @@ int main(int argc, char **argv){
     RUN_TEST(test_entrenadoresPosibles);
     RUN_TEST(test_conectar);
     RUN_TEST(test_desconectar);
+    RUN_TEST(test_indice_rareza);
+    RUN_TEST(test_pokemon_cercano_coor_invalida);
     RUN_TEST(test_movimientosParaCaptura);
-   */ RUN_TEST(test_capturarSeEliminaElPokemon);
-   /* RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
+    RUN_TEST(test_capturarSeEliminaElPokemon);
+    RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
     RUN_TEST(test_capturarJugadorTieneNuevoPoke);
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
     RUN_TEST(test_sancionar);
@@ -750,11 +750,9 @@ int main(int argc, char **argv){
     RUN_TEST(test_mover_sinPokesYSancionar);
     RUN_TEST(test_mover_conPokes);
     RUN_TEST(test_mover_conPokesYCapturar);
-    RUN_TEST(test_indice_rareza);
-    RUN_TEST(test_pokemon_cercano_coor_invalida);
 
 
     std:cout << "HAY QUE HACER UN TEST PARA CADA METODO PUBLICO. FALTAN MAS DE LOS QUE HAY\n";
-*/
+
     return 0;
 }
