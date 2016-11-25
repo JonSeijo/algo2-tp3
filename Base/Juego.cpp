@@ -696,7 +696,7 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
         pokeNodo->_contador++;
 
         // Si no es al que entro el jugador...
-        if (pokeNodo->_contador == 10) {
+        if (pokeNodo->_contador == 10 && !pokenodo->_entrenadores.EsVacia()) {
                 // Si el contador llego a 10...
 
                 // Agrego el pokemon al entrenador que captura.
