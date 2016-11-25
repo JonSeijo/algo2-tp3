@@ -493,14 +493,14 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y);
         }
 
-        if (y > 0 && (!_grillaJugadores[x-1][y-1].EsVacia())) {
+        if (y > 0 && (!_grillaJugadores[x-1][y-1].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x-1, y-1)))) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y-1);
         }
 
-        if (y + 1 < m  && (!_grillaJugadores[x-1][y+1].EsVacia())) {
+        if (y + 1 < m  && (!_grillaJugadores[x-1][y+1].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x-1, y+1)))) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y+1);
         }
-        if (x > 1  && (!_grillaJugadores[x-2][y].EsVacia())) {
+        if (x > 1  && (!_grillaJugadores[x-2][y].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x-2, y)))) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-2, y);
         }
 
@@ -511,7 +511,7 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y-1);
         }
         // @BUG cambio < por >
-        if (y > 1  && (!_grillaJugadores[x][y-2].EsVacia())) {
+        if (y > 1  && (!_grillaJugadores[x][y-2].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x, y-2)))) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y-2);
         }
 
@@ -522,7 +522,7 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
         if (!_grillaJugadores[x][y+1].EsVacia()) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y+1);
         }
-        if (m > 1 && y + 2 < m  && (!_grillaJugadores[x][y+2].EsVacia())) {
+        if (m > 1 && y + 2 < m  && (!_grillaJugadores[x][y+2].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x, y+2)))) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y+2);
         }
 
@@ -536,13 +536,13 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y-1);
         }
 
-        if (y + 1 < m && (!_grillaJugadores[x+1][y+1].EsVacia())) {
+        if (y + 1 < m && (!_grillaJugadores[x+1][y+1].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x+1, y+1)))) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y+1);
         }
 
     }
 
-    if (m > 1 && x + 2 < m  && (!_grillaJugadores[x+2][y].EsVacia())) {
+    if (m > 1 && x + 2 < m  && (!_grillaJugadores[x+2][y].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x+2, y)))) {
         AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+2, y);
     }
 

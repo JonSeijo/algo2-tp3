@@ -532,7 +532,7 @@ void test_entrenadoresPosibles() {
 
     e.conectarse(MaquinaOrga1, Coordenada(1, 0));
 
-    e.moverse(MaquinaOrga1, Coordenada(0,0));
+    e.moverse(MaquinaOrga1, Coordenada(0, 0));
     e.moverse(MaquinaOrga1, Coordenada(1, 0));
 
     Jugador Cache = e.agregarJugador();
@@ -541,7 +541,7 @@ void test_entrenadoresPosibles() {
 
     e.agregarPokemon("PokemonRecursivo", Coordenada(2, 1));
 
-    //ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).Pertenece(MaquinaOrga1));
     ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).Pertenece(Cache));
 } 
 
