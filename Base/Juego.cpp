@@ -543,7 +543,7 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
 
 }
 
-void Juego::AgregarAtrasJugsQueEstanEnPos(Vector<Jugador> jugs, Nat x, Nat y) const {
+void Juego::AgregarAtrasJugsQueEstanEnPos(Vector<Jugador> &jugs, Nat x, Nat y) const {
     Lista <Jugador>::const_Iterador it = _grillaJugadores[x][y].CrearIt();
 
     Coordenada c(x, y);
@@ -696,7 +696,7 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
         pokeNodo->_contador++;
 
         // Si no es al que entro el jugador...
-        if (pokeNodo->_contador == 10 && !pokenodo->_entrenadores.EsVacia()) {
+        if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
                 // Si el contador llego a 10...
 
                 // Agrego el pokemon al entrenador que captura.
