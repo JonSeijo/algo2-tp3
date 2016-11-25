@@ -606,6 +606,11 @@ void test_indice_rareza() {
 
 }
 
+void test_pokemon_cercano_coor_invalida(){
+	Driver d(mapaTipo1());
+    d.agregarPokemon("pikachu", Coordenada(0, 0));
+    ASSERT(!d.hayPokemonCercano(Coordenada(0, 3)));
+}
 
 // TODO: Agregar más tests
 
@@ -636,6 +641,8 @@ int main(int argc, char **argv){
     RUN_TEST(test_mover_conPokes);     
     RUN_TEST(test_mover_conPokesYCapturar);     
     RUN_TEST(test_indice_rareza); 
+    RUN_TEST(test_pokemon_cercano_coor_invalida); 
+
 
     std:cout << "HAY QUE HACER UN TEST PARA CADA METODO PUBLICO. FALTAN MAS DE LOS QUE HAY\n";
 
