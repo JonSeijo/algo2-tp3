@@ -194,6 +194,7 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
                 }
             }
         }
+    }
     // Si el movimiento es valido... lo muevo
     else {
         Coordenada posAntes(_jugadores[e]._pos);
