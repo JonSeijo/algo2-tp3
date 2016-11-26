@@ -169,9 +169,17 @@ bool Mapa::PosExistente(const Coordenada &c) const{
 
     Nat x = c.latitud;
     Nat y = c.longitud;
-    return this->_grilla[x][y][x][y];
+    return this->def(this->_grilla, x, y, x, y);
 }
 
+bool Mapa::def(Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grilla,
+Nat x, Nat y, Nat z, Nat w) {
+
+    return grilla.Definido(x) && 
+        grilla[x].Definido(y) &&
+        grilla[x][y].Definido(z) &&
+        grilla[x][y][z].Definido(w);
+}
 
 bool Mapa::HayCamino(const Coordenada &c1, const Coordenada &c2) const{
     return this->_grilla[c1.latitud][c1.longitud][c2.latitud][c2.longitud];
