@@ -248,9 +248,6 @@ void test_puedoAgregar_vol2() {
     ASSERT(!d.puedoAgregarPokemon(Coordenada(7,0)));
     ASSERT(!d.puedoAgregarPokemon(Coordenada(13,0)));
     ASSERT(!d.puedoAgregarPokemon(Coordenada(20,0)));
-
-
-
 }
 
 void test_agregar_pokemones(){
@@ -320,6 +317,28 @@ void test_agregar_pokemones(){
 
 }
 
+void test_pos_con_pokemons() {
+    Driver d(mapaTipo1());
+
+    Conj<Coordenada> coors;
+
+    ASSERT(d.posConPokemons() == coors);
+
+    Coordenada p1(0,0);
+    coors.AgregarRapido(p1);
+    d.agregarPokemon("pokeUno", p1);
+    ASSERT(d.posConPokemons() == coors);
+
+    Coordenada p2(5,5);
+    coors.AgregarRapido(p2);
+    d.agregarPokemon("pokeDos", p2);
+    ASSERT(d.posConPokemons() == coors);
+    
+    Coordenada p3(9,9);
+    coors.AgregarRapido(p3);
+    d.agregarPokemon("pokeTres", p3);
+    ASSERT(d.posConPokemons() == coors);
+}
 
 void test_puedoAgregarPokemon() {
     Driver conductor(mapaTipo0());
@@ -842,6 +861,7 @@ void test_pokemon_cercano_coor_invalida(){
 
 int main(int argc, char **argv){
     RUN_TEST(test_constructor_con_mapa);
+    RUN_TEST(test_pos_con_pokemons);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
