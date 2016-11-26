@@ -146,17 +146,16 @@ int main(int argc, char **argv){
 
     clock_t t1,t2;
     t1 = clock();
-    //code goes here
 
 
     
-    // RUN_TEST(test_vacio);
-    // RUN_TEST(test_agregar_coordenada_tam);
+    RUN_TEST(test_vacio);
+    RUN_TEST(test_agregar_coordenada_tam);
     RUN_TEST(test_quilombo);
-    // RUN_TEST(test_tam);
-    // RUN_TEST(test_posExistente);
-    // RUN_TEST(test_hayCamino_casoFeliz);
-    // RUN_TEST(test_hayCamino_casoTriste);
+    RUN_TEST(test_tam);
+    RUN_TEST(test_posExistente);
+    RUN_TEST(test_hayCamino_casoFeliz);
+    RUN_TEST(test_hayCamino_casoTriste);
 
     t2 = clock();
     float diff = ((float)t2-(float)t1) / CLOCKS_PER_SEC;
