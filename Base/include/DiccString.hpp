@@ -164,7 +164,7 @@ DiccString<S>::DiccString(const DiccString<S>& otro){
 template<class S>
 void DiccString<S>::Definir(const string& clave, const S& significado){
     //std::cout << "\nDefiniendo: " << clave << "\n";
-    if (this->_raiz == NULL || this->_claves.Cardinal() == 0) {
+    if (this->_claves.Cardinal() == 0) {
         this->_raiz = new Nodo();
         DiccString<S>::newsNodos++;
     }
@@ -207,7 +207,7 @@ template<class S>
 bool DiccString<S>::Definido(const string& clave) const{
     bool pertenece = true;
 
-    if (this->_raiz == NULL || this->_claves.Cardinal() == 0) {
+    if (this->_claves.Cardinal() == 0) {
         return false;
     }
 
