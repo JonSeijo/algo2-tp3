@@ -659,8 +659,23 @@ void test_entrenadoresPosibles() {
     ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).EsVacio());
 }
 
-void test_sancionar() {
-    ASSERT(false);
+void test_sancionar_simple() {
+    Driver d(mapaTipo1());
+    Jugador batracio = d.agregarJugador();
+    d.conectarse(batracio, Coordenada(0,0));
+    ASSERT(d.sanciones(batracio) == 0);
+
+    d.moverse(batracio, Coordenada(100,100));
+    ASSERT(d.sanciones(batracio) == 1);
+    d.moverse(batracio, Coordenada(100,100));
+    ASSERT(d.sanciones(batracio) == 2);
+    d.moverse(batracio, Coordenada(100,100));
+    ASSERT(d.sanciones(batracio) == 3);
+    d.moverse(batracio, Coordenada(100,100));
+    ASSERT(d.sanciones(batracio) == 4);
+    d.moverse(batracio, Coordenada(100,100));
+    ASSERT(!d.estaConectado(batracio));
+    ASSERT(d.expulsados().Pertenece(batracio));
 }
 
 void test_eliminarDeJuego() {
@@ -774,11 +789,12 @@ int main(int argc, char **argv){
     RUN_TEST(test_mover_sinPokes);
     RUN_TEST(test_mover_sinPokesYSancionar);
     RUN_TEST(test_capturarSeEliminaElPokemon);
+
+    RUN_TEST(test_sancionar_simple);
  
  /*   RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
     RUN_TEST(test_capturarJugadorTieneNuevoPoke);
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
-    RUN_TEST(test_sancionar);
     RUN_TEST(test_eliminarDeJuego);
     
     RUN_TEST(test_mover_conPokes);

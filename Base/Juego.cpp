@@ -171,6 +171,8 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
 
         // Si tiene 5 o mas sanciones...
         if (_jugadores[e]._sanciones >= 5) {
+
+            _jugadores[e]._conectado = false;
             // Se borra al jugador de la posicion y de los jugadores.
             _jugadores[e]._itAPos.EliminarSiguiente();
             _jugadores[e]._itAJuego.EliminarSiguiente();
