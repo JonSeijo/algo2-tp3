@@ -29,6 +29,10 @@ class Mapa {
 
     private:
 
+        bool def(
+            const Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grilla,
+            Nat x, Nat y, Nat z, Nat w) const;
+
         void copiarCoordenadas(
             Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaNueva,
             Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja

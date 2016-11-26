@@ -124,12 +124,12 @@ void test_hayCamino_casoTriste() {
 }
 
 int main(int argc, char **argv){
-    RUN_TEST(test_vacio);
+    // RUN_TEST(test_vacio);
     RUN_TEST(test_agregar_coordenada_tam);
-    RUN_TEST(test_tam);
-    RUN_TEST(test_posExistente);
-    RUN_TEST(test_hayCamino_casoFeliz);
-    RUN_TEST(test_hayCamino_casoTriste);
+    // RUN_TEST(test_tam);
+    // RUN_TEST(test_posExistente);
+    // RUN_TEST(test_hayCamino_casoFeliz);
+    // RUN_TEST(test_hayCamino_casoTriste);
 
     return 0;
 }

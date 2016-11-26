@@ -15,17 +15,31 @@ Mapa::~Mapa(){
 }
 
 void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
+    std::cout << "Entro en agregar coordenada " << nuevaCoor << "\n"; 
     Nat maximo = this->max(nuevaCoor.latitud, nuevaCoor.longitud);
 
     if (maximo+1 > this->_tam) {
-        Vector<Vector<Vector<Vector<bool> > > > nGrilla;
-        this->crearGrilla(nGrilla, maximo+1);
+        // Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > nGrilla(maximo+1)(maximo+1)(maximo+1)(maximo+1);
+
+        Arreglo<bool> gri(100);
+
+        std::cout << "Declaro nGrilla " << gri.Tamanho() << "\n";
+
+        return;
+
+        // this->crearGrilla(nGrilla, maximo+1);
+
+        // std::cout << "Salgo de crearGrilla\n";
         
-        this->copiarCoordenadas(nGrilla, this->_grilla);
+        // this->copiarCoordenadas(nGrilla, this->_grilla);
         
-        this->_grilla = nGrilla;
+        // std::cout << "Salgo de copiarCoordenadas\n";
         
-        this->_tam = maximo+1;
+        // this->_grilla = nGrilla;
+        
+        // std::cout << "Asigno nGrilla\n";
+        
+        // this->_tam = maximo+1;
     }
 
     // std::cout << "\n---------------------\n\n";
@@ -173,8 +187,9 @@ bool Mapa::PosExistente(const Coordenada &c) const{
 }
 
 // No estoy 100% seguro que se pregunte asi, peroes lo que hay
-bool Mapa::def(Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grilla,
-Nat x, Nat y, Nat z, Nat w) {
+bool Mapa::def(
+    const Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grilla,    
+    Nat x, Nat y, Nat z, Nat w) const {
 
     return grilla.Definido(x) && 
         grilla[x].Definido(y) &&
@@ -195,35 +210,39 @@ void Mapa::crearGrilla(
     Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &nuevaGrilla,
     const Nat n
 ) {
-    // Cambio con respecto a la aridad para pasar por referencia
-    for (Nat i = 0; i < n; i++) {
-        Vector<Vector<Vector<bool> > > nGrilla2;
+    // // Cambio con respecto a la aridad para pasar por referencia
+    // for (Nat i = 0; i < n; i++) {
+    //     Vector<Vector<Vector<bool> > > nGrilla2;
 
-        for (Nat j = 0; j < n; j++) {
-            Vector<Vector<bool> > nGrilla3;
+    //     for (Nat j = 0; j < n; j++) {
+    //         Vector<Vector<bool> > nGrilla3;
 
-            for (Nat k = 0; k < n; k++) {
-                Vector<bool> nGrilla4;
-                for (Nat l = 0; l < n; l++) {
-                    nGrilla4.AgregarAtras(false);
-                }
-                nGrilla3.AgregarAtras(nGrilla4);
-            }
-            nGrilla2.AgregarAtras(nGrilla3);
-        }
-        nuevaGrilla.AgregarAtras(nGrilla2);
-    }
+    //         for (Nat k = 0; k < n; k++) {
+    //             Vector<bool> nGrilla4;
+    //             for (Nat l = 0; l < n; l++) {
+    //                 nGrilla4.AgregarAtras(false);
+    //             }
+    //             nGrilla3.AgregarAtras(nGrilla4);
+    //         }
+    //         nGrilla2.AgregarAtras(nGrilla3);
+    //     }
+    //     nuevaGrilla.AgregarAtras(nGrilla2);
+    // }
 
-    return nuevaGrilla;
+    // return nuevaGrilla;
+
+
+
+
 }
 
 void Mapa::imprimir() {
-    Nat n = this->_grilla.Longitud();
+    Nat n = this->_grilla.Tamanho();
     for (Nat i = 0; i < n; i++) {
         for (Nat j = 0; j < n; j++) {
             for (Nat k = 0; k < n; k++) {
                 for (Nat l = 0; l < n; l++) {
-                    std::cout << this->_grilla[i][j][k][l] << " ";
+                    std::cout << this->def(this->_grilla, i, j, k, l) << " ";
                 }
                 std::cout << "\n";
             }
@@ -237,8 +256,8 @@ void Mapa::copiarCoordenadas(
     Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaNueva,
     Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja) {
 
-    for (Nat i = 0; i < grillaVieja.Longitud(); i++) {
-        for (Nat j = 0; j < grillaVieja.Longitud(); j++) {
+    for (Nat i = 0; i < grillaVieja.Tamanho(); i++) {
+        for (Nat j = 0; j < grillaVieja.Tamanho(); j++) {
             grillaNueva[i][j][i][j] = grillaVieja[i][j][i][j ];
         }
     }
