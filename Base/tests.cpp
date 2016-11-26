@@ -173,6 +173,61 @@ void test_puedoAgregar_vol2() {
     ASSERT(d.puedoAgregarPokemon(Coordenada(12,12)));
     ASSERT(d.puedoAgregarPokemon(Coordenada(12,0)));
     ASSERT(d.puedoAgregarPokemon(Coordenada(0,12)));
+
+    // Puedo agregar en bordes
+    ASSERT(d.puedoAgregarPokemon(Coordenada(12,6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0,6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6,0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6,12)));
+
+    // Puedo agregar en centro
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6,6)));
+
+    // No puedo agregar fuera del mapa
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(20,20)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(13,12)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(12,13)));
+
+    // Agrego poke al (0,0)
+    d.agregarPokemon("Magicarp", Coordenada(0,0));
+
+
+    /* En las 'o' se puede
+
+      0 1 2 3 4 5
+    0 X - - - - o
+    1 - - - - - o
+    2 - - - - - o
+    3 - - - - - o
+    4 - - - - o o
+    5 o o o o o o 
+
+    */
+
+    // No puedo agregar pokemon en un rango <= 5 del 0
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0,0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0,4)));   
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(4,0)));   
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(3,1)));   
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(1,3)));   
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(2,2)));
+    
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(1,1)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(1,0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0,1)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(4,3)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(3,4)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(3,2)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(2,3)));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(4,4)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5,0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0,5)));
+
+
+
+
+
 }
 
 void test_agregar_pokemones(){
