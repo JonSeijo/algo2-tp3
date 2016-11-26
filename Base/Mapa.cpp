@@ -21,9 +21,12 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
     if (maximo+1 > this->_tam) {
         // Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > nGrilla(maximo+1)(maximo+1)(maximo+1)(maximo+1);
 
-        Arreglo<bool> gri(100);
+        Arreglo<Arreglo<bool> > gri(100);
+
+        gri.Definir(0, Arreglo<bool>(200));
 
         std::cout << "Declaro nGrilla " << gri.Tamanho() << "\n";
+        std::cout << "Declaro nGrilla " << gri[0].Tamanho() << "\n";
 
         return;
 
