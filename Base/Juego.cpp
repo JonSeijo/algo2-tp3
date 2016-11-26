@@ -102,7 +102,7 @@ Nat Juego::AgregarJugador(){
     return proxId;
 }
 
-void Juego::Conectarse(Jugador e, const Coordenada &c){
+void Juego::Conectarse(Jugador e, const Coordenada &c) {
     // Se conecta el jugador.
     _jugadores[e]._conectado = true;
 

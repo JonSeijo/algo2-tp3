@@ -676,6 +676,33 @@ void test_sancionar_simple() {
     d.moverse(batracio, Coordenada(100,100));
     ASSERT(!d.estaConectado(batracio));
     ASSERT(d.expulsados().Pertenece(batracio));
+    ASSERT(!d.jugadores().Pertenece(batracio));
+}
+
+void test_sancionar_conpokerango() {
+    Driver d(mapaTipo1());
+    d.agregarPokemon("charizard", Coordenada(0,0));
+
+    Jugador batracio = d.agregarJugador();
+    d.conectarse(batracio, Coordenada(0,0));
+    d.moverse(batracio, Coordenada(100,100));
+    ASSERT(d.sanciones(batracio) == 1);
+    d.moverse(batracio, Coordenada(100,100));
+    ASSERT(d.sanciones(batracio) == 2);
+    d.moverse(batracio, Coordenada(100,100));
+
+    // Como fueron invalidos no afectan a los movs para captura
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0,0)) == 0);
+
+    ASSERT(d.sanciones(batracio) == 3);
+    d.moverse(batracio, Coordenada(100,100));
+    ASSERT(d.sanciones(batracio) == 4);
+    d.moverse(batracio, Coordenada(100,100));
+    ASSERT(!d.estaConectado(batracio));
+    ASSERT(d.expulsados().Pertenece(batracio));
+    ASSERT(!d.jugadores().Pertenece(batracio));
+
+    // Habria que testear tambien que no haya entrenadores posibles etc
 }
 
 void test_eliminarDeJuego() {
@@ -791,6 +818,7 @@ int main(int argc, char **argv){
     RUN_TEST(test_capturarSeEliminaElPokemon);
 
     RUN_TEST(test_sancionar_simple);
+    RUN_TEST(test_sancionar_conpokerango);
  
  /*   RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
     RUN_TEST(test_capturarJugadorTieneNuevoPoke);
