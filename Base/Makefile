@@ -12,15 +12,15 @@ $(TARGET): $(OBJS)
 all: $(TARGET)
 
 test_mapa: Mapa.o
-	$(CXX) -o test_mapa test_mapa.cpp Mapa.o $(LIBS)
+	$(CXX) -o test_mapa test_mapa.cpp Mapa.o
 	./test_mapa
 
 test_cola: 
-	$(CXX) -o test_cola test_cola.cpp $(LIBS)
+	$(CXX) -o test_cola test_cola.cpp 
 	./test_cola
 
 test_dicc: 
-	$(CXX) -o test_dicc test_dicc.cpp $(LIBS)
+	$(CXX) -o test_dicc test_dicc.cpp 
 	./test_dicc
 
 clean:
