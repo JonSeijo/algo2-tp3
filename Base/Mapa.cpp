@@ -57,9 +57,9 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
         Coordenada c = it.Siguiente();
 
         Vector<Vector<bool> > visitados;
-        for (int i = 0; i < this->_tam; i++) {
+        for (Nat i = 0; i < this->_tam; i++) {
             Vector<bool> visitadosAux;
-            for (int j = 0; j < this->_tam; j++) {
+            for (Nat j = 0; j < this->_tam; j++) {
                 visitadosAux.AgregarAtras(false);
             }
             visitados.AgregarAtras(visitadosAux);
@@ -149,8 +149,8 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
 
 Conj<Coordenada> Mapa::Coordenadas() const{
     Conj<Coordenada> coors;
-    for (int i = 0; i < this->_tam; i++) {
-        for (int j = 0; j < this->_tam; j++) {
+    for (Nat i = 0; i < this->_tam; i++) {
+        for (Nat j = 0; j < this->_tam; j++) {
             if (this->PosExistente(Coordenada(i,j))) {
                 coors.AgregarRapido(Coordenada(i,j));
             }
@@ -188,15 +188,15 @@ Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(
     const Nat n
 ) {
     // Cambio con respecto a la aridad para pasar por referencia
-    for (int i = 0; i < n; i++) {
+    for (Nat i = 0; i < n; i++) {
         Vector<Vector<Vector<bool> > > nGrilla2;
 
-        for (int j = 0; j < n; j++) {
+        for (Nat j = 0; j < n; j++) {
             Vector<Vector<bool> > nGrilla3;
 
-            for (int k = 0; k < n; k++) {
+            for (Nat k = 0; k < n; k++) {
                 Vector<bool> nGrilla4;
-                for (int l = 0; l < n; l++) {
+                for (Nat l = 0; l < n; l++) {
                     nGrilla4.AgregarAtras(false);
                 }
                 nGrilla3.AgregarAtras(nGrilla4);
@@ -211,10 +211,10 @@ Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(
 
 void Mapa::imprimir() {
     Nat n = this->_grilla.Longitud();
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k++) {
-                for (int l = 0; l < n; l++) {
+    for (Nat i = 0; i < n; i++) {
+        for (Nat j = 0; j < n; j++) {
+            for (Nat k = 0; k < n; k++) {
+                for (Nat l = 0; l < n; l++) {
                     std::cout << this->_grilla[i][j][k][l] << " ";
                 }
                 std::cout << "\n";
@@ -229,8 +229,8 @@ void Mapa::copiarCoordenadas(
     Vector<Vector<Vector<Vector<bool> > > > &grillaNueva,
     Vector<Vector<Vector<Vector<bool> > > > &grillaVieja) {
 
-    for (int i = 0; i < grillaVieja.Longitud(); i++) {
-        for (int j = 0; j < grillaVieja.Longitud(); j++) {
+    for (Nat i = 0; i < grillaVieja.Longitud(); i++) {
+        for (Nat j = 0; j < grillaVieja.Longitud(); j++) {
             grillaNueva[i][j][i][j] = grillaVieja[i][j][i][j ];
         }
     }
