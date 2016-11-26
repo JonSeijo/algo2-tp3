@@ -7,8 +7,9 @@
 // Valgrind:
 //   valgrind --leak-check=full ./test_cola
 
-#include "include/ColaPrioridad.hpp"
+#include "ColaPrioridad.hpp"
 #include "mini_test.h"
+#include "aed2/TiposBasicos.h"
 
 using namespace aed2;
 
@@ -143,6 +144,40 @@ void test_siguiente(){
     ASSERT(it200.Siguiente() == 200 && it400.Siguiente() == 400);
 }
 
+void test_borrarValgrind(){
+    ColaPrioridad<Nat> c;
+
+    ColaPrioridad<Nat>::Iterador it0 = c.Encolar(0);
+
+    ASSERT(c.Proximo() == 0);
+
+    it0.Borrar();
+
+    ASSERT(c.EsVacia());
+
+    ColaPrioridad<Nat>::Iterador it1 = c.Encolar(1);
+    ColaPrioridad<Nat>::Iterador it2 = c.Encolar(2);
+
+    ASSERT(c.Proximo() == 1);
+
+    it2.Borrar();
+
+    ASSERT(c.Proximo() == 1);
+
+    ColaPrioridad<Nat>::Iterador it00 = c.Encolar(0);
+
+    ASSERT(c.Proximo() == 0);
+
+    it1.Borrar();
+
+    ASSERT(c.Proximo() == 0);
+
+    c.Desencolar();
+
+    ASSERT(c.EsVacia());
+
+}
+
 void test_casosraros(){
    //Quise hacer el operador < entre heaps pero no me salió, si sobra tiempo 
    // estaría bueno hacerlo para probar esto 
@@ -195,6 +230,6 @@ int main(int argc, char **argv){
   RUN_TEST(test_borrar);
   RUN_TEST(test_siguiente);
   RUN_TEST(test_casosraros);
-
+  RUN_TEST(test_borrarValgrind);
   return 0;
 }
