@@ -50,6 +50,9 @@ Juego::~Juego(){
 }
 
 void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){
+    if (!PuedoAgregarPokemon(c)) {
+        std::cout << "NO PUEDO AGREGAR POKEMON PASCUAL!\n";
+    }
     // Aumenta en uno la cantidad de pokemones en el juego.
     _cantPokemonesTotales++;
 
@@ -432,13 +435,15 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
 }
 
 bool Juego::PuedoAgregarPokemon(const Coordenada& c) const{
-    // Si la posicion existe en el mapa.
-    bool puedo = _mapa->PosExistente(c);
+    // // Si la posicion existe en el mapa.
+    // bool puedo = _mapa->PosExistente(c);
 
-    // Y no hay un pokemon cerca.
-    puedo &= !HayPokemonEnTerritorioRango5(c);
+    // // Y no hay un pokemon cerca.
+    // puedo &= !HayPokemonEnTerritorioRango5(c);
 
-    return puedo;
+    // return puedo;
+
+    return _mapa->PosExistente(c) && !HayPokemonEnTerritorioRango5(c);
 }
 
 
@@ -834,7 +839,7 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             for(Nat i = 0; i <= x + 4; i++){
                 for(Nat j = 0; j <= y + 4; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
-                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) < 25){
+                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
                         }
                     }
@@ -846,7 +851,7 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             for(Nat i = 0; i <= x + 4; i++){
                 for(Nat j = y - 4; j <= y + 4; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
-                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) < 25){
+                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
                         }
                     }
@@ -860,7 +865,7 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             for(Nat i = x - 4; i <= x + 4; i++){
                 for(Nat j = 0; j <= y + 4; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
-                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) < 25){
+                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
                         }
                     }
@@ -872,7 +877,7 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             for(Nat i = x - 4; i <= x + 4; i++){
                 for(Nat j = y - 4; j <= y + 4; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
-                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) < 25){
+                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
                         }
                     }
