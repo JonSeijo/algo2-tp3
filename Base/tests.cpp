@@ -226,7 +226,6 @@ void test_puedoAgregar_vol2() {
     ASSERT(d.puedoAgregarPokemon(Coordenada(0,6)));
 
     // Deberia poder agregar al poke aca
-    std::cout << "\nDist euclid: " << distEuclidea(Coordenada(0,0), Coordenada(5,1)) << "\n";
     ASSERT(d.puedoAgregarPokemon(Coordenada(5,1)));
 
     ASSERT(d.puedoAgregarPokemon(Coordenada(5,2)));
@@ -240,15 +239,110 @@ void test_puedoAgregar_vol2() {
     ASSERT(d.puedoAgregarPokemon(Coordenada(12,0)));
 
     d.agregarPokemon("Gyarados", Coordenada(12,0));
-
-    ASSERT(d.puedoAgregarPokemon(Coordenada(6,0)));
     ASSERT(!d.puedoAgregarPokemon(Coordenada(12,0)));
     ASSERT(!d.puedoAgregarPokemon(Coordenada(12,4)));
     ASSERT(!d.puedoAgregarPokemon(Coordenada(12,5)));
     ASSERT(!d.puedoAgregarPokemon(Coordenada(7,0)));
     ASSERT(!d.puedoAgregarPokemon(Coordenada(13,0)));
     ASSERT(!d.puedoAgregarPokemon(Coordenada(20,0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(13,13)));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6,0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6,1)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5,1)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(7,1)));
+    
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6,6)));
+    d.agregarPokemon("Togepi", Coordenada(6,6));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6,0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0,6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(12,6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6,12)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5,1)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(7,1)));
+    
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6,1)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(13,6)));
+
+
+    Conj<Coordenada> coors = mapaTipo1();
+    coors.AgregarRapido(Coordenada(8,8));
+    Driver d2(coors);
+        /*
+    Mapa tipo 1 tiene esta pinta:
+    (X son las posisiones validas)
+    Tamanio: 10x10
+
+         0 1 2 3 4 5 6 7 8 9
+    0    X X X - - - - - - -
+    1    X X X - - - - - - -
+    2    X X X X X - - - - -
+    3    - - X X X - - - - -
+    4    - - X X X - - - - -
+    5    - - - - X X X X - -
+    6    - - - - - X X X - -
+    7    - - - - - X X X - -
+    8    - - - - - - - - X -
+    9    - - - - - - - - - X
+    */
+
+    ASSERT(d2.puedoAgregarPokemon(Coordenada(0,0)));
+    ASSERT(d2.puedoAgregarPokemon(Coordenada(9,9)));
+    ASSERT(d2.puedoAgregarPokemon(Coordenada(7,7)));
+    ASSERT(d2.puedoAgregarPokemon(Coordenada(8,8)));
+    ASSERT(!d2.puedoAgregarPokemon(Coordenada(9,8)));
+    ASSERT(!d2.puedoAgregarPokemon(Coordenada(8,9)));
+    ASSERT(!d2.puedoAgregarPokemon(Coordenada(10,10)));
+
+    d2.agregarPokemon("Death", Coordenada(9,9));
+    ASSERT(!d2.puedoAgregarPokemon(Coordenada(9,8)));
+    ASSERT(!d2.puedoAgregarPokemon(Coordenada(8,9)));
+    ASSERT(!d2.puedoAgregarPokemon(Coordenada(10,10)));
+    
+    ASSERT(!d2.puedoAgregarPokemon(Coordenada(8,8)));
+    ASSERT(!d2.puedoAgregarPokemon(Coordenada(7,7)));
+    ASSERT(!d2.puedoAgregarPokemon(Coordenada(6,6)));
+    
+    ASSERT(d2.puedoAgregarPokemon(Coordenada(5,5)));
+
+    // A hayPokemonCercano no le importan los caminos
+    ASSERT(d2.hayPokemonCercano(Coordenada(8,8)));
+
+    // A hayPokemonCercano no le importa que sea valida?
+    ASSERT(d2.hayPokemonCercano(Coordenada(8,9)));
+    ASSERT(!d2.hayPokemonCercano(Coordenada(7,7)));
+
+
+    // Mapa con solo el (1,1)
+    Conj<Coordenada> coors3;
+    coors3.AgregarRapido(Coordenada(1,1));
+    Driver d3(coors3);
+    
+    ASSERT(!d3.puedoAgregarPokemon(Coordenada(0,0)));
+    ASSERT(!d3.puedoAgregarPokemon(Coordenada(0,1)));
+    ASSERT(!d3.puedoAgregarPokemon(Coordenada(1,0)));
+    ASSERT(!d3.puedoAgregarPokemon(Coordenada(2,2)));
+    ASSERT(d3.puedoAgregarPokemon(Coordenada(1,1)));
+
+    d3.agregarPokemon("Gerbotsio", Coordenada(1,1));
+    ASSERT(!d3.puedoAgregarPokemon(Coordenada(0,0)));
+    ASSERT(!d3.puedoAgregarPokemon(Coordenada(0,1)));
+    ASSERT(!d3.puedoAgregarPokemon(Coordenada(1,0)));
+    ASSERT(!d3.puedoAgregarPokemon(Coordenada(2,2)));
+    ASSERT(!d3.puedoAgregarPokemon(Coordenada(1,1)));
+
+
+    // Mapa vacio
+    Conj<Coordenada> coors4;
+    Driver d4(coors4);
+    ASSERT(!d4.puedoAgregarPokemon(Coordenada(0,0)));
+    ASSERT(!d4.puedoAgregarPokemon(Coordenada(1,1)));
+
+
+
 }
+
 
 void test_agregar_pokemones(){
     Driver d(mapaTipo0());

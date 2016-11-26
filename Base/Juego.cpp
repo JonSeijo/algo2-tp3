@@ -312,9 +312,9 @@ bool Juego::HayPokemonCercano(const Coordenada &c) const{
 
 
     // Esto es para evitar problemas, podria quitarse peeeeero..
-    if (x >= m || y >= m) {
-        return false;
-    }
+    // if (x >= m || y >= m) {
+    //     return false;
+    // }
 
     Conj<Coordenada>::const_Iterador iter = this->PosConPokemons().CrearIt();
     while (iter.HaySiguiente()) {
@@ -464,12 +464,14 @@ bool Juego::PuedoAgregarPokemon(const Coordenada& c) const{
     // puedo &= !HayPokemonEnTerritorioRango5(c);
 
     // return puedo;
+
     if (!_mapa->PosExistente(c)) {
         return false;
     }
 
     Conj<Coordenada>::const_Iterador iter = this->PosConPokemons().CrearIt();
     while (iter.HaySiguiente()) {
+        // std::cout << "me chequeo " << iter.Siguiente() << "\n";
         if (distEuclidea(c, iter.Siguiente()) <= 25) {
             return false;
         }
