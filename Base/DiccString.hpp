@@ -83,7 +83,7 @@ class DiccString{
             // Revisar destructor de nodo
             ~Nodo() {
                 delete definicion;
-                for (int i = 0; i < 256; i++){
+                for (Nat i = 0; i < 256; i++){
                     if (siguientes.Definido(i)){
                         Nodo* tmp = siguientes[i];
                         siguientes[i] = NULL;
@@ -172,7 +172,7 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
 
     // En este for voy recorriendo los nodos correspondientes (o creandolos)
     // Hasta llegar al nodo qu contiene el ultimo caracter
-    for (int i = 0; i < clave.size(); i++) {
+    for (Nat i = 0; i < clave.size(); i++) {
         // Si donde debe ir el caracter el nodo no esta definido, creo uno
         if (!nodoActual->siguientes.Definido(int(clave[i]))) {
             Nodo* nuevo = new Nodo;
@@ -302,7 +302,7 @@ Nat DiccString<S>::CuentaHijos(DiccString<S>::Nodo* padre) const{
         return 0;
     }
     Nat cantHijos = 0;
-    for (int i = 0; i < 256; i++) {
+    for (Nat i = 0; i < 256; i++) {
         if (padre->siguientes.Definido(i)) {
             cantHijos++;
         }
