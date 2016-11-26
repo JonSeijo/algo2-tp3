@@ -1,7 +1,7 @@
 SOURCES = tests.cpp
 OBJS = $(SOURCES:.cpp=.o)
 
-LIBS = modulos.h aed2.h
+LIBS = modulos.h aed2.h Juego.cpp Mapa.cpp
 
 TARGET = tests
 
