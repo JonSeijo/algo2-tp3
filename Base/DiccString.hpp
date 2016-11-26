@@ -8,6 +8,7 @@
 #include <ostream>
 #include <string>
 #include "aed2.h"
+
 // #include "./../mini_test.h"
 // #include "./../TiposJuego.h"
 
@@ -361,7 +362,7 @@ Conj<string>::const_Iterador DiccString<S>::Claves() const{
 /*******************************/
 template <class S>
 DiccString<S>::Iterador::Iterador(DiccString<S> &d) : _itClave(d._claves.CrearIt()){
-    *_dicc = d;
+    _dicc = &d;
     // ASSERT(false);
 }
 
