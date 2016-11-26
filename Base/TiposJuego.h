@@ -54,12 +54,25 @@ inline std::ostream& operator << (std::ostream& os, const Coordenada& c) {
 }
 
 inline Nat distEuclidea(const Coordenada& c1, const Coordenada& c2){
-    Nat x =  c1.latitud  - c2.latitud;
-    Nat y =  c1.longitud - c2.longitud;
 
-    Nat z = (x*x) + (y*y);
+    // Siguiendo la spec tal cual 
 
-    return z;
+    Nat x = 0;
+    if (c1.latitud > c2.latitud) {
+        x = (c1.latitud - c2.latitud) * (c1.latitud - c2.latitud);
+    } else {
+        x = (c2.latitud - c1.latitud) * (c2.latitud - c1.latitud);
+    }
+
+    Nat y = 0;
+    if (c1.longitud > c2.longitud) {
+        y = (c1.longitud - c2.longitud) * (c1.longitud - c2.longitud);
+    } else {
+        y = (c2.longitud - c1.longitud) * (c2.longitud - c1.longitud);
+    }
+
+    return x + y;
+
 }
 
 

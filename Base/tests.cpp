@@ -223,9 +223,32 @@ void test_puedoAgregar_vol2() {
     ASSERT(!d.puedoAgregarPokemon(Coordenada(3,2)));
     ASSERT(!d.puedoAgregarPokemon(Coordenada(2,3)));
 
-    ASSERT(d.puedoAgregarPokemon(Coordenada(4,4)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0,6)));
 
-    // d.agregarPokemon("Gyarados", Coordenada(5,0));
+    // Deberia poder agregar al poke aca
+    std::cout << "\nDist euclid: " << distEuclidea(Coordenada(0,0), Coordenada(5,1)) << "\n";
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5,1)));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5,2)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5,3)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(4,4)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(3,5)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(2,5)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(1,5)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0,6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0,12)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(12,0)));
+
+    d.agregarPokemon("Gyarados", Coordenada(12,0));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6,0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(12,0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(12,4)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(12,5)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(7,0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(13,0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(20,0)));
+
 
 
 }

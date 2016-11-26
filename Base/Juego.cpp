@@ -442,8 +442,20 @@ bool Juego::PuedoAgregarPokemon(const Coordenada& c) const{
     // puedo &= !HayPokemonEnTerritorioRango5(c);
 
     // return puedo;
+    if (!_mapa->PosExistente(c)) {
+        return false;
+    }
 
-    return _mapa->PosExistente(c) && !HayPokemonEnTerritorioRango5(c);
+    Conj<Coordenada>::const_Iterador iter = this->PosConPokemons().CrearIt();
+    while (iter.HaySiguiente()) {
+        if (distEuclidea(c, iter.Siguiente()) <= 25) {
+            return false;
+        }
+        iter.Avanzar();
+    }
+    return true;
+
+    // return _mapa->PosExistente(c) && !HayPokemonEnTerritorioRango5(c);
 }
 
 
