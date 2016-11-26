@@ -10,6 +10,10 @@
 #include "Mapa.h"
 #include "mini_test.h"
 
+
+#include <time.h>
+
+    
 using namespace aed2;
 
 void test_vacio() {
@@ -40,6 +44,7 @@ void test_agregar_coordenada_tam(){
 
 void test_quilombo() {
     Mapa map;
+    map.AgregarCoord(Coordenada(100,100));
     map.AgregarCoord(Coordenada(1,1));
     map.AgregarCoord(Coordenada(10,10));
     map.AgregarCoord(Coordenada(20,20));
@@ -50,7 +55,6 @@ void test_quilombo() {
     map.AgregarCoord(Coordenada(70,70));
     map.AgregarCoord(Coordenada(80,80));
     map.AgregarCoord(Coordenada(90,90));
-    map.AgregarCoord(Coordenada(100,100));
 }
 
 void test_tam() {
@@ -139,6 +143,13 @@ void test_hayCamino_casoTriste() {
 }
 
 int main(int argc, char **argv){
+
+    clock_t t1,t2;
+    t1 = clock();
+    //code goes here
+
+
+    
     // RUN_TEST(test_vacio);
     // RUN_TEST(test_agregar_coordenada_tam);
     RUN_TEST(test_quilombo);
@@ -146,6 +157,10 @@ int main(int argc, char **argv){
     // RUN_TEST(test_posExistente);
     // RUN_TEST(test_hayCamino_casoFeliz);
     // RUN_TEST(test_hayCamino_casoTriste);
+
+    t2 = clock();
+    float diff = ((float)t2-(float)t1) / CLOCKS_PER_SEC;
+    std::cout << "tiempo transcurrido: " << diff << "seg" << "\n";
 
     return 0;
 }

@@ -27,7 +27,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
 
         // Esto que sigue es la funcion this->crearGrilla(), mudarla luego
         // this->crearGrilla(nGrilla, mx);
-        std::cout << "Declaro nGrilla\n";
+        // std::cout << "Declaro nGrilla\n";
         for (Nat i = 0; i < mx; i++) {
             nGrilla.Definir(i, Arreglo<Arreglo<Arreglo<bool> > >(mx));
             for (Nat j = 0; j < mx; j++) {
@@ -38,26 +38,28 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
             }
         }
         std::cout << "Defini nGrilla tam:   " << mx << "\n";
-        return;
 
+        // return;
+
+        this->copiarCoordenadas(nGrilla, this->_grilla);
+        // std::cout << "Copie todas las coordenadas validas a la nueva grilla"<< "\n";
+        // return;
         
-        // this->copiarCoordenadas(nGrilla, this->_grilla);
+        std::cout << "Salgo de copiarCoordenadas\n";
         
-        // std::cout << "Salgo de copiarCoordenadas\n";
+        this->_grilla = nGrilla;
         
-        // this->_grilla = nGrilla;
+        std::cout << "Asigno nGrilla\n";
         
-        // std::cout << "Asigno nGrilla\n";
-        
-        // this->_tam = maximo+1;
+        this->_tam = maximo+1;
     }
 
     // std::cout << "\n---------------------\n\n";
     // std::cout << "lat: " << nuevaCoor.latitud <<"\n";
     // std::cout << "lon: " << nuevaCoor.longitud <<"\n";
 
-    this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud][nuevaCoor.latitud][nuevaCoor.longitud] = true;
-
+    this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud][nuevaCoor.latitud].Definir(nuevaCoor.longitud, true);
+    std::cout << "Le pongo true a la actual\n";
     /*
     Habia un bug groso en el tp2 (que se arregla facil)
     Basicamente se actualizaban los HayCamino para todas las coordenadas en relacion a la nueva que agregaba
@@ -77,6 +79,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
     Conj<Coordenada>::Iterador it = coors.CrearIt();
     while (it.HaySiguiente()) {
         Coordenada c = it.Siguiente();
+        // std::cout << "Entro a while exterior: " << c << "\n";
 
         Vector<Vector<bool> > visitados;
         for (Nat i = 0; i < this->_tam; i++) {
@@ -97,6 +100,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
 
 
         while (!aRecorrer.EsVacia()) {
+            // std::cout << "Entro a while interior: " << c << "\n";
             // Tomo el proximo y desencolo
             Coordenada act = aRecorrer.Primero();
             aRecorrer.Fin(); // Elimina la cabeza
@@ -246,7 +250,9 @@ void Mapa::copiarCoordenadas(
 
     for (Nat i = 0; i < grillaVieja.Tamanho(); i++) {
         for (Nat j = 0; j < grillaVieja.Tamanho(); j++) {
-            grillaNueva[i][j][i][j] = grillaVieja[i][j][i][j ];
+            if (this->def(grillaVieja, i, j, i, j)) {
+                grillaNueva[i][j][i].Definir(j, grillaVieja[i][j][i][j]);
+            }
         }
     }
 }
