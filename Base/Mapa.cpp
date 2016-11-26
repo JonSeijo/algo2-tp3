@@ -172,6 +172,7 @@ bool Mapa::PosExistente(const Coordenada &c) const{
     return this->def(this->_grilla, x, y, x, y);
 }
 
+// No estoy 100% seguro que se pregunte asi, peroes lo que hay
 bool Mapa::def(Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grilla,
 Nat x, Nat y, Nat z, Nat w) {
 
@@ -182,15 +183,16 @@ Nat x, Nat y, Nat z, Nat w) {
 }
 
 bool Mapa::HayCamino(const Coordenada &c1, const Coordenada &c2) const{
-    return this->_grilla[c1.latitud][c1.longitud][c2.latitud][c2.longitud];
+    return this->def(this->_grilla, c1.latitud, c1.longitud, c2.latitud, c2.longitud) &&
+        this->_grilla[c1.latitud][c1.longitud][c2.latitud][c2.longitud];
 }
 
 Nat Mapa::Tam() const{
     return this->_tam;
 }
 
-Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(
-    Vector<Vector<Vector<Vector<bool> > > > &nuevaGrilla,
+void Mapa::crearGrilla(
+    Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &nuevaGrilla,
     const Nat n
 ) {
     // Cambio con respecto a la aridad para pasar por referencia
@@ -232,8 +234,8 @@ void Mapa::imprimir() {
 }
 
 void Mapa::copiarCoordenadas(
-    Vector<Vector<Vector<Vector<bool> > > > &grillaNueva,
-    Vector<Vector<Vector<Vector<bool> > > > &grillaVieja) {
+    Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaNueva,
+    Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja) {
 
     for (Nat i = 0; i < grillaVieja.Longitud(); i++) {
         for (Nat j = 0; j < grillaVieja.Longitud(); j++) {
