@@ -7,8 +7,7 @@
 
 #include <ostream>
 #include <string>
-#include "../aed2.h"
-#include "../aed2.h"
+#include "aed2.h"
 // #include "./../mini_test.h"
 // #include "./../TiposJuego.h"
 

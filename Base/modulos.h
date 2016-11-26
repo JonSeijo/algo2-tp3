@@ -2,9 +2,9 @@
 #define MODULOS_H_
 
 
-#include "./include/Juego.h"
-#include "./include/Mapa.h"
-#include "./include/ColaPrioridad.hpp"
-#include "./include/DiccString.hpp"
+#include "Juego.h"
+#include "Mapa.h"
+#include "ColaPrioridad.hpp"
+#include "DiccString.hpp"
 
 #endif

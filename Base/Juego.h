@@ -2,10 +2,9 @@
 #define JUEGO_H_
 
 
-#include "./../modulos.h"
-#include "../TiposJuego.h"
-#include "../aed2/Conj.h"
-#include "../aed2/Arreglo.h"
+#include "modulos.h"
+#include "TiposJuego.h"
+#include "aed2.h"
 #include "Mapa.h"
 #include "ColaPrioridad.hpp"
 #include "DiccString.hpp"
