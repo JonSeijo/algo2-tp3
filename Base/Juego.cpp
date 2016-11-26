@@ -836,8 +836,8 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
     if(x < 5){
         if(y < 5){
             //std::cout << "Entre al caso 1" << std::endl;
-            for(Nat i = 0; i <= x + 4; i++){
-                for(Nat j = 0; j <= y + 4; j++){
+            for(Nat i = 0; i <= x + 5; i++){
+                for(Nat j = 0; j <= y + 5; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
                         if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
@@ -848,8 +848,8 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
         }
         else{
             //std::cout << "Entre al caso 2" << std::endl;
-            for(Nat i = 0; i <= x + 4; i++){
-                for(Nat j = y - 4; j <= y + 4; j++){
+            for(Nat i = 0; i <= x + 5; i++){
+                for(Nat j = y - 5; j <= y + 5; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
                         if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
@@ -862,8 +862,8 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
     else{
         if(y < 5){
             //std::cout << "Entre al caso 3" << std::endl;
-            for(Nat i = x - 4; i <= x + 4; i++){
-                for(Nat j = 0; j <= y + 4; j++){
+            for(Nat i = x - 5; i <= x + 5; i++){
+                for(Nat j = 0; j <= y + 5; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
                         if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
@@ -874,8 +874,8 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
         }
         else{
             //std::cout << "Entre al caso 4" << std::endl;
-            for(Nat i = x - 4; i <= x + 4; i++){
-                for(Nat j = y - 4; j <= y + 4; j++){
+            for(Nat i = x - 5; i <= x + 5; i++){
+                for(Nat j = y - 5; j <= y + 5; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
                         if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;

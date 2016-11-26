@@ -195,16 +195,19 @@ void test_puedoAgregar_vol2() {
     /* En las 'o' se puede
 
       0 1 2 3 4 5
-    0 X - - - - o
+    0 X - - - - -
     1 - - - - - o
     2 - - - - - o
     3 - - - - - o
     4 - - - - o o
-    5 o o o o o o 
+    5 - o o o o o 
 
     */
 
     // No puedo agregar pokemon en un rango <= 5 del 0
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(5,0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0,5)));
+
     ASSERT(!d.puedoAgregarPokemon(Coordenada(0,0)));
     ASSERT(!d.puedoAgregarPokemon(Coordenada(0,4)));   
     ASSERT(!d.puedoAgregarPokemon(Coordenada(4,0)));   
@@ -221,11 +224,8 @@ void test_puedoAgregar_vol2() {
     ASSERT(!d.puedoAgregarPokemon(Coordenada(2,3)));
 
     ASSERT(d.puedoAgregarPokemon(Coordenada(4,4)));
-    ASSERT(d.puedoAgregarPokemon(Coordenada(5,0)));
-    ASSERT(d.puedoAgregarPokemon(Coordenada(0,5)));
 
-
-
+    // d.agregarPokemon("Gyarados", Coordenada(5,0));
 
 
 }
