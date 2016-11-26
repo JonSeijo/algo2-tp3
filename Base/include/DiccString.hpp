@@ -205,8 +205,6 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
 
 template<class S>
 bool DiccString<S>::Definido(const string& clave) const{
-    bool pertenece = true;
-
     if (this->_claves.Cardinal() == 0) {
         return false;
     }
