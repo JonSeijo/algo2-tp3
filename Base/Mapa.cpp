@@ -20,31 +20,26 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
 
     if (maximo+1 > this->_tam) {
 
-        Nat mx = maximo+1;
 
+        // CREO LA NUEVA GRILLA
+        Nat mx = maximo+1;
         Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > nGrilla(mx);
 
+        // Esto que sigue es la funcion this->crearGrilla(), mudarla luego
+        // this->crearGrilla(nGrilla, mx);
         std::cout << "Declaro nGrilla\n";
-
         for (Nat i = 0; i < mx; i++) {
             nGrilla.Definir(i, Arreglo<Arreglo<Arreglo<bool> > >(mx));
-        
             for (Nat j = 0; j < mx; j++) {
                 nGrilla[i].Definir(j, Arreglo<Arreglo<bool> >(mx));
-
                 for (Nat k = 0; k < mx; k++) {
                     nGrilla[i][j].Definir(k, Arreglo<bool>(mx));
                 }
             }
         }
-
-        std::cout << "Defino nGrilla tam:   " << mx << "\n";
-
+        std::cout << "Defini nGrilla tam:   " << mx << "\n";
         return;
 
-        // this->crearGrilla(nGrilla, maximo+1);
-
-        // std::cout << "Salgo de crearGrilla\n";
         
         // this->copiarCoordenadas(nGrilla, this->_grilla);
         
@@ -221,35 +216,13 @@ Nat Mapa::Tam() const{
     return this->_tam;
 }
 
-void Mapa::crearGrilla(
+
+void crearGrilla(
     Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &nuevaGrilla,
-    const Nat n
-) {
-    // // Cambio con respecto a la aridad para pasar por referencia
-    // for (Nat i = 0; i < n; i++) {
-    //     Vector<Vector<Vector<bool> > > nGrilla2;
-
-    //     for (Nat j = 0; j < n; j++) {
-    //         Vector<Vector<bool> > nGrilla3;
-
-    //         for (Nat k = 0; k < n; k++) {
-    //             Vector<bool> nGrilla4;
-    //             for (Nat l = 0; l < n; l++) {
-    //                 nGrilla4.AgregarAtras(false);
-    //             }
-    //             nGrilla3.AgregarAtras(nGrilla4);
-    //         }
-    //         nGrilla2.AgregarAtras(nGrilla3);
-    //     }
-    //     nuevaGrilla.AgregarAtras(nGrilla2);
-    // }
-
-    // return nuevaGrilla;
-
-
-
-
+    const Nat n) {
+std::cout << "EL CODIGO DE CREAR GRILLA UBICARLO ACA\n";
 }
+
 
 void Mapa::imprimir() {
     Nat n = this->_grilla.Tamanho();
