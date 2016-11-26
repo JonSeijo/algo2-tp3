@@ -49,7 +49,8 @@ inline bool operator != (const Coordenada& c1, const Coordenada& c2){
 }
 
 inline std::ostream& operator << (std::ostream& os, const Coordenada& c) {
-    os << "<" << c.latitud << "," << c.longitud << ">"; 
+    os << "<" << c.latitud << "," << c.longitud << ">";
+    return os; 
 }
 
 inline Nat distEuclidea(const Coordenada& c1, const Coordenada& c2){
