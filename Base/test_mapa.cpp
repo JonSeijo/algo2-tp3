@@ -38,6 +38,21 @@ void test_agregar_coordenada_tam(){
     ASSERT(map.Tam() == 12);   
 }
 
+void test_quilombo() {
+    Mapa map;
+    map.AgregarCoord(Coordenada(1,1));
+    map.AgregarCoord(Coordenada(10,10));
+    map.AgregarCoord(Coordenada(20,20));
+    map.AgregarCoord(Coordenada(30,30));
+    map.AgregarCoord(Coordenada(40,40));
+    map.AgregarCoord(Coordenada(50,50));
+    map.AgregarCoord(Coordenada(60,60));
+    map.AgregarCoord(Coordenada(70,70));
+    map.AgregarCoord(Coordenada(80,80));
+    map.AgregarCoord(Coordenada(90,90));
+    map.AgregarCoord(Coordenada(100,100));
+}
+
 void test_tam() {
     // Testeado indirectamente con el agregarCoordenada
     Mapa map;
@@ -125,7 +140,8 @@ void test_hayCamino_casoTriste() {
 
 int main(int argc, char **argv){
     // RUN_TEST(test_vacio);
-    RUN_TEST(test_agregar_coordenada_tam);
+    // RUN_TEST(test_agregar_coordenada_tam);
+    RUN_TEST(test_quilombo);
     // RUN_TEST(test_tam);
     // RUN_TEST(test_posExistente);
     // RUN_TEST(test_hayCamino_casoFeliz);

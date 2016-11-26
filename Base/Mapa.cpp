@@ -15,18 +15,30 @@ Mapa::~Mapa(){
 }
 
 void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
-    std::cout << "Entro en agregar coordenada " << nuevaCoor << "\n"; 
+    // std::cout << "Entro en agregar coordenada " << nuevaCoor << "\n"; 
     Nat maximo = this->max(nuevaCoor.latitud, nuevaCoor.longitud);
 
     if (maximo+1 > this->_tam) {
-        // Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > nGrilla(maximo+1)(maximo+1)(maximo+1)(maximo+1);
 
-        Arreglo<Arreglo<bool> > gri(100);
+        Nat mx = maximo+1;
 
-        gri.Definir(0, Arreglo<bool>(200));
+        Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > nGrilla(mx);
 
-        std::cout << "Declaro nGrilla " << gri.Tamanho() << "\n";
-        std::cout << "Declaro nGrilla " << gri[0].Tamanho() << "\n";
+        std::cout << "Declaro nGrilla\n";
+
+        for (Nat i = 0; i < mx; i++) {
+            nGrilla.Definir(i, Arreglo<Arreglo<Arreglo<bool> > >(mx));
+        
+            for (Nat j = 0; j < mx; j++) {
+                nGrilla[i].Definir(j, Arreglo<Arreglo<bool> >(mx));
+
+                for (Nat k = 0; k < mx; k++) {
+                    nGrilla[i][j].Definir(k, Arreglo<bool>(mx));
+                }
+            }
+        }
+
+        std::cout << "Defino nGrilla tam:   " << mx << "\n";
 
         return;
 
