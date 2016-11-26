@@ -9,7 +9,6 @@ using namespace std;
 
 Mapa::Mapa(){
     this->_tam = 0;
-    this->_grilla;
 }
 
 Mapa::~Mapa(){
