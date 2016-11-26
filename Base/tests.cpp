@@ -697,11 +697,38 @@ void test_desconectar() {
 }
 
 void test_mover_sinPokes() {
-    ASSERT(false);
+  Driver d(mapaTipo1());
+    Jugador j = d.agregarJugador();
+
+    Coordenada c(0,0);
+
+    d.conectarse(j, c);
+    ASSERT(d.estaConectado(j));
+
+    ASSERT(d.posicion(j) == c);
+    d.moverse(j, Coordenada(2, 2));
+    ASSERT(d.posicion(j) == Coordenada(2, 2));
+
+    ASSERT(d.sanciones(j) == 0);
+
+
 }
 
 void test_mover_sinPokesYSancionar() {
-    ASSERT(false);
+    Driver d(mapaTipo1());
+    Jugador j = d.agregarJugador();
+
+    Coordenada c(0,0);
+
+    d.conectarse(j, c);
+    ASSERT(d.estaConectado(j));
+
+    ASSERT(d.posicion(j) == c);
+
+    d.moverse(j, Coordenada(12, 2));
+    ASSERT(d.sanciones(j) == 1);
+    ASSERT(d.posicion(j) == c);
+
 }
 
 void test_mover_conPokes() {
@@ -748,15 +775,15 @@ int main(int argc, char **argv){
     RUN_TEST(test_indice_rareza);
     RUN_TEST(test_pokemon_cercano_coor_invalida);
     RUN_TEST(test_movimientosParaCaptura);
-
+    RUN_TEST(test_mover_sinPokes);
+    RUN_TEST(test_mover_sinPokesYSancionar);
     RUN_TEST(test_capturarSeEliminaElPokemon);
 /*    RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
     RUN_TEST(test_capturarJugadorTieneNuevoPoke);
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
     RUN_TEST(test_sancionar);
     RUN_TEST(test_eliminarDeJuego);
-    RUN_TEST(test_mover_sinPokes);
-    RUN_TEST(test_mover_sinPokesYSancionar);
+    
     RUN_TEST(test_mover_conPokes);
     RUN_TEST(test_mover_conPokesYCapturar);
 */
