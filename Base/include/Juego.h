@@ -73,8 +73,8 @@ class Juego{
             Nat _cantCap;
 
             jugStruc(Nat id, Coordenada pos, Conj<Jugador>::Iterador iteradorAJuego)
-             : _id(id), _sanciones(0), _conectado(false), _pos(pos), _pokemons(),
-                 _itAJuego(iteradorAJuego), _itAEntrenadores(), _itAPos(), _cantCap(0){};
+             : _id(id), _sanciones(0), _conectado(false), _pos(pos), _pokemons(), _itAEntrenadores(), _itAPos(),
+                 _itAJuego(iteradorAJuego),  _cantCap(0){};
 
         };
 
