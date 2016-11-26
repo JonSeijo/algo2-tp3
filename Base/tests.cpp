@@ -501,7 +501,9 @@ void test_capturarSeEliminaElPokemon() {
     d.moverse(AshSalsaGolf, Coordenada(4, 5));
     ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 9);
     d.moverse(AshSalsaGolf, Coordenada(4, 5));
-    
+
+	d.pokemons(AshAdhereso);    
+
 
     ASSERT(!d.hayPokemonCercano(Coordenada(2, 2)));
     ASSERT(d.puedoAgregarPokemon(Coordenada(2, 2)));
