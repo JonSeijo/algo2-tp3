@@ -160,8 +160,12 @@ void Juego::Desconectarse(Jugador e){
 }
 
 void Juego::Moverse(Jugador e, const Coordenada &c){
+
+    // std::cout << "Entro a mover al jugador " << e << " en la coor " << c << "\n";
+
     // Si el movimiento no es valido...
     if (!MovValido(e, c)) {
+        // std::cout << "movimiento invalido!\n";
         // Se sanciona al jugador.
         _jugadores[e]._sanciones++;
 
@@ -197,6 +201,7 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
     }
     // Si el movimiento es valido... lo muevo
     else {
+        // std::cout << "movimiento valido\n";
         Coordenada posAntes(_jugadores[e]._pos);
 
         bool hayPokAntes = HayPokemonCercano(posAntes);
@@ -211,16 +216,18 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
                 CasoMov1(e, posAntes, c);
 
             } else {
-                // std::cout << "CasoMov 5" << std::endl;
+               // std::cout << "CasoMov 5" << std::endl;
                 CasoMov5(e, posAntes, c);
             }
         } else if (hayPokAntes) {
             // std::cout << "CasoMov 2" << std::endl;
             CasoMov2(e, posAntes, c);
         } else {
-            // std::cout << "CasoMov 4" << std::endl;
+           // std::cout << "CasoMov 4" << std::endl;
             CasoMov4(e, posAntes, c);
         }
+
+        // std::cout << "Salgo de revisar los casos\n";
 
         // @JONATHAN
         // Las lineas de abajo estaba fuera del else, las meti adentro para que se mueva cuando el mov es valido
@@ -234,6 +241,9 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
 
         _jugadores[e]._pos = c;
     }
+
+    // std::cout << "Salgo de mover al jugador " << e << "en la coor " << c << "\n";
+
 
 }
 
@@ -691,12 +701,19 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
     // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
+    // std::cout << "Creo el iterador de pos pokemones\n";
+
     while (it.HaySiguiente()) {
+        
+        // std::cout << "pos que estoy recorriendo: " << it.Siguiente() << "\n";
 
         Nat x = it.Siguiente().latitud;
         Nat y = it.Siguiente().longitud;
 
         pokeStruc* pokeNodo = _pokenodos[x][y];
+
+        // std::cout << "pokenodo en esa coordenada: " << pokeNodo << "\n";
+        
 
         // Aumento el contador del pokenodo.
         pokeNodo->_contador++;
@@ -704,10 +721,13 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
         // Si no es al que entro el jugador...
         if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
                 // Si el contador llego a 10...
-                // std::cout << "Llego a 10" << std::endl;
+           //     std::cout << "Llego a 10\n";
                 // Agrego el pokemon al entrenador que captura.
                 SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
                 // Borro el pokenodo.
+                
+             //    std::cout << "Sali de sumar uno\n";
+
                 it.EliminarSiguiente();
                 _pokenodos[x][y] = NULL;
                 delete pokeNodo;
@@ -788,6 +808,9 @@ bool Juego::MovValido(Jugador e, const Coordenada& c) const{
 
 
 void Juego::SumarUnoEnJug(Pokemon p, Jugador e){
+    
+    // std::cout << "Hay alguna definicion? " << _jugadores[e]._pokemons.Claves().HaySiguiente() << "\n";
+
     // Si ya tiene alguna de la misma especie...
     if (_jugadores[e]._pokemons.Definido(p)) {
         // Le sumo uno.
@@ -795,6 +818,7 @@ void Juego::SumarUnoEnJug(Pokemon p, Jugador e){
         _jugadores[e]._pokemons.Definir(p, actual + 1);
     } else {
         // Si no lo defino en 1.
+       // std::cout << "Deberia caer aca\n";
         _jugadores[e]._pokemons.Definir(p, 1);
     }
 }
