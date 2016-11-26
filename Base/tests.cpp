@@ -476,6 +476,8 @@ void test_capturarSeEliminaElPokemon() {
 
     d.conectarse(AshSalsaGolf, Coordenada(2, 2));
     d.conectarse(AshAdhereso, Coordenada(2, 1));
+	
+    ASSERT(d.pokemons(AshAdhereso).CantClaves() == 0);
 
     ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 0);
     d.moverse(AshSalsaGolf, Coordenada(9, 9));
@@ -499,10 +501,11 @@ void test_capturarSeEliminaElPokemon() {
     d.moverse(AshSalsaGolf, Coordenada(4, 5));
     ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 8);
     d.moverse(AshSalsaGolf, Coordenada(4, 5));
+
     ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 9);
     d.moverse(AshSalsaGolf, Coordenada(4, 5));
 
-	d.pokemons(AshAdhereso);    
+    ASSERT(d.pokemons(AshAdhereso).CantClaves() == 1);    
 
 
     ASSERT(!d.hayPokemonCercano(Coordenada(2, 2)));
