@@ -167,19 +167,21 @@ void ColaPrioridad<T>::Iterador::Borrar(){
 	(this -> estructura) -> SwapNodos(this -> siguiente, this -> estructura -> ultimo);
 	
 	(this -> estructura) -> EliminarUltimo();
-	// if (intercambiado == NULL){
-	// 	std::cout << "\n intercambiado es null\n";
-	// } 
-	if(intercambiado -> padre != NULL){
-		if((intercambiado -> elem) < (intercambiado -> padre -> elem)){	
-			(this -> estructura) -> SiftUp(intercambiado);
+
+	this -> siguiente = NULL;
+	
+	if(this -> estructura -> raiz != NULL && this -> estructura -> ultimo != NULL){
+		if(intercambiado -> padre != NULL){
+			if((intercambiado -> elem) < (intercambiado -> padre -> elem)){	
+				(this -> estructura) -> SiftUp(intercambiado);
+			}
+			else{
+				(this -> estructura) -> SiftDown(intercambiado);
+			}
 		}
 		else{
 			(this -> estructura) -> SiftDown(intercambiado);
 		}
-	}
-	else{
-		(this -> estructura) -> SiftDown(intercambiado);
 	}
 }
 
