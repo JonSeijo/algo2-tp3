@@ -13,6 +13,17 @@ void ag(Conj<Coordenada> &cc, Nat x, Nat y) {
     cc.Agregar(Coordenada(x, y));
 }
 
+Conj<Coordenada> mapaTipo2() {
+    // ES UN MAPA 12x12 TODO LLENO
+    Conj<Coordenada> cc;
+    for (int i = 12; i >= 0; i--) {
+        for (int j = 12; j >= 0; j--) {
+            ag(cc, i, j);
+        }
+    }
+    return cc;
+}
+
 Conj<Coordenada> mapaTipo0() {
     /*
       0 1 2
@@ -154,6 +165,15 @@ void test_agregar_jugadores(){
 
 }
 
+void test_puedoAgregar_vol2() {
+    Driver d(mapaTipo2());
+
+    // Puedo agregar en las esquinas    
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0,0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(12,12)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(12,0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0,12)));
+}
 
 void test_agregar_pokemones(){
     Driver d(mapaTipo0());
@@ -749,6 +769,7 @@ int main(int argc, char **argv){
     RUN_TEST(test_agregar_pokemones_sinJugs);
     RUN_TEST(test_agregar_pokemones_conJugs);
     RUN_TEST(test_puedoAgregarPokemon);
+    RUN_TEST(test_puedoAgregar_vol2);
     RUN_TEST(test_posPokeCercano);
     RUN_TEST(test_hayPokemonCercano);
     RUN_TEST(test_entrenadoresPosibles);
