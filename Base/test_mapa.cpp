@@ -9,7 +9,7 @@
 
 
 // #include "include/Coordenada.h"
-#include "Mapa.h"
+#include "Mapa.cpp"
 #include "mini_test.h"
 
 using namespace aed2;
