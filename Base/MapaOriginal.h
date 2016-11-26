@@ -30,19 +30,21 @@ class Mapa {
     private:
 
         void copiarCoordenadas(
-            Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaNueva,
-            Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja
+            Vector<Vector<Vector<Vector<bool> > > > &grillaNueva,
+            Vector<Vector<Vector<Vector<bool> > > > &grillaVieja
         );
 
         void crearGrilla(
-            Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &nuevaGrilla,
+            Vector<Vector<Vector<Vector<bool> > > > &nuevaGrilla,
             const Nat n
         );
 
-        Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > _grilla;
+        Vector<Vector<Vector<Vector<bool> > > > _grilla;
         Nat _tam;
 
         Nat max(Nat x, Nat y);
+
+
 };
 
 #endif
