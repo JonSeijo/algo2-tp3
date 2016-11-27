@@ -1417,6 +1417,46 @@ void test_mov_invalido_con_camino(){
 }
 // TODO: Agregar más tests
 
+void test_comprobarCoordenadasDelMapa(){
+	ASSERT(false);
+}
+
+void test_hayCamino(){
+	ASSERT(false);
+}
+
+void test_posExistente(){
+	ASSERT(false);
+}
+
+void test_jugadoresNoEliminados(){
+	ASSERT(false);
+}
+
+void test_posicionJugador(){
+	ASSERT(false);
+}
+
+void test_posConPokemon(){
+	ASSERT(false);
+}
+
+void test_expulsados(){
+	ASSERT(false);
+}
+
+void test_cantMismaEspecie(){
+	ASSERT(false);
+}
+
+void test_cantPokemonesTotales(){
+	ASSERT(false);
+}
+
+void test_posPokemonCercano(){
+	ASSERT(false);
+}
+
 
 int main(int argc, char **argv){
     RUN_TEST(test_constructor_con_mapa);
@@ -1450,7 +1490,25 @@ int main(int argc, char **argv){
     RUN_TEST(test_mover_conPokes);
     RUN_TEST(test_mover_conPokesYCapturar);
 
-    std:cout << "\nHAY QUE HACER UN TEST PARA CADA MÉTODO PÚBLICO. FALTAN MAS DE LOS QUE HAY.\n";
+    RUN_TEST(test_comprobarCoordenadasDelMapa);
+
+    RUN_TEST(test_hayCamino);
+
+	RUN_TEST(test_posExistente);
+
+	RUN_TEST(test_jugadoresNoEliminados);
+
+	RUN_TEST(test_posicionJugador);
+
+	RUN_TEST(test_posConPokemon);
+
+	RUN_TEST(test_expulsados);
+
+	RUN_TEST(test_cantMismaEspecie);
+
+	RUN_TEST(test_cantPokemonesTotales);
+
+	RUN_TEST(test_posPokemonCercano);
 
     return 0;
 }
