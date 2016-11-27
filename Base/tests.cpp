@@ -72,7 +72,11 @@ void test_constructor_con_mapa() {
     cc.Agregar(Coordenada(1,4));
     Driver d(cc);
 
+    std::cout << "\ncc:" << cc << "\n";
+    std::cout << "map:" << d.mapa() << "\n";
+
     ASSERT(d.mapa() == cc);
+
     ASSERT(d.posConPokemons().EsVacio());
     ASSERT(d.jugadores().EsVacio());
     ASSERT(d.expulsados().EsVacio());

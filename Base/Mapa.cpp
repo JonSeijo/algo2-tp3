@@ -51,10 +51,12 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
         this->_tam = maximo+1;
     }
 
-    this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud].Definir(nuevaCoor.latitud, Arreglo<bool>(this->_tam));
+    // No estoy 100% seguro que este if vaya aca
+    if (!this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud].Definido(nuevaCoor.latitud)) {
+        this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud].Definir(nuevaCoor.latitud, Arreglo<bool>(this->_tam));
+    }
     this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud][nuevaCoor.latitud].Definir(nuevaCoor.longitud, true);
     
-    // std::cout << "Le pongo true a la actual\n";
     /*
     Habia un bug groso en el tp2 (que se arregla facil)
     Basicamente se actualizaban los HayCamino para todas las coordenadas en relacion a la nueva que agregaba
