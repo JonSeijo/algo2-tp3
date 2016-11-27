@@ -27,9 +27,13 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
 
     if (maximo+1 > this->_tam) {
 
+        std::cout << "Tengo que agrandar la grilla\n";
+
         // CREO LA NUEVA GRILLA
         Nat mx = maximo+1;
         Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > nGrilla(mx);
+
+        std::cout << "Declaro la grilla\n";
 
         // Esto que sigue es la funcion this->crearGrilla(), mudarla luego
         // this->crearGrilla(nGrilla, mx);
@@ -43,10 +47,11 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 // }
             }
         }
-        // std::cout << "Defini nGrilla tam:   " << mx << "\n";
+        std::cout << "Defini nGrilla tam:   " << mx << "\n";
 
-        this->copiarCoordenadas(nGrilla, this->_grilla);
-        // std::cout << "Copie todas las coordenadas validas a la nueva grilla"<< "\n";
+        this->copiarCoordenadas(nGrilla, this->_grilla, mx);
+
+        std::cout << "Copie todas las coordenadas validas a la nueva grilla"<< "\n";
 
         // std::cout << "Salgo de copiarCoordenadas\n";
         
@@ -281,11 +286,13 @@ void Mapa::imprimir() {
 
 void Mapa::copiarCoordenadas(
     Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaNueva,
-    Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja) {
+    Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja,
+    Nat nuevoTam) {
 
     for (Nat i = 0; i < grillaVieja.Tamanho(); i++) {
         for (Nat j = 0; j < grillaVieja.Tamanho(); j++) {
             if (this->def(grillaVieja, i, j, i, j)) {
+                grillaNueva[i][j].Definir(i, Arreglo<bool>(nuevoTam));
                 grillaNueva[i][j][i].Definir(j, grillaVieja[i][j][i][j]);
             }
         }

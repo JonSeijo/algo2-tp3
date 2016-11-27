@@ -1365,39 +1365,39 @@ void test_informante() {
 
 
 int main(int argc, char **argv){
-    // RUN_TEST(test_constructor_con_mapa);
-    // RUN_TEST(test_pos_con_pokemons);
-    // RUN_TEST(test_agregar_jugadores);
-    // RUN_TEST(test_agregar_pokemones);
-    // RUN_TEST(test_agregar_pokemones_sinJugs);
-    // RUN_TEST(test_agregar_pokemones_conJugs);
+    RUN_TEST(test_constructor_con_mapa);
+    RUN_TEST(test_pos_con_pokemons);
+    RUN_TEST(test_agregar_jugadores);
+    RUN_TEST(test_agregar_pokemones);
+    RUN_TEST(test_agregar_pokemones_sinJugs);
+    RUN_TEST(test_agregar_pokemones_conJugs);
 
-    // RUN_TEST(test_puedoAgregarPokemon);
-    // RUN_TEST(test_puedoAgregar_vol2);
-    // RUN_TEST(test_puedoAgregarPokemon_vol3);
-    // RUN_TEST(test_puedoAgregarPokemon_vol4);
+    RUN_TEST(test_puedoAgregarPokemon);
+    RUN_TEST(test_puedoAgregar_vol2);
+    RUN_TEST(test_puedoAgregarPokemon_vol3);
+    RUN_TEST(test_puedoAgregarPokemon_vol4);
     
-    // RUN_TEST(test_posPokeCercano);
-    // RUN_TEST(test_hayPokemonCercano);
-    // RUN_TEST(test_entrenadoresPosibles);
-    // RUN_TEST(test_conectar);
-    // RUN_TEST(test_desconectar);
-    // RUN_TEST(test_indice_rareza);
-    // RUN_TEST(test_pokemon_cercano_coor_invalida);
-    // RUN_TEST(test_movimientosParaCaptura);
-    // RUN_TEST(test_mover_sinPokes);
-    // RUN_TEST(test_mover_sinPokesYSancionar);
-    // RUN_TEST(test_capturarSeEliminaElPokemon);
+    RUN_TEST(test_posPokeCercano);
+    RUN_TEST(test_hayPokemonCercano);
+    RUN_TEST(test_entrenadoresPosibles);
+    RUN_TEST(test_conectar);
+    RUN_TEST(test_desconectar);
+    RUN_TEST(test_indice_rareza);
+    RUN_TEST(test_pokemon_cercano_coor_invalida);
+    RUN_TEST(test_movimientosParaCaptura);
+    RUN_TEST(test_mover_sinPokes);
+    RUN_TEST(test_mover_sinPokesYSancionar);
+    RUN_TEST(test_capturarSeEliminaElPokemon);
 
-    // RUN_TEST(test_sancionar_simple);
-    // RUN_TEST(test_sancionar_conpokerango);
+    RUN_TEST(test_sancionar_simple);
+    RUN_TEST(test_sancionar_conpokerango);
  
-    // RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
-  //  RUN_TEST(test_capturarJugadorTieneNuevoPoke);
-    // RUN_TEST(test_capturarContadoresDeTriesEstanBien);
+    RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
+   RUN_TEST(test_capturarJugadorTieneNuevoPoke);
+    RUN_TEST(test_capturarContadoresDeTriesEstanBien);
 
 
-    RUN_TEST(test_informante);
+    // RUN_TEST(test_informante);
 
 //     RUN_TEST(test_mov_invalido_con_camino);
 //   /*  RUN_TEST(test_eliminarDeJuego);
