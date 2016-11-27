@@ -647,7 +647,131 @@ void test_jugadorCorrectoEsQuienCaptura() {
 }
 
 void test_capturarJugadorTieneNuevoPoke() {
-    ASSERT(false);
+    Driver d(mapaTipo1());
+
+    Jugador Maquinola = d.agregarJugador();
+    Jugador Lince = d.agregarJugador();
+    Jugador BrunoBassi = d.agregarJugador();
+
+    d.conectarse(Lince, Coordenada(1, 1));
+    d.conectarse(Maquinola, Coordenada(9, 9));
+    d.conectarse(BrunoBassi, Coordenada(6, 6));
+
+    d.agregarPokemon("Julian Omar Maruca", Coordenada(6, 5));
+
+    d.moverse(Maquinola, Coordenada(9, 9));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Maquinola, Coordenada(9, 9));
+    d.moverse(Lince, Coordenada(1, 1));
+    d.moverse(Maquinola, Coordenada(9, 9));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Maquinola, Coordenada(9, 9));
+    d.moverse(Lince, Coordenada(1, 1));
+    d.moverse(Maquinola, Coordenada(9, 9));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Maquinola, Coordenada(9, 9));
+    d.moverse(Lince, Coordenada(1, 1));
+
+    ASSERT(d.pokemons(BrunoBassi).Definido("Julian Omar Maruca"));
+    ASSERT(d.pokemons(BrunoBassi).Significado("Julian Omar Maruca") == 1);
+
+    d.desconectarse(Maquinola);
+    d.conectarse(Maquinola, Coordenada(0, 0));
+
+    d.moverse(Maquinola, Coordenada(6, 7));
+
+    d.agregarPokemon("Elquechuga", Coordenada(6, 6));
+
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+
+    ASSERT(d.pokemons(BrunoBassi).Definido("Julian Omar Maruca"));
+    ASSERT(d.pokemons(BrunoBassi).Significado("Julian Omar Maruca") == 1);
+    ASSERT(d.pokemons(Maquinola).Definido("Elquechuga"));
+    ASSERT(d.pokemons(Maquinola).Significado("Elquechuga") == 1);
+
+    d.agregarPokemon("Elquechuga", Coordenada(6, 6));
+
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+
+    ASSERT(d.pokemons(BrunoBassi).Definido("Julian Omar Maruca"));
+    ASSERT(d.pokemons(BrunoBassi).Significado("Julian Omar Maruca") == 1);
+    ASSERT(d.pokemons(Maquinola).Definido("Elquechuga"));
+    ASSERT(d.pokemons(Maquinola).Significado("Elquechuga") == 2);
+
+    d.agregarPokemon("Pato The Hedgehog", Coordenada(6, 6));
+
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+    d.moverse(Lince, Coordenada(0, 0));
+
+    ASSERT(d.pokemons(BrunoBassi).Definido("Julian Omar Maruca"));
+    ASSERT(d.pokemons(BrunoBassi).Significado("Julian Omar Maruca") == 1);
+    ASSERT(d.pokemons(BrunoBassi).Definido("Pato The Hedgehog"));
+    ASSERT(d.pokemons(BrunoBassi).Significado("Pato The Hedgehog") == 1);
+    ASSERT(d.pokemons(Maquinola).Definido("Elquechuga"));
+    ASSERT(d.pokemons(Maquinola).Significado("Elquechuga") == 2);
+
 }
 
 void test_capturarContadoresDeTriesEstanBien() {
@@ -1201,7 +1325,7 @@ int main(int argc, char **argv){
     RUN_TEST(test_sancionar_conpokerango);
  
     RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
-  //  RUN_TEST(test_capturarJugadorTieneNuevoPoke);
+    RUN_TEST(test_capturarJugadorTieneNuevoPoke);
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
 
     RUN_TEST(test_mov_invalido_con_camino);
