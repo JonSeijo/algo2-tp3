@@ -1355,9 +1355,9 @@ void test_informante() {
     ag(cs, 12, 0);
     ag(cs, 12, 1);
     ag(cs, 12, 2);
-    std::cout << "empieza\n";
+    // std::cout << "empieza\n";
     Driver d(cs);
-    std::cout << "termina\n";
+    // std::cout << "termina\n";
 
 
 }
