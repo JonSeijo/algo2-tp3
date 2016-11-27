@@ -110,7 +110,10 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laIzquierda)) {
+                        this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
+
+                        this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
                         aRecorrer.AgregarAtras(laIzquierda);
                     }
@@ -125,7 +128,10 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laAbajo)) {
+                        this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
+
+                        this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
                         aRecorrer.AgregarAtras(laAbajo);
                     }
@@ -140,7 +146,10 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laDerecha)) {
+                        this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
+
+                        this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
                         aRecorrer.AgregarAtras(laDerecha);
                     }
@@ -155,7 +164,10 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laArriba)) {
+                        this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
+
+                        this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
                         aRecorrer.AgregarAtras(laArriba);
                     }
