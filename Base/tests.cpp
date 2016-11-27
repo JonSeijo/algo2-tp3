@@ -516,7 +516,139 @@ void test_capturarSeEliminaElPokemon() {
 }
 
 void test_jugadorCorrectoEsQuienCaptura() {
-    ASSERT(false);
+    Driver d(mapaTipo1());
+
+    Jugador ID_0 = d.agregarJugador();
+    Jugador ID_1 = d.agregarJugador();
+    Jugador ID_2 = d.agregarJugador();
+
+    d.conectarse(ID_1, Coordenada(6, 5));
+
+    d.agregarPokemon("Carlitos Bala", Coordenada(5, 5));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(5, 5)) == 0);
+
+    d.conectarse(ID_2, Coordenada(1, 1));
+
+    d.moverse(ID_2, Coordenada(0, 0));
+
+	ASSERT(d.cantMovimientosParaCaptura(Coordenada(5, 5)) == 1);
+
+	d.conectarse(ID_0, Coordenada(5, 7));
+
+	ASSERT(d.cantMovimientosParaCaptura(Coordenada(5, 5)) == 0);
+
+	d.moverse(ID_2, Coordenada(0, 0));
+	d.moverse(ID_2, Coordenada(0, 0));
+	d.moverse(ID_2, Coordenada(0, 0));
+	d.moverse(ID_2, Coordenada(0, 0));
+	d.moverse(ID_2, Coordenada(0, 0));
+	d.moverse(ID_2, Coordenada(0, 0));
+	d.moverse(ID_2, Coordenada(0, 0));
+	d.moverse(ID_2, Coordenada(0, 0));
+	d.moverse(ID_2, Coordenada(0, 0));
+
+	ASSERT(d.cantMovimientosParaCaptura(Coordenada(5, 5)) == 9);
+
+	d.moverse(ID_2, Coordenada(0, 1));
+
+	ASSERT(!d.hayPokemonCercano(Coordenada(5, 5)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5, 5)));
+    ASSERT(d.pokemons(ID_0).Definido("Carlitos Bala"));
+    ASSERT(d.pokemons(ID_0).Significado("Carlitos Bala") == 1);
+
+    d.agregarPokemon("Carlitos Bala Edicion Para Adultos", Coordenada(0, 0));
+
+    d.moverse(ID_1, Coordenada(7, 6));
+    d.moverse(ID_1, Coordenada(7, 6));
+    d.moverse(ID_1, Coordenada(7, 6));
+    d.moverse(ID_1, Coordenada(7, 6));
+    d.moverse(ID_1, Coordenada(7, 6));
+    d.moverse(ID_1, Coordenada(7, 6));
+    d.moverse(ID_1, Coordenada(7, 6));
+    d.moverse(ID_1, Coordenada(7, 6));
+    d.moverse(ID_1, Coordenada(7, 6));
+    d.moverse(ID_1, Coordenada(7, 6));
+
+    ASSERT(d.pokemons(ID_0).Definido("Carlitos Bala"));
+    ASSERT(d.pokemons(ID_0).Significado("Carlitos Bala") == 1);
+    ASSERT(d.pokemons(ID_2).Definido("Carlitos Bala Edicion Para Adultos"));
+    ASSERT(d.pokemons(ID_2).Significado("Carlitos Bala Edicion Para Adultos") == 1);
+
+    d.desconectarse(ID_0);
+    d.desconectarse(ID_2);
+
+    d.moverse(ID_1, Coordenada(0, 0));
+
+    d.agregarPokemon("Vicente Viloni", Coordenada(9, 9));
+
+    d.conectarse(ID_2, Coordenada(9, 9));
+
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 9);
+
+    d.conectarse(ID_0, Coordenada(9, 9));
+
+	ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 0);
+
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+    d.moverse(ID_1, Coordenada(0, 0));
+
+    d.desconectarse(ID_1);
+    d.desconectarse(ID_0);
+    d.desconectarse(ID_2);
+
+    ASSERT(d.pokemons(ID_0).Definido("Carlitos Bala"));
+    ASSERT(d.pokemons(ID_0).Significado("Carlitos Bala") == 1);
+    ASSERT(d.pokemons(ID_0).Definido("Vicente Viloni"));
+    ASSERT(d.pokemons(ID_0).Significado("Vicente Viloni") == 1);
+    ASSERT(d.pokemons(ID_2).Definido("Carlitos Bala Edicion Para Adultos"));
+    ASSERT(d.pokemons(ID_2).Significado("Carlitos Bala Edicion Para Adultos") == 1);
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 1)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 2)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(1, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(1, 1)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(1, 2)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(2, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(2, 1)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(2, 2)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(2, 3)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(2, 4)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(3, 2)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(3, 3)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(3, 4)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(4, 2)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(4, 3)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(4, 4)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(4, 5)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5, 5)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5, 6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(5, 7)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6, 5)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6, 6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6, 7)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(7, 5)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(7, 6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(7, 7)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(9, 9)));
 }
 
 void test_capturarJugadorTieneNuevoPoke() {
@@ -982,7 +1114,7 @@ int main(int argc, char **argv){
     RUN_TEST(test_sancionar_simple);
     RUN_TEST(test_sancionar_conpokerango);
  
-  //  RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
+    RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
   //  RUN_TEST(test_capturarJugadorTieneNuevoPoke);
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
   /*  RUN_TEST(test_eliminarDeJuego);
@@ -990,8 +1122,9 @@ int main(int argc, char **argv){
     RUN_TEST(test_mover_conPokes);
     RUN_TEST(test_mover_conPokesYCapturar);
 */
+    std::cout << "\nHacer un test para los casos en los que hay un movimiento inválido entre dos coordenadas en las que hay camino.\n";
 
-    // std:cout << "HAY QUE HACER UN TEST PARA CADA METODO PUBLICO. FALTAN MAS DE LOS QUE HAY\n";
+    std:cout << "\nHAY QUE HACER UN TEST PARA CADA MÉTODO PÚBLICO. FALTAN MAS DE LOS QUE HAY.\n";
 
     return 0;
 }
