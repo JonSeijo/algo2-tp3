@@ -464,8 +464,6 @@ void test_movimientosParaCaptura() {
 }
 
 void test_capturarSeEliminaElPokemon() {
-    //TERMINAR
-
     Driver d(mapaTipo1());
 
     d.agregarPokemon("Cartucho de tinta negro 117 Epson", Coordenada(2, 2));
@@ -510,9 +508,6 @@ void test_capturarSeEliminaElPokemon() {
 
     ASSERT(!d.hayPokemonCercano(Coordenada(2, 2)));
     ASSERT(d.puedoAgregarPokemon(Coordenada(2, 2)));
-
-
-    ASSERT(true);
 }
 
 void test_jugadorCorrectoEsQuienCaptura() {
@@ -557,7 +552,7 @@ void test_jugadorCorrectoEsQuienCaptura() {
     ASSERT(d.pokemons(ID_0).Definido("Carlitos Bala"));
     ASSERT(d.pokemons(ID_0).Significado("Carlitos Bala") == 1);
 
-    d.agregarPokemon("Carlitos Bala Edicion Para Adultos", Coordenada(0, 0));
+    d.agregarPokemon("Carlitos Bala 2", Coordenada(0, 0));
 
     d.moverse(ID_1, Coordenada(7, 6));
     d.moverse(ID_1, Coordenada(7, 6));
@@ -572,8 +567,8 @@ void test_jugadorCorrectoEsQuienCaptura() {
 
     ASSERT(d.pokemons(ID_0).Definido("Carlitos Bala"));
     ASSERT(d.pokemons(ID_0).Significado("Carlitos Bala") == 1);
-    ASSERT(d.pokemons(ID_2).Definido("Carlitos Bala Edicion Para Adultos"));
-    ASSERT(d.pokemons(ID_2).Significado("Carlitos Bala Edicion Para Adultos") == 1);
+    ASSERT(d.pokemons(ID_2).Definido("Carlitos Bala 2"));
+    ASSERT(d.pokemons(ID_2).Significado("Carlitos Bala 2") == 1);
 
     d.desconectarse(ID_0);
     d.desconectarse(ID_2);
@@ -619,8 +614,8 @@ void test_jugadorCorrectoEsQuienCaptura() {
     ASSERT(d.pokemons(ID_0).Significado("Carlitos Bala") == 1);
     ASSERT(d.pokemons(ID_0).Definido("Vicente Viloni"));
     ASSERT(d.pokemons(ID_0).Significado("Vicente Viloni") == 1);
-    ASSERT(d.pokemons(ID_2).Definido("Carlitos Bala Edicion Para Adultos"));
-    ASSERT(d.pokemons(ID_2).Significado("Carlitos Bala Edicion Para Adultos") == 1);
+    ASSERT(d.pokemons(ID_2).Definido("Carlitos Bala 2"));
+    ASSERT(d.pokemons(ID_2).Significado("Carlitos Bala 2") == 1);
     ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
     ASSERT(d.puedoAgregarPokemon(Coordenada(0, 1)));
     ASSERT(d.puedoAgregarPokemon(Coordenada(0, 2)));
@@ -1000,7 +995,80 @@ void test_sancionar_conpokerango() {
 }
 
 void test_eliminarDeJuego() {
-    ASSERT(false);
+    Driver d(mapaTipo0());
+
+    Jugador TeVoyAEliminar = d.agregarJugador();
+
+    d.conectarse(TeVoyAEliminar, Coordenada(1, 1));
+
+
+    //Recordar que en un mov inválido la posición no cambia
+    d.moverse(TeVoyAEliminar, Coordenada(2, 2));
+    ASSERT(d.sanciones(TeVoyAEliminar) == 1);
+    d.moverse(TeVoyAEliminar, Coordenada(2, 2));
+    ASSERT(d.sanciones(TeVoyAEliminar) == 2);
+    d.moverse(TeVoyAEliminar, Coordenada(2, 2));
+    ASSERT(d.sanciones(TeVoyAEliminar) == 3);
+    d.moverse(TeVoyAEliminar, Coordenada(2, 2));
+    ASSERT(d.sanciones(TeVoyAEliminar) == 4);
+    d.moverse(TeVoyAEliminar, Coordenada(2, 2));
+
+    ASSERT(d.expulsados().Pertenece(TeVoyAEliminar));
+
+    Jugador AgarraPokemon = d.agregarJugador();
+
+    Driver e(mapaTipo1());
+
+    Jugador Capturador = e.agregarJugador();
+
+    e.agregarPokemon("Patamon", Coordenada(4, 5));
+
+    e.conectarse(Capturador, Coordenada(4, 4));
+
+    Jugador SeMueve = e. agregarJugador();
+
+    e.moverse(Capturador, Coordenada(9, 9));
+    ASSERT(e.sanciones(Capturador) == 1);
+    e.moverse(Capturador, Coordenada(9, 9));
+    ASSERT(e.sanciones(Capturador) == 2);
+    e.moverse(Capturador, Coordenada(9, 9));
+    ASSERT(e.sanciones(Capturador) == 3);
+    e.moverse(Capturador, Coordenada(9, 9));
+    ASSERT(e.sanciones(Capturador) == 4);
+
+    e.desconectarse(Capturador);
+
+    e.conectarse(Capturador, Coordenada(4, 3));
+
+    e.conectarse(SeMueve, Coordenada(0, 0));
+    e.moverse(SeMueve, Coordenada(0, 0));
+    e.moverse(SeMueve, Coordenada(0, 0));
+    e.moverse(SeMueve, Coordenada(0, 0));
+    e.moverse(SeMueve, Coordenada(0, 0));
+    e.moverse(SeMueve, Coordenada(0, 0));
+    e.moverse(SeMueve, Coordenada(0, 0));
+    e.moverse(SeMueve, Coordenada(0, 0));
+    e.desconectarse(SeMueve);
+    e.conectarse(SeMueve, Coordenada(0, 1));
+    e.moverse(SeMueve, Coordenada(0, 0));
+    e.moverse(SeMueve, Coordenada(0, 0));
+    e.moverse(SeMueve, Coordenada(0, 0));
+
+    ASSERT(e.pokemons(Capturador).Definido("Patamon"));
+    ASSERT(e.pokemons(Capturador).Significado("Patamon") == 1);
+    ASSERT(e.cantPokemonsTotales() == 1);
+
+    e.moverse(Capturador, Coordenada(9, 9));
+
+    ASSERT(e.cantPokemonsTotales() == 0);
+    ASSERT(e.expulsados().Pertenece(Capturador));
+
+    e.agregarPokemon("Patamon", Coordenada(0, 0));
+
+    ASSERT(e.cantPokemonsTotales() == 1);
+    ASSERT(e.cantMismaEspecie("Patamon") == 1);
+    ASSERT(e.expulsados().Pertenece(Capturador));
+    ASSERT(e.indiceRareza("Patamon") == 0);
 }
 
 void test_conectar() {
@@ -1137,13 +1205,11 @@ int main(int argc, char **argv){
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
 
     RUN_TEST(test_mov_invalido_con_camino);
-  /*  RUN_TEST(test_eliminarDeJuego);
+    RUN_TEST(test_eliminarDeJuego);
     
-    RUN_TEST(test_mover_conPokes);
+  /*  RUN_TEST(test_mover_conPokes);
     RUN_TEST(test_mover_conPokesYCapturar);
 */
-    std::cout << "\nHacer un test para los casos en los que hay un movimiento inválido entre dos coordenadas en las que hay camino.\n";
-
     std:cout << "\nHAY QUE HACER UN TEST PARA CADA MÉTODO PÚBLICO. FALTAN MAS DE LOS QUE HAY.\n";
 
     return 0;
