@@ -50,9 +50,9 @@ Juego::~Juego(){
 }
 
 void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){
-    if (!PuedoAgregarPokemon(c)) {
-        std::cout << "NO PUEDO AGREGAR POKEMON PASCUAL!\n";
-    }
+    // if (!PuedoAgregarPokemon(c)) {
+    //     std::cout << "NO PUEDO AGREGAR POKEMON PASCUAL!\n";
+    // }
     // Aumenta en uno la cantidad de pokemones en el juego.
     _cantPokemonesTotales++;
 

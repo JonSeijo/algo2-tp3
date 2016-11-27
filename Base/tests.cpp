@@ -338,9 +338,50 @@ void test_puedoAgregar_vol2() {
     Driver d4(coors4);
     ASSERT(!d4.puedoAgregarPokemon(Coordenada(0,0)));
     ASSERT(!d4.puedoAgregarPokemon(Coordenada(1,1)));
+}
 
+void test_puedoAgregarPokemon_vol3() {
+    // La idea es tesstear el agregrar y luego quitar
+    Driver d(mapaTipo1());
 
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0,0)));
+    Jugador pixel = d.agregarJugador();
+    d.conectarse(pixel, Coordenada(0,0));
+    d.agregarPokemon("Pikachu", Coordenada(0,0));
 
+    ASSERT(d.hayPokemonCercano(Coordenada(0,0)));
+    ASSERT(d.posPokemonCercano(Coordenada(0,0)) == Coordenada(0,0));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0,0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(1,1)));
+
+    Jugador dungeon = d.agregarJugador();
+    d.conectarse(dungeon, Coordenada(9,9));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(9,9)));
+
+    // El conectarse no afecta a la cant de movs para captura 
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0,0)) == 0);
+
+    // Lo muevo 9 veces en la misma posicion
+    for (Nat i = 0; i < 9; i++) { 
+        d.moverse(dungeon, Coordenada(9,9));
+    }
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0,0)) == 9);
+    ASSERT(d.puedoAgregarPokemon(Coordenada(9,9)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0,0)));
+
+    // Lo muevo dentro del mismo pokeradio. No deberia cambiar nada
+    d.moverse(pixel, Coordenada(1,1));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0,0)) == 9);
+    ASSERT(d.puedoAgregarPokemon(Coordenada(9,9)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0,0)));
+
+    // Muevo uno de afuera. Pixel deberia capturar el del (0,0)
+    d.moverse(dungeon, Coordenada(9,9));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0,0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(1,1)));
 }
 
 
@@ -1265,42 +1306,45 @@ void test_mov_invalido_con_camino(){
 
 
 int main(int argc, char **argv){
-    RUN_TEST(test_constructor_con_mapa);
-    RUN_TEST(test_pos_con_pokemons);
-    RUN_TEST(test_agregar_jugadores);
-    RUN_TEST(test_agregar_pokemones);
-    RUN_TEST(test_agregar_pokemones_sinJugs);
-    RUN_TEST(test_agregar_pokemones_conJugs);
+    // RUN_TEST(test_constructor_con_mapa);
+    // RUN_TEST(test_pos_con_pokemons);
+    // RUN_TEST(test_agregar_jugadores);
+    // RUN_TEST(test_agregar_pokemones);
+    // RUN_TEST(test_agregar_pokemones_sinJugs);
+    // RUN_TEST(test_agregar_pokemones_conJugs);
+
     RUN_TEST(test_puedoAgregarPokemon);
     RUN_TEST(test_puedoAgregar_vol2);
-    RUN_TEST(test_posPokeCercano);
-    RUN_TEST(test_hayPokemonCercano);
-    RUN_TEST(test_entrenadoresPosibles);
-    RUN_TEST(test_conectar);
-    RUN_TEST(test_desconectar);
-    RUN_TEST(test_indice_rareza);
-    RUN_TEST(test_pokemon_cercano_coor_invalida);
-    RUN_TEST(test_movimientosParaCaptura);
-    RUN_TEST(test_mover_sinPokes);
-    RUN_TEST(test_mover_sinPokesYSancionar);
-    RUN_TEST(test_capturarSeEliminaElPokemon);
-
-    RUN_TEST(test_sancionar_simple);
-    RUN_TEST(test_sancionar_conpokerango);
- 
-    RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
-  //  RUN_TEST(test_capturarJugadorTieneNuevoPoke);
-    RUN_TEST(test_capturarContadoresDeTriesEstanBien);
-
-    RUN_TEST(test_mov_invalido_con_camino);
-  /*  RUN_TEST(test_eliminarDeJuego);
+    RUN_TEST(test_puedoAgregarPokemon_vol3);
     
-    RUN_TEST(test_mover_conPokes);
-    RUN_TEST(test_mover_conPokesYCapturar);
-*/
-    std::cout << "\nHacer un test para los casos en los que hay un movimiento inválido entre dos coordenadas en las que hay camino.\n";
+//     RUN_TEST(test_posPokeCercano);
+//     RUN_TEST(test_hayPokemonCercano);
+//     RUN_TEST(test_entrenadoresPosibles);
+//     RUN_TEST(test_conectar);
+//     RUN_TEST(test_desconectar);
+//     RUN_TEST(test_indice_rareza);
+//     RUN_TEST(test_pokemon_cercano_coor_invalida);
+//     RUN_TEST(test_movimientosParaCaptura);
+//     RUN_TEST(test_mover_sinPokes);
+//     RUN_TEST(test_mover_sinPokesYSancionar);
+//     RUN_TEST(test_capturarSeEliminaElPokemon);
 
-    std:cout << "\nHAY QUE HACER UN TEST PARA CADA MÉTODO PÚBLICO. FALTAN MAS DE LOS QUE HAY.\n";
+//     RUN_TEST(test_sancionar_simple);
+//     RUN_TEST(test_sancionar_conpokerango);
+ 
+//     RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
+//   //  RUN_TEST(test_capturarJugadorTieneNuevoPoke);
+//     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
+
+//     RUN_TEST(test_mov_invalido_con_camino);
+//   /*  RUN_TEST(test_eliminarDeJuego);
+    
+//     RUN_TEST(test_mover_conPokes);
+//     RUN_TEST(test_mover_conPokesYCapturar);
+// */
+    // std::cout << "\nHacer un test para los casos en los que hay un movimiento inválido entre dos coordenadas en las que hay camino.\n";
+
+    // std:cout << "\nHAY QUE HACER UN TEST PARA CADA MÉTODO PÚBLICO. FALTAN MAS DE LOS QUE HAY.\n";
 
     return 0;
 }
