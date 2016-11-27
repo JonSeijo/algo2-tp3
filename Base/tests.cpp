@@ -1108,9 +1108,7 @@ void test_entrenadoresPosibles() {
     // ASSERT(e.entrenadoresPosibles(Coordenada(2, 1)).EsVacio());
 }
 
-<<<<<<< HEAD
-void test_sancionar() {
-=======
+
 void test_sancionar_simple() {
     Driver d(mapaTipo1());
     Jugador batracio = d.agregarJugador();
@@ -1155,7 +1153,6 @@ void test_sancionar_conpokerango() {
     ASSERT(!d.jugadores().Pertenece(batracio));
 
     // Habria que testear tambien que no haya entrenadores posibles etc
->>>>>>> origin
 }
 
 void test_eliminarDeJuego() {
