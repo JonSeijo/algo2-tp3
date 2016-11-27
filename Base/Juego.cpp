@@ -841,7 +841,6 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
             it.Avanzar();
         }
     }
-
 }
 
 bool Juego::MovValido(Jugador e, const Coordenada& c) const{

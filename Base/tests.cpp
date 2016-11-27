@@ -386,6 +386,17 @@ void test_puedoAgregarPokemon_vol3() {
 
     ASSERT(d.puedoAgregarPokemon(Coordenada(0,0)));
     ASSERT(d.puedoAgregarPokemon(Coordenada(1,1)));
+    
+    // Agrego 2 pokemones y veo que pasa al eliminar el segundo
+    d.agregarPokemon("Raichu", Coordenada(0,0));
+    d.agregarPokemon("Prince", Coordenada(9,9));
+    for (Nat i = 0; i < 9; i++) { 
+        d.moverse(pixel, Coordenada(0,0));
+    }
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(9,9)));
+    d.moverse(pixel, Coordenada(0,0));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(9,9)));
+
 }
 
 void test_puedoAgregarPokemon_vol4() {
