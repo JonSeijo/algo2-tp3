@@ -15,11 +15,6 @@ Mapa::~Mapa(){
 }
 
 void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
-    if (nuevaCoor.latitud > 110 || nuevaCoor.longitud > 110) {
-        std::cout << "No seas asi. El mundo no tiene tantas coordenadas\n";
-        return;
-    }
-
     // std::cout << "Entro en agregar coordenada " << nuevaCoor << "\n"; 
     Nat maximo = this->max(nuevaCoor.latitud, nuevaCoor.longitud);
 
