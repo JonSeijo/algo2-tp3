@@ -610,11 +610,78 @@ void test_capturarContadoresDeTriesEstanBien() {
 
     d.moverse(CapturaAValgrind, Coordenada(0, 2));
 
-    //ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 9);
-    //ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);
+	ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);    
     ASSERT(d.pokemons(Captura2Teletubbies).Definido("Teletubbie violeta"));
     ASSERT(d.pokemons(Captura2Teletubbies).Significado("Teletubbie violeta") == 1);
+    ASSERT(d.pokemons(CapturaAValgrind).Definido("Valgrind no me tires errores pls"));
+    ASSERT(d.pokemons(CapturaAValgrind).Significado("Valgrind no me tires errores pls") == 1);
 
+    d.desconectarse(CapturaAValgrind);
+
+    d.moverse(Captura2Teletubbies, Coordenada(0, 0));
+
+    d.desconectarse(Captura2Teletubbies);
+
+    d.conectarse(Captura2Teletubbies, Coordenada(0, 0));
+
+    d.conectarse(CapturaAValgrind, Coordenada(1, 2));
+
+    d.moverse(NokiaLumia, Coordenada(0, 1));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);    
+    ASSERT(d.pokemons(Captura2Teletubbies).Definido("Teletubbie violeta"));
+    ASSERT(d.pokemons(Captura2Teletubbies).Significado("Teletubbie violeta") == 1);
+    ASSERT(d.pokemons(CapturaAValgrind).Definido("Valgrind no me tires errores pls"));
+    ASSERT(d.pokemons(CapturaAValgrind).Significado("Valgrind no me tires errores pls") == 1);
+
+    d.moverse(CapturaAValgrind, Coordenada(3, 2));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 1);
+
+    d.moverse(CapturaAValgrind, Coordenada(7, 7));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 2);
+
+    d.moverse(CapturaAValgrind, Coordenada(5, 6));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 3);
+
+    d.moverse(CapturaAValgrind, Coordenada(2, 2));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 4);
+
+    d.moverse(CapturaAValgrind, Coordenada(1, 2));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 5);
+
+    d.moverse(CapturaAValgrind, Coordenada(2, 1));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 6);
+
+    d.moverse(CapturaAValgrind, Coordenada(3, 2));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 7);
+
+    d.moverse(CapturaAValgrind, Coordenada(6, 6));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 8);
+
+    d.moverse(CapturaAValgrind, Coordenada(7, 5));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 9);
+
+    d.moverse(NokiaLumia, Coordenada(1, 1));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 9);
+
+    d.moverse(NokiaLumia, Coordenada(1, 2));
+
+    ASSERT(d.pokemons(Captura2Teletubbies).Definido("Teletubbie violeta"));
+    ASSERT(d.pokemons(Captura2Teletubbies).Significado("Teletubbie violeta") == 2);
+    ASSERT(d.pokemons(CapturaAValgrind).Definido("Valgrind no me tires errores pls"));
+    ASSERT(d.pokemons(CapturaAValgrind).Significado("Valgrind no me tires errores pls") == 1);
+    ASSERT(d.puedoAgregarPokemon(Coordenada(1, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
 }
 
 void test_entrenadoresPosibles() {
