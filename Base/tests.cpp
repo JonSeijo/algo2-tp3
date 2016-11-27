@@ -1310,7 +1310,73 @@ void test_mover_conPokes() {
 }
 
 void test_mover_conPokesYCapturar() {
-    ASSERT(false);
+    Driver d(mapaTipo1());
+
+    Jugador MC_Pluto = d.agregarJugador();
+
+    d.conectarse(MC_Pluto, Coordenada(4, 2));
+
+    d.moverse(MC_Pluto, Coordenada(9, 9));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+
+    Jugador WalterBlanco = d.agregarJugador();
+
+    d.conectarse(WalterBlanco, Coordenada(0, 1));
+
+    d.agregarPokemon("Pyramid Head", Coordenada(0, 0));
+
+    d.agregarPokemon("El protagonista del Silent Hill 2 es el que mato a su jermu", Coordenada(9, 9));
+
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+
+    ASSERT(d.pokemons(WalterBlanco).Definido("Pyramid Head"));
+    ASSERT(d.pokemons(WalterBlanco).Significado("Pyramid Head") == 1);
+
+    d.moverse(WalterBlanco, Coordenada(6, 6));
+
+    d.agregarPokemon("Al final de 9 reinas lo cagan a Darin", Coordenada(1, 0));
+
+    d.moverse(WalterBlanco, Coordenada(0, 0));
+
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+    d.moverse(MC_Pluto, Coordenada(7, 5));
+
+    ASSERT(d.pokemons(WalterBlanco).Definido("Pyramid Head"));
+    ASSERT(d.pokemons(WalterBlanco).Significado("Pyramid Head") == 1);
+    ASSERT(d.pokemons(WalterBlanco).Definido("Al final de 9 reinas lo cagan a Darin"));
+    ASSERT(d.pokemons(WalterBlanco).Significado("Al final de 9 reinas lo cagan a Darin") == 1);
+
 }
 
 void test_indice_rareza() {
@@ -1382,7 +1448,7 @@ int main(int argc, char **argv){
     RUN_TEST(test_eliminarDeJuego);
     
     RUN_TEST(test_mover_conPokes);
-  //  RUN_TEST(test_mover_conPokesYCapturar);
+    RUN_TEST(test_mover_conPokesYCapturar);
 
     std:cout << "\nHAY QUE HACER UN TEST PARA CADA MÉTODO PÚBLICO. FALTAN MAS DE LOS QUE HAY.\n";
 
