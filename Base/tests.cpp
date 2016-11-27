@@ -524,7 +524,97 @@ void test_capturarJugadorTieneNuevoPoke() {
 }
 
 void test_capturarContadoresDeTriesEstanBien() {
-    ASSERT(false);
+    Driver d(mapaTipo1());
+
+    d.agregarPokemon("Valgrind no me tires errores pls", Coordenada(1, 0));
+
+    Jugador NokiaLumia = d.agregarJugador();
+    Jugador CapturaAValgrind = d.agregarJugador();
+    Jugador Captura2Teletubbies = d.agregarJugador();
+
+    d.conectarse(CapturaAValgrind, Coordenada(2, 1));
+    d.conectarse(NokiaLumia, Coordenada(4, 3));
+    d.moverse(NokiaLumia, Coordenada(4, 5));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(1, 0)) == 1);
+
+    d.moverse(NokiaLumia, Coordenada(9, 9));
+    //Mov invalido
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(1, 0)) == 1);
+
+    d.moverse(NokiaLumia, Coordenada(6, 5));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(1, 0)) == 2);
+
+    d.agregarPokemon("Teletubbie violeta", Coordenada(9, 9));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(1, 0)) == 2);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 0);
+
+    d.conectarse(Captura2Teletubbies, Coordenada(9, 9));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(1, 0)) == 2);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 0);
+
+    d.moverse(NokiaLumia, Coordenada(5, 5));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(1, 0)) == 3);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 1);
+
+    d.moverse(NokiaLumia, Coordenada(6, 5));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(1, 0)) == 4);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 2);
+
+    d.moverse(NokiaLumia, Coordenada(5, 5));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(1, 0)) == 5);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 3);
+
+    d.moverse(NokiaLumia, Coordenada(6, 5));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(1, 0)) == 6);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 4);
+
+    d.moverse(NokiaLumia, Coordenada(5, 5));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(1, 0)) == 7);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 5);
+
+    d.moverse(NokiaLumia, Coordenada(6, 5));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(1, 0)) == 8);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 6);
+
+    d.moverse(NokiaLumia, Coordenada(5, 5));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(1, 0)) == 9);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 7);
+
+    d.moverse(NokiaLumia, Coordenada(6, 5));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(1, 0)));
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 8);
+    ASSERT(d.pokemons(CapturaAValgrind).Definido("Valgrind no me tires errores pls"));
+    ASSERT(d.pokemons(CapturaAValgrind).Significado("Valgrind no me tires errores pls") == 1);
+
+    d.moverse(CapturaAValgrind, Coordenada(2, 2));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 9);
+
+    d.agregarPokemon("Teletubbie violeta", Coordenada(0, 0));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 9);
+
+    d.moverse(CapturaAValgrind, Coordenada(0, 2));
+
+    //ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 9);
+    //ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);
+    ASSERT(d.pokemons(Captura2Teletubbies).Definido("Teletubbie violeta"));
+    ASSERT(d.pokemons(Captura2Teletubbies).Significado("Teletubbie violeta") == 1);
+
 }
 
 void test_entrenadoresPosibles() {
@@ -825,10 +915,10 @@ int main(int argc, char **argv){
     RUN_TEST(test_sancionar_simple);
     RUN_TEST(test_sancionar_conpokerango);
  
- /*   RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
-    RUN_TEST(test_capturarJugadorTieneNuevoPoke);
+  //  RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
+  //  RUN_TEST(test_capturarJugadorTieneNuevoPoke);
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
-    RUN_TEST(test_eliminarDeJuego);
+  /*  RUN_TEST(test_eliminarDeJuego);
     
     RUN_TEST(test_mover_conPokes);
     RUN_TEST(test_mover_conPokesYCapturar);
