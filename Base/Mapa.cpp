@@ -32,9 +32,9 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
             nGrilla.Definir(i, Arreglo<Arreglo<Arreglo<bool> > >(mx));
             for (Nat j = 0; j < mx; j++) {
                 nGrilla[i].Definir(j, Arreglo<Arreglo<bool> >(mx));
-                for (Nat k = 0; k < mx; k++) {
-                    nGrilla[i][j].Definir(k, Arreglo<bool>(mx));
-                }
+                // for (Nat k = 0; k < mx; k++) {
+                //     nGrilla[i][j].Definir(k, Arreglo<bool>(mx));
+                // }
             }
         }
         // std::cout << "Defini nGrilla tam:   " << mx << "\n";
@@ -51,11 +51,9 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
         this->_tam = maximo+1;
     }
 
-    // std::cout << "\n---------------------\n\n";
-    // std::cout << "lat: " << nuevaCoor.latitud <<"\n";
-    // std::cout << "lon: " << nuevaCoor.longitud <<"\n";
-
+    this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud].Definir(nuevaCoor.latitud, Arreglo<bool>(this->_tam));
     this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud][nuevaCoor.latitud].Definir(nuevaCoor.longitud, true);
+    
     // std::cout << "Le pongo true a la actual\n";
     /*
     Habia un bug groso en el tp2 (que se arregla facil)
