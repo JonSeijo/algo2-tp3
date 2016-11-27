@@ -1256,7 +1256,57 @@ void test_mover_sinPokesYSancionar() {
 }
 
 void test_mover_conPokes() {
-    ASSERT(false);
+    Driver d(mapaTipo1());
+
+    Jugador RedSocialRobertoCarlos = d.agregarJugador();
+
+    d.agregarPokemon("e-ameos", Coordenada(2, 1));
+
+    d.conectarse(RedSocialRobertoCarlos, Coordenada(2, 2));
+
+    Jugador EseParcialEraImposible = d.agregarJugador();
+    Jugador PorSuerteMeFueBienEnElRecuperatorio = d.agregarJugador();
+
+    d.conectarse(EseParcialEraImposible, Coordenada(5, 5));
+
+    d.conectarse(PorSuerteMeFueBienEnElRecuperatorio, Coordenada(7, 5));
+
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 1)) == 0);
+
+    d.moverse(EseParcialEraImposible, Coordenada(5, 7));
+    d.moverse(PorSuerteMeFueBienEnElRecuperatorio, Coordenada(5, 7));
+    d.moverse(EseParcialEraImposible, Coordenada(5, 7));
+    d.moverse(PorSuerteMeFueBienEnElRecuperatorio, Coordenada(5, 7));
+    d.moverse(EseParcialEraImposible, Coordenada(5, 7));
+    d.moverse(PorSuerteMeFueBienEnElRecuperatorio, Coordenada(5, 7));
+    d.moverse(EseParcialEraImposible, Coordenada(5, 7));
+    d.moverse(PorSuerteMeFueBienEnElRecuperatorio, Coordenada(5, 7));
+    d.moverse(EseParcialEraImposible, Coordenada(5, 7));
+    d.moverse(PorSuerteMeFueBienEnElRecuperatorio, Coordenada(5, 7));
+
+    ASSERT(d.pokemons(RedSocialRobertoCarlos).Definido("e-ameos"));
+    ASSERT(d.pokemons(RedSocialRobertoCarlos).Significado("e-ameos") == 1);
+
+    d.moverse(RedSocialRobertoCarlos, Coordenada(1, 1));
+
+    ASSERT(d.pokemons(RedSocialRobertoCarlos).Definido("e-ameos"));
+    ASSERT(d.pokemons(RedSocialRobertoCarlos).Significado("e-ameos") == 1);
+
+    d.moverse(RedSocialRobertoCarlos, Coordenada(9, 9));
+
+    ASSERT(d.pokemons(RedSocialRobertoCarlos).Definido("e-ameos"));
+    ASSERT(d.pokemons(RedSocialRobertoCarlos).Significado("e-ameos") == 1);
+
+    d.moverse(RedSocialRobertoCarlos, Coordenada(5, 6));
+
+    ASSERT(d.pokemons(RedSocialRobertoCarlos).Definido("e-ameos"));
+    ASSERT(d.pokemons(RedSocialRobertoCarlos).Significado("e-ameos") == 1);
+
+    d.moverse(RedSocialRobertoCarlos, Coordenada(3, 3));
+
+    ASSERT(d.pokemons(RedSocialRobertoCarlos).Definido("e-ameos"));
+    ASSERT(d.pokemons(RedSocialRobertoCarlos).Significado("e-ameos") == 1);
+
 }
 
 void test_mover_conPokesYCapturar() {
@@ -1303,7 +1353,7 @@ void test_mov_invalido_con_camino(){
 
 
 int main(int argc, char **argv){
-    RUN_TEST(test_constructor_con_mapa);
+  /*  RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -1330,10 +1380,10 @@ int main(int argc, char **argv){
 
     RUN_TEST(test_mov_invalido_con_camino);
     RUN_TEST(test_eliminarDeJuego);
-    
-  /*  RUN_TEST(test_mover_conPokes);
-    RUN_TEST(test_mover_conPokesYCapturar);
-*/
+   */ 
+    RUN_TEST(test_mover_conPokes);
+  //  RUN_TEST(test_mover_conPokesYCapturar);
+
     std:cout << "\nHAY QUE HACER UN TEST PARA CADA MÉTODO PÚBLICO. FALTAN MAS DE LOS QUE HAY.\n";
 
     return 0;
