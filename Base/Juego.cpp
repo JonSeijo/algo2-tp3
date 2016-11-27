@@ -54,6 +54,7 @@ void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){
     //     std::cout << "NO PUEDO AGREGAR POKEMON PASCUAL!\n";
     // }
     // Aumenta en uno la cantidad de pokemones en el juego.
+    
     _cantPokemonesTotales++;
 
     // Se agregua el pokemon al conjunto.
@@ -314,63 +315,63 @@ bool Juego::HayPokemonCercano(const Coordenada &c) const{
 
 
     // Esto es para evitar problemas, podria quitarse peeeeero..
-    // if (x >= m || y >= m) {
-    //     return false;
-    // }
-
-    Conj<Coordenada>::const_Iterador iter = this->PosConPokemons().CrearIt();
-    while (iter.HaySiguiente()) {
-        if (distEuclidea(c, iter.Siguiente()) <= 4) {
-            return true;
-        }
-        iter.Avanzar();
+    if (x >= m || y >= m) {
+        return false;
     }
-    return false;
+
+    // Conj<Coordenada>::const_Iterador iter = this->PosConPokemons().CrearIt();
+    // while (iter.HaySiguiente()) {
+    //     if (distEuclidea(c, iter.Siguiente()) <= 4) {
+    //         return true;
+    //     }
+    //     iter.Avanzar();
+    // }
+    // return false;
 
 
-    // bool hayPokemon = false;
+    bool hayPokemon = false;
 
-    // // Hay un pokemon en (x, y).
-    // hayPokemon |= (_pokenodos[x][y] != NULL);
+    // Hay un pokemon en (x, y).
+    hayPokemon |= (_pokenodos[x][y] != NULL);
 
-    // // Hay un pokemon en ( x -1, y).
-    // hayPokemon |= ((x > 0) && (_pokenodos[x - 1][y] != NULL));
+    // Hay un pokemon en ( x -1, y).
+    hayPokemon |= ((x > 0) && (_pokenodos[x - 1][y] != NULL));
 
-    // // Hay un pokemon en ( x-1, y-1).
-    // hayPokemon |= ((x > 0 && y > 0) && (_pokenodos[x - 1][y-1] != NULL));
+    // Hay un pokemon en ( x-1, y-1).
+    hayPokemon |= ((x > 0 && y > 0) && (_pokenodos[x - 1][y-1] != NULL));
 
-    // // Hay un pokemon en (x-1, y+1).
-    // hayPokemon |= ((x > 0 && y + 1 < m) && (_pokenodos[x-1][y+1] != NULL));
+    // Hay un pokemon en (x-1, y+1).
+    hayPokemon |= ((x > 0 && y + 1 < m) && (_pokenodos[x-1][y+1] != NULL));
 
-    // // Hay un pokemon en (x-2, y).
-    // hayPokemon |= ((x > 1) && (_pokenodos[x-2][y] != NULL));
+    // Hay un pokemon en (x-2, y).
+    hayPokemon |= ((x > 1) && (_pokenodos[x-2][y] != NULL));
 
-    // // Hay un pokemon en (x, y-1).
-    // hayPokemon |= ((y > 0) && (_pokenodos[x][y-1] != NULL));
+    // Hay un pokemon en (x, y-1).
+    hayPokemon |= ((y > 0) && (_pokenodos[x][y-1] != NULL));
 
-    // // Hay un pokemon en (x, y-2).
-    // hayPokemon |= ((y > 1) && (_pokenodos[x][y-2] != NULL));
+    // Hay un pokemon en (x, y-2).
+    hayPokemon |= ((y > 1) && (_pokenodos[x][y-2] != NULL));
 
-    // // Hay un pokemon en (x, y+1).
-    // hayPokemon |= ((y + 1 < m) && (_pokenodos[x][y+1] != NULL));
+    // Hay un pokemon en (x, y+1).
+    hayPokemon |= ((y + 1 < m) && (_pokenodos[x][y+1] != NULL));
 
-    // // Hay un pokemon en (x, y+2).
-    // hayPokemon |= ((m > 1 && y+2 < m) && (_pokenodos[x][y+2] != NULL));
+    // Hay un pokemon en (x, y+2).
+    hayPokemon |= ((m > 1 && y+2 < m) && (_pokenodos[x][y+2] != NULL));
 
-    // // Hay un pokemon en (x+1, y).
-    // hayPokemon |= ((x + 1 < m) && (_pokenodos[x+1][y] != NULL));
+    // Hay un pokemon en (x+1, y).
+    hayPokemon |= ((x + 1 < m) && (_pokenodos[x+1][y] != NULL));
 
-    // // Hay un pokemon en (x+1, y-1).
-    // hayPokemon |= ((x + 1 < m && y > 0) && (_pokenodos[x+1][y-1] != NULL));
+    // Hay un pokemon en (x+1, y-1).
+    hayPokemon |= ((x + 1 < m && y > 0) && (_pokenodos[x+1][y-1] != NULL));
 
-    // // Hay un pokemon en (x+1, y+1).
-    // hayPokemon |= ((y + 1 < m && x + 1 < m) && (_pokenodos[x+1][y+1] != NULL));
+    // Hay un pokemon en (x+1, y+1).
+    hayPokemon |= ((y + 1 < m && x + 1 < m) && (_pokenodos[x+1][y+1] != NULL));
 
-    // // Hay un pokemon en (x+2, y).
-    // hayPokemon |= ((m > 1 && x + 2 < m) && (_pokenodos[x+2][y] != NULL));
+    // Hay un pokemon en (x+2, y).
+    hayPokemon |= ((m > 1 && x + 2 < m) && (_pokenodos[x+2][y] != NULL));
 
 
-    // return hayPokemon;
+    return hayPokemon;
 
 }
 
@@ -380,82 +381,82 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
 
     Nat m = _mapa->Tam();
 
-    Conj<Coordenada>::const_Iterador iter = this->PosConPokemons().CrearIt();
-    while (iter.HaySiguiente()) {
-        if (distEuclidea(c, iter.Siguiente()) <= 4) {
-            return iter.Siguiente();
+    // Conj<Coordenada>::const_Iterador iter = this->PosConPokemons().CrearIt();
+    // while (iter.HaySiguiente()) {
+    //     if (distEuclidea(c, iter.Siguiente()) <= 4) {
+    //         return iter.Siguiente();
+    //     }
+    //     iter.Avanzar();
+    // }
+
+    // std::cout << "CAPO DE LA VIDA: LLAMASTE A POSPOKEMONCERCANO SIN CHECKEAR SI EXISTIA\n";
+    // return Coordenada(1000,1000);
+
+
+    Coordenada posConPoke;
+    if (_pokenodos[x][y] != NULL) {
+        posConPoke = Coordenada(x, y);
+    }
+    if (x > 0) {
+
+        if ( _pokenodos[x-1][y] != NULL) {
+            posConPoke = Coordenada(x-1, y);
         }
-        iter.Avanzar();
+
+        if (y > 0 && (_pokenodos[x-1][y-1] != NULL)) {
+            posConPoke = Coordenada(x-1, y-1);
+        }
+
+        if (y + 1 < m  && (_pokenodos[x-1][y+1] != NULL)) {
+            posConPoke = Coordenada(x-1, y+1);
+        }
+        if (x > 1  && (_pokenodos[x-2][y] != NULL)) {
+            posConPoke = Coordenada(x-2, y);
+        }
+
     }
 
-    std::cout << "CAPO DE LA VIDA: LLAMASTE A POSPOKEMONCERCANO SIN CHECKEAR SI EXISTIA\n";
-    return Coordenada(1000,1000);
+    if (y > 0) {
+        if (_pokenodos[x][y-1] != NULL) {
+            posConPoke = Coordenada(x, y-1);
+        }
+        // @BUG cambio < por >
+        if (y > 1  && (_pokenodos[x][y-2] != NULL)) {
+            posConPoke = Coordenada(x, y-2);
+        }
 
+    }
 
-    // Coordenada posConPoke;
-    // if (_pokenodos[x][y] != NULL) {
-    //     posConPoke = Coordenada(x, y);
-    // }
-    // if (x > 0) {
+    if (y + 1 < m) {
 
-    //     if ( _pokenodos[x-1][y] != NULL) {
-    //         posConPoke = Coordenada(x-1, y);
-    //     }
+        if (_pokenodos[x][y+1] != NULL) {
+            posConPoke = Coordenada(x, y+1);
+        }
+        if (m > 1 && y + 2 < m  && (_pokenodos[x][y+2] != NULL)) {
+            posConPoke = Coordenada(x, y+2);
+        }
 
-    //     if (y > 0 && (_pokenodos[x-1][y-1] != NULL)) {
-    //         posConPoke = Coordenada(x-1, y-1);
-    //     }
+    }
+    if (x + 1 < m) {
+        if (_pokenodos[x+1][y] != NULL) {
+            posConPoke = Coordenada(x+1, y);
+        }
 
-    //     if (y + 1 < m  && (_pokenodos[x-1][y+1] != NULL)) {
-    //         posConPoke = Coordenada(x-1, y+1);
-    //     }
-    //     if (x > 1  && (_pokenodos[x-2][y] != NULL)) {
-    //         posConPoke = Coordenada(x-2, y);
-    //     }
+        if (y > 0 && (_pokenodos[x+1][y-1] != NULL)) {
+            posConPoke = Coordenada(x+1, y-1);
+        }
 
-    // }
+        if (y + 1 < m && (_pokenodos[x+1][y+1] != NULL)) {
+            posConPoke = Coordenada(x+1, y+1);
+        }
 
-    // if (y > 0) {
-    //     if (_pokenodos[x][y-1] != NULL) {
-    //         posConPoke = Coordenada(x, y-1);
-    //     }
-    //     // @BUG cambio < por >
-    //     if (y > 1  && (_pokenodos[x][y-2] != NULL)) {
-    //         posConPoke = Coordenada(x, y-2);
-    //     }
+    }
 
-    // }
+    if (m > 1 && x + 2 < m  && (_pokenodos[x+2][y] != NULL)) {
+        posConPoke = Coordenada(x+2, y);
+    }
 
-    // if (y + 1 < m) {
-
-    //     if (_pokenodos[x][y+1] != NULL) {
-    //         posConPoke = Coordenada(x, y+1);
-    //     }
-    //     if (m > 1 && y + 2 < m  && (_pokenodos[x][y+2] != NULL)) {
-    //         posConPoke = Coordenada(x, y+2);
-    //     }
-
-    // }
-    // if (x + 1 < m) {
-    //     if (_pokenodos[x+1][y] != NULL) {
-    //         posConPoke = Coordenada(x+1, y);
-    //     }
-
-    //     if (y > 0 && (_pokenodos[x+1][y-1] != NULL)) {
-    //         posConPoke = Coordenada(x+1, y-1);
-    //     }
-
-    //     if (y + 1 < m && (_pokenodos[x+1][y+1] != NULL)) {
-    //         posConPoke = Coordenada(x+1, y+1);
-    //     }
-
-    // }
-
-    // if (m > 1 && x + 2 < m  && (_pokenodos[x+2][y] != NULL)) {
-    //     posConPoke = Coordenada(x+2, y);
-    // }
-
-    // return posConPoke;
+    return posConPoke;
 }
 
 bool Juego::PuedoAgregarPokemon(const Coordenada& c) const{
@@ -467,21 +468,21 @@ bool Juego::PuedoAgregarPokemon(const Coordenada& c) const{
 
     // return puedo;
 
-    if (!_mapa->PosExistente(c)) {
-        return false;
-    }
+    // if (!_mapa->PosExistente(c)) {
+    //     return false;
+    // }
 
-    Conj<Coordenada>::const_Iterador iter = this->PosConPokemons().CrearIt();
-    while (iter.HaySiguiente()) {
-        // std::cout << "me chequeo " << iter.Siguiente() << "\n";
-        if (distEuclidea(c, iter.Siguiente()) <= 25) {
-            return false;
-        }
-        iter.Avanzar();
-    }
-    return true;
+    // Conj<Coordenada>::const_Iterador iter = this->PosConPokemons().CrearIt();
+    // while (iter.HaySiguiente()) {
+    //     // std::cout << "me chequeo " << iter.Siguiente() << "\n";
+    //     if (distEuclidea(c, iter.Siguiente()) <= 25) {
+    //         return false;
+    //     }
+    //     iter.Avanzar();
+    // }
+    // return true;
 
-    // return _mapa->PosExistente(c) && !HayPokemonEnTerritorioRango5(c);
+    return _mapa->PosExistente(c) && !HayPokemonEnTerritorioRango5(c);
 }
 
 
@@ -873,12 +874,20 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
     Nat x = c.latitud;
     Nat y = c.longitud;
 
+    if (x >= this->_pokenodos.Longitud() || y >= this->_pokenodos.Longitud()) {
+        return false;
+    }
+    // std::cout << "La coor: " << c << "\n";
+
     //En teoría PosExistente se fija si se pasa del tamaño del mapa.
     if(x < 5){
         if(y < 5){
             //std::cout << "Entre al caso 1" << std::endl;
             for(Nat i = 0; i <= x + 5; i++){
                 for(Nat j = 0; j <= y + 5; j++){
+
+                    // if (i < this->_mapa->Tam() && j < this->_mapa->Tam()) {
+
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
                         if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
@@ -891,6 +900,8 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             //std::cout << "Entre al caso 2" << std::endl;
             for(Nat i = 0; i <= x + 5; i++){
                 for(Nat j = y - 5; j <= y + 5; j++){
+                    // if (i < this->_mapa->Tam() && j < this->_mapa->Tam()) {
+
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
                         if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
@@ -905,6 +916,8 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             //std::cout << "Entre al caso 3" << std::endl;
             for(Nat i = x - 5; i <= x + 5; i++){
                 for(Nat j = 0; j <= y + 5; j++){
+                    // if (i < this->_mapa->Tam() && j < this->_mapa->Tam()) {
+
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
                         if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
@@ -917,6 +930,8 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             //std::cout << "Entre al caso 4" << std::endl;
             for(Nat i = x - 5; i <= x + 5; i++){
                 for(Nat j = y - 5; j <= y + 5; j++){
+                    // if (i < this->_mapa->Tam() && j < this->_mapa->Tam()) {   
+
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
                         if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;

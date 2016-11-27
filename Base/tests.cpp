@@ -345,6 +345,10 @@ void test_puedoAgregarPokemon_vol3() {
     Driver d(mapaTipo1());
 
     ASSERT(d.puedoAgregarPokemon(Coordenada(0,0)));
+    Nat cero = 0;
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0, cero-1)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0,3)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(3,0)));
     Jugador pixel = d.agregarJugador();
     d.conectarse(pixel, Coordenada(0,0));
     d.agregarPokemon("Pikachu", Coordenada(0,0));
@@ -384,6 +388,34 @@ void test_puedoAgregarPokemon_vol3() {
     ASSERT(d.puedoAgregarPokemon(Coordenada(1,1)));
 }
 
+void test_puedoAgregarPokemon_vol4() {
+    // La idea es agregar pokemones en posiciones invalidas, y testear... nose, cosas, ya no se que
+    
+    Conj<Coordenada> coors;
+    Driver d(coors);
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0,0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(1,1)));
+    Nat cero = 0;
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(cero-1,cero-1)));
+
+
+    Driver d1(mapaTipo0());
+    // Agrego un pokemon en una cosa que no existe? Deberia romperse todo
+    d1.agregarPokemon("Pikachu", Coordenada(0,0));
+
+    ASSERT(d1.hayPokemonCercano(Coordenada(1,1)));
+
+    ASSERT(d1.posPokemonCercano(Coordenada(1,1)) == Coordenada(0,0));
+
+    ASSERT(d1.pokemonEnPos(Coordenada(0,0)) == "Pikachu");
+
+
+    // ASSERT(d.mapa().Pertenece(Coordenada(1,1)));
+    ASSERT(d1.mapa().Pertenece(Coordenada(1,1)));
+
+    // La razon me dice que no debo poder agregar pokemon.. voy a probar cambiar cosas para ver si el bot cree que si 
+    ASSERT(d1.puedoAgregarPokemon(Coordenada(1,1)));
+}
 
 void test_agregar_pokemones(){
     Driver d(mapaTipo0());
@@ -1306,35 +1338,36 @@ void test_mov_invalido_con_camino(){
 
 
 int main(int argc, char **argv){
-    // RUN_TEST(test_constructor_con_mapa);
-    // RUN_TEST(test_pos_con_pokemons);
-    // RUN_TEST(test_agregar_jugadores);
-    // RUN_TEST(test_agregar_pokemones);
-    // RUN_TEST(test_agregar_pokemones_sinJugs);
-    // RUN_TEST(test_agregar_pokemones_conJugs);
+    RUN_TEST(test_constructor_con_mapa);
+    RUN_TEST(test_pos_con_pokemons);
+    RUN_TEST(test_agregar_jugadores);
+    RUN_TEST(test_agregar_pokemones);
+    RUN_TEST(test_agregar_pokemones_sinJugs);
+    RUN_TEST(test_agregar_pokemones_conJugs);
 
     RUN_TEST(test_puedoAgregarPokemon);
     RUN_TEST(test_puedoAgregar_vol2);
     RUN_TEST(test_puedoAgregarPokemon_vol3);
+    RUN_TEST(test_puedoAgregarPokemon_vol4);
     
-//     RUN_TEST(test_posPokeCercano);
-//     RUN_TEST(test_hayPokemonCercano);
-//     RUN_TEST(test_entrenadoresPosibles);
-//     RUN_TEST(test_conectar);
-//     RUN_TEST(test_desconectar);
-//     RUN_TEST(test_indice_rareza);
-//     RUN_TEST(test_pokemon_cercano_coor_invalida);
-//     RUN_TEST(test_movimientosParaCaptura);
-//     RUN_TEST(test_mover_sinPokes);
-//     RUN_TEST(test_mover_sinPokesYSancionar);
-//     RUN_TEST(test_capturarSeEliminaElPokemon);
+    RUN_TEST(test_posPokeCercano);
+    RUN_TEST(test_hayPokemonCercano);
+    RUN_TEST(test_entrenadoresPosibles);
+    RUN_TEST(test_conectar);
+    RUN_TEST(test_desconectar);
+    RUN_TEST(test_indice_rareza);
+    RUN_TEST(test_pokemon_cercano_coor_invalida);
+    RUN_TEST(test_movimientosParaCaptura);
+    RUN_TEST(test_mover_sinPokes);
+    RUN_TEST(test_mover_sinPokesYSancionar);
+    RUN_TEST(test_capturarSeEliminaElPokemon);
 
-//     RUN_TEST(test_sancionar_simple);
-//     RUN_TEST(test_sancionar_conpokerango);
+    RUN_TEST(test_sancionar_simple);
+    RUN_TEST(test_sancionar_conpokerango);
  
-//     RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
-//   //  RUN_TEST(test_capturarJugadorTieneNuevoPoke);
-//     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
+    RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
+  //  RUN_TEST(test_capturarJugadorTieneNuevoPoke);
+    RUN_TEST(test_capturarContadoresDeTriesEstanBien);
 
 //     RUN_TEST(test_mov_invalido_con_camino);
 //   /*  RUN_TEST(test_eliminarDeJuego);

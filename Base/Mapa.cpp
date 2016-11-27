@@ -210,7 +210,8 @@ bool Mapa::def(
     return grilla.Definido(x) && 
         grilla[x].Definido(y) &&
         grilla[x][y].Definido(z) &&
-        grilla[x][y][z].Definido(w);
+        grilla[x][y][z].Definido(w) &&
+        grilla[x][y][z][w];
 }
 
 bool Mapa::HayCamino(const Coordenada &c1, const Coordenada &c2) const{
