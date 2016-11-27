@@ -1353,7 +1353,7 @@ void test_mov_invalido_con_camino(){
 
 
 int main(int argc, char **argv){
-  /*  RUN_TEST(test_constructor_con_mapa);
+    RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -1380,7 +1380,7 @@ int main(int argc, char **argv){
 
     RUN_TEST(test_mov_invalido_con_camino);
     RUN_TEST(test_eliminarDeJuego);
-   */ 
+    
     RUN_TEST(test_mover_conPokes);
   //  RUN_TEST(test_mover_conPokesYCapturar);
 
