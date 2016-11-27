@@ -39,7 +39,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
         }
         // std::cout << "Defini nGrilla tam:   " << mx << "\n";
 
-        this->copiarCoordenadas(nGrilla, this->_grilla);
+        this->copiarCoordenadas(nGrilla, this->_grilla, mx);
         // std::cout << "Copie todas las coordenadas validas a la nueva grilla"<< "\n";
 
         // std::cout << "Salgo de copiarCoordenadas\n";
@@ -241,11 +241,13 @@ void Mapa::imprimir() {
 
 void Mapa::copiarCoordenadas(
     Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaNueva,
-    Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja) {
+    Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja,
+    Nat nuevoTam) {
 
     for (Nat i = 0; i < grillaVieja.Tamanho(); i++) {
         for (Nat j = 0; j < grillaVieja.Tamanho(); j++) {
             if (this->def(grillaVieja, i, j, i, j)) {
+                grillaNueva[i][j].Definir(i, Arreglo<bool>(nuevoTam));
                 grillaNueva[i][j][i].Definir(j, grillaVieja[i][j][i][j]);
             }
         }

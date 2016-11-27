@@ -35,7 +35,8 @@ class Mapa {
 
         void copiarCoordenadas(
             Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaNueva,
-            Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja
+            Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja,
+            Nat nuevoTam
         );
 
         void crearGrilla(
