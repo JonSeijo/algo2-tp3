@@ -105,7 +105,7 @@ Nat Juego::AgregarJugador(){
     return proxId;
 }
 
-void Juego::Conectarse(Jugador e, const Coordenada &c){
+void Juego::Conectarse(Jugador e, const Coordenada &c) {
     // Se conecta el jugador.
     _jugadores[e]._conectado = true;
 
@@ -174,6 +174,8 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
 
         // Si tiene 5 o mas sanciones...
         if (_jugadores[e]._sanciones >= 5) {
+
+            _jugadores[e]._conectado = false;
             // Se borra al jugador de la posicion y de los jugadores.
             _jugadores[e]._itAPos.EliminarSiguiente();
             _jugadores[e]._itAJuego.EliminarSiguiente();
@@ -267,7 +269,7 @@ Coordenada Juego::Posicion(Jugador e) const{
 }
 
 DiccString<Nat>::Iterador Juego::Pokemons(Jugador e){
-    return _cantPokemon.CrearIt();
+    return this->_jugadores[e]._pokemons.CrearIt();
 }
 
 bool Juego::EstaConectado(Jugador e) const{
@@ -636,7 +638,7 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
 
             // Si el contador llego a 10...
-            if (pokeNodo->_contador == 10) {
+            if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
                 // Agrego el pokemon al entrenador que captura.
                 SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
 
@@ -648,8 +650,10 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 // continue;
             }
         }
-
-        it.Avanzar();
+        //Nota, sin este if se rompe en el caso de capturar un pokemon
+        if(it.HaySiguiente()){
+            it.Avanzar();
+        }
     }
 
 }
@@ -673,7 +677,7 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
         pokeNodo->_contador++;
 
         // Si el contador llego a 10...
-        if (pokeNodo->_contador == 10) {
+        if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
             // Agrego el pokemon al entrenador que captura.
             SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
 
@@ -683,9 +687,10 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
             delete pokeNodo;
             _pokenodos[x][y] = NULL;
         }
-
-
-        it.Avanzar();
+        //Nota, sin este if se rompe en el caso de capturar un pokemon
+        if(it.HaySiguiente()){
+            it.Avanzar();
+        }
     }
 }
 
@@ -705,22 +710,21 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
     while (it.HaySiguiente()) {
-
         Nat x = it.Siguiente().latitud;
         Nat y = it.Siguiente().longitud;
 
         pokeStruc* pokeNodo = _pokenodos[x][y];
 
+        pokeNodo->_contador++;
+
         // Si no es al que entro el jugador...
         if (it.Siguiente() == pokePos) {
-
             // Aumento su contador.
             pokeNodo->_contador = 0;
 
 
-        } else if (pokeNodo->_contador == 10) {
+        } else if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
                 // Si el contador llego a 10...
-
                 // Agrego el pokemon al entrenador que captura.
                 SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
 
@@ -731,9 +735,11 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 delete pokeNodo;
                 _pokenodos[x][y] = NULL;
         }
-
-
-        it.Avanzar();
+       
+        //Nota, sin este if se rompe en el caso de capturar un pokemon
+        if(it.HaySiguiente()){
+            it.Avanzar();
+        }
     }
 }
 
@@ -809,31 +815,30 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
             // Aumento su contador.
             pokeNodo->_contador = 0;
-
-
-        } else {
+        }
+        else{
             // Si no es al que entro el jugador...
 
             // Aumento el contador del pokenodo.
             pokeNodo->_contador++;
 
-            if (pokeNodo->_contador == 10) {
-            // Si el contador llego a 10...
+            if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
+                // Si el contador llego a 10...
 
-            // Agrego el pokemon al entrenador que captura.
-            SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
+                // Agrego el pokemon al entrenador que captura.
+                SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
 
-            // Borro el pokenodo.
-            it.EliminarSiguiente();
+                // Borro el pokenodo.
+                it.EliminarSiguiente();
 
-            delete pokeNodo;
-            _pokenodos[x][y] = NULL;
+                delete pokeNodo;
+                _pokenodos[x][y] = NULL;
+            }   
         }
-
-    }
-
-
-        it.Avanzar();
+        //Nota, sin este if se rompe en el caso de capturar un pokemon
+        if(it.HaySiguiente()){
+            it.Avanzar();
+        }
     }
 
 }
