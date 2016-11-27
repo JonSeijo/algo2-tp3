@@ -24,7 +24,7 @@ test_dicc:
 	./test_dicc
 
 clean:
-	rm -f $(OBJS) $(TARGET) test_mapa test_cola test_dicc
+	rm -f $(OBJS) $(TARGET) test_mapa test_cola test_dicc *.o
 
 valgrind: all
 	valgrind --leak-check=full ./$(TARGET)

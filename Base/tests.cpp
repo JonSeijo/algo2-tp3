@@ -1089,6 +1089,24 @@ void test_pokemon_cercano_coor_invalida(){
     ASSERT(!d.hayPokemonCercano(Coordenada(0, 3)));
 }
 
+void test_mov_invalido_con_camino(){
+
+    Conj<Coordenada> cs;
+    for (Nat i = 0; i < 12; i++) {
+        ag(cs, 0, i);
+    }
+    Driver d(cs);
+
+    Jugador maestroPokemon = d.agregarJugador();
+
+    d.conectarse(maestroPokemon, Coordenada(0, 0));
+
+    d.moverse(maestroPokemon, Coordenada(0, 11));
+
+    ASSERT(d.posicion(maestroPokemon) == Coordenada(0, 0));
+
+    ASSERT(d.sanciones(maestroPokemon) == 1);
+}
 // TODO: Agregar más tests
 
 
@@ -1117,6 +1135,8 @@ int main(int argc, char **argv){
     RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
   //  RUN_TEST(test_capturarJugadorTieneNuevoPoke);
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
+
+    RUN_TEST(test_mov_invalido_con_camino);
   /*  RUN_TEST(test_eliminarDeJuego);
     
     RUN_TEST(test_mover_conPokes);
