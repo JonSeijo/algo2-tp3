@@ -15,16 +15,17 @@ Mapa::~Mapa(){
 }
 
 void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
-    if (nuevaCoor.latitud > 110 || nuevaCoor.longitud > 110) {
-        std::cout << "No seas asi. El mundo no tiene tantas coordenadas\n";
-        return;
-    }
+
+    std::cout << "\nEstoy en mapa AgregarCoord: " << nuevaCoor <<  "\n";
+    // if (nuevaCoor.latitud > 120 || nuevaCoor.longitud > 120) {
+    //     std::cout << "No seas asi. El mundo no tiene tantas coordenadas\n";
+    //     return;
+    // }
 
     // std::cout << "Entro en agregar coordenada " << nuevaCoor << "\n"; 
     Nat maximo = this->max(nuevaCoor.latitud, nuevaCoor.longitud);
 
     if (maximo+1 > this->_tam) {
-
 
         // CREO LA NUEVA GRILLA
         Nat mx = maximo+1;
@@ -37,9 +38,9 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
             nGrilla.Definir(i, Arreglo<Arreglo<Arreglo<bool> > >(mx));
             for (Nat j = 0; j < mx; j++) {
                 nGrilla[i].Definir(j, Arreglo<Arreglo<bool> >(mx));
-                for (Nat k = 0; k < mx; k++) {
-                    nGrilla[i][j].Definir(k, Arreglo<bool>(mx));
-                }
+                // for (Nat k = 0; k < mx; k++) {
+                //     nGrilla[i][j].Definir(k, Arreglo<bool>(mx));
+                // }
             }
         }
         // std::cout << "Defini nGrilla tam:   " << mx << "\n";
@@ -56,10 +57,13 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
         this->_tam = maximo+1;
     }
 
+    std::cout << "Termine el primer if\n";
+
     // std::cout << "\n---------------------\n\n";
     // std::cout << "lat: " << nuevaCoor.latitud <<"\n";
     // std::cout << "lon: " << nuevaCoor.longitud <<"\n";
 
+    this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud].Definir(nuevaCoor.latitud, Arreglo<bool>(this->_tam));
     this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud][nuevaCoor.latitud].Definir(nuevaCoor.longitud, true);
     // std::cout << "Le pongo true a la actual\n";
     /*
@@ -76,6 +80,8 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
     Esto no cambia la complejidad, como maximo hay tam^2 coordenadas (mapa lleno)
     y para cada coordenada la comparo con todas las demas:  tam^2 * tam^2 = tam^4 = O(tam^4) 
     */
+
+    std::cout << "Termine el primer acceso\n";
 
     Conj<Coordenada> coors = this->Coordenadas(); // Esto incluye la que acabo de agregar
     Conj<Coordenada>::Iterador it = coors.CrearIt();
@@ -102,6 +108,8 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
 
 
         while (!aRecorrer.EsVacia()) {
+
+            std::cout << "Entro a While principal\n";
             // std::cout << "Entro a while interior: " << c << "\n";
             // Tomo el proximo y desencolo
             Coordenada act = aRecorrer.Primero();
@@ -110,21 +118,33 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
             // std::cout << "\n\nact: " << act << "\n";
 
             if (act.latitud > 0) {
+                std::cout << "Entro a primer caso\n";
                 Coordenada laIzquierda = act.CoordenadaALaIzquierda();
                 Nat x = laIzquierda.latitud;
                 Nat y = laIzquierda.longitud;
                 // std::cout << "laIzquierda: " << laIzquierda << "\n";
                 if (!visitados[x][y]) {
+                    std::cout << "No fue visitada.. " << "\n";
                     visitados[x][y] = true;
+                    std::cout << "La asigno visitada true.. " << "\n";
                     if (this->PosExistente(laIzquierda)) {
+                        std::cout << "La izquierda existe.. " << "\n";
+                        this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
+                        
+                        std::cout << "Asigno primer mitad " << "\n";
+
+                        this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
+
+                        std::cout << "Asigno segunda mitad " << "\n";
                         aRecorrer.AgregarAtras(laIzquierda);
                     }
                 }
             }
 
             if (act.longitud > 0) {
+                std::cout << "Entro a segundo caso\n";
                 Coordenada laAbajo = act.CoordenadaAbajo();
                 Nat x = laAbajo.latitud;
                 Nat y = laAbajo.longitud;
@@ -132,7 +152,9 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laAbajo)) {
+                        this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
+                        this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
                         aRecorrer.AgregarAtras(laAbajo);
                     }
@@ -140,6 +162,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
             }
 
             if (act.latitud < (this->_tam - 1)) {
+                std::cout << "Entro a tercer caso\n";
                 Coordenada laDerecha = act.CoordenadaALaDerecha();
                 Nat x = laDerecha.latitud;
                 Nat y = laDerecha.longitud;
@@ -147,7 +170,9 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laDerecha)) {
+                        this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
+                        this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
                         aRecorrer.AgregarAtras(laDerecha);
                     }
@@ -155,6 +180,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
             }
 
             if (act.longitud < (this->_tam - 1)) {
+                std::cout << "Entro a cuarto caso\n";
                 Coordenada laArriba = act.CoordenadaArriba();
                 Nat x = laArriba.latitud;
                 Nat y = laArriba.longitud;
@@ -162,7 +188,9 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laArriba)) {
+                        this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
+                        this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
                         aRecorrer.AgregarAtras(laArriba);
                     }
@@ -170,9 +198,13 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
             }
         }
 
+        std::cout << "Estoy por avanzar el iter\n";
         it.Avanzar(); // No olvidar!
+        std::cout << "Termine de avanzar el iter\n";
 
     }
+
+    std:cout << "Sali de mapa::agregarCoordenada\n";
 }
 
 Conj<Coordenada> Mapa::Coordenadas() const{

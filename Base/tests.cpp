@@ -1345,40 +1345,59 @@ void test_mov_invalido_con_camino(){
 
     ASSERT(d.sanciones(maestroPokemon) == 1);
 }
+
+void test_informante() {
+    Conj<Coordenada> cs;
+    ag(cs, 120, 2);
+    ag(cs, 0, 0);
+    ag(cs, 1, 0);
+    ag(cs, 2, 0);
+    ag(cs, 12, 0);
+    ag(cs, 12, 1);
+    ag(cs, 12, 2);
+    std::cout << "empieza\n";
+    Driver d(cs);
+    std::cout << "termina\n";
+
+
+}
 // TODO: Agregar más tests
 
 
 int main(int argc, char **argv){
-    RUN_TEST(test_constructor_con_mapa);
-    RUN_TEST(test_pos_con_pokemons);
-    RUN_TEST(test_agregar_jugadores);
-    RUN_TEST(test_agregar_pokemones);
-    RUN_TEST(test_agregar_pokemones_sinJugs);
-    RUN_TEST(test_agregar_pokemones_conJugs);
+    // RUN_TEST(test_constructor_con_mapa);
+    // RUN_TEST(test_pos_con_pokemons);
+    // RUN_TEST(test_agregar_jugadores);
+    // RUN_TEST(test_agregar_pokemones);
+    // RUN_TEST(test_agregar_pokemones_sinJugs);
+    // RUN_TEST(test_agregar_pokemones_conJugs);
 
-    RUN_TEST(test_puedoAgregarPokemon);
-    RUN_TEST(test_puedoAgregar_vol2);
-    RUN_TEST(test_puedoAgregarPokemon_vol3);
-    RUN_TEST(test_puedoAgregarPokemon_vol4);
+    // RUN_TEST(test_puedoAgregarPokemon);
+    // RUN_TEST(test_puedoAgregar_vol2);
+    // RUN_TEST(test_puedoAgregarPokemon_vol3);
+    // RUN_TEST(test_puedoAgregarPokemon_vol4);
     
-    RUN_TEST(test_posPokeCercano);
-    RUN_TEST(test_hayPokemonCercano);
-    RUN_TEST(test_entrenadoresPosibles);
-    RUN_TEST(test_conectar);
-    RUN_TEST(test_desconectar);
-    RUN_TEST(test_indice_rareza);
-    RUN_TEST(test_pokemon_cercano_coor_invalida);
-    RUN_TEST(test_movimientosParaCaptura);
-    RUN_TEST(test_mover_sinPokes);
-    RUN_TEST(test_mover_sinPokesYSancionar);
-    RUN_TEST(test_capturarSeEliminaElPokemon);
+    // RUN_TEST(test_posPokeCercano);
+    // RUN_TEST(test_hayPokemonCercano);
+    // RUN_TEST(test_entrenadoresPosibles);
+    // RUN_TEST(test_conectar);
+    // RUN_TEST(test_desconectar);
+    // RUN_TEST(test_indice_rareza);
+    // RUN_TEST(test_pokemon_cercano_coor_invalida);
+    // RUN_TEST(test_movimientosParaCaptura);
+    // RUN_TEST(test_mover_sinPokes);
+    // RUN_TEST(test_mover_sinPokesYSancionar);
+    // RUN_TEST(test_capturarSeEliminaElPokemon);
 
-    RUN_TEST(test_sancionar_simple);
-    RUN_TEST(test_sancionar_conpokerango);
+    // RUN_TEST(test_sancionar_simple);
+    // RUN_TEST(test_sancionar_conpokerango);
  
-    RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
+    // RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
   //  RUN_TEST(test_capturarJugadorTieneNuevoPoke);
-    RUN_TEST(test_capturarContadoresDeTriesEstanBien);
+    // RUN_TEST(test_capturarContadoresDeTriesEstanBien);
+
+
+    RUN_TEST(test_informante);
 
 //     RUN_TEST(test_mov_invalido_con_camino);
 //   /*  RUN_TEST(test_eliminarDeJuego);

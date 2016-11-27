@@ -10,7 +10,9 @@ Driver::Driver(const Conj< Coordenada > & cs) : _juego(NULL){
     Mapa map;
     Conj< Coordenada >::const_Iterador it = cs.CrearIt();
     while (it.HaySiguiente()) {
+        std::cout << "Estoy por agregar: " << it.Siguiente() << "\n";
         map.AgregarCoord(it.Siguiente());
+        std::cout << "Termine de agregar: " << it.Siguiente() << "\n";
         it.Avanzar();
     }
     this->_juego = new Juego(map);
