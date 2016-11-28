@@ -1976,7 +1976,38 @@ void test_posExistente(){
 }
 
 void test_jugadoresNoEliminados(){
-    ASSERT(false);
+    Driver d(mapaTipo0());
+
+    Jugador Eliminado = d.agregarJugador();
+    Jugador Eliminado2 = d.agregarJugador();
+    Jugador NoEliminado = d.agregarJugador();
+    Jugador NoEliminado2 = d.agregarJugador();
+
+    d.conectarse(Eliminado, Coordenada(1, 1));
+    d.conectarse(Eliminado2, Coordenada(2, 2));
+    d.conectarse(NoEliminado, Coordenada(2, 2));
+    d.conectarse(NoEliminado2, Coordenada(1, 1));
+
+    d.moverse(Eliminado, Coordenada(0, 0));
+    d.moverse(Eliminado2, Coordenada(1, 1));
+    d.moverse(Eliminado, Coordenada(0, 0));
+    d.moverse(Eliminado2, Coordenada(1, 1));
+    d.moverse(Eliminado, Coordenada(0, 0));
+    d.moverse(Eliminado2, Coordenada(1, 1));
+    d.moverse(Eliminado, Coordenada(0, 0));
+    d.moverse(Eliminado2, Coordenada(1, 1));
+    d.moverse(Eliminado, Coordenada(0, 0));
+    d.moverse(Eliminado2, Coordenada(1, 1));
+
+    d.desconectarse(NoEliminado);
+    d.desconectarse(NoEliminado2);
+
+    Conj<Jugador> cj(d.jugadores());
+
+    ASSERT(cj.Pertenece(NoEliminado));
+    ASSERT(cj.Pertenece(NoEliminado2));
+    ASSERT(!cj.Pertenece(Eliminado));
+    ASSERT(!cj.Pertenece(Eliminado2));
 }
 
 void test_posicionJugador(){
@@ -2051,8 +2082,8 @@ int main(int argc, char **argv){
 	RUN_TEST(test_posExistente);
 	RUN_TEST(test_puedoAgregarPokemon_vol2);
     RUN_TEST(test_puedoAgregarPokemon_espia);
-/*	RUN_TEST(test_jugadoresNoEliminados);
-	RUN_TEST(test_estaConectado);
+	RUN_TEST(test_jugadoresNoEliminados);
+/*	RUN_TEST(test_estaConectado);
 	RUN_TEST(test_sanciones);
 	RUN_TEST(test_posicionJugador);
 	RUN_TEST(test_pokemonsDelJugador);
