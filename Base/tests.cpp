@@ -1461,7 +1461,7 @@ void test_mov_invalido_con_camino(){
 }
 
 void test_comprobarCoordenadasDelMapa(){
-<<<<<<< HEAD
+
 	Driver d(mapaTipo1());
 
 	Jugador j0 = d.agregarJugador();
@@ -1972,17 +1972,6 @@ void test_posExistente(){
 	ASSERT(!d.posExistente(Coordenada(0, 0)));
 	ASSERT(!d.posExistente(Coordenada(9990, 546)));
 	ASSERT(!d.posExistente(Coordenada(4, 0)));
-=======
-    ASSERT(false);
-}
-
-void test_hayCamino(){
-    ASSERT(false);
-}
-
-void test_posExistente(){
-    ASSERT(false);
->>>>>>> ff6d00f... Arregla bug de mapa
 }
 
 void test_jugadoresNoEliminados(){
@@ -2059,7 +2048,8 @@ int main(int argc, char **argv){
     RUN_TEST(test_comprobarCoordenadasDelMapa);
     RUN_TEST(test_hayCamino);
 	RUN_TEST(test_posExistente);
-
+	RUN_TEST(test_puedoAgregarPokemon_vol2);
+    RUN_TEST(test_puedoAgregarPokemon_espia);
 /*	RUN_TEST(test_jugadoresNoEliminados);
 	RUN_TEST(test_estaConectado);
 	RUN_TEST(test_sanciones);
@@ -2073,23 +2063,7 @@ int main(int argc, char **argv){
 */ 
 
 	std::cout << "\nPara mí con estos tests ya estaría\n";
-    // RUN_TEST(test_comprobarCoordenadasDelMapa);
-    // RUN_TEST(test_hayCamino);
-    // RUN_TEST(test_posExistente);
-    // RUN_TEST(test_jugadoresNoEliminados);
-    // RUN_TEST(test_estaConectado);
-    // RUN_TEST(test_sanciones);
-    // RUN_TEST(test_posicionJugador);
-    // RUN_TEST(test_pokemonsDelJugador);
-    // RUN_TEST(test_posConPokemon);
-    // RUN_TEST(test_pokemonEnPos);
-    // RUN_TEST(test_expulsados);
-    // RUN_TEST(test_cantMismaEspecie);
-    // RUN_TEST(test_cantPokemonesTotales);
-    // RUN_TEST(test_puedoAgregarPokemon_vol2);
-    // RUN_TEST(test_puedoAgregarPokemon_espia);
 
-    std::cout << "\nPara mí con estos tests ya estaría\n";
 
     return 0;
 }
