@@ -2005,7 +2005,7 @@ int main(int argc, char **argv){
 	RUN_TEST(test_expulsados);
 	RUN_TEST(test_cantMismaEspecie);
 	RUN_TEST(test_cantPokemonesTotales);
-*/
+*/ 
 	std::cout << "\nPara mí con estos tests ya estaría\n";
 
     return 0;
