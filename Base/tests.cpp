@@ -2011,7 +2011,31 @@ void test_jugadoresNoEliminados(){
 }
 
 void test_posicionJugador(){
-    ASSERT(false);
+    Driver d(mapaTipo0());
+
+    Jugador Eliminado = d.agregarJugador();
+    Jugador Eliminado2 = d.agregarJugador();
+    Jugador NoEliminado = d.agregarJugador();
+    Jugador NoEliminado2 = d.agregarJugador();
+
+    d.conectarse(Eliminado, Coordenada(1, 1));
+    d.conectarse(Eliminado2, Coordenada(2, 2));
+    d.conectarse(NoEliminado, Coordenada(2, 2));
+    d.conectarse(NoEliminado2, Coordenada(1, 1));
+
+    d.moverse(Eliminado, Coordenada(0, 0));
+    d.moverse(Eliminado2, Coordenada(1, 1));
+    d.moverse(Eliminado, Coordenada(0, 0));
+    d.moverse(Eliminado2, Coordenada(1, 1));
+    d.moverse(Eliminado, Coordenada(0, 0));
+    d.moverse(Eliminado2, Coordenada(1, 1));
+    d.moverse(Eliminado, Coordenada(0, 0));
+    d.moverse(Eliminado2, Coordenada(1, 1));
+    d.moverse(Eliminado, Coordenada(0, 0));
+    d.moverse(Eliminado2, Coordenada(1, 1));
+
+    ASSERT(d.posicion(NoEliminado) == Coordenada(2, 2));
+    ASSERT(d.posicion(NoEliminado2) == Coordenada(1, 1));
 }
 
 void test_posConPokemon(){
@@ -2027,10 +2051,6 @@ void test_cantMismaEspecie(){
 }
 
 void test_cantPokemonesTotales(){
-    ASSERT(false);
-}
-
-void test_posPokemonCercano(){
     ASSERT(false);
 }
 
@@ -2083,15 +2103,15 @@ int main(int argc, char **argv){
 	RUN_TEST(test_puedoAgregarPokemon_vol2);
     RUN_TEST(test_puedoAgregarPokemon_espia);
 	RUN_TEST(test_jugadoresNoEliminados);
-/*	RUN_TEST(test_estaConectado);
-	RUN_TEST(test_sanciones);
 	RUN_TEST(test_posicionJugador);
-	RUN_TEST(test_pokemonsDelJugador);
-	RUN_TEST(test_posConPokemon);
-	RUN_TEST(test_pokemonEnPos);
+/*	RUN_TEST(test_posConPokemon);
 	RUN_TEST(test_expulsados);
 	RUN_TEST(test_cantMismaEspecie);
 	RUN_TEST(test_cantPokemonesTotales);
+	RUN_TEST(test_estaConectado);
+	RUN_TEST(test_sanciones);
+	RUN_TEST(test_pokemonsDelJugador);
+	RUN_TEST(test_pokemonEnPos);
 */ 
 
 	std::cout << "\nPara mí con estos tests ya estaría\n";
