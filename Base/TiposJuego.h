@@ -22,6 +22,13 @@ struct Coordenada{
     Coordenada(const Coordenada &otra) : latitud(otra.latitud),
                                          longitud(otra.longitud){}
 
+
+    Coordenada& operator =(const Coordenada &otra) {
+        this->latitud  = otra.latitud;
+        this->longitud = otra.longitud;
+
+        return *this;
+    } 
     Coordenada CoordenadaArriba(){
         return Coordenada(this->latitud, this->longitud+1);
     }
