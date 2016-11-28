@@ -71,8 +71,9 @@ void test_constructor_con_mapa() {
     cc.Agregar(Coordenada(10,0));
     cc.Agregar(Coordenada(1,4));
     Driver d(cc);
-
+    
     ASSERT(d.mapa() == cc);
+
     ASSERT(d.posConPokemons().EsVacio());
     ASSERT(d.jugadores().EsVacio());
     ASSERT(d.expulsados().EsVacio());

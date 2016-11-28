@@ -15,12 +15,6 @@ Mapa::~Mapa(){
 }
 
 void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
-    if (nuevaCoor.latitud > 110 || nuevaCoor.longitud > 110) {
-        std::cout << "No seas asi. El mundo no tiene tantas coordenadas\n";
-        return;
-    }
-
-    // std::cout << "Entro en agregar coordenada " << nuevaCoor << "\n"; 
     Nat maximo = this->max(nuevaCoor.latitud, nuevaCoor.longitud);
 
     if (maximo+1 > this->_tam) {
@@ -37,14 +31,14 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
             nGrilla.Definir(i, Arreglo<Arreglo<Arreglo<bool> > >(mx));
             for (Nat j = 0; j < mx; j++) {
                 nGrilla[i].Definir(j, Arreglo<Arreglo<bool> >(mx));
-                for (Nat k = 0; k < mx; k++) {
-                    nGrilla[i][j].Definir(k, Arreglo<bool>(mx));
-                }
+                // for (Nat k = 0; k < mx; k++) {
+                //     nGrilla[i][j].Definir(k, Arreglo<bool>(mx));
+                // }
             }
         }
         // std::cout << "Defini nGrilla tam:   " << mx << "\n";
 
-        this->copiarCoordenadas(nGrilla, this->_grilla);
+        this->copiarCoordenadas(nGrilla, this->_grilla, mx);
         // std::cout << "Copie todas las coordenadas validas a la nueva grilla"<< "\n";
 
         // std::cout << "Salgo de copiarCoordenadas\n";
@@ -56,12 +50,13 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
         this->_tam = maximo+1;
     }
 
-    // std::cout << "\n---------------------\n\n";
-    // std::cout << "lat: " << nuevaCoor.latitud <<"\n";
-    // std::cout << "lon: " << nuevaCoor.longitud <<"\n";
+    // No estoy 100% seguro que este if vaya aca
 
+    if (!this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud].Definido(nuevaCoor.latitud)) {
+        this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud].Definir(nuevaCoor.latitud, Arreglo<bool>(this->_tam));
+    }
     this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud][nuevaCoor.latitud].Definir(nuevaCoor.longitud, true);
-    // std::cout << "Le pongo true a la actual\n";
+
     /*
     Habia un bug groso en el tp2 (que se arregla facil)
     Basicamente se actualizaban los HayCamino para todas las coordenadas en relacion a la nueva que agregaba
@@ -102,12 +97,9 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
 
 
         while (!aRecorrer.EsVacia()) {
-            // std::cout << "Entro a while interior: " << c << "\n";
             // Tomo el proximo y desencolo
             Coordenada act = aRecorrer.Primero();
             aRecorrer.Fin(); // Elimina la cabeza
-
-            // std::cout << "\n\nact: " << act << "\n";
 
             if (act.latitud > 0) {
                 Coordenada laIzquierda = act.CoordenadaALaIzquierda();
@@ -117,8 +109,18 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laIzquierda)) {
+                        if (!this->_grilla[c.latitud][c.longitud].Definido(x)) {
+                            this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
+                        }
+                        
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
+                        
+                        if (!this->_grilla[x][y].Definido(c.latitud)) {
+                            this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
+                        }
+
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
+                        
                         aRecorrer.AgregarAtras(laIzquierda);
                     }
                 }
@@ -132,8 +134,16 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laAbajo)) {
+                        if (!this->_grilla[c.latitud][c.longitud].Definido(x)) {
+                            this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
+                        }
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
+
+                        if (!this->_grilla[x][y].Definido(c.latitud)) {
+                            this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
+                        }
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
+                        
                         aRecorrer.AgregarAtras(laAbajo);
                     }
                 }
@@ -147,8 +157,16 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laDerecha)) {
+                        if (!this->_grilla[c.latitud][c.longitud].Definido(x)) {
+                            this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
+                        }
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
+
+                        if (!this->_grilla[x][y].Definido(c.latitud)) {
+                            this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
+                        }
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
+                        
                         aRecorrer.AgregarAtras(laDerecha);
                     }
                 }
@@ -162,8 +180,17 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laArriba)) {
+                        if (!this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud].Definido(x)) {
+                            this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
+                        }
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
+
+                        if (!this->_grilla[x][y].Definido(c.latitud)) {
+                            this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
+                        }
+
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
+                        
                         aRecorrer.AgregarAtras(laArriba);
                     }
                 }
@@ -234,13 +261,13 @@ void Mapa::imprimir() {
     Nat n = this->_grilla.Tamanho();
     for (Nat i = 0; i < n; i++) {
         for (Nat j = 0; j < n; j++) {
-            for (Nat k = 0; k < n; k++) {
-                for (Nat l = 0; l < n; l++) {
-                    std::cout << this->def(this->_grilla, i, j, k, l) << " ";
-                }
-                std::cout << "\n";
-            }
-            std::cout << "\n";
+            // for (Nat k = 0; k < n; k++) {
+            //     for (Nat l = 0; l < n; l++) {
+                    std::cout << this->def(this->_grilla, i, j, i, j) << " ";
+            //     }
+            //     std::cout << "\n";
+            // }
+            // std::cout << "\n";
         }
         std::cout << "\n";
     }
@@ -248,11 +275,15 @@ void Mapa::imprimir() {
 
 void Mapa::copiarCoordenadas(
     Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaNueva,
-    Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja) {
+    Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja,
+    Nat nuevoTam) {
 
     for (Nat i = 0; i < grillaVieja.Tamanho(); i++) {
         for (Nat j = 0; j < grillaVieja.Tamanho(); j++) {
             if (this->def(grillaVieja, i, j, i, j)) {
+                if (!grillaNueva[i][j].Definido(i)) {
+                    grillaNueva[i][j].Definir(i, Arreglo<bool>(nuevoTam));
+                }
                 grillaNueva[i][j][i].Definir(j, grillaVieja[i][j][i][j]);
             }
         }
