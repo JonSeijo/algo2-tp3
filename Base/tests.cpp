@@ -2099,7 +2099,7 @@ void test_coordenada_12_1(){
 }
 
 int main(int argc, char **argv){
-/*  RUN_TEST(test_constructor_con_mapa);
+    RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -2132,7 +2132,7 @@ int main(int argc, char **argv){
     RUN_TEST(test_puedoAgregarPokemon_espia);
 	RUN_TEST(test_jugadoresNoEliminados);
 	RUN_TEST(test_posicionJugador);
-*/	RUN_TEST(test_posConPokemon);
+	RUN_TEST(test_posConPokemon);
 /*	RUN_TEST(test_expulsados);
 	RUN_TEST(test_cantMismaEspecie);
 	RUN_TEST(test_cantPokemonesTotales);
