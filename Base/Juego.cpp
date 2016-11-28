@@ -589,7 +589,7 @@ void Juego::AgregarAtrasJugsQueEstanEnPos(Vector<Jugador> &jugs, Nat x, Nat y) c
 void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp){
 
     // El pokenodo al que entro el jugador.
-    Coordenada pokePos = PosPokemonCercano(desp);
+    Coordenada pokePos( PosPokemonCercano(desp));
 
     // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
@@ -676,7 +676,7 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
 void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp){
     // El pokenodo al que entro el jugador.
-    Coordenada pokePos = PosPokemonCercano(desp);
+    Coordenada pokePos(PosPokemonCercano(desp));
 
     Nat lat = pokePos.latitud;
     Nat lon = pokePos.longitud;
@@ -774,7 +774,7 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
 void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp){
     // El pokenodo al que entro el jugador.
-    Coordenada pokePos = PosPokemonCercano(desp);
+    Coordenada pokePos( PosPokemonCercano(desp) );
 
     Nat lat = pokePos.latitud;
     Nat lon = pokePos.longitud;
