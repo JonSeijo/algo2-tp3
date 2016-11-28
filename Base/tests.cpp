@@ -261,149 +261,145 @@ void test_puedoAgregarPokemon_espia() {
     ASSERT( d.hayPokemonCercano(Coordenada(12,1)) == false);
 
     ASSERT( d.mapa().Pertenece(Coordenada(12,1)) );
-    std::cout << "La coor (12,1) no pertenece\n";
-
-    std::cout << "Antes de fallar\n";
     ASSERT( d.puedoAgregarPokemon(Coordenada(12,1)) == true );
-    std::cout << "No deberia fallar\n";
     
     ASSERT( d.puedoAgregarPokemon(Coordenada(12,2)) == true );
 
 }
 
-// void test_puedoAgregarPokemon() {
-//     Driver conductor(mapaTipo0());
+void test_puedoAgregarPokemon() {
+    // Driver conductor(mapaTipo0());
 
-//     ASSERT(conductor.puedoAgregarPokemon(Coordenada(1, 1)) && conductor.puedoAgregarPokemon(Coordenada(2, 2)));
+    // ASSERT(conductor.puedoAgregarPokemon(Coordenada(1, 1)) && conductor.puedoAgregarPokemon(Coordenada(2, 2)));
 
-//     conductor.agregarPokemon("Ernesto", Coordenada(2, 2));
+    // conductor.agregarPokemon("Ernesto", Coordenada(2, 2));
 
-//     ASSERT(!conductor.puedoAgregarPokemon(Coordenada(1, 1)) && !conductor.puedoAgregarPokemon(Coordenada(2, 2)));
+    // ASSERT(!conductor.puedoAgregarPokemon(Coordenada(1, 1)) && !conductor.puedoAgregarPokemon(Coordenada(2, 2)));
 
-//     Driver d(mapaTipo1());
+    // Driver d(mapaTipo1());
 
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(0, 1)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(0, 2)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(1, 0)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(1, 1)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(1, 2)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(2, 0)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(2, 1)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(2, 2)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(2, 3)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(2, 4)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(3, 2)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(3, 3)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(3, 4)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(4, 2)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(4, 3)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(4, 4)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(4, 5)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(5, 5)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(5, 6)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(5, 7)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(6, 5)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(6, 6)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(6, 7)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(7, 5)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(7, 6)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(7, 7)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(9, 9)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(0, 1)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(0, 2)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(1, 0)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(1, 1)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(1, 2)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(2, 0)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(2, 1)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(2, 2)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(2, 3)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(2, 4)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(3, 2)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(3, 3)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(3, 4)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(4, 2)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(4, 3)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(4, 4)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(4, 5)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(5, 5)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(5, 6)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(5, 7)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(6, 5)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(6, 6)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(6, 7)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(7, 5)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(7, 6)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(7, 7)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(9, 9)));
 
-//     d.agregarPokemon("{}{}{}{}", Coordenada(3, 4));
+    // d.agregarPokemon("{}{}{}{}", Coordenada(3, 4));
 
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 1)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 0)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 1)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 0)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 1)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 3)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 4)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 3)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 4)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 3)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 4)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 5)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 5)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 6)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 7)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 5)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 6)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 7)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 5)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 6)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(7, 7)));
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(9, 9)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 1)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 0)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 1)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 0)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 1)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 3)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 4)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 3)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 4)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 3)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 4)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 5)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 5)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 6)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 7)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 5)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 6)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 7)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 5)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 6)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(7, 7)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(9, 9)));
 
-//     d.agregarPokemon("{}{}{}{}", Coordenada(7, 7));
+    // d.agregarPokemon("{}{}{}{}", Coordenada(7, 7));
 
-//     ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 1)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 0)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 1)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 0)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 1)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 3)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 4)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 3)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 4)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 3)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 4)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 5)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 5)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 6)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 7)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 5)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 6)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 7)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 5)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 6)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 7)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(9, 9)));
+    // ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 1)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 0)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 1)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 0)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 1)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 3)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 4)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 3)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 4)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 3)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 4)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 5)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 5)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 6)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 7)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 5)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 6)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 7)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 5)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 6)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 7)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(9, 9)));
 
-//     d.agregarPokemon("Rigoberto", Coordenada(0, 0));
+    // d.agregarPokemon("Rigoberto", Coordenada(0, 0));
 
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 0)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 1)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 0)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 1)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 0)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 1)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 3)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 4)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 3)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 4)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 2)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 3)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 4)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 5)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 5)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 6)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 7)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 5)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 6)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 7)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 5)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 6)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 7)));
-//     ASSERT(!d.puedoAgregarPokemon(Coordenada(9, 9)));
-// }
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 0)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 1)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 0)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 1)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(1, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 0)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 1)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 3)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(2, 4)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 3)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(3, 4)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 2)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 3)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 4)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(4, 5)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 5)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 6)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(5, 7)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 5)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 6)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 7)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 5)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 6)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(7, 7)));
+    // ASSERT(!d.puedoAgregarPokemon(Coordenada(9, 9)));
+}
 
 // Esto se va a poner feo
 void test_agregar_pokemones_sinJugs(){
@@ -479,7 +475,7 @@ void test_posPokeCercano() {
 }
 
 void test_movimientosParaCaptura() {
-	Driver d(mapaTipo1());
+    Driver d(mapaTipo1());
     d.agregarPokemon("Gandalf", Coordenada(0,0));
     Jugador frodo = d.agregarJugador();
     // Inicialmente cantMovs esta en 0
@@ -522,7 +518,7 @@ void test_capturarSeEliminaElPokemon() {
 
     d.conectarse(AshSalsaGolf, Coordenada(2, 2));
     d.conectarse(AshAdhereso, Coordenada(2, 1));
-	
+    
     ASSERT(d.pokemons(AshAdhereso).CantClaves() == 0);
 
     ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 0);
@@ -575,27 +571,27 @@ void test_jugadorCorrectoEsQuienCaptura() {
 
     d.moverse(ID_2, Coordenada(0, 0));
 
-	ASSERT(d.cantMovimientosParaCaptura(Coordenada(5, 5)) == 1);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(5, 5)) == 1);
 
-	d.conectarse(ID_0, Coordenada(5, 7));
+    d.conectarse(ID_0, Coordenada(5, 7));
 
-	ASSERT(d.cantMovimientosParaCaptura(Coordenada(5, 5)) == 0);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(5, 5)) == 0);
 
-	d.moverse(ID_2, Coordenada(0, 0));
-	d.moverse(ID_2, Coordenada(0, 0));
-	d.moverse(ID_2, Coordenada(0, 0));
-	d.moverse(ID_2, Coordenada(0, 0));
-	d.moverse(ID_2, Coordenada(0, 0));
-	d.moverse(ID_2, Coordenada(0, 0));
-	d.moverse(ID_2, Coordenada(0, 0));
-	d.moverse(ID_2, Coordenada(0, 0));
-	d.moverse(ID_2, Coordenada(0, 0));
+    d.moverse(ID_2, Coordenada(0, 0));
+    d.moverse(ID_2, Coordenada(0, 0));
+    d.moverse(ID_2, Coordenada(0, 0));
+    d.moverse(ID_2, Coordenada(0, 0));
+    d.moverse(ID_2, Coordenada(0, 0));
+    d.moverse(ID_2, Coordenada(0, 0));
+    d.moverse(ID_2, Coordenada(0, 0));
+    d.moverse(ID_2, Coordenada(0, 0));
+    d.moverse(ID_2, Coordenada(0, 0));
 
-	ASSERT(d.cantMovimientosParaCaptura(Coordenada(5, 5)) == 9);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(5, 5)) == 9);
 
-	d.moverse(ID_2, Coordenada(0, 1));
+    d.moverse(ID_2, Coordenada(0, 1));
 
-	ASSERT(!d.hayPokemonCercano(Coordenada(5, 5)));
+    ASSERT(!d.hayPokemonCercano(Coordenada(5, 5)));
     ASSERT(d.puedoAgregarPokemon(Coordenada(5, 5)));
     ASSERT(d.pokemons(ID_0).Definido("Carlitos Bala"));
     ASSERT(d.pokemons(ID_0).Significado("Carlitos Bala") == 1);
@@ -641,7 +637,7 @@ void test_jugadorCorrectoEsQuienCaptura() {
 
     d.conectarse(ID_0, Coordenada(9, 9));
 
-	ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 0);
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(9, 9)) == 0);
 
     d.moverse(ID_1, Coordenada(0, 0));
     d.moverse(ID_1, Coordenada(0, 0));
@@ -909,7 +905,7 @@ void test_capturarContadoresDeTriesEstanBien() {
 
     d.moverse(CapturaAValgrind, Coordenada(0, 2));
 
-	ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);    
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);    
     ASSERT(d.pokemons(Captura2Teletubbies).Definido("Teletubbie violeta"));
     ASSERT(d.pokemons(Captura2Teletubbies).Significado("Teletubbie violeta") == 1);
     ASSERT(d.pokemons(CapturaAValgrind).Definido("Valgrind no me tires errores pls"));
@@ -1055,7 +1051,7 @@ void test_entrenadoresPosibles() {
     ASSERT(e.entrenadoresPosibles(Coordenada(2, 0)).Pertenece(Cache));
     ASSERT(e.entrenadoresPosibles(Coordenada(2, 0)).Pertenece(MaquinaOrga1));
     ASSERT(e.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(Cache));
-	ASSERT(e.entrenadoresPosibles(Coordenada(2, 3)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 3)).Pertenece(MaquinaOrga1));
     ASSERT(e.entrenadoresPosibles(Coordenada(2, 3)).Pertenece(Cache));
     ASSERT(e.entrenadoresPosibles(Coordenada(3, 2)).Pertenece(MaquinaOrga1));
     ASSERT(e.entrenadoresPosibles(Coordenada(3, 2)).Pertenece(Cache));
@@ -1080,7 +1076,7 @@ void test_entrenadoresPosibles() {
     ASSERT(!e.entrenadoresPosibles(Coordenada(2, 0)).Pertenece(Cache));
     ASSERT(e.entrenadoresPosibles(Coordenada(2, 0)).Pertenece(MaquinaOrga1));
     ASSERT(!e.entrenadoresPosibles(Coordenada(2, 2)).Pertenece(Cache));
-	ASSERT(e.entrenadoresPosibles(Coordenada(2, 3)).Pertenece(MaquinaOrga1));
+    ASSERT(e.entrenadoresPosibles(Coordenada(2, 3)).Pertenece(MaquinaOrga1));
     ASSERT(!e.entrenadoresPosibles(Coordenada(2, 3)).Pertenece(Cache));
     ASSERT(e.entrenadoresPosibles(Coordenada(3, 2)).Pertenece(MaquinaOrga1));
     ASSERT(!e.entrenadoresPosibles(Coordenada(3, 2)).Pertenece(Cache));
@@ -1428,7 +1424,7 @@ void test_mover_conPokesYCapturar() {
 }
 
 void test_indice_rareza() {
-	Driver d(mapaTipo1());
+    Driver d(mapaTipo1());
     d.agregarPokemon("pikachu", Coordenada(0,0));
     d.agregarPokemon("rattata", Coordenada(7,7));
 
@@ -1440,7 +1436,7 @@ void test_indice_rareza() {
 }
 
 void test_pokemon_cercano_coor_invalida(){
-	Driver d(mapaTipo1());
+    Driver d(mapaTipo1());
     d.agregarPokemon("pikachu", Coordenada(0, 0));
     ASSERT(!d.hayPokemonCercano(Coordenada(0, 3)));
 }
@@ -1465,6 +1461,7 @@ void test_mov_invalido_con_camino(){
 }
 
 void test_comprobarCoordenadasDelMapa(){
+<<<<<<< HEAD
 	Driver d(mapaTipo1());
 
 	Jugador j0 = d.agregarJugador();
@@ -1975,50 +1972,61 @@ void test_posExistente(){
 	ASSERT(!d.posExistente(Coordenada(0, 0)));
 	ASSERT(!d.posExistente(Coordenada(9990, 546)));
 	ASSERT(!d.posExistente(Coordenada(4, 0)));
+=======
+    ASSERT(false);
+}
+
+void test_hayCamino(){
+    ASSERT(false);
+}
+
+void test_posExistente(){
+    ASSERT(false);
+>>>>>>> ff6d00f... Arregla bug de mapa
 }
 
 void test_jugadoresNoEliminados(){
-	ASSERT(false);
+    ASSERT(false);
 }
 
 void test_posicionJugador(){
-	ASSERT(false);
+    ASSERT(false);
 }
 
 void test_posConPokemon(){
-	ASSERT(false);
+    ASSERT(false);
 }
 
 void test_expulsados(){
-	ASSERT(false);
+    ASSERT(false);
 }
 
 void test_cantMismaEspecie(){
-	ASSERT(false);
+    ASSERT(false);
 }
 
 void test_cantPokemonesTotales(){
-	ASSERT(false);
+    ASSERT(false);
 }
 
 void test_posPokemonCercano(){
-	ASSERT(false);
+    ASSERT(false);
 }
 
 void test_estaConectado(){
-	ASSERT(false);
+    ASSERT(false);
 }
 
 void test_sanciones(){
-	ASSERT(false);
+    ASSERT(false);
 }
 
 void test_pokemonsDelJugador(){
-	ASSERT(false);
+    ASSERT(false);
 }
 
 void test_pokemonEnPos(){
-	ASSERT(false);
+    ASSERT(false);
 }
 
 int main(int argc, char **argv){
@@ -2065,6 +2073,23 @@ int main(int argc, char **argv){
 */ 
 
 	std::cout << "\nPara mí con estos tests ya estaría\n";
+    // RUN_TEST(test_comprobarCoordenadasDelMapa);
+    // RUN_TEST(test_hayCamino);
+    // RUN_TEST(test_posExistente);
+    // RUN_TEST(test_jugadoresNoEliminados);
+    // RUN_TEST(test_estaConectado);
+    // RUN_TEST(test_sanciones);
+    // RUN_TEST(test_posicionJugador);
+    // RUN_TEST(test_pokemonsDelJugador);
+    // RUN_TEST(test_posConPokemon);
+    // RUN_TEST(test_pokemonEnPos);
+    // RUN_TEST(test_expulsados);
+    // RUN_TEST(test_cantMismaEspecie);
+    // RUN_TEST(test_cantPokemonesTotales);
+    // RUN_TEST(test_puedoAgregarPokemon_vol2);
+    // RUN_TEST(test_puedoAgregarPokemon_espia);
+
+    std::cout << "\nPara mí con estos tests ya estaría\n";
 
     return 0;
 }
