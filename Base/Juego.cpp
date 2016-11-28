@@ -764,7 +764,9 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 it.EliminarSiguiente();
                 _pokenodos[x][y] = NULL;
                 delete pokeNodo;
-        } else {
+        } 
+
+        if (it.HaySiguiente()) {
             it.Avanzar();
         }
     }
