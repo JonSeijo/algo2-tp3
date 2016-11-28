@@ -2099,7 +2099,120 @@ void test_expulsados(){
 }
 
 void test_cantMismaEspecie(){
-    ASSERT(false);
+    Driver d(mapaTipo1());
+
+    d.agregarPokemon("Hola", Coordenada(0, 0));
+    d.agregarPokemon("Hola", Coordenada(9, 9));
+    d.agregarPokemon("Hola", Coordenada(5, 5));
+
+    Jugador j0 = d.agregarJugador();
+    Jugador j1 = d.agregarJugador();
+
+    d.conectarse(j0, Coordenada(0, 0));
+    d.conectarse(j1, Coordenada(2, 2));
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+
+    d.agregarPokemon("Hola", Coordenada(0, 0));
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+
+    d.agregarPokemon("Chau", Coordenada(0, 0));
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+
+    d.agregarPokemon("Pepe", Coordenada(0, 0));
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+
+    d.agregarPokemon("Pepe", Coordenada(0, 0));
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+
+    d.agregarPokemon("Pepe", Coordenada(0, 0));
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+
+    ASSERT(d.cantMismaEspecie("Hola") == 4);
+    ASSERT(d.cantMismaEspecie("Pepe") == 3);
+    ASSERT(d.cantMismaEspecie("Chau") == 1);
+
+    d.moverse(j0, Coordenada(111, 111));
+    d.moverse(j0, Coordenada(111, 111));
+    d.moverse(j0, Coordenada(111, 111));
+    d.moverse(j0, Coordenada(111, 111));
+    d.moverse(j0, Coordenada(111, 111));
+
+    ASSERT(d.cantMismaEspecie("Hola") == 2);
+    ASSERT(d.cantMismaEspecie("Pepe") == 0);
+    ASSERT(d.cantMismaEspecie("Chau") == 0);
+
 }
 
 void test_cantPokemonesTotales(){
@@ -2130,7 +2243,7 @@ void test_coordenada_12_1(){
 }
 
 int main(int argc, char **argv){
-    RUN_TEST(test_constructor_con_mapa);
+ /*   RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -2165,8 +2278,8 @@ int main(int argc, char **argv){
 	RUN_TEST(test_posicionJugador);
 	RUN_TEST(test_posConPokemon);
 	RUN_TEST(test_expulsados);
-/*	RUN_TEST(test_cantMismaEspecie);
-	RUN_TEST(test_cantPokemonesTotales);
+*/	RUN_TEST(test_cantMismaEspecie);
+/*	RUN_TEST(test_cantPokemonesTotales);
 	RUN_TEST(test_estaConectado);
 	RUN_TEST(test_sanciones);
 	RUN_TEST(test_pokemonsDelJugador);
