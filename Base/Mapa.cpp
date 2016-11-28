@@ -180,7 +180,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laArriba)) {
-                        if (!this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud].Definido(x)) {
+                        if (!this->_grilla[c.latitud][c.longitud].Definido(x)) {
                             this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         }
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
