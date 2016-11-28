@@ -1827,6 +1827,93 @@ void test_hayCamino(){
 	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(7, 6)));
 	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(7, 7)));
 	ASSERT(!e.hayCamino(Coordenada(2, 2), Coordenada(9, 9)));
+
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(0, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(0, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(0, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(1, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(1, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(1, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(2, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(2, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(2, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(2, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(2, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(3, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(3, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(3, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(4, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(4, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(4, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(4, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(5, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(5, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(5, 7)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(6, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(6, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(6, 7)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(7, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(7, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 3), Coordenada(7, 7)));
+	ASSERT(!e.hayCamino(Coordenada(2, 3), Coordenada(9, 9)));
+
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(0, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(0, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(0, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(1, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(1, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(1, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(2, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(2, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(2, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(2, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(2, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(3, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(3, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(3, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(4, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(4, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(4, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(4, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(5, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(5, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(5, 7)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(6, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(6, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(6, 7)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(7, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(7, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 4), Coordenada(7, 7)));
+	ASSERT(!e.hayCamino(Coordenada(2, 4), Coordenada(9, 9)));
+
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(0, 0)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(0, 1)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(0, 2)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(1, 0)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(1, 1)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(1, 2)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(2, 0)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(2, 1)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(2, 2)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(2, 3)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(2, 4)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(3, 2)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(3, 3)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(3, 4)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(4, 2)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(4, 3)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(4, 4)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(4, 5)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(5, 5)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(5, 6)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(5, 7)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(6, 5)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(6, 6)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(6, 7)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(7, 5)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(7, 6)));
+	ASSERT(!e.hayCamino(Coordenada(9, 9), Coordenada(7, 7)));
+	ASSERT(e.hayCamino(Coordenada(9, 9), Coordenada(9, 9)));
 }
 
 void test_posExistente(){
@@ -1878,7 +1965,7 @@ void test_pokemonEnPos(){
 }
 
 int main(int argc, char **argv){
- /*   RUN_TEST(test_constructor_con_mapa);
+    RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -1905,9 +1992,9 @@ int main(int argc, char **argv){
     RUN_TEST(test_mover_conPokes);
     RUN_TEST(test_mover_conPokesYCapturar);
     RUN_TEST(test_comprobarCoordenadasDelMapa);
-*/
     RUN_TEST(test_hayCamino);
-/*	RUN_TEST(test_posExistente);
+/*
+	RUN_TEST(test_posExistente);
 	RUN_TEST(test_jugadoresNoEliminados);
 	RUN_TEST(test_estaConectado);
 	RUN_TEST(test_sanciones);
@@ -1918,8 +2005,8 @@ int main(int argc, char **argv){
 	RUN_TEST(test_expulsados);
 	RUN_TEST(test_cantMismaEspecie);
 	RUN_TEST(test_cantPokemonesTotales);
-
-	std::cout << "\nPara mí con estos tests ya estaría\n";
 */
+	std::cout << "\nPara mí con estos tests ya estaría\n";
+
     return 0;
 }
