@@ -54,6 +54,7 @@ void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){
     _cantPokemonesTotales++;
 
     // Se agregua el pokemon al conjunto.
+    _posPokemons.AgregarRapido(c);
 
 
     // Se aumenta en uno la cantidad de la misma especie.
@@ -62,9 +63,6 @@ void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){
         _cantPokemon.Definir(p, cant + 1);
     } else {
         _cantPokemon.Definir(p, 1);
-        // Se agregua el pokemon al conjunto.
-
-        _posPokemons.AgregarRapido(c);
 
     }
 
