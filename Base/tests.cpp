@@ -1417,11 +1417,415 @@ void test_mov_invalido_con_camino(){
 }
 
 void test_comprobarCoordenadasDelMapa(){
-	ASSERT(false);
+	Driver d(mapaTipo1());
+
+	Jugador j0 = d.agregarJugador();
+	d.agregarPokemon("Pikachu", Coordenada(1, 1));
+	d.conectarse(j0, Coordenada(1, 1));
+
+	ASSERT(d.mapa().Pertenece(Coordenada(0, 0)));
+	ASSERT(d.mapa().Pertenece(Coordenada(0, 1)));
+	ASSERT(d.mapa().Pertenece(Coordenada(0, 2)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(0, 3)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(0, 4)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(0, 5)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(0, 6)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(0, 7)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(0, 8)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(0, 9)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(0, 10)));
+
+	ASSERT(d.mapa().Pertenece(Coordenada(1, 0)));
+	ASSERT(d.mapa().Pertenece(Coordenada(1, 1)));
+	ASSERT(d.mapa().Pertenece(Coordenada(1, 2)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(1, 3)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(1, 4)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(1, 5)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(1, 6)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(1, 7)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(1, 8)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(1, 9)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(1, 10)));
+
+	ASSERT(d.mapa().Pertenece(Coordenada(2, 0)));
+	ASSERT(d.mapa().Pertenece(Coordenada(2, 1)));
+	ASSERT(d.mapa().Pertenece(Coordenada(2, 2)));
+	ASSERT(d.mapa().Pertenece(Coordenada(2, 3)));
+	ASSERT(d.mapa().Pertenece(Coordenada(2, 4)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(2, 5)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(2, 6)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(2, 7)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(2, 8)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(2, 9)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(2, 10)));
+
+	ASSERT(!d.mapa().Pertenece(Coordenada(3, 0)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(3, 1)));
+	ASSERT(d.mapa().Pertenece(Coordenada(3, 2)));
+	ASSERT(d.mapa().Pertenece(Coordenada(3, 3)));
+	ASSERT(d.mapa().Pertenece(Coordenada(3, 4)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(3, 5)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(3, 6)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(3, 7)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(3, 8)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(3, 9)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(3, 10)));
+
+	ASSERT(!d.mapa().Pertenece(Coordenada(4, 0)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(4, 1)));
+	ASSERT(d.mapa().Pertenece(Coordenada(4, 2)));
+	ASSERT(d.mapa().Pertenece(Coordenada(4, 3)));
+	ASSERT(d.mapa().Pertenece(Coordenada(4, 4)));
+	ASSERT(d.mapa().Pertenece(Coordenada(4, 5)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(4, 6)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(4, 7)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(4, 8)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(4, 9)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(4, 10)));
+
+	ASSERT(!d.mapa().Pertenece(Coordenada(5, 0)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(5, 1)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(5, 2)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(5, 3)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(5, 4)));
+	ASSERT(d.mapa().Pertenece(Coordenada(5, 5)));
+	ASSERT(d.mapa().Pertenece(Coordenada(5, 6)));
+	ASSERT(d.mapa().Pertenece(Coordenada(5, 7)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(5, 8)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(5, 9)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(5, 10)));
+
+	ASSERT(!d.mapa().Pertenece(Coordenada(6, 0)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(6, 1)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(6, 2)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(6, 3)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(6, 4)));
+	ASSERT(d.mapa().Pertenece(Coordenada(6, 5)));
+	ASSERT(d.mapa().Pertenece(Coordenada(6, 6)));
+	ASSERT(d.mapa().Pertenece(Coordenada(6, 7)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(6, 8)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(6, 9)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(6, 10)));
+
+	ASSERT(!d.mapa().Pertenece(Coordenada(7, 0)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(7, 1)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(7, 2)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(7, 3)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(7, 4)));
+	ASSERT(d.mapa().Pertenece(Coordenada(7, 5)));
+	ASSERT(d.mapa().Pertenece(Coordenada(7, 6)));
+	ASSERT(d.mapa().Pertenece(Coordenada(7, 7)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(7, 8)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(7, 9)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(7, 10)));
+
+	ASSERT(!d.mapa().Pertenece(Coordenada(8, 0)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(8, 1)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(8, 2)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(8, 3)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(8, 4)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(8, 5)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(8, 6)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(8, 7)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(8, 8)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(8, 9)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(8, 10)));
+
+	ASSERT(!d.mapa().Pertenece(Coordenada(9, 0)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(9, 1)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(9, 2)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(9, 3)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(9, 4)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(9, 5)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(9, 6)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(9, 7)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(9, 8)));
+	ASSERT(d.mapa().Pertenece(Coordenada(9, 9)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(9, 10)));
+
+	ASSERT(!d.mapa().Pertenece(Coordenada(10, 0)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(10, 1)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(10, 2)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(10, 3)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(10, 4)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(10, 5)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(10, 6)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(10, 7)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(10, 8)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(10, 9)));
+	ASSERT(!d.mapa().Pertenece(Coordenada(10, 10)));
 }
 
 void test_hayCamino(){
-	ASSERT(false);
+	Driver d(mapaTipo0());
+
+	ASSERT(!d.hayCamino(Coordenada(1, 1), Coordenada(2, 2)));
+	ASSERT(!d.hayCamino(Coordenada(2, 2), Coordenada(1, 1)));
+	ASSERT(d.hayCamino(Coordenada(1, 1), Coordenada(1, 1)));
+	ASSERT(d.hayCamino(Coordenada(2, 2), Coordenada(2, 2)));
+
+	Driver e(mapaTipo1());
+
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(0, 0)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(0, 1)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(0, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(1, 0)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(1, 1)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(1, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(2, 0)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(2, 1)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(2, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(2, 3)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(2, 4)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(3, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(3, 3)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(3, 4)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(4, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(4, 3)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(4, 4)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(4, 5)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(5, 5)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(5, 6)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(5, 7)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(6, 5)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(6, 6)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(6, 7)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(7, 5)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(7, 6)));
+	ASSERT(e.hayCamino(Coordenada(0, 0), Coordenada(7, 7)));
+	ASSERT(!e.hayCamino(Coordenada(0, 0), Coordenada(9, 9)));
+
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(0, 0)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(0, 1)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(0, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(1, 0)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(1, 1)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(1, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(2, 0)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(2, 1)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(2, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(2, 3)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(2, 4)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(3, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(3, 3)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(3, 4)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(4, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(4, 3)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(4, 4)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(4, 5)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(5, 5)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(5, 6)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(5, 7)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(6, 5)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(6, 6)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(6, 7)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(7, 5)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(7, 6)));
+	ASSERT(e.hayCamino(Coordenada(0, 1), Coordenada(7, 7)));
+	ASSERT(!e.hayCamino(Coordenada(0, 1), Coordenada(9, 9)));
+
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(0, 0)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(0, 1)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(0, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(1, 0)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(1, 1)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(1, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(2, 0)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(2, 1)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(2, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(2, 3)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(2, 4)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(3, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(3, 3)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(3, 4)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(4, 2)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(4, 3)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(4, 4)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(4, 5)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(5, 5)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(5, 6)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(5, 7)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(6, 5)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(6, 6)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(6, 7)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(7, 5)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(7, 6)));
+	ASSERT(e.hayCamino(Coordenada(0, 2), Coordenada(7, 7)));
+	ASSERT(!e.hayCamino(Coordenada(0, 2), Coordenada(9, 9)));
+
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(0, 0)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(0, 1)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(0, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(1, 0)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(1, 1)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(1, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(2, 0)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(2, 1)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(2, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(2, 3)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(2, 4)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(3, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(3, 3)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(3, 4)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(4, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(4, 3)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(4, 4)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(4, 5)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(5, 5)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(5, 6)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(5, 7)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(6, 5)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(6, 6)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(6, 7)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(7, 5)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(7, 6)));
+	ASSERT(e.hayCamino(Coordenada(1, 0), Coordenada(7, 7)));
+	ASSERT(!e.hayCamino(Coordenada(1, 0), Coordenada(9, 9)));
+
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(0, 0)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(0, 1)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(0, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(1, 0)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(1, 1)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(1, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(2, 0)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(2, 1)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(2, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(2, 3)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(2, 4)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(3, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(3, 3)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(3, 4)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(4, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(4, 3)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(4, 4)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(4, 5)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(5, 5)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(5, 6)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(5, 7)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(6, 5)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(6, 6)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(6, 7)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(7, 5)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(7, 6)));
+	ASSERT(e.hayCamino(Coordenada(1, 1), Coordenada(7, 7)));
+	ASSERT(!e.hayCamino(Coordenada(1, 1), Coordenada(9, 9)));
+
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(0, 0)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(0, 1)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(0, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(1, 0)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(1, 1)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(1, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(2, 0)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(2, 1)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(2, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(2, 3)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(2, 4)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(3, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(3, 3)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(3, 4)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(4, 2)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(4, 3)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(4, 4)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(4, 5)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(5, 5)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(5, 6)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(5, 7)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(6, 5)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(6, 6)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(6, 7)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(7, 5)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(7, 6)));
+	ASSERT(e.hayCamino(Coordenada(1, 2), Coordenada(7, 7)));
+	ASSERT(!e.hayCamino(Coordenada(1, 2), Coordenada(9, 9)));
+
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(0, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(0, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(0, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(1, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(1, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(1, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(2, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(2, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(2, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(2, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(2, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(3, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(3, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(3, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(4, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(4, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(4, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(4, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(5, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(5, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(5, 7)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(6, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(6, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(6, 7)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(7, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(7, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 0), Coordenada(7, 7)));
+	ASSERT(!e.hayCamino(Coordenada(2, 0), Coordenada(9, 9)));
+
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(0, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(0, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(0, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(1, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(1, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(1, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(2, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(2, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(2, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(2, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(2, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(3, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(3, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(3, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(4, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(4, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(4, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(4, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(5, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(5, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(5, 7)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(6, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(6, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(6, 7)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(7, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(7, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 1), Coordenada(7, 7)));
+	ASSERT(!e.hayCamino(Coordenada(2, 1), Coordenada(9, 9)));
+
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(0, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(0, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(0, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(1, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(1, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(1, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(2, 0)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(2, 1)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(2, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(2, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(2, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(3, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(3, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(3, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(4, 2)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(4, 3)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(4, 4)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(4, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(5, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(5, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(5, 7)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(6, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(6, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(6, 7)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(7, 5)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(7, 6)));
+	ASSERT(e.hayCamino(Coordenada(2, 2), Coordenada(7, 7)));
+	ASSERT(!e.hayCamino(Coordenada(2, 2), Coordenada(9, 9)));
 }
 
 void test_posExistente(){
@@ -1473,7 +1877,7 @@ void test_pokemonEnPos(){
 }
 
 int main(int argc, char **argv){
-    RUN_TEST(test_constructor_con_mapa);
+ /*   RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -1499,10 +1903,10 @@ int main(int argc, char **argv){
     RUN_TEST(test_eliminarDeJuego);
     RUN_TEST(test_mover_conPokes);
     RUN_TEST(test_mover_conPokesYCapturar);
-
     RUN_TEST(test_comprobarCoordenadasDelMapa);
+*/
     RUN_TEST(test_hayCamino);
-	RUN_TEST(test_posExistente);
+/*	RUN_TEST(test_posExistente);
 	RUN_TEST(test_jugadoresNoEliminados);
 	RUN_TEST(test_estaConectado);
 	RUN_TEST(test_sanciones);
@@ -1515,6 +1919,6 @@ int main(int argc, char **argv){
 	RUN_TEST(test_cantPokemonesTotales);
 
 	std::cout << "\nPara mí con estos tests ya estaría\n";
-
+*/
     return 0;
 }
