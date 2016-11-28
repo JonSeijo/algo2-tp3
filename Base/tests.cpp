@@ -2049,6 +2049,18 @@ void test_posicionJugador(){
 
 void test_posConPokemon(){
     Driver d(mapaTipo1());
+
+    d.agregarPokemon("La puta madre cuando vamos a pasar los tests de la catedra", Coordenada(0, 0));
+
+    ASSERT(d.posConPokemons().Pertenece(Coordenada(0, 0)));
+
+    d.agregarPokemon("La puta madre cuando vamos a pasar los tests de la catedra", Coordenada(4, 4));
+
+    d.agregarPokemon("La puta madre cuando vamos a pasar los tests de la catedra", Coordenada(9, 9));
+
+    ASSERT(d.posConPokemons().Pertenece(Coordenada(0, 0)));
+    ASSERT(d.posConPokemons().Pertenece(Coordenada(4, 4)));
+    ASSERT(d.posConPokemons().Pertenece(Coordenada(9, 9)));
 }
 
 void test_expulsados(){
@@ -2087,7 +2099,7 @@ void test_coordenada_12_1(){
 }
 
 int main(int argc, char **argv){
-    RUN_TEST(test_constructor_con_mapa);
+/*  RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -2120,8 +2132,8 @@ int main(int argc, char **argv){
     RUN_TEST(test_puedoAgregarPokemon_espia);
 	RUN_TEST(test_jugadoresNoEliminados);
 	RUN_TEST(test_posicionJugador);
-/*	RUN_TEST(test_posConPokemon);
-	RUN_TEST(test_expulsados);
+*/	RUN_TEST(test_posConPokemon);
+/*	RUN_TEST(test_expulsados);
 	RUN_TEST(test_cantMismaEspecie);
 	RUN_TEST(test_cantPokemonesTotales);
 	RUN_TEST(test_estaConectado);
