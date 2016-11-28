@@ -71,10 +71,7 @@ void test_constructor_con_mapa() {
     cc.Agregar(Coordenada(10,0));
     cc.Agregar(Coordenada(1,4));
     Driver d(cc);
-
-    std::cout << "\ncc:" << cc << "\n";
-    std::cout << "map:" << d.mapa() << "\n";
-
+    
     ASSERT(d.mapa() == cc);
 
     ASSERT(d.posConPokemons().EsVacio());
@@ -1205,11 +1202,11 @@ int main(int argc, char **argv){
     RUN_TEST(test_sancionar_conpokerango);
  
     RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
-  //  RUN_TEST(test_capturarJugadorTieneNuevoPoke);
+   RUN_TEST(test_capturarJugadorTieneNuevoPoke);
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
 
-    RUN_TEST(test_mov_invalido_con_camino);
-    RUN_TEST(test_eliminarDeJuego);
+    // RUN_TEST(test_mov_invalido_con_camino);
+    // RUN_TEST(test_eliminarDeJuego);
     
   /*  RUN_TEST(test_mover_conPokes);
     RUN_TEST(test_mover_conPokesYCapturar);
