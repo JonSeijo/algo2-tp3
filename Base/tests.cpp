@@ -1415,7 +1415,6 @@ void test_mov_invalido_con_camino(){
 
     ASSERT(d.sanciones(maestroPokemon) == 1);
 }
-// TODO: Agregar más tests
 
 void test_comprobarCoordenadasDelMapa(){
 	ASSERT(false);
@@ -1457,6 +1456,21 @@ void test_posPokemonCercano(){
 	ASSERT(false);
 }
 
+void test_estaConectado(){
+	ASSERT(false);
+}
+
+void test_sanciones(){
+	ASSERT(false);
+}
+
+void test_pokemonsDelJugador(){
+	ASSERT(false);
+}
+
+void test_pokemonEnPos(){
+	ASSERT(false);
+}
 
 int main(int argc, char **argv){
     RUN_TEST(test_constructor_con_mapa);
@@ -1476,39 +1490,31 @@ int main(int argc, char **argv){
     RUN_TEST(test_mover_sinPokes);
     RUN_TEST(test_mover_sinPokesYSancionar);
     RUN_TEST(test_capturarSeEliminaElPokemon);
-
     RUN_TEST(test_sancionar_simple);
     RUN_TEST(test_sancionar_conpokerango);
- 
     RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
     RUN_TEST(test_capturarJugadorTieneNuevoPoke);
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
-
     RUN_TEST(test_mov_invalido_con_camino);
     RUN_TEST(test_eliminarDeJuego);
-    
     RUN_TEST(test_mover_conPokes);
     RUN_TEST(test_mover_conPokesYCapturar);
 
     RUN_TEST(test_comprobarCoordenadasDelMapa);
-
     RUN_TEST(test_hayCamino);
-
 	RUN_TEST(test_posExistente);
-
 	RUN_TEST(test_jugadoresNoEliminados);
-
+	RUN_TEST(test_estaConectado);
+	RUN_TEST(test_sanciones);
 	RUN_TEST(test_posicionJugador);
-
+	RUN_TEST(test_pokemonsDelJugador);
 	RUN_TEST(test_posConPokemon);
-
+	RUN_TEST(test_pokemonEnPos);
 	RUN_TEST(test_expulsados);
-
 	RUN_TEST(test_cantMismaEspecie);
-
 	RUN_TEST(test_cantPokemonesTotales);
 
-	RUN_TEST(test_posPokemonCercano);
+	std::cout << "\nPara mí con estos tests ya estaría\n";
 
     return 0;
 }
