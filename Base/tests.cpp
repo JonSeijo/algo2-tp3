@@ -2064,7 +2064,38 @@ void test_posConPokemon(){
 }
 
 void test_expulsados(){
-    ASSERT(false);
+    Driver d(mapa_12_1());
+
+    Jugador BotDejaDeCiclar = d.agregarJugador();
+    Jugador PipoArgenti = d.agregarJugador();
+    Jugador Ola = d.agregarJugador();
+
+    d.conectarse(Ola, Coordenada(12, 1));
+    d.conectarse(PipoArgenti, Coordenada(12, 1));
+    d.conectarse(BotDejaDeCiclar, Coordenada(12, 1));
+
+    d.moverse(Ola, Coordenada(121351, 9001234));
+    d.moverse(BotDejaDeCiclar, Coordenada(88888, 88888));
+    d.moverse(Ola, Coordenada(121351, 9001234));
+    d.moverse(BotDejaDeCiclar, Coordenada(88888, 88888));
+    d.moverse(Ola, Coordenada(121351, 9001234));
+    d.moverse(BotDejaDeCiclar, Coordenada(88888, 88888));
+    d.moverse(Ola, Coordenada(121351, 9001234));
+    d.moverse(BotDejaDeCiclar, Coordenada(88888, 88888));
+    d.moverse(Ola, Coordenada(121351, 9001234));
+    d.moverse(BotDejaDeCiclar, Coordenada(88888, 88888));
+
+    Conj<Jugador> cj(d.jugadores());
+
+    ASSERT(cj.Pertenece(PipoArgenti));
+    ASSERT(!cj.Pertenece(BotDejaDeCiclar));
+    ASSERT(!cj.Pertenece(Ola));
+
+    ASSERT(d.expulsados().Pertenece(Ola));
+    ASSERT(d.expulsados().Pertenece(BotDejaDeCiclar));
+    ASSERT(!d.expulsados().Pertenece(PipoArgenti));
+
+
 }
 
 void test_cantMismaEspecie(){
@@ -2133,8 +2164,8 @@ int main(int argc, char **argv){
 	RUN_TEST(test_jugadoresNoEliminados);
 	RUN_TEST(test_posicionJugador);
 	RUN_TEST(test_posConPokemon);
-/*	RUN_TEST(test_expulsados);
-	RUN_TEST(test_cantMismaEspecie);
+	RUN_TEST(test_expulsados);
+/*	RUN_TEST(test_cantMismaEspecie);
 	RUN_TEST(test_cantPokemonesTotales);
 	RUN_TEST(test_estaConectado);
 	RUN_TEST(test_sanciones);
