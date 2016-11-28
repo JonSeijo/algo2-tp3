@@ -62,6 +62,15 @@ Conj<Coordenada> mapaTipo1() {
     return cc;
 }
 
+Conj<Coordenada> mapa_12_1(){
+	Conj<Coordenada> cc;
+	ag(cc, 5, 5);
+	ag(cc, 12, 2);
+	ag(cc, 12, 1);
+
+	return cc;
+}
+
 void test_constructor_con_mapa() {
     Conj<Coordenada> cc;
     cc.Agregar(Coordenada(0,0));
@@ -2039,7 +2048,7 @@ void test_posicionJugador(){
 }
 
 void test_posConPokemon(){
-    ASSERT(false);
+    Driver d(mapaTipo1());
 }
 
 void test_expulsados(){
@@ -2068,6 +2077,13 @@ void test_pokemonsDelJugador(){
 
 void test_pokemonEnPos(){
     ASSERT(false);
+}
+
+void test_coordenada_12_1(){
+	Driver d(mapa_12_1());
+
+	ASSERT(d.posExistente(Coordenada(12, 1)));
+	ASSERT(d.puedoAgregarPokemon(Coordenada(12, 1)));
 }
 
 int main(int argc, char **argv){
@@ -2112,7 +2128,7 @@ int main(int argc, char **argv){
 	RUN_TEST(test_sanciones);
 	RUN_TEST(test_pokemonsDelJugador);
 	RUN_TEST(test_pokemonEnPos);
-*/ 
+*/  RUN_TEST(test_coordenada_12_1);
 
 	std::cout << "\nPara mí con estos tests ya estaría\n";
 
