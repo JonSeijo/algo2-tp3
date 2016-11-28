@@ -435,13 +435,22 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
 }
 
 bool Juego::PuedoAgregarPokemon(const Coordenada& c) const{
-    // Si la posicion existe en el mapa.
-    bool puedo = _mapa->PosExistente(c);
 
-    // Y no hay un pokemon cerca.
-    puedo &= !HayPokemonEnTerritorioRango5(c);
+    if (!_mapa->PosExistente(c)) {
+        return false;
+    }
 
-    return puedo;
+    // Conj<Coordenada>::const_Iterador iter = this->PosConPokemons().CrearIt();
+    // while (iter.HaySiguiente()) {
+    //     if (distEuclidea(c, iter.Siguiente()) <= 25) {
+    //         return false;
+    //     }
+    //     iter.Avanzar();
+    // }
+    // return true;
+
+
+    return _mapa->PosExistente(c) && !HayPokemonEnTerritorioRango5(c);
 }
 
 
@@ -849,11 +858,11 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
     //En teoría PosExistente se fija si se pasa del tamaño del mapa.
     if(x < 5){
         if(y < 5){
-            //std::cout << "Entre al caso 1" << std::endl;
-            for(Nat i = 0; i <= x + 4; i++){
-                for(Nat j = 0; j <= y + 4; j++){
+            std::cout << "Entre al caso 1" << std::endl;
+            for(Nat i = 0; i <= x + 5; i++){
+                for(Nat j = 0; j <= y + 5; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
-                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) < 25){
+                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
                         }
                     }
@@ -861,11 +870,11 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             }
         }
         else{
-            //std::cout << "Entre al caso 2" << std::endl;
-            for(Nat i = 0; i <= x + 4; i++){
-                for(Nat j = y - 4; j <= y + 4; j++){
+            std::cout << "Entre al caso 2" << std::endl;
+            for(Nat i = 0; i <= x + 5; i++){
+                for(Nat j = y - 5; j <= y + 5; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
-                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) < 25){
+                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
                         }
                     }
@@ -875,11 +884,11 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
     }
     else{
         if(y < 5){
-            //std::cout << "Entre al caso 3" << std::endl;
-            for(Nat i = x - 4; i <= x + 4; i++){
-                for(Nat j = 0; j <= y + 4; j++){
+            std::cout << "Entre al caso 3" << std::endl;
+            for(Nat i = x - 5; i <= x + 5; i++){
+                for(Nat j = 0; j <= y + 5; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
-                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) < 25){
+                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
                         }
                     }
@@ -887,11 +896,11 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
             }
         }
         else{
-            //std::cout << "Entre al caso 4" << std::endl;
-            for(Nat i = x - 4; i <= x + 4; i++){
-                for(Nat j = y - 4; j <= y + 4; j++){
+            std::cout << "Entre al caso 4" << std::endl;
+            for(Nat i = x - 5; i <= x + 5; i++){
+                for(Nat j = y - 5; j <= y + 5; j++){
                     if(this -> _mapa -> PosExistente(Coordenada(i, j))){
-                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) < 25){
+                        if(this -> _pokenodos[i][j] != NULL && distEuclidea(Coordenada(x, y), Coordenada(i, j)) <= 25){
                             return true;
                         }
                     }
