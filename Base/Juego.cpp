@@ -626,6 +626,8 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         if(it.HaySiguiente()){
             it.Avanzar();
+        }else {
+            break;
         }
     }
 
@@ -666,6 +668,8 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         if(it.HaySiguiente()){
             it.Avanzar();
+        }else {
+            break;
         }
     }
 }
@@ -718,6 +722,8 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         if(it.HaySiguiente()){
             it.Avanzar();
+        }else {
+            break;
         }
     }
 }
@@ -821,6 +827,8 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         if(it.HaySiguiente()){
             it.Avanzar();
+        }else {
+            break;
         }
     }
 
