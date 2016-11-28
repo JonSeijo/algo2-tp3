@@ -1917,7 +1917,17 @@ void test_hayCamino(){
 }
 
 void test_posExistente(){
-	ASSERT(false);
+	Driver d(mapaTipo0());
+
+	ASSERT(d.posExistente(Coordenada(1, 1)));
+	ASSERT(d.posExistente(Coordenada(2, 2)));
+	ASSERT(!d.posExistente(Coordenada(0, 1)));
+	ASSERT(!d.posExistente(Coordenada(0, 2)));
+	ASSERT(!d.posExistente(Coordenada(1, 0)));
+	ASSERT(!d.posExistente(Coordenada(1, 2)));
+	ASSERT(!d.posExistente(Coordenada(0, 0)));
+	ASSERT(!d.posExistente(Coordenada(9990, 546)));
+	ASSERT(!d.posExistente(Coordenada(4, 0)));
 }
 
 void test_jugadoresNoEliminados(){
@@ -1993,9 +2003,9 @@ int main(int argc, char **argv){
     RUN_TEST(test_mover_conPokesYCapturar);
     RUN_TEST(test_comprobarCoordenadasDelMapa);
     RUN_TEST(test_hayCamino);
-/*
 	RUN_TEST(test_posExistente);
-	RUN_TEST(test_jugadoresNoEliminados);
+
+/*	RUN_TEST(test_jugadoresNoEliminados);
 	RUN_TEST(test_estaConectado);
 	RUN_TEST(test_sanciones);
 	RUN_TEST(test_posicionJugador);
