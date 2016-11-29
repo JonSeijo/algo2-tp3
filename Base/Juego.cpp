@@ -100,6 +100,8 @@ Nat Juego::AgregarJugador(){
 
     _jugadores.AgregarAtras(e);
 
+    _jugadores[proxId]._conectado = false;
+
     return proxId;
 }
 

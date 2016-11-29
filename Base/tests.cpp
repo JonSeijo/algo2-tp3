@@ -2354,7 +2354,74 @@ void test_cantPokemonesTotales(){
 }
 
 void test_estaConectado(){
-    ASSERT(false);
+    Driver d(mapaTipo0());
+
+    Jugador Pikachu = d.agregarJugador();
+    Jugador Charmander = d.agregarJugador();
+    Jugador Charizard = d.agregarJugador();
+    Jugador Bolbasor = d.agregarJugador();
+
+    d.agregarPokemon("AshKetchup", Coordenada(1, 1));
+
+    //El universo es muy confuso realmente
+
+    ASSERT(!d.estaConectado(Pikachu));
+    ASSERT(!d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(!d.estaConectado(Bolbasor));
+
+    d.conectarse(Pikachu, Coordenada(2, 2));
+
+    ASSERT(d.estaConectado(Pikachu));
+    ASSERT(!d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(!d.estaConectado(Bolbasor));
+
+    d.conectarse(Charmander, Coordenada(2, 2));
+
+    ASSERT(d.estaConectado(Pikachu));
+    ASSERT(d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(!d.estaConectado(Bolbasor));
+
+    d.conectarse(Bolbasor, Coordenada(2, 2));
+
+    ASSERT(d.estaConectado(Pikachu));
+    ASSERT(d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(d.estaConectado(Bolbasor));
+
+    d.desconectarse(Charmander);
+
+    ASSERT(d.estaConectado(Pikachu));
+    ASSERT(!d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(d.estaConectado(Bolbasor));
+
+    d.desconectarse(Pikachu);
+
+    ASSERT(!d.estaConectado(Pikachu));
+    ASSERT(!d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(d.estaConectado(Bolbasor));
+
+    d.conectarse(Pikachu, Coordenada(2, 2));
+
+    ASSERT(d.estaConectado(Pikachu));
+    ASSERT(!d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(d.estaConectado(Bolbasor));
+
+    d.moverse(Pikachu, Coordenada(1, 1));
+    d.moverse(Pikachu, Coordenada(1, 1));
+    d.moverse(Pikachu, Coordenada(1, 1));
+    d.moverse(Pikachu, Coordenada(1, 1));
+    d.moverse(Pikachu, Coordenada(1, 1));
+
+    ASSERT(!d.estaConectado(Pikachu));
+    ASSERT(!d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(d.estaConectado(Bolbasor));
 }
 
 void test_sanciones(){
@@ -2377,7 +2444,7 @@ void test_coordenada_12_1(){
 }
 
 int main(int argc, char **argv){
- /*   RUN_TEST(test_constructor_con_mapa);
+    RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -2412,11 +2479,11 @@ int main(int argc, char **argv){
 	RUN_TEST(test_posicionJugador);
 	RUN_TEST(test_posConPokemon);
 	RUN_TEST(test_expulsados);
-/*	RUN_TEST(test_cantMismaEspecie);
-*/	RUN_TEST(test_cantPokemonesTotales);
-/*	RUN_TEST(test_estaConectado);
-	RUN_TEST(test_sanciones);
-	RUN_TEST(test_pokemonsDelJugador);
+	RUN_TEST(test_cantMismaEspecie);
+	RUN_TEST(test_cantPokemonesTotales);
+	RUN_TEST(test_estaConectado);
+//	RUN_TEST(test_sanciones);
+/*	RUN_TEST(test_pokemonsDelJugador);
 	RUN_TEST(test_pokemonEnPos);
 */  RUN_TEST(test_coordenada_12_1);
 
