@@ -2435,9 +2435,9 @@ void test_pokemonsDelJugador(){
 void test_pokemonEnPos(){
     Driver d(mapaTipo0());
 
-    d.agregarPokemon("POR QUE NO PASAS LOS TESTS LA RE CONCHA DE TU MADRE", Coordenada(2, 2));
+    d.agregarPokemon("POR QUE NO PASAS LOS TESTS", Coordenada(2, 2));
 
-    ASSERT(d.pokemonEnPos(Coordenada(2, 2)) == "POR QUE NO PASAS LOS TESTS LA RE CONCHA DE TU MADRE");
+    ASSERT(d.pokemonEnPos(Coordenada(2, 2)) == "POR QUE NO PASAS LOS TESTS");
 }
 
 void test_coordenada_12_1(){
