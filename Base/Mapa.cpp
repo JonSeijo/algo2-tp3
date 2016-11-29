@@ -237,13 +237,11 @@ bool Mapa::def(
     return grilla.Definido(x) && 
         grilla[x].Definido(y) &&
         grilla[x][y].Definido(z) &&
-        grilla[x][y][z].Definido(w) &&
-        grilla[x][y][z][w];
+        grilla[x][y][z].Definido(w);
 }
 
 bool Mapa::HayCamino(const Coordenada &c1, const Coordenada &c2) const{
-    return this->def(this->_grilla, c1.latitud, c1.longitud, c2.latitud, c2.longitud) &&
-        this->_grilla[c1.latitud][c1.longitud][c2.latitud][c2.longitud];
+    return this->def(this->_grilla, c1.latitud, c1.longitud, c2.latitud, c2.longitud);
 }
 
 Nat Mapa::Tam() const{

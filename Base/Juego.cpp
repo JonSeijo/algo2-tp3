@@ -115,21 +115,20 @@ void Juego::Conectarse(Jugador e, const Coordenada &c) {
     _jugadores[e]._pos = Coordenada(x, y);
 
     // Se verifica si el jugador entra en un pokenodo.
-    if (HayPokemonCercano(c)) {
-        if (_mapa->HayCamino(c, PosPokemonCercano(c))) {
+    if (estaEnPokenodo(c)) {
 
-            Nat latPok = PosPokemonCercano(c).latitud;
-            Nat lonPok = PosPokemonCercano(c).longitud;
+        Nat latPok = PosPokemonCercano(c).latitud;
+        Nat lonPok = PosPokemonCercano(c).longitud;
 
-            // Se reinicia el contador.
-            _pokenodos[latPok][lonPok]->_contador = 0;
+        // Se reinicia el contador.
+        _pokenodos[latPok][lonPok]->_contador = 0;
 
-            // Se encola el jugador en el pokenodo.
-            jugYCantCapt t(e, _jugadores[e]._cantCap);
-            _jugadores[e]._itAEntrenadores =
-                        _pokenodos[latPok][lonPok]->_entrenadores.Encolar(t);
+        // Se encola el jugador en el pokenodo.
+        jugYCantCapt t(e, _jugadores[e]._cantCap);
+        _jugadores[e]._itAEntrenadores =
+                    _pokenodos[latPok][lonPok]->_entrenadores.Encolar(t);
 
-        }
+    
     }
 
 
@@ -146,15 +145,13 @@ void Juego::Desconectarse(Jugador e){
 
 
      // Se verifica si el jugador estaba en un pokenodo.
-    if (HayPokemonCercano(c)) {
+    if (estaEnPokenodo(c)) {
 
-        if (_mapa->HayCamino(c, PosPokemonCercano(c))) {
-
-        /*    Nat latPok = PosPokemonCercano(c).latitud;
-            Nat lonPok = PosPokemonCercano(c).longitud;*/
-            // Se lo elimina del pokenodo
-            _jugadores[e]._itAEntrenadores.Borrar();
-        }
+    /*    Nat latPok = PosPokemonCercano(c).latitud;
+        Nat lonPok = PosPokemonCercano(c).longitud;*/
+        // Se lo elimina del pokenodo
+        _jugadores[e]._itAEntrenadores.Borrar();
+    
     }
 
 
@@ -173,34 +170,7 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
         // Si tiene 5 o mas sanciones...
         if (_jugadores[e]._sanciones >= 5) {
 
-            _jugadores[e]._conectado = false;
-            // Se borra al jugador de la posicion y de los jugadores.
-            _jugadores[e]._itAPos.EliminarSiguiente();
-            _jugadores[e]._itAJuego.EliminarSiguiente();
-
-            // Se eliminan sus pokemones.
-            Conj<string>::const_Iterador it = _jugadores[e]._pokemons.Claves();
-            while (it.HaySiguiente()) {
-                string actual = it.Siguiente();
-
-                Nat cant = _jugadores[e]._pokemons.Significado(actual);
-
-                Nat n = _cantPokemon.Significado(actual);
-                _cantPokemon.Definir(actual, n - cant);
-
-                it.Avanzar();
-            }
-
-            _cantPokemonesTotales -= _jugadores[e]._cantCap;
-
-            // Si esta en un pokenodo...
-            // TODO: Falta ver si hay camino?
-            if (HayPokemonCercano(_jugadores[e]._pos)) {
-                if (_mapa->HayCamino(_jugadores[e]._pos, PosPokemonCercano(_jugadores[e]._pos))) {
-                     // Se lo borra del pokenodo.
-                    _jugadores[e]._itAEntrenadores.Borrar();
-                }
-            }
+            eliminarJugador(e);
         }
     }
     // Si el movimiento es valido... lo muevo
@@ -451,7 +421,7 @@ bool Juego::PuedoAgregarPokemon(const Coordenada& c) const{
     // return true;
 
 
-    return _mapa->PosExistente(c) && !HayPokemonEnTerritorioRango5(c);
+    return !HayPokemonEnTerritorioRango5(c);
 }
 
 
@@ -921,4 +891,38 @@ bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
         }
     }
     return false;
+}
+
+
+void Juego::eliminarJugador(Jugador e){
+    _jugadores[e]._conectado = false;
+    // Se borra al jugador de la posicion y de los jugadores.
+    _jugadores[e]._itAPos.EliminarSiguiente();
+    _jugadores[e]._itAJuego.EliminarSiguiente();
+
+    // Se eliminan sus pokemones.
+    Conj<string>::const_Iterador it = _jugadores[e]._pokemons.Claves();
+    while (it.HaySiguiente()) {
+        string actual = it.Siguiente();
+
+        Nat cant = _jugadores[e]._pokemons.Significado(actual);
+
+        Nat n = _cantPokemon.Significado(actual);
+        _cantPokemon.Definir(actual, n - cant);
+
+        it.Avanzar();
+    }
+
+    _cantPokemonesTotales -= _jugadores[e]._cantCap;
+
+    // Si esta en un pokenodo...
+    if (estaEnPokenodo(_jugadores[e]._pos)) {
+        // Se lo borra del pokenodo.
+        _jugadores[e]._itAEntrenadores.Borrar();
+        
+    }
+}
+
+bool Juego::estaEnPokenodo(const Coordenada& c){
+    return HayPokemonCercano(c) && _mapa->HayCamino(c, PosPokemonCercano(c));
 }

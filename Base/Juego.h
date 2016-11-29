@@ -124,6 +124,10 @@ class Juego{
 
         bool HayPokemonEnTerritorioRango5(const Coordenada &c) const;
 
+        void eliminarJugador(Jugador e);
+
+        bool estaEnPokenodo(const Coordenada&);
+
 };
 
 
