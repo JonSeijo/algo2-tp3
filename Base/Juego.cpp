@@ -100,8 +100,6 @@ Nat Juego::AgregarJugador(){
 
     _jugadores.AgregarAtras(e);
 
-    _jugadores[proxId]._conectado = false;
-
     return proxId;
 }
 
@@ -791,6 +789,7 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
     // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
+
 
     while (it.HaySiguiente()) {
 
