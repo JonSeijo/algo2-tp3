@@ -2429,8 +2429,171 @@ void test_sanciones(){
 }
 
 void test_pokemonsDelJugador(){
-    ASSERT(false);
+    Driver d(mapaTipo1());
+
+    ASSERT(d.cantPokemonsTotales() == 0);
+
+    d.agregarPokemon("Hola", Coordenada(0, 0));
+    
+    ASSERT(d.cantPokemonsTotales() == 1);
+
+    d.agregarPokemon("Hola", Coordenada(9, 9));
+    
+    ASSERT(d.cantPokemonsTotales() == 2);
+
+    d.agregarPokemon("Hola", Coordenada(5, 5));
+
+    ASSERT(d.cantPokemonsTotales() == 3);
+
+    Jugador j0 = d.agregarJugador();
+    Jugador j1 = d.agregarJugador();
+
+    d.conectarse(j0, Coordenada(0, 0));
+    d.conectarse(j1, Coordenada(2, 2));
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.pokemons(j0).Definido("Hola"));
+    ASSERT(d.pokemons(j0).Significado("Hola") == 1);
+
+    d.agregarPokemon("Hola", Coordenada(0, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 4);
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.pokemons(j0).Definido("Hola"));
+    ASSERT(d.pokemons(j0).Significado("Hola") == 2);
+
+    d.agregarPokemon("Chau", Coordenada(0, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 5);
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.pokemons(j0).Definido("Hola"));
+    ASSERT(d.pokemons(j0).Significado("Hola") == 2);
+    ASSERT(d.pokemons(j0).Definido("Chau"));
+    ASSERT(d.pokemons(j0).Significado("Chau") == 1);
+
+    d.agregarPokemon("Pepe", Coordenada(0, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 6);
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.pokemons(j0).Definido("Hola"));
+    ASSERT(d.pokemons(j0).Significado("Hola") == 2);
+    ASSERT(d.pokemons(j0).Definido("Chau"));
+    ASSERT(d.pokemons(j0).Significado("Chau") == 1);
+    ASSERT(d.pokemons(j0).Definido("Pepe"));
+    ASSERT(d.pokemons(j0).Significado("Pepe") == 1);
+
+    d.agregarPokemon("Pepe", Coordenada(0, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 7);
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.pokemons(j0).Definido("Hola"));
+    ASSERT(d.pokemons(j0).Significado("Hola") == 2);
+    ASSERT(d.pokemons(j0).Definido("Chau"));
+    ASSERT(d.pokemons(j0).Significado("Chau") == 1);
+    ASSERT(d.pokemons(j0).Definido("Pepe"));
+    ASSERT(d.pokemons(j0).Significado("Pepe") == 2);
+
+    d.agregarPokemon("Pepe", Coordenada(0, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 8);
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.pokemons(j0).Definido("Hola"));
+    ASSERT(d.pokemons(j0).Significado("Hola") == 2);
+    ASSERT(d.pokemons(j0).Definido("Chau"));
+    ASSERT(d.pokemons(j0).Significado("Chau") == 1);
+    ASSERT(d.pokemons(j0).Definido("Pepe"));
+    ASSERT(d.pokemons(j0).Significado("Pepe") == 3);
+
+    ASSERT(d.cantMismaEspecie("Hola") == 4);
+    ASSERT(d.cantMismaEspecie("Pepe") == 3);
+    ASSERT(d.cantMismaEspecie("Chau") == 1);
+
+    d.moverse(j0, Coordenada(111, 111));
+    d.moverse(j0, Coordenada(111, 111));
+    d.moverse(j0, Coordenada(111, 111));
+    d.moverse(j0, Coordenada(111, 111));
+    d.moverse(j0, Coordenada(111, 111));
+
+    ASSERT(d.cantPokemonsTotales() == 2);
+
+    ASSERT(d.cantMismaEspecie("Hola") == 2);
+    ASSERT(d.cantMismaEspecie("Pepe") == 0);
+    ASSERT(d.cantMismaEspecie("Chau") == 0);
 }
+
 
 void test_pokemonEnPos(){
     Driver d(mapaTipo0());
@@ -2448,7 +2611,7 @@ void test_coordenada_12_1(){
 }
 
 int main(int argc, char **argv){
- /*   RUN_TEST(test_constructor_con_mapa);
+    RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -2486,12 +2649,12 @@ int main(int argc, char **argv){
 	RUN_TEST(test_cantMismaEspecie);
 	RUN_TEST(test_cantPokemonesTotales);
 	RUN_TEST(test_estaConectado);
-*///	RUN_TEST(test_sanciones);
-//	RUN_TEST(test_pokemonsDelJugador);
+//	RUN_TEST(test_sanciones);
+	RUN_TEST(test_pokemonsDelJugador);
 	RUN_TEST(test_pokemonEnPos);
- // RUN_TEST(test_coordenada_12_1);
+    RUN_TEST(test_coordenada_12_1);
 
-	std::cout << "\nPara mí con estos tests ya estaría\n";
+	std::cout << "\nPara mí con estos tests ya estaría.\n";
 
 
     return 0;
