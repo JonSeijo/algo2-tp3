@@ -23,7 +23,7 @@ class ColaPrioridad{
 		T Proximo() const;
 
 		void Desencolar();
-
+		bool operator == (const ColaPrioridad<T>&) const; 
 		class Iterador{
 			
 			public:
@@ -77,7 +77,7 @@ class ColaPrioridad{
 		bool HayUnicoNodoEnUltimoNivel() const;
 		void SiftDown(Nodo* a);
 		bool EsMenorNodos(Nodo* a, Nodo* b) const;
-
+		bool iguales(Nodo* a, Nodo* b) const;
 		//Prueba para ver al heap y testear, es algo-order y muestra en este orden:
 		// izquierdo, derecho, raiz
 		void mostrar(std::ostream&) const;
@@ -146,6 +146,13 @@ void ColaPrioridad<T>::Desencolar(){
 	SwapNodos(this -> raiz, this -> ultimo);
 	EliminarUltimo();
 	SiftDown(this -> raiz);
+}
+
+template <typename T>
+bool operator == (const ColaPrioridad<T>& c1, const ColaPrioridad<T>& c2){
+
+	return iguales(c1.raiz, c2.raiz);
+
 }
 
 /*******************************/
@@ -579,5 +586,20 @@ template<class T>
 bool ColaPrioridad<T>::Iterador::iteradorConElemento() const{
 	return siguiente != NULL;
 }
+
+template<class T>
+bool ColaPrioridad<T>::iguales(Nodo* a, Nodo* b) const{
+	if (a == NULL && b == NULL) {
+		return true;
+	}
+	if (a == NULL || b == NULL) {
+		return false;
+	}
+
+	return a->elem == b->elem      &&
+		   iguales(a->izq, b->izq) &&
+		   iguales(a->der, b->der);
+}
+
 
 #endif
