@@ -3,6 +3,8 @@
 #include <iostream>
 #include "aed2.h"
 
+#include <cassert>
+
 using namespace aed2;
 using namespace std;
 
@@ -16,6 +18,10 @@ Mapa::~Mapa(){
 
 void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
     Nat maximo = this->max(nuevaCoor.latitud, nuevaCoor.longitud);
+
+    if (maximo > 150) {
+        // assert(false);
+    }
 
     if (maximo+1 > this->_tam) {
 
@@ -42,11 +48,11 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
         // std::cout << "Copie todas las coordenadas validas a la nueva grilla"<< "\n";
 
         // std::cout << "Salgo de copiarCoordenadas\n";
-        
+
         this->_grilla = nGrilla;
-        
+
         // std::cout << "Asigno nGrilla\n";
-        
+
         this->_tam = maximo+1;
     }
 
@@ -69,7 +75,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
 
     La solucion fue recalcular los HayCamino para toda coordenada
     Esto no cambia la complejidad, como maximo hay tam^2 coordenadas (mapa lleno)
-    y para cada coordenada la comparo con todas las demas:  tam^2 * tam^2 = tam^4 = O(tam^4) 
+    y para cada coordenada la comparo con todas las demas:  tam^2 * tam^2 = tam^4 = O(tam^4)
     */
 
     Conj<Coordenada> coors = this->Coordenadas(); // Esto incluye la que acabo de agregar
@@ -85,10 +91,10 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 visitadosAux.AgregarAtras(false);
             }
             visitados.AgregarAtras(visitadosAux);
-        }  
+        }
 
         // Uso una Lista como si fuese una Cola
-        Lista<Coordenada> aRecorrer; 
+        Lista<Coordenada> aRecorrer;
         aRecorrer.AgregarAtras(c);
 
         // @BUG
@@ -112,15 +118,15 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                         if (!this->_grilla[c.latitud][c.longitud].Definido(x)) {
                             this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         }
-                        
+
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
-                        
+
                         if (!this->_grilla[x][y].Definido(c.latitud)) {
                             this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         }
 
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
-                        
+
                         aRecorrer.AgregarAtras(laIzquierda);
                     }
                 }
@@ -143,7 +149,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                             this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         }
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
-                        
+
                         aRecorrer.AgregarAtras(laAbajo);
                     }
                 }
@@ -166,7 +172,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                             this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         }
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
-                        
+
                         aRecorrer.AgregarAtras(laDerecha);
                     }
                 }
@@ -190,7 +196,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                         }
 
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
-                        
+
                         aRecorrer.AgregarAtras(laArriba);
                     }
                 }
@@ -231,10 +237,10 @@ bool Mapa::PosExistente(const Coordenada &c) const{
 
 // No estoy 100% seguro que se pregunte asi, peroes lo que hay
 bool Mapa::def(
-    const Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grilla,    
+    const Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grilla,
     Nat x, Nat y, Nat z, Nat w) const {
 
-    return grilla.Definido(x) && 
+    return grilla.Definido(x) &&
         grilla[x].Definido(y) &&
         grilla[x][y].Definido(z) &&
         grilla[x][y][z].Definido(w) &&

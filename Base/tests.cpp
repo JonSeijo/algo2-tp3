@@ -80,7 +80,7 @@ void test_constructor_con_mapa() {
     cc.Agregar(Coordenada(10,0));
     cc.Agregar(Coordenada(1,4));
     Driver d(cc);
-    
+
     ASSERT(d.mapa() == cc);
 
     ASSERT(d.posConPokemons().EsVacio());
@@ -239,10 +239,10 @@ void test_puedoAgregarPokemon_vol2() {
     Conj<Coordenada> cc;
     cc.Agregar(c3);
     cc.Agregar(c4);
-   
+
     Driver d(cc);
 
-    // Las coordenadas estan bien... 
+    // Las coordenadas estan bien...
     ASSERT( d.mapa() == cc );
 
     ASSERT( d.puedoAgregarPokemon(Coordenada(12,0)) == true );
@@ -271,7 +271,7 @@ void test_puedoAgregarPokemon_espia() {
 
     ASSERT( d.mapa().Pertenece(Coordenada(12,1)) );
     ASSERT( d.puedoAgregarPokemon(Coordenada(12,1)) == true );
-    
+
     ASSERT( d.puedoAgregarPokemon(Coordenada(12,2)) == true );
 
 }
@@ -527,7 +527,7 @@ void test_capturarSeEliminaElPokemon() {
 
     d.conectarse(AshSalsaGolf, Coordenada(2, 2));
     d.conectarse(AshAdhereso, Coordenada(2, 1));
-    
+
     ASSERT(d.pokemons(AshAdhereso).CantClaves() == 0);
 
     ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 0);
@@ -556,7 +556,7 @@ void test_capturarSeEliminaElPokemon() {
     ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 9);
     d.moverse(AshSalsaGolf, Coordenada(4, 5));
 
-    ASSERT(d.pokemons(AshAdhereso).CantClaves() == 1);    
+    ASSERT(d.pokemons(AshAdhereso).CantClaves() == 1);
 
 
     ASSERT(!d.hayPokemonCercano(Coordenada(2, 2)));
@@ -914,7 +914,7 @@ void test_capturarContadoresDeTriesEstanBien() {
 
     d.moverse(CapturaAValgrind, Coordenada(0, 2));
 
-    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);    
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);
     ASSERT(d.pokemons(Captura2Teletubbies).Definido("Teletubbie violeta"));
     ASSERT(d.pokemons(Captura2Teletubbies).Significado("Teletubbie violeta") == 1);
     ASSERT(d.pokemons(CapturaAValgrind).Definido("Valgrind no me tires errores pls"));
@@ -932,7 +932,7 @@ void test_capturarContadoresDeTriesEstanBien() {
 
     d.moverse(NokiaLumia, Coordenada(0, 1));
 
-    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);    
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);
     ASSERT(d.pokemons(Captura2Teletubbies).Definido("Teletubbie violeta"));
     ASSERT(d.pokemons(Captura2Teletubbies).Significado("Teletubbie violeta") == 1);
     ASSERT(d.pokemons(CapturaAValgrind).Definido("Valgrind no me tires errores pls"));
@@ -1170,6 +1170,20 @@ void test_sancionar_conpokerango() {
     ASSERT(!d.jugadores().Pertenece(batracio));
 
     // Habria que testear tambien que no haya entrenadores posibles etc
+}
+
+void test_sanciones_espia() {
+    Conj<Coordenada> cs;
+
+    ag(cs, 5, 0);
+    ag(cs, 180, 0);
+    for (Nat i = 6; i < 140; i++) {
+        // ag(cs, 5, i);
+    }
+
+    // std::cout << "empieza la aventura\n";
+    Driver d(cs);
+    // std::cout << "termina la aventura\n";
 }
 
 void test_eliminarDeJuego() {
@@ -2221,11 +2235,11 @@ void test_cantPokemonesTotales(){
     ASSERT(d.cantPokemonsTotales() == 0);
 
     d.agregarPokemon("Hola", Coordenada(0, 0));
-    
+
     ASSERT(d.cantPokemonsTotales() == 1);
 
     d.agregarPokemon("Hola", Coordenada(9, 9));
-    
+
     ASSERT(d.cantPokemonsTotales() == 2);
 
     d.agregarPokemon("Hola", Coordenada(5, 5));
@@ -2434,11 +2448,11 @@ void test_pokemonsDelJugador(){
     ASSERT(d.cantPokemonsTotales() == 0);
 
     d.agregarPokemon("Hola", Coordenada(0, 0));
-    
+
     ASSERT(d.cantPokemonsTotales() == 1);
 
     d.agregarPokemon("Hola", Coordenada(9, 9));
-    
+
     ASSERT(d.cantPokemonsTotales() == 2);
 
     d.agregarPokemon("Hola", Coordenada(5, 5));
@@ -2653,6 +2667,8 @@ int main(int argc, char **argv){
 	RUN_TEST(test_pokemonsDelJugador);
 	RUN_TEST(test_pokemonEnPos);
     RUN_TEST(test_coordenada_12_1);
+
+    RUN_TEST(test_sanciones_espia);
 
 	std::cout << "\nPara mí con estos tests ya estaría.\n";
 
