@@ -614,7 +614,7 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
                 //Faltaba sumar uno a la cantidad de pokemones capturados
                 _jugadores[pokeNodo->_entrenadores.Proximo().id]._cantCap++;
-
+ 
                 // Borro el pokenodo.
                 it.EliminarSiguiente();
 
@@ -622,10 +622,17 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 delete pokeNodo;
                 // continue;
             }
+            else{
+            	if(it.HaySiguiente()){
+            		it.Avanzar();
+            	}
+            }
         }
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         else {
-            it.Avanzar();
+            if(it.HaySiguiente()){
+            		it.Avanzar();
+            }
         }
     }
 
