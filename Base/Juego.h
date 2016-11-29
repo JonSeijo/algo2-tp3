@@ -83,13 +83,6 @@ class Juego{
             ColaPrioridad<jugYCantCapt> _entrenadores;
 
             pokeStruc(Pokemon p) : _poke(p), _contador(0), _entrenadores() {};
-            
-            bool operator == (const pokeStruc& p){
-                return  this->_poke         == p._poke     &&
-                        this->_contador     == p._contador &&
-                        this->_entrenadores == p._entrenadores;
-            };
-
 
         };
 
