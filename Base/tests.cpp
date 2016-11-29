@@ -2433,7 +2433,11 @@ void test_pokemonsDelJugador(){
 }
 
 void test_pokemonEnPos(){
-    ASSERT(false);
+    Driver d(mapaTipo0());
+
+    d.agregarPokemon("POR QUE NO PASAS LOS TESTS LA RE CONCHA DE TU MADRE", Coordenada(2, 2));
+
+    ASSERT(d.pokemonEnPos(Coordenada(2, 2)) == "POR QUE NO PASAS LOS TESTS LA RE CONCHA DE TU MADRE");
 }
 
 void test_coordenada_12_1(){
@@ -2444,7 +2448,7 @@ void test_coordenada_12_1(){
 }
 
 int main(int argc, char **argv){
-    RUN_TEST(test_constructor_con_mapa);
+ /*   RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -2482,10 +2486,10 @@ int main(int argc, char **argv){
 	RUN_TEST(test_cantMismaEspecie);
 	RUN_TEST(test_cantPokemonesTotales);
 	RUN_TEST(test_estaConectado);
-//	RUN_TEST(test_sanciones);
-/*	RUN_TEST(test_pokemonsDelJugador);
+*///	RUN_TEST(test_sanciones);
+//	RUN_TEST(test_pokemonsDelJugador);
 	RUN_TEST(test_pokemonEnPos);
-*/  RUN_TEST(test_coordenada_12_1);
+ // RUN_TEST(test_coordenada_12_1);
 
 	std::cout << "\nPara mí con estos tests ya estaría\n";
 
