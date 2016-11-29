@@ -603,6 +603,13 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
         if (it.Siguiente() != pokePos) {
 
             pokeStruc* pokeNodo = _pokenodos[x][y];
+
+            if (pokeNodo == NULL) {
+                it.Avanzar();
+            }
+
+            // AL SALIR MAL DE LA ITERACION ANTERIOR QUIZA ESTE POKENODO ES NULL.... REVISAR ESO?
+
             // Aumento su contador.
             pokeNodo->_contador++;
 
@@ -621,6 +628,9 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 _pokenodos[x][y] = NULL;
                 delete pokeNodo;
                 // continue;
+            }
+             else {
+                // it.Avanzar();
             }
         }
         //Nota, sin este if se rompe en el caso de capturar un pokemon

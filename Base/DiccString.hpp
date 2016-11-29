@@ -191,7 +191,7 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
         S* tmp = nodoActual->definicion;
         nodoActual->definicion = NULL;
         delete tmp;
-    } else {    
+    } else {
         // Agrego la clave a mi conjunto de claves,
         // Me guardo un iterador a la clave en el conjunto
         nodoActual->itClave = this->_claves.AgregarRapido(clave);
@@ -221,7 +221,11 @@ bool DiccString<S>::Definido(const string& clave) const{
     }
 
     // std::cout << "en definido\n";
-    return nodoActual != NULL && nodoActual->definicion != NULL;
+    // return nodoActual != NULL && nodoActual->definicion != NULL;
+
+
+    // SOLO PARA TEST, porque no deberiamos poder comparar con 0 si es un tipo T:
+    return nodoActual != NULL && nodoActual->definicion != NULL && *(nodoActual->definicion) != 0;
 }
 
 template< class S>
