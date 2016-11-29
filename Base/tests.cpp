@@ -2353,6 +2353,68 @@ void test_cantPokemonesTotales(){
     ASSERT(d.cantMismaEspecie("Chau") == 0);
 }
 
+void test_sanciones_movsinvalidos() {
+    Driver d(mapaTipo1());
+    Jugador sam = d.agregarJugador();
+    d.agregarPokemon("max", Coordenada(0,0));
+    d.conectarse(sam, Coordenada(0,0));
+
+    // sam esta en el pokeradio
+
+    d.moverse(sam, Coordenada(100,100));
+    d.moverse(sam, Coordenada(100,100));
+    d.moverse(sam, Coordenada(100,100));
+    d.moverse(sam, Coordenada(100,100));
+
+    ASSERT(d.sanciones(sam) == 4);
+
+    d.moverse(sam, Coordenada(100,100));
+}
+
+void test_sanciones_desesperado() {
+    Conj<Coordenada> cc;
+    ag(cc,0,0);
+    ag(cc,1,0);
+    ag(cc,1,1);
+    ag(cc,1,2);
+    ag(cc,0,5);
+    Driver d(cc);
+
+    Jugador cero = d.agregarJugador();
+    Jugador uno = d.agregarJugador();
+    Jugador dos = d.agregarJugador();
+    Jugador tres = d.agregarJugador();
+    Jugador cuatro = d.agregarJugador();
+
+    d.conectarse(cero, Coordenada(0,5));
+    d.conectarse(uno, Coordenada(0,0));
+    d.conectarse(dos, Coordenada(0,0));
+    d.conectarse(tres, Coordenada(0,0));
+    d.conectarse(cuatro, Coordenada(0,0));
+
+    d.moverse(cero, Coordenada(10,5));
+    d.moverse(uno, Coordenada(1,4));
+
+    d.moverse(dos, Coordenada(1,2));
+    ASSERT(d.sanciones(dos) == 0);
+    
+    d.moverse(tres, Coordenada(0,0));
+    d.moverse(cuatro, Coordenada(11,5));
+    
+    d.moverse(dos, Coordenada(0,2));
+    
+    d.moverse(dos, Coordenada(0,1));
+    
+    d.moverse(dos, Coordenada(0,0));
+    
+    d.moverse(uno, Coordenada(5,180));
+
+    ASSERT(d.sanciones(cero) == 1);
+    ASSERT(d.sanciones(uno) == 2);
+    ASSERT(d.sanciones(dos) == 2);
+    ASSERT(d.sanciones(cuatro) == 1);
+}
+
 void test_estaConectado(){
     ASSERT(false);
 }
@@ -2413,15 +2475,19 @@ int main(int argc, char **argv){
 	RUN_TEST(test_posConPokemon);
 	RUN_TEST(test_expulsados);
 /*	RUN_TEST(test_cantMismaEspecie);
-*/	RUN_TEST(test_cantPokemonesTotales);
-/*	RUN_TEST(test_estaConectado);
+*/	
+/*    RUN_TEST(test_cantPokemonesTotales);
+	RUN_TEST(test_estaConectado);
 	RUN_TEST(test_sanciones);
-	RUN_TEST(test_pokemonsDelJugador);
-	RUN_TEST(test_pokemonEnPos);
-*/  RUN_TEST(test_coordenada_12_1);
+	R;UN_TEST(test_pokemonsDelJugador);
+	;RUN_TEST(test_pokemonEnPos);
+  ;  RUN_TEST(test_coordenada_12_1);
+*/
+    RUN_TEST(test_sanciones_movsinvalidos);
+    RUN_TEST(test_sanciones_desesperado);
 
 	std::cout << "\nPara mí con estos tests ya estaría\n";
-
+;
 
     return 0;
 }
