@@ -594,7 +594,11 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
     // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
-    while (it.HaySiguiente()) {
+
+    Nat i = 0;
+    Nat total = _posPokemons.Cardinal();
+
+    while (it.HaySiguiente() && i <= total) {
 
         Nat x = it.Siguiente().latitud;
         Nat y = it.Siguiente().longitud;
@@ -623,6 +627,8 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 // continue;
             }
         }
+
+        i++;
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         if(it.HaySiguiente()){
             it.Avanzar();
@@ -641,7 +647,9 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
         // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
-    while (it.HaySiguiente()) {
+    Nat i = 0;
+    Nat total = _posPokemons.Cardinal();
+    while (it.HaySiguiente() && i <= total) {
 
         Nat x = it.Siguiente().latitud;
         Nat y = it.Siguiente().longitud;
@@ -665,6 +673,7 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
             delete pokeNodo;
             _pokenodos[x][y] = NULL;
         }
+        i++;
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         if(it.HaySiguiente()){
             it.Avanzar();
@@ -689,7 +698,10 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
     // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
-    while (it.HaySiguiente()) {
+    Nat i = 0;
+    Nat total = _posPokemons.Cardinal();
+
+    while (it.HaySiguiente() && i <= total) {
         Nat x = it.Siguiente().latitud;
         Nat y = it.Siguiente().longitud;
 
@@ -718,6 +730,8 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 delete pokeNodo;
                 _pokenodos[x][y] = NULL;
         }
+
+        i++;
        
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         if(it.HaySiguiente()){
@@ -733,9 +747,11 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
     // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
+    Nat i = 0;
+    Nat total = _posPokemons.Cardinal();
     // std::cout << "Creo el iterador de pos pokemones\n";
 
-    while (it.HaySiguiente()) {
+    while (it.HaySiguiente() && i <= total) {
         
         // std::cout << "pos que estoy recorriendo: " << it.Siguiente() << "\n";
 
@@ -766,6 +782,7 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 delete pokeNodo;
         } 
 
+        i++;
         if (it.HaySiguiente()) {
             it.Avanzar();
         }
@@ -790,7 +807,10 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
     // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
-    while (it.HaySiguiente()) {
+    Nat i = 0;
+    Nat total = _posPokemons.Cardinal();
+
+    while (it.HaySiguiente() && i <= total) {
 
         Nat x = it.Siguiente().latitud;
         Nat y = it.Siguiente().longitud;
@@ -826,6 +846,8 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 _pokenodos[x][y] = NULL;
             }   
         }
+
+        i++;
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         if(it.HaySiguiente()){
             it.Avanzar();
