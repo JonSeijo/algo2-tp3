@@ -626,12 +626,8 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 it.Avanzar();
             }
         }
-<<<<<<< HEAD
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         else {
-=======
-        else{
->>>>>>> e50e1e2e6d6f1022c6e48875b98d5272dd4f33a9
             it.Avanzar();
         }
     }
@@ -670,12 +666,7 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
             delete pokeNodo;
             _pokenodos[x][y] = NULL;
         }
-<<<<<<< HEAD
-        //Nota, sin este if se rompe en el caso de capturar un pokemon
         else {
-=======
-        else{
->>>>>>> e50e1e2e6d6f1022c6e48875b98d5272dd4f33a9
             it.Avanzar();
         }
     }
