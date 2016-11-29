@@ -27,7 +27,8 @@ class ColaPrioridad{
 		class Iterador{
 			
 			public:
-			
+			    Iterador& operator = (const typename ColaPrioridad<T>::Iterador& otro);
+
 				T& Siguiente(); 
 				void Borrar();
 				Iterador(): siguiente(NULL), estructura(NULL){};
@@ -155,7 +156,15 @@ template<class T>
 ColaPrioridad<T>::Iterador::Iterador(){
 	assert(false);
 }
+
 */
+
+template<class T>
+typename ColaPrioridad<T>::Iterador& ColaPrioridad<T>::Iterador::operator = (const typename ColaPrioridad<T>::Iterador& otra){
+  this->siguiente  = otra.siguiente;
+  this->estructura = otra.estructura;
+  return *this;
+}
 template<class T>
 void ColaPrioridad<T>::Iterador::Borrar(){
 	// if (this->estructura == NULL) {
