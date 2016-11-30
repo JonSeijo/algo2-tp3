@@ -19,23 +19,23 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
 
     if (maximo+1 > this->_tam) {
         Vector<Vector<Vector<Vector<bool> > > > nGrilla;
-        std::cout << "Decalra ngrilla\n";
+        // std::cout << "Decalra ngrilla\n";
 
         this->crearGrilla(nGrilla, maximo+1);
         
-        std::cout << "Crear ngrilla\n";
+        // std::cout << "Crear ngrilla\n";
 
         this->copiarCoordenadas(nGrilla, this->_grilla);
         
-        std::cout << "Copia coordenadas\n";
+        // std::cout << "Copia coordenadas\n";
         this->_grilla = nGrilla;
 
-        std::cout << "Asigna con =\n";
+        // std::cout << "Asigna con =\n";
         
         this->_tam = maximo+1;
     }
 
-    std::cout << "\nTermino de recrear el mapa\n";
+    // std::cout << "\nTermino de recrear el mapa\n";
 
     // std::cout << "\n---------------------\n\n";
     // std::cout << "lat: " << nuevaCoor.latitud <<"\n";
@@ -63,7 +63,6 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
     while (it.HaySiguiente()) {
         Coordenada c = it.Siguiente();
 
-        std::cout << "Entro a revisar la coor: " << c << "\n";
 
         Vector<Vector<bool> > visitados;
         for (Nat i = 0; i < this->_tam; i++) {
@@ -192,7 +191,7 @@ Nat Mapa::Tam() const{
     return this->_tam;
 }
 
-Vector<Vector<Vector<Vector<bool> > > > Mapa::crearGrilla(
+void Mapa::crearGrilla(
     Vector<Vector<Vector<Vector<bool> > > > &nuevaGrilla,
     const Nat n
 ) {
