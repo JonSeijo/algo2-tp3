@@ -1393,7 +1393,7 @@ void test_mover_conPokesYCapturar() {
 
     d.agregarPokemon("Pyramid Head", Coordenada(0, 0));
 
-    d.agregarPokemon("El protagonista del Silent Hill 2 es el que mato a su jermu", Coordenada(9, 9));
+    d.agregarPokemon("protagonista", Coordenada(9, 9));
 
     d.moverse(MC_Pluto, Coordenada(7, 5));
     d.moverse(MC_Pluto, Coordenada(7, 5));
@@ -1418,7 +1418,7 @@ void test_mover_conPokesYCapturar() {
 
     d.moverse(WalterBlanco, Coordenada(6, 6));
 
-    d.agregarPokemon("Al final de 9 reinas lo cagan a Darin", Coordenada(1, 0));
+    d.agregarPokemon("Darin", Coordenada(1, 0));
 
     d.moverse(WalterBlanco, Coordenada(0, 0));
 
@@ -1442,8 +1442,8 @@ void test_mover_conPokesYCapturar() {
 
     ASSERT(d.pokemons(WalterBlanco).Definido("Pyramid Head"));
     ASSERT(d.pokemons(WalterBlanco).Significado("Pyramid Head") == 1);
-    ASSERT(d.pokemons(WalterBlanco).Definido("Al final de 9 reinas lo cagan a Darin"));
-    ASSERT(d.pokemons(WalterBlanco).Significado("Al final de 9 reinas lo cagan a Darin") == 1);
+    ASSERT(d.pokemons(WalterBlanco).Definido("Darin"));
+    ASSERT(d.pokemons(WalterBlanco).Significado("Darin") == 1);
 
 }
 
@@ -2064,13 +2064,13 @@ void test_posicionJugador(){
 void test_posConPokemon(){
     Driver d(mapaTipo1());
 
-    d.agregarPokemon("La puta madre cuando vamos a pasar los tests de la catedra", Coordenada(0, 0));
+    d.agregarPokemon("Cuando vamos a pasar los tests de la catedra", Coordenada(0, 0));
 
     ASSERT(d.posConPokemons().Pertenece(Coordenada(0, 0)));
 
-    d.agregarPokemon("La puta madre cuando vamos a pasar los tests de la catedra", Coordenada(4, 4));
+    d.agregarPokemon("Cuando vamos a pasar los tests de la catedra", Coordenada(4, 4));
 
-    d.agregarPokemon("La puta madre cuando vamos a pasar los tests de la catedra", Coordenada(9, 9));
+    d.agregarPokemon("Cuando vamos a pasar los tests de la catedra", Coordenada(9, 9));
 
     ASSERT(d.posConPokemons().Pertenece(Coordenada(0, 0)));
     ASSERT(d.posConPokemons().Pertenece(Coordenada(4, 4)));
