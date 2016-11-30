@@ -85,6 +85,12 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 Nat x = laIzquierda.latitud;
                 Nat y = laIzquierda.longitud;
                 // std::cout << "laIzquierda: " << laIzquierda << "\n";
+
+                // La idea para todas las coors es:
+                // Recorro todas las coors que estan "unidas" a la original.
+                // Si no fue visitada, la visito y si la izquierda/der/arr/abajo existe,
+                // entonces marco que hay camino con la original, y la agrego a la lista para visitar
+
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laIzquierda)) {
@@ -169,7 +175,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                         if (!this->_grilla[c.latitud][c.longitud].Definido(x)) {
                             this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         }
-                        
+
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
 
                         if (!this->_grilla[x][y].Definido(c.latitud)) {
@@ -213,10 +219,10 @@ bool Mapa::PosExistente(const Coordenada &c) const{
 
     Nat x = c.latitud;
     Nat y = c.longitud;
-    return this->def(this->_grilla, x, y, x, y);
+    return this->def(this->_grilla, x, y, x, y) && this->_grilla[x][y][x][y];
 }
 
-// No estoy 100% seguro que se pregunte asi, peroes lo que hay
+// Esta funcion no es necesaria, pero me ahorro tipear
 bool Mapa::def(
     const Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grilla,
     Nat x, Nat y, Nat z, Nat w) const {
@@ -224,8 +230,7 @@ bool Mapa::def(
     return grilla.Definido(x) &&
         grilla[x].Definido(y) &&
         grilla[x][y].Definido(z) &&
-        grilla[x][y][z].Definido(w) &&
-        grilla[x][y][z][w];
+        grilla[x][y][z].Definido(w);
 }
 
 bool Mapa::HayCamino(const Coordenada &c1, const Coordenada &c2) const{
@@ -251,23 +256,8 @@ void Mapa::crearGrilla(
     }
 }
 
-
-void Mapa::imprimir() {
-    Nat n = this->_grilla.Tamanho();
-    for (Nat i = 0; i < n; i++) {
-        for (Nat j = 0; j < n; j++) {
-            // for (Nat k = 0; k < n; k++) {
-            //     for (Nat l = 0; l < n; l++) {
-                    std::cout << this->def(this->_grilla, i, j, i, j) << " ";
-            //     }
-            //     std::cout << "\n";
-            // }
-            // std::cout << "\n";
-        }
-        std::cout << "\n";
-    }
-}
-
+// La grilla nueva es una grilla vacia, (mas grande)
+// Me copio las coordenadas que ya existian en la vieja
 void Mapa::copiarCoordenadas(
     Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaNueva,
     Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &grillaVieja,
@@ -287,4 +277,15 @@ void Mapa::copiarCoordenadas(
 
 Nat Mapa::max(Nat x, Nat y) {
     return (x >= y) ? x : y;
+}
+
+// Solo para testeo
+void Mapa::imprimir() {
+    Nat n = this->_grilla.Tamanho();
+    for (Nat i = 0; i < n; i++) {
+        for (Nat j = 0; j < n; j++) {
+            std::cout << this->def(this->_grilla, i, j, i, j) << " ";
+        }
+        std::cout << "\n";
+    }
 }
