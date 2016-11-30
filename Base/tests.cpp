@@ -262,7 +262,7 @@ void test_puedoAgregarPokemon_espia() {
     Driver d(cc);
 
     ASSERT(d.puedoAgregarPokemon(Coordenada(120,2)) == true );
-    ASSERT(d.puedoAgregarPokem|on(Coordenada(0,0)) == true );
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0,0)) == true );
     ASSERT(d.puedoAgregarPokemon(Coordenada(1,0)) == true );
     ASSERT(d.puedoAgregarPokemon(Coordenada(2,0)) == true );
     ASSERT(d.puedoAgregarPokemon(Coordenada(12,0)) == true );
