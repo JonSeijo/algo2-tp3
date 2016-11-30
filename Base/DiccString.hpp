@@ -221,11 +221,11 @@ bool DiccString<S>::Definido(const string& clave) const{
     }
 
     // std::cout << "en definido\n";
-    // return nodoActual != NULL && nodoActual->definicion != NULL;
+    return nodoActual != NULL && nodoActual->definicion != NULL;
 
 
     // SOLO PARA TEST, porque no deberiamos poder comparar con 0 si es un tipo T:
-    return nodoActual != NULL && nodoActual->definicion != NULL && *(nodoActual->definicion) != 0;
+    // return nodoActual != NULL && nodoActual->definicion != NULL && *(nodoActual->definicion) != 0;
 }
 
 template< class S>
