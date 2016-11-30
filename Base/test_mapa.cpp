@@ -7,7 +7,7 @@
 // Valgrind
 //    valgrind --leak-check=full ./test_mapa
 
-#include "Mapa.h"
+#include "Mapa.cpp"
 #include "mini_test.h"
 
 

@@ -10,7 +10,7 @@
 
 
 #include <iostream>
-#include "./include/DiccString.hpp"
+#include "DiccString.hpp"
 // #include "./include/DiccStringOriginal.hpp"
 #include "mini_test.h"
 
@@ -562,8 +562,6 @@ int main(int argc, char **argv){
 	RUN_TEST(test_redefinir_obtener);
 	RUN_TEST(test_definir_sin_asignacion);
 	RUN_TEST(test_dicc_vacio_con_definir_y_borrar);
-
-    // Habria que hacer tambien tests de iterador
 
     return 0;
 }
