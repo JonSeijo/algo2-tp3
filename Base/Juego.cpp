@@ -168,6 +168,7 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
     // Si el movimiento no es valido...
     if (!MovValido(e, c)) {
         // std::cout << "movimiento invalido!\n";
+        // std::cout << "Desde: " << _jugadores[e]._pos << " hasta " << c << "\n";
         // Se sanciona al jugador.
         _jugadores[e]._sanciones++;
 
@@ -595,88 +596,101 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
     // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
-    // Aumento todos los contadores excepto el actual
-    while (it.HaySiguiente()) {
-        Nat x = it.Siguiente().latitud;
-        Nat y = it.Siguiente().longitud;
-        if (Coordenada(x,y) == PosPokemonCercano(desp)){
-
-        } else { 
-            _pokenodos[x][y]->_contador++;
-        }
-        it.Avanzar();
-    }
-
-    
-    // Reinicio el iterador
-    it = _posPokemons.CrearIt();
-
-    while (it.HaySiguiente()) {
-        Nat x = it.Siguiente().latitud;
-        Nat y = it.Siguiente().longitud;
-        pokeStruc* pokeNodo = _pokenodos[x][y];
-
-        if (pokeNodo->_contador >= 10 && !pokeNodo->_entrenadores.EsVacia()) {
-            
-            // Agrego el pokemon al entrenador que captura.
-            SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
-
-            //Faltaba sumar uno a la cantidad de pokemones capturados
-            _jugadores[pokeNodo->_entrenadores.Proximo().id]._cantCap++;
-
-            // Borro el pokenodo.
-            it.EliminarSiguiente();
-
-            _pokenodos[x][y] = NULL;
-            // delete pokeNodo;
-            continue;
-        }
-        it.Avanzar();
-    }
-
-
-
+    // // Aumento todos los contadores excepto el actual
     // while (it.HaySiguiente()) {
-
     //     Nat x = it.Siguiente().latitud;
     //     Nat y = it.Siguiente().longitud;
+    //     if (Coordenada(x,y) == PosPokemonCercano(desp)){
 
-    //     // Si no es al que entro el jugador...
-    //     if (it.Siguiente() != pokePos) {
-
-    //         pokeStruc* pokeNodo = _pokenodos[x][y];
-
-    //         // if (pokeNodo == NULL) {
-    //         //     it.Avanzar();
-    //         // }
-
-    //         // AL SALIR MAL DE LA ITERACION ANTERIOR QUIZA ESTE POKENODO ES NULL.... REVISAR ESO?
-
-    //         // Aumento su contador.
-    //         pokeNodo->_contador++;
-
-    //         // Si el contador llego a 10...
-    //         if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
-    //             // Agrego el pokemon al entrenador que captura.
-    //             SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
-
-    //             //Faltaba sumar uno a la cantidad de pokemones capturados
-    //             _jugadores[pokeNodo->_entrenadores.Proximo().id]._cantCap++;
-
-    //             // Borro el pokenodo.
-    //             it.EliminarSiguiente();
-
-    //             _pokenodos[x][y] = NULL;
-    //             delete pokeNodo;
-    //             continue;
-    //         }
-    //         it.Avanzar();
+    //     } else { 
+    //         _pokenodos[x][y]->_contador++;
     //     }
-    //     //Nota, sin este if se rompe en el caso de capturar un pokemon
-    //     else {
-    //         it.Avanzar();
-    //     }
+    //     it.Avanzar();
     // }
+
+    
+    // // Reinicio el iterador
+    // it = _posPokemons.CrearIt();
+
+    // while (it.HaySiguiente()) {
+    //     Nat x = it.Siguiente().latitud;
+    //     Nat y = it.Siguiente().longitud;
+    //     pokeStruc* pokeNodo = _pokenodos[x][y];
+
+    //     if (pokeNodo->_contador >= 10 && !pokeNodo->_entrenadores.EsVacia()) {
+            
+    //         // Agrego el pokemon al entrenador que captura.
+    //         SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
+
+    //         //Faltaba sumar uno a la cantidad de pokemones capturados
+    //         _jugadores[pokeNodo->_entrenadores.Proximo().id]._cantCap++;
+
+    //         std::cout << "Pre borrar siguiente: " << _posPokemons << "\n";
+    //         // Borro el pokenodo.
+    //         it.EliminarSiguiente();
+    //         std::cout << "Post borrar siguiente: " << _posPokemons << "\n";
+    //         _pokenodos[x][y] = NULL;
+    //         // delete pokeNodo;
+    //         continue;
+    //     }
+    //     it.Avanzar();
+    // }
+
+
+
+    while (it.HaySiguiente()) {
+
+        Nat x = it.Siguiente().latitud;
+        Nat y = it.Siguiente().longitud;
+
+        // Si no es al que entro el jugador...
+        // std::cout << "no entre aun al if: " << it.Siguiente() <<"\n";
+        if (it.Siguiente() != pokePos) {
+            // std::cout << "entre al if: " << it.Siguiente() <<"\n";
+
+            pokeStruc* pokeNodo = _pokenodos[x][y];
+
+            // if (pokeNodo == NULL) {
+            //     it.Avanzar();
+            // }
+
+            // AL SALIR MAL DE LA ITERACION ANTERIOR QUIZA ESTE POKENODO ES NULL.... REVISAR ESO?
+
+            // Aumento su contador.
+            pokeNodo->_contador++;
+
+
+            // Si el contador llego a 10...
+            if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
+                // std::cout << "voy a borrar algo\n";
+                // Agrego el pokemon al entrenador que captura.
+                SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
+
+                //Faltaba sumar uno a la cantidad de pokemones capturados
+                _jugadores[pokeNodo->_entrenadores.Proximo().id]._cantCap++;
+
+                // std::cout << "Pre borrar siguiente: " << _posPokemons << "\n";
+                // Borro el pokenodo.
+                it.EliminarSiguiente();
+
+                // std::cout << "Post borrar siguiente: " << _posPokemons << "\n";
+
+                _pokenodos[x][y] = NULL;
+                delete pokeNodo;
+
+
+                continue;
+            }
+            if (it.HaySiguiente()) {
+                it.Avanzar();
+            }
+        }
+        //Nota, sin este if se rompe en el caso de capturar un pokemon
+        else {
+            it.Avanzar();
+        }
+    }
+
 
 }
 
@@ -706,11 +720,14 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
             //Faltaba sumar uno a la cantidad de pokemones capturados
             _jugadores[pokeNodo->_entrenadores.Proximo().id]._cantCap++;
 
+
             // Borro el pokenodo.
             it.EliminarSiguiente();
 
+
             // delete pokeNodo;
             _pokenodos[x][y] = NULL;
+            continue;
         }
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         else {
@@ -762,6 +779,7 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
                 // delete pokeNodo;
                 _pokenodos[x][y] = NULL;
+                continue;
         }
 
         //Nota, sin este if se rompe en el caso de capturar un pokemon
@@ -807,6 +825,7 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 it.EliminarSiguiente();
                 _pokenodos[x][y] = NULL;
                 // delete pokeNodo;
+                continue;
         }
 
         else {
@@ -869,11 +888,11 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
                 // delete pokeNodo;
                 _pokenodos[x][y] = NULL;
+                continue;
             }
             else {
                 it.Avanzar();
             }
-
         }
         //Nota, sin este if se rompe en el caso de capturar un pokemon
     }
