@@ -35,6 +35,8 @@ Juego::Juego(const Mapa &map) : _cantPokemon(), _cantPokemonesTotales(0), _mapa(
         _pokenodos.AgregarAtras(inter);
     }
 
+    this->pasePorElElse = false;
+
 }
 
 Juego::~Juego(){
@@ -232,6 +234,8 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
         _jugadores[e]._itAPos = _grillaJugadores[c.latitud][c.longitud].AgregarAtras(e);
 
         _jugadores[e]._pos = c;
+
+
     }
     // std::cout << "Salgo de mover al jugador " << e << "en la coor " << c << "\n";
 }
@@ -439,6 +443,9 @@ Conj<Jugador> Juego::EntrenadoresPosibles(const Coordenada &c, const Conj<Jugado
 }
 
 Nat Juego::IndiceRareza(const Pokemon &p) const{
+    if (!_cantPokemon.Definido(p)) {
+        return 100;
+    }
     Nat pokeCant = _cantPokemon.Significado(p);
     return 100 - (100 * pokeCant / _cantPokemonesTotales);
 }
@@ -573,13 +580,14 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 delete pokeNodo;
             }
             
-            break;
-            // else {
-            //     it.Avanzar();
+            // break;
+            else {
+                this->pasePorElElse = true;
+                it.Avanzar();
             //     break;
             //     // continue;
             //     // assert(false);
-            // }
+            }
 
         } else {
             it.Avanzar();

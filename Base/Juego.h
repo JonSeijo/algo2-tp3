@@ -14,6 +14,8 @@ using namespace aed2;
 class Juego{
     public:
 
+        bool pasePorElElse;
+
         Juego(const Mapa &map);
         ~Juego();
 

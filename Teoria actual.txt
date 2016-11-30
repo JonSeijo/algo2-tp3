@@ -1,0 +1,18 @@
+Teoria actual.
+
+Puse un booleano en el caso de que el test del bot pase por el "else" problematico
+Puse que haga un assert mucho despues, al final de la funcion de movimientos en el caso
+de que el test haya pasadp por ahi
+
+El test del bot se frenca con el assert (exit status 6)
+POR LO TANTO: 
+	- El else no falla
+	- El ciclo infinito se produce DESPUES de hacer el movimiento
+
+	Si está el else, hay ciclo infinito, justamente porque esa parte del codigo ahora funcionaria bien
+		El ciclo infinito estaria mucho mas adelante, con el else perrmitimos que el test siga corriendo
+	Si NO esta el else, el test falla (logico), por lo que se frena y no hay ciclo infinito
+
+PARA VER:
+	Encontrar un caso de pruebas que haga que entre a un ciclo infinito.
+	No pudimos hacer esto, vamos a tener que consultarlo con felipe
