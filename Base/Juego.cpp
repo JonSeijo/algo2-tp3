@@ -41,11 +41,16 @@ Juego::Juego(const Mapa &map) : _cantPokemon(), _cantPokemonesTotales(0), _mapa(
 
 Juego::~Juego(){
 
+    // if (pasePorElElse) {
+    //     assert(false);
+    // }
+
     for (Nat i = 0; i < _pokenodos.Longitud(); i++) {
         for (Nat j = 0; j < _pokenodos[i].Longitud(); j++) {
-            delete _pokenodos[i][j];
+            if (_pokenodos[i][j] != NULL){
+                delete _pokenodos[i][j];
+            }
         }
-
     }
     delete _mapa;
 
@@ -234,8 +239,6 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
         _jugadores[e]._itAPos = _grillaJugadores[c.latitud][c.longitud].AgregarAtras(e);
 
         _jugadores[e]._pos = c;
-
-
     }
     // std::cout << "Salgo de mover al jugador " << e << "en la coor " << c << "\n";
 }
@@ -579,14 +582,10 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 _pokenodos[x][y] = NULL;
                 delete pokeNodo;
             }
-            
             // break;
             else {
                 this->pasePorElElse = true;
                 it.Avanzar();
-            //     break;
-            //     // continue;
-            //     // assert(false);
             }
 
         } else {
