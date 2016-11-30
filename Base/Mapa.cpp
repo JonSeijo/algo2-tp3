@@ -19,44 +19,20 @@ Mapa::~Mapa(){
 void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
     Nat maximo = this->max(nuevaCoor.latitud, nuevaCoor.longitud);
 
-    if (maximo > 150) {
-        // assert(false);
-    }
-
+    // Si la nueva coordenada no entra en el mapa
+    // Entonces creo una nueva grilla del tam de esa coordenada
     if (maximo+1 > this->_tam) {
-
-
-        // CREO LA NUEVA GRILLA
         Nat mx = maximo+1;
         Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > nGrilla(mx);
 
-        // Esto que sigue es la funcion this->crearGrilla(), mudarla luego
-        // this->crearGrilla(nGrilla, mx);
-        // std::cout << "Declaro nGrilla\n";
-        for (Nat i = 0; i < mx; i++) {
-            nGrilla.Definir(i, Arreglo<Arreglo<Arreglo<bool> > >(mx));
-            for (Nat j = 0; j < mx; j++) {
-                nGrilla[i].Definir(j, Arreglo<Arreglo<bool> >(mx));
-                // for (Nat k = 0; k < mx; k++) {
-                //     nGrilla[i][j].Definir(k, Arreglo<bool>(mx));
-                // }
-            }
-        }
-        // std::cout << "Defini nGrilla tam:   " << mx << "\n";
+        this->crearGrilla(nGrilla, mx);
 
         this->copiarCoordenadas(nGrilla, this->_grilla, mx);
-        // std::cout << "Copie todas las coordenadas validas a la nueva grilla"<< "\n";
-
-        // std::cout << "Salgo de copiarCoordenadas\n";
 
         this->_grilla = nGrilla;
 
-        // std::cout << "Asigno nGrilla\n";
-
         this->_tam = maximo+1;
     }
-
-    // No estoy 100% seguro que este if vaya aca
 
     if (!this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud].Definido(nuevaCoor.latitud)) {
         this->_grilla[nuevaCoor.latitud][nuevaCoor.longitud].Definir(nuevaCoor.latitud, Arreglo<bool>(this->_tam));
@@ -257,10 +233,17 @@ Nat Mapa::Tam() const{
 }
 
 
-void crearGrilla(
-    Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &nuevaGrilla,
-    const Nat n) {
-std::cout << "EL CODIGO DE CREAR GRILLA UBICARLO ACA\n";
+// nGrilla debe ser una grilla declarada pero sin definir
+void Mapa::crearGrilla(
+    Arreglo<Arreglo<Arreglo<Arreglo<bool> > > > &nGrilla,
+    const Nat mx) {
+
+    for (Nat i = 0; i < mx; i++) {
+        nGrilla.Definir(i, Arreglo<Arreglo<Arreglo<bool> > >(mx));
+        for (Nat j = 0; j < mx; j++) {
+            nGrilla[i].Definir(j, Arreglo<Arreglo<bool> >(mx));
+        }
+    }
 }
 
 
