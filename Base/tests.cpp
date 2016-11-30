@@ -249,7 +249,7 @@ void test_puedoAgregarPokemon_vol2() {
     ASSERT( d.puedoAgregarPokemon(Coordenada(12,1)) == true );
 }
 
-void test_puedoAgregarPokemon_espia() {
+void test_puedoAgregarPokemon_uno() {
     Conj<Coordenada> cc;
     ag(cc, 120,2);
     ag(cc, 0,0);
@@ -3076,6 +3076,7 @@ int main(int argc, char **argv){
     RUN_TEST(test_capturarSeEliminaElPokemon);
     RUN_TEST(test_sancionar_simple);
     RUN_TEST(test_sancionar_conpokerango);
+    RUN_TEST(test_sanciones_espia);
     RUN_TEST(test_jugadorCorrectoEsQuienCaptura);
     RUN_TEST(test_capturarJugadorTieneNuevoPoke);
     RUN_TEST(test_capturarContadoresDeTriesEstanBien);
@@ -3087,7 +3088,7 @@ int main(int argc, char **argv){
     RUN_TEST(test_hayCamino);
 	RUN_TEST(test_posExistente);
 	RUN_TEST(test_puedoAgregarPokemon_vol2);
-    RUN_TEST(test_puedoAgregarPokemon_espia);
+    RUN_TEST(test_puedoAgregarPokemon_uno);
 	RUN_TEST(test_jugadoresNoEliminados);
 	RUN_TEST(test_posicionJugador);
 	RUN_TEST(test_posConPokemon);
@@ -3100,8 +3101,5 @@ int main(int argc, char **argv){
     RUN_TEST(test_coordenada_12_1);
     RUN_TEST(test_sanciones_movsinvalidos);
     RUN_TEST(test_sanciones_desesperado);
-
-    // RUN_TEST(test_capturasMultiples);
-
     return 0;
 }
