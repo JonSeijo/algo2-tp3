@@ -2,7 +2,6 @@
 #define COLA_PRIORIDAD_H_
 
 #include "aed2.h"
-// #include "./../TiposJuego.h"
 #include <cassert>
 #include <iostream> //Para probar como queda el heap después de encolar y desencolar
 
@@ -78,7 +77,8 @@ class ColaPrioridad{
 		void SiftDown(Nodo* a);
 		bool EsMenorNodos(Nodo* a, Nodo* b) const;
 
-		//Prueba para ver al heap y testear, es algo-order y muestra en este orden:
+		// @TEST
+		// Prueba para ver al heap y testear, es post-order y muestra en este orden:
 		// izquierdo, derecho, raiz
 		void mostrar(std::ostream&) const;
 		friend std::ostream& operator<<(std::ostream& os, const ColaPrioridad<T> &c){
@@ -478,8 +478,8 @@ bool ColaPrioridad<T>::HayUnicoNodoEnUltimoNivel() const{
 	return nodoActual == this -> ultimo;
 }
 
-//Se rompe con n == NULL (pasa cuando desencolamos un heap con un solo elemento)
-//No lo tomamos en cuenta en el tp2
+// Se rompe con n == NULL (pasa cuando desencolamos un heap con un solo elemento)
+// No lo tomamos en cuenta en el tp2
 template<class T>
 void ColaPrioridad<T>::SiftDown(Nodo* n){
 	if(n != NULL){
@@ -512,24 +512,18 @@ void ColaPrioridad<T>::SiftDown(Nodo* n){
 
 template<class T>
 bool ColaPrioridad<T>::EsMenorNodos(Nodo* a, Nodo* b) const{
-	if(a != NULL || b != NULL){
-		if(a == NULL && b != NULL){
+	if (a != NULL || b != NULL){
+
+		if (a == NULL && b != NULL){
 			return false;
 		}
-		else{
-			if(a != NULL && b == NULL){
-				return true;
-			}
-			else{
-				if((a -> elem) < (b -> elem) || (a -> elem) == (b -> elem)){
-					return true;
-				}
-				//Este else no estaba en los módulos
-				else{
-					return false;
-				}
-			}
+
+		if (a != NULL && b == NULL){
+			return true;
 		}
+
+		return ((a -> elem) < (b -> elem) || (a -> elem) == (b -> elem));
+	
 	}
 	else{
 		return false;
