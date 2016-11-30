@@ -524,8 +524,7 @@ bool ColaPrioridad<T>::EsMenorNodos(Nodo* a, Nodo* b) const{
 
 		return ((a -> elem) < (b -> elem) || (a -> elem) == (b -> elem));
 	
-	}
-	else{
+	} else{
 		return false;
 	}
 }
