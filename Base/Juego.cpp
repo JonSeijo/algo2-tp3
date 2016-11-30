@@ -148,12 +148,12 @@ void Juego::Desconectarse(Jugador e){
 }
 
 void Juego::Moverse(Jugador e, const Coordenada &c){
-
     // std::cout << "Entro a mover al jugador " << e << " en la coor " << c << "\n";
 
     // Si el movimiento no es valido...
     if (!MovValido(e, c)) {
         // std::cout << "movimiento invalido!\n";
+
         // Se sanciona al jugador.
         _jugadores[e]._sanciones++;
 
@@ -165,7 +165,7 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
             _jugadores[e]._itAPos.EliminarSiguiente();
             _jugadores[e]._itAJuego.EliminarSiguiente();
 
-            // Se eliminan sus pokemones.
+            // Se eliminan sus pokemons de la cantidad total
             Conj<string>::const_Iterador it = _jugadores[e]._pokemons.Claves();
             while (it.HaySiguiente()) {
                 string actual = it.Siguiente();
@@ -181,7 +181,6 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
             _cantPokemonesTotales -= _jugadores[e]._cantCap;
 
             // Si esta en un pokenodo...
-            // TODO: Falta ver si hay camino?
             if (HayPokemonCercano(_jugadores[e]._pos)) {
                 if (_mapa->HayCamino(_jugadores[e]._pos, PosPokemonCercano(_jugadores[e]._pos))) {
                      // Se lo borra del pokenodo.
@@ -200,21 +199,23 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
 
         if (hayPokDesp) {
             if (!hayPokAntes) {
-                // std::cout << "CasoMov 3" << std::endl;
+                // Caso3 : Se movio HACIA un pokenodo y NO estaba en ninguno
                 CasoMov3(e, posAntes, c);
             } else if (PosPokemonCercano(posAntes) == PosPokemonCercano(c)) {
-                // std::cout << "CasoMov 1" << std::endl;
+                // Caso1 : Se movio HACIA un pokenodo, y SI estaba en alguno.
+                // En caso1, Se movio dentro del mismo pokenodo de origen
                 CasoMov1(e, posAntes, c);
 
             } else {
-               // std::cout << "CasoMov 5" << std::endl;
+                // Caso5 : Se movio HACIA un pokenodo, y SI estaba en alguno.
+                // En caso5, Se movio a un pokenodo DISTINTO
                 CasoMov5(e, posAntes, c);
             }
         } else if (hayPokAntes) {
-            // std::cout << "CasoMov 2" << std::endl;
+            // Caso2 : NO entro a ningun pokenodo, pero SALIO desde uno.
             CasoMov2(e, posAntes, c);
         } else {
-           // std::cout << "CasoMov 4" << std::endl;
+            // Caso4 : NO entro a ningun pokenodo, y NO salio desde ninguno
             CasoMov4(e, posAntes, c);
         }
 
@@ -224,7 +225,7 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
         // Las lineas de abajo estaba fuera del else, las meti adentro para que se mueva cuando el mov es valido
         // En caso de tests fallando revisar eso, pero el mail decia que el bot lo manejaba asi
 
-        // Se lo saca de la posicion anterior.
+        // Se lo saca de la posicion anterior. (Notar que si se mueve a la misma posicion no pasa nata porque despues a agrego)
         _jugadores[e]._itAPos.EliminarSiguiente();
 
         // Se lo agrega en la posicion nueva.
@@ -232,10 +233,7 @@ void Juego::Moverse(Jugador e, const Coordenada &c){
 
         _jugadores[e]._pos = c;
     }
-
     // std::cout << "Salgo de mover al jugador " << e << "en la coor " << c << "\n";
-
-
 }
 
 Mapa& Juego::mapa(){
