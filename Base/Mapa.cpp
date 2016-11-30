@@ -58,8 +58,8 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
     Conj<Coordenada>::Iterador it = coors.CrearIt();
     while (it.HaySiguiente()) {
         Coordenada c = it.Siguiente();
-        // std::cout << "Entro a while exterior: " << c << "\n";
 
+        // Creo una grilla del tam del mapa, llena de falsos, para representar las que ya visite
         Vector<Vector<bool> > visitados;
         for (Nat i = 0; i < this->_tam; i++) {
             Vector<bool> visitadosAux;
@@ -73,10 +73,7 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
         Lista<Coordenada> aRecorrer;
         aRecorrer.AgregarAtras(c);
 
-        // @BUG
-        // Deberia poner c en visitadas?? creo que si, para evitar ciclos infinitos
         visitados[c.latitud][c.longitud] = true;
-
 
         while (!aRecorrer.EsVacia()) {
             // Tomo el proximo y desencolo
@@ -91,10 +88,10 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laIzquierda)) {
+
                         if (!this->_grilla[c.latitud][c.longitud].Definido(x)) {
                             this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         }
-
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
 
                         if (!this->_grilla[x][y].Definido(c.latitud)) {
@@ -116,14 +113,17 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laAbajo)) {
+
                         if (!this->_grilla[c.latitud][c.longitud].Definido(x)) {
                             this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         }
+
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
 
                         if (!this->_grilla[x][y].Definido(c.latitud)) {
                             this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         }
+
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
 
                         aRecorrer.AgregarAtras(laAbajo);
@@ -139,14 +139,17 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laDerecha)) {
+
                         if (!this->_grilla[c.latitud][c.longitud].Definido(x)) {
                             this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         }
+
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
 
                         if (!this->_grilla[x][y].Definido(c.latitud)) {
                             this->_grilla[x][y].Definir(c.latitud, Arreglo<bool>(this->_tam));
                         }
+
                         this->_grilla[x][y][c.latitud].Definir(c.longitud, true);
 
                         aRecorrer.AgregarAtras(laDerecha);
@@ -162,9 +165,11 @@ void Mapa::AgregarCoord(const Coordenada &nuevaCoor) {
                 if (!visitados[x][y]) {
                     visitados[x][y] = true;
                     if (this->PosExistente(laArriba)) {
+
                         if (!this->_grilla[c.latitud][c.longitud].Definido(x)) {
                             this->_grilla[c.latitud][c.longitud].Definir(x, Arreglo<bool>(this->_tam));
                         }
+                        
                         this->_grilla[c.latitud][c.longitud][x].Definir(y, true);
 
                         if (!this->_grilla[x][y].Definido(c.latitud)) {
