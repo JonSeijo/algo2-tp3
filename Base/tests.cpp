@@ -80,7 +80,7 @@ void test_constructor_con_mapa() {
     cc.Agregar(Coordenada(10,0));
     cc.Agregar(Coordenada(1,4));
     Driver d(cc);
-    
+
     ASSERT(d.mapa() == cc);
 
     ASSERT(d.posConPokemons().EsVacio());
@@ -239,10 +239,10 @@ void test_puedoAgregarPokemon_vol2() {
     Conj<Coordenada> cc;
     cc.Agregar(c3);
     cc.Agregar(c4);
-   
+
     Driver d(cc);
 
-    // Las coordenadas estan bien... 
+    // Las coordenadas estan bien...
     ASSERT( d.mapa() == cc );
 
     ASSERT( d.puedoAgregarPokemon(Coordenada(12,0)) == true );
@@ -271,7 +271,7 @@ void test_puedoAgregarPokemon_espia() {
 
     ASSERT( d.mapa().Pertenece(Coordenada(12,1)) );
     ASSERT( d.puedoAgregarPokemon(Coordenada(12,1)) == true );
-    
+
     ASSERT( d.puedoAgregarPokemon(Coordenada(12,2)) == true );
 
 }
@@ -527,7 +527,7 @@ void test_capturarSeEliminaElPokemon() {
 
     d.conectarse(AshSalsaGolf, Coordenada(2, 2));
     d.conectarse(AshAdhereso, Coordenada(2, 1));
-    
+
     ASSERT(d.pokemons(AshAdhereso).CantClaves() == 0);
 
     ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 0);
@@ -556,7 +556,7 @@ void test_capturarSeEliminaElPokemon() {
     ASSERT(d.cantMovimientosParaCaptura(Coordenada(2, 2)) == 9);
     d.moverse(AshSalsaGolf, Coordenada(4, 5));
 
-    ASSERT(d.pokemons(AshAdhereso).CantClaves() == 1);    
+    ASSERT(d.pokemons(AshAdhereso).CantClaves() == 1);
 
 
     ASSERT(!d.hayPokemonCercano(Coordenada(2, 2)));
@@ -914,7 +914,7 @@ void test_capturarContadoresDeTriesEstanBien() {
 
     d.moverse(CapturaAValgrind, Coordenada(0, 2));
 
-    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);    
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);
     ASSERT(d.pokemons(Captura2Teletubbies).Definido("Teletubbie violeta"));
     ASSERT(d.pokemons(Captura2Teletubbies).Significado("Teletubbie violeta") == 1);
     ASSERT(d.pokemons(CapturaAValgrind).Definido("Valgrind no me tires errores pls"));
@@ -932,7 +932,7 @@ void test_capturarContadoresDeTriesEstanBien() {
 
     d.moverse(NokiaLumia, Coordenada(0, 1));
 
-    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);    
+    ASSERT(d.cantMovimientosParaCaptura(Coordenada(0, 0)) == 0);
     ASSERT(d.pokemons(Captura2Teletubbies).Definido("Teletubbie violeta"));
     ASSERT(d.pokemons(Captura2Teletubbies).Significado("Teletubbie violeta") == 1);
     ASSERT(d.pokemons(CapturaAValgrind).Definido("Valgrind no me tires errores pls"));
@@ -1170,6 +1170,20 @@ void test_sancionar_conpokerango() {
     ASSERT(!d.jugadores().Pertenece(batracio));
 
     // Habria que testear tambien que no haya entrenadores posibles etc
+}
+
+void test_sanciones_espia() {
+    Conj<Coordenada> cs;
+
+    ag(cs, 5, 0);
+    ag(cs, 180, 0);
+    for (Nat i = 6; i < 140; i++) {
+        // ag(cs, 5, i);
+    }
+
+    // std::cout << "empieza la aventura\n";
+    Driver d(cs);
+    // std::cout << "termina la aventura\n";
 }
 
 void test_eliminarDeJuego() {
@@ -2221,11 +2235,11 @@ void test_cantPokemonesTotales(){
     ASSERT(d.cantPokemonsTotales() == 0);
 
     d.agregarPokemon("Hola", Coordenada(0, 0));
-    
+
     ASSERT(d.cantPokemonsTotales() == 1);
 
     d.agregarPokemon("Hola", Coordenada(9, 9));
-    
+
     ASSERT(d.cantPokemonsTotales() == 2);
 
     d.agregarPokemon("Hola", Coordenada(5, 5));
@@ -2416,7 +2430,74 @@ void test_sanciones_desesperado() {
 }
 
 void test_estaConectado(){
-    ASSERT(false);
+    Driver d(mapaTipo0());
+
+    Jugador Pikachu = d.agregarJugador();
+    Jugador Charmander = d.agregarJugador();
+    Jugador Charizard = d.agregarJugador();
+    Jugador Bolbasor = d.agregarJugador();
+
+    d.agregarPokemon("AshKetchup", Coordenada(1, 1));
+
+    //El universo es muy confuso realmente
+
+    ASSERT(!d.estaConectado(Pikachu));
+    ASSERT(!d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(!d.estaConectado(Bolbasor));
+
+    d.conectarse(Pikachu, Coordenada(2, 2));
+
+    ASSERT(d.estaConectado(Pikachu));
+    ASSERT(!d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(!d.estaConectado(Bolbasor));
+
+    d.conectarse(Charmander, Coordenada(2, 2));
+
+    ASSERT(d.estaConectado(Pikachu));
+    ASSERT(d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(!d.estaConectado(Bolbasor));
+
+    d.conectarse(Bolbasor, Coordenada(2, 2));
+
+    ASSERT(d.estaConectado(Pikachu));
+    ASSERT(d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(d.estaConectado(Bolbasor));
+
+    d.desconectarse(Charmander);
+
+    ASSERT(d.estaConectado(Pikachu));
+    ASSERT(!d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(d.estaConectado(Bolbasor));
+
+    d.desconectarse(Pikachu);
+
+    ASSERT(!d.estaConectado(Pikachu));
+    ASSERT(!d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(d.estaConectado(Bolbasor));
+
+    d.conectarse(Pikachu, Coordenada(2, 2));
+
+    ASSERT(d.estaConectado(Pikachu));
+    ASSERT(!d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(d.estaConectado(Bolbasor));
+
+    d.moverse(Pikachu, Coordenada(1, 1));
+    d.moverse(Pikachu, Coordenada(1, 1));
+    d.moverse(Pikachu, Coordenada(1, 1));
+    d.moverse(Pikachu, Coordenada(1, 1));
+    d.moverse(Pikachu, Coordenada(1, 1));
+
+    ASSERT(!d.estaConectado(Pikachu));
+    ASSERT(!d.estaConectado(Charmander));
+    ASSERT(!d.estaConectado(Charizard));
+    ASSERT(d.estaConectado(Bolbasor));
 }
 
 void test_sanciones(){
@@ -2424,11 +2505,178 @@ void test_sanciones(){
 }
 
 void test_pokemonsDelJugador(){
-    ASSERT(false);
+    Driver d(mapaTipo1());
+
+    ASSERT(d.cantPokemonsTotales() == 0);
+
+    d.agregarPokemon("Hola", Coordenada(0, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 1);
+
+    d.agregarPokemon("Hola", Coordenada(9, 9));
+
+    ASSERT(d.cantPokemonsTotales() == 2);
+
+    d.agregarPokemon("Hola", Coordenada(5, 5));
+
+    ASSERT(d.cantPokemonsTotales() == 3);
+
+    Jugador j0 = d.agregarJugador();
+    Jugador j1 = d.agregarJugador();
+
+    d.conectarse(j0, Coordenada(0, 0));
+    d.conectarse(j1, Coordenada(2, 2));
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.pokemons(j0).Definido("Hola"));
+    ASSERT(d.pokemons(j0).Significado("Hola") == 1);
+
+    d.agregarPokemon("Hola", Coordenada(0, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 4);
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.pokemons(j0).Definido("Hola"));
+    ASSERT(d.pokemons(j0).Significado("Hola") == 2);
+
+    d.agregarPokemon("Chau", Coordenada(0, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 5);
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.pokemons(j0).Definido("Hola"));
+    ASSERT(d.pokemons(j0).Significado("Hola") == 2);
+    ASSERT(d.pokemons(j0).Definido("Chau"));
+    ASSERT(d.pokemons(j0).Significado("Chau") == 1);
+
+    d.agregarPokemon("Pepe", Coordenada(0, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 6);
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.pokemons(j0).Definido("Hola"));
+    ASSERT(d.pokemons(j0).Significado("Hola") == 2);
+    ASSERT(d.pokemons(j0).Definido("Chau"));
+    ASSERT(d.pokemons(j0).Significado("Chau") == 1);
+    ASSERT(d.pokemons(j0).Definido("Pepe"));
+    ASSERT(d.pokemons(j0).Significado("Pepe") == 1);
+
+    d.agregarPokemon("Pepe", Coordenada(0, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 7);
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.pokemons(j0).Definido("Hola"));
+    ASSERT(d.pokemons(j0).Significado("Hola") == 2);
+    ASSERT(d.pokemons(j0).Definido("Chau"));
+    ASSERT(d.pokemons(j0).Significado("Chau") == 1);
+    ASSERT(d.pokemons(j0).Definido("Pepe"));
+    ASSERT(d.pokemons(j0).Significado("Pepe") == 2);
+
+    d.agregarPokemon("Pepe", Coordenada(0, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 8);
+
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+    d.moverse(j1, Coordenada(2, 2));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.pokemons(j0).Definido("Hola"));
+    ASSERT(d.pokemons(j0).Significado("Hola") == 2);
+    ASSERT(d.pokemons(j0).Definido("Chau"));
+    ASSERT(d.pokemons(j0).Significado("Chau") == 1);
+    ASSERT(d.pokemons(j0).Definido("Pepe"));
+    ASSERT(d.pokemons(j0).Significado("Pepe") == 3);
+
+    ASSERT(d.cantMismaEspecie("Hola") == 4);
+    ASSERT(d.cantMismaEspecie("Pepe") == 3);
+    ASSERT(d.cantMismaEspecie("Chau") == 1);
+
+    d.moverse(j0, Coordenada(111, 111));
+    d.moverse(j0, Coordenada(111, 111));
+    d.moverse(j0, Coordenada(111, 111));
+    d.moverse(j0, Coordenada(111, 111));
+    d.moverse(j0, Coordenada(111, 111));
+
+    ASSERT(d.cantPokemonsTotales() == 2);
+
+    ASSERT(d.cantMismaEspecie("Hola") == 2);
+    ASSERT(d.cantMismaEspecie("Pepe") == 0);
+    ASSERT(d.cantMismaEspecie("Chau") == 0);
 }
 
+
 void test_pokemonEnPos(){
-    ASSERT(false);
+    Driver d(mapaTipo0());
+
+    d.agregarPokemon("POR QUE NO PASAS LOS TESTS", Coordenada(2, 2));
+
+    ASSERT(d.pokemonEnPos(Coordenada(2, 2)) == "POR QUE NO PASAS LOS TESTS");
 }
 
 void test_coordenada_12_1(){
@@ -2438,8 +2686,378 @@ void test_coordenada_12_1(){
 	ASSERT(d.puedoAgregarPokemon(Coordenada(12, 1)));
 }
 
+void test_semuevedentrodelpokenodo(){
+    Driver d(mapaTipo1());
+
+    d.agregarPokemon("TP", Coordenada(0, 0));
+
+    Jugador ElIndioSalario = d.agregarJugador();
+
+    d.conectarse(ElIndioSalario, Coordenada(0, 1));
+
+    d.moverse(ElIndioSalario, Coordenada(0, 2));
+
+    Jugador NoLoSonieeee = d.agregarJugador();
+
+    d.conectarse(NoLoSonieeee, Coordenada(9, 9));
+
+    d.agregarPokemon("Boca", Coordenada(9, 9));
+
+    d.moverse(ElIndioSalario, Coordenada(0, 1));
+    d.moverse(ElIndioSalario, Coordenada(0, 2));
+    d.moverse(ElIndioSalario, Coordenada(0, 1));
+    d.moverse(ElIndioSalario, Coordenada(0, 2));
+    d.moverse(ElIndioSalario, Coordenada(0, 1));
+    d.moverse(ElIndioSalario, Coordenada(0, 2));
+    d.moverse(ElIndioSalario, Coordenada(0, 1));
+    d.moverse(ElIndioSalario, Coordenada(0, 2));
+    d.moverse(ElIndioSalario, Coordenada(0, 1));
+    d.moverse(ElIndioSalario, Coordenada(0, 2));
+    d.moverse(ElIndioSalario, Coordenada(0, 1));
+    d.moverse(ElIndioSalario, Coordenada(0, 2));
+    d.moverse(ElIndioSalario, Coordenada(0, 1));
+
+    ASSERT(!d.pokemons(ElIndioSalario).Definido("TP"));
+    ASSERT(d.pokemons(NoLoSonieeee).Definido("Boca"));
+}
+
+void test_capturasMultiples(){
+    Conj<Coordenada> cc;
+
+    for(Nat i = 0; i < 25; i++){
+        for(Nat j = 0; j < 25; j++){
+            ag(cc, i, j);
+        }
+    }
+
+    Driver d(cc);
+
+    ASSERT(d.cantPokemonsTotales() == 0);
+
+    d.agregarPokemon("Pikachu", Coordenada(0, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 1);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 1);
+
+    d.agregarPokemon("Pikachu", Coordenada(0, 6));
+
+    ASSERT(d.cantPokemonsTotales() == 2);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 2);
+
+    d.agregarPokemon("Pikachu", Coordenada(0, 12));
+
+    ASSERT(d.cantPokemonsTotales() == 3);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 3);
+
+    d.agregarPokemon("Pikachu", Coordenada(0, 18));
+
+    ASSERT(d.cantPokemonsTotales() == 4);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 4);
+
+    d.agregarPokemon("Pikachu", Coordenada(0, 24));
+
+    ASSERT(d.cantPokemonsTotales() == 5);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 5);
+
+    d.agregarPokemon("Charmander", Coordenada(6, 0));
+
+    ASSERT(d.cantPokemonsTotales() == 6);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 5);
+    ASSERT(d.cantMismaEspecie("Charmander") == 1);
+
+    d.agregarPokemon("Charmander", Coordenada(6, 6));
+
+    ASSERT(d.cantPokemonsTotales() == 7);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 5);
+    ASSERT(d.cantMismaEspecie("Charmander") == 2);
+
+    d.agregarPokemon("Charmander", Coordenada(6, 12));
+
+    ASSERT(d.cantPokemonsTotales() == 8);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 5);
+    ASSERT(d.cantMismaEspecie("Charmander") == 3);
+
+    d.agregarPokemon("Charmander", Coordenada(6, 18));
+
+    ASSERT(d.cantPokemonsTotales() == 9);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 5);
+    ASSERT(d.cantMismaEspecie("Charmander") == 4);
+
+    d.agregarPokemon("Charmander", Coordenada(6, 24));
+
+    ASSERT(d.cantPokemonsTotales() == 10);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 5);
+    ASSERT(d.cantMismaEspecie("Charmander") == 5);
+
+    Jugador Ash = d.agregarJugador();
+    Jugador ElChinoNegro = d.agregarJugador();
+    Jugador LaMinaColorada = d.agregarJugador();
+    Jugador Manaos = d.agregarJugador();
+    Jugador Pitusas = d.agregarJugador();
+    Jugador Peron = d.agregarJugador();
+    Jugador ElTroncoEsNuestro = d.agregarJugador();
+    Jugador NosPertenece = d.agregarJugador();
+    Jugador SiCaeUnRayo = d.agregarJugador();
+    Jugador YDesaparece = d.agregarJugador();
+
+    d.conectarse(Ash, Coordenada(0, 0));
+    d.conectarse(ElChinoNegro, Coordenada(0, 6));
+    d.conectarse(LaMinaColorada, Coordenada(0, 12));
+    d.conectarse(Manaos, Coordenada(0, 18));
+    d.conectarse(Pitusas, Coordenada(6, 6));
+
+    //Ahora hay que hacer todos los movimientos
+
+    //Caso en que no hay pokenodo ni antes ni después
+
+    d.conectarse(Peron, Coordenada(24, 24));
+
+    d.moverse(Peron, Coordenada(23, 24));
+    d.moverse(Peron, Coordenada(23, 23));
+    d.moverse(Peron, Coordenada(23, 22));
+    d.moverse(Peron, Coordenada(23, 21));
+    d.moverse(Peron, Coordenada(23, 20));
+    d.moverse(Peron, Coordenada(23, 21));
+    d.moverse(Peron, Coordenada(23, 22));
+    d.moverse(Peron, Coordenada(23, 23));
+    d.moverse(Peron, Coordenada(23, 24));
+    d.moverse(Peron, Coordenada(23, 23));
+    d.moverse(Peron, Coordenada(23, 22));
+    d.moverse(Peron, Coordenada(24, 24));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 12)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 18)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6, 6)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 24)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 12)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 18)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 24)));
+
+    ASSERT(d.pokemons(Ash).Definido("Pikachu"));
+    ASSERT(d.pokemons(Ash).Significado("Pikachu") == 1);
+    ASSERT(d.pokemons(ElChinoNegro).Definido("Pikachu"));
+    ASSERT(d.pokemons(ElChinoNegro).Significado("Pikachu") == 1);
+    ASSERT(d.pokemons(LaMinaColorada).Definido("Pikachu"));
+    ASSERT(d.pokemons(LaMinaColorada).Significado("Pikachu") == 1);
+    ASSERT(d.pokemons(Manaos).Definido("Pikachu"));
+    ASSERT(d.pokemons(Manaos).Significado("Pikachu") == 1);
+    ASSERT(d.pokemons(Pitusas).Definido("Charmander"));
+    ASSERT(d.pokemons(Pitusas).Significado("Charmander") == 1);
+
+    ASSERT(d.cantPokemonsTotales() == 10);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 5);
+    ASSERT(d.cantMismaEspecie("Charmander") == 5);
+
+    //Meto más pokemones
+
+    d.agregarPokemon("Pikachu", Coordenada(0, 0));
+    d.agregarPokemon("Pikachu", Coordenada(0, 6));
+    d.agregarPokemon("Pikachu", Coordenada(0, 12));
+    d.agregarPokemon("Pikachu", Coordenada(0, 18));
+    d.agregarPokemon("Charmander", Coordenada(6, 6));
+
+    ASSERT(d.cantPokemonsTotales() == 15);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 9);
+    ASSERT(d.cantMismaEspecie("Charmander") == 6);
+
+    d.desconectarse(Peron);
+    d.conectarse(Peron, Coordenada(0, 24));
+
+    //Caso en el que hay pokenodos antes y después (pero no se mueve dentro del pokenodo)
+
+    d.moverse(Peron, Coordenada(0, 18));
+    d.moverse(Peron, Coordenada(0, 24));
+    d.moverse(Peron, Coordenada(0, 18));
+    d.moverse(Peron, Coordenada(0, 24));
+    d.moverse(Peron, Coordenada(0, 18));
+    d.moverse(Peron, Coordenada(0, 24));
+    d.moverse(Peron, Coordenada(0, 18));
+    d.moverse(Peron, Coordenada(0, 24));
+    d.moverse(Peron, Coordenada(0, 18));
+    d.moverse(Peron, Coordenada(0, 24));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 12)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 18)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6, 6)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 24)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 12)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 18)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 24)));
+
+    ASSERT(d.pokemons(Ash).Definido("Pikachu"));
+    ASSERT(d.pokemons(Ash).Significado("Pikachu") == 2);
+    ASSERT(d.pokemons(ElChinoNegro).Definido("Pikachu"));
+    ASSERT(d.pokemons(ElChinoNegro).Significado("Pikachu") == 2);
+    ASSERT(d.pokemons(LaMinaColorada).Definido("Pikachu"));
+    ASSERT(d.pokemons(LaMinaColorada).Significado("Pikachu") == 2);
+    ASSERT(d.pokemons(Manaos).Definido("Pikachu"));
+    ASSERT(d.pokemons(Manaos).Significado("Pikachu") == 1);
+    ASSERT(d.pokemons(Pitusas).Definido("Charmander"));
+    ASSERT(d.pokemons(Pitusas).Significado("Charmander") == 2);
+
+
+    //Meto los pokemones que se capturaron
+
+    d.agregarPokemon("Pikachu", Coordenada(0, 0));
+    d.agregarPokemon("Pikachu", Coordenada(0, 6));
+    d.agregarPokemon("Pikachu", Coordenada(0, 12));
+    d.agregarPokemon("Charmander", Coordenada(6, 6));
+
+    ASSERT(d.cantPokemonsTotales() == 19);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 12);
+    ASSERT(d.cantMismaEspecie("Charmander") == 7);
+
+    //Reconecto a Perón
+
+    d.desconectarse(Peron);
+    d.conectarse(Peron, Coordenada(24, 24));
+    d.desconectarse(Peron);
+    d.conectarse(Peron, Coordenada(0, 0));
+
+    //Muevo a Peron dentro del pokenodo
+    //Caso en el que se mueve dentro del pokenodo
+
+    d.moverse(Peron, Coordenada(0, 1));
+    d.moverse(Peron, Coordenada(0, 0));
+    d.moverse(Peron, Coordenada(0, 1));
+    d.moverse(Peron, Coordenada(0, 0));
+    d.moverse(Peron, Coordenada(0, 1));
+    d.moverse(Peron, Coordenada(0, 0));
+    d.moverse(Peron, Coordenada(0, 1));
+    d.moverse(Peron, Coordenada(0, 0));
+    d.moverse(Peron, Coordenada(0, 1));
+    d.moverse(Peron, Coordenada(0, 0));
+
+    //Veamos si se capturaron los que corresponden
+
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 12)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 18)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(6, 6)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 24)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 12)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 18)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 24)));
+
+    ASSERT(d.pokemons(Ash).Definido("Pikachu"));
+    ASSERT(d.pokemons(Ash).Significado("Pikachu") == 2);
+    ASSERT(d.pokemons(ElChinoNegro).Definido("Pikachu"));
+    ASSERT(d.pokemons(ElChinoNegro).Significado("Pikachu") == 3);
+    ASSERT(d.pokemons(LaMinaColorada).Definido("Pikachu"));
+    ASSERT(d.pokemons(LaMinaColorada).Significado("Pikachu") == 3);
+    ASSERT(d.pokemons(Manaos).Definido("Pikachu"));
+    ASSERT(d.pokemons(Manaos).Significado("Pikachu") == 2);
+    ASSERT(d.pokemons(Pitusas).Definido("Charmander"));
+    ASSERT(d.pokemons(Pitusas).Significado("Charmander") == 3);
+
+    d.desconectarse(Peron);
+    d.conectarse(Peron, Coordenada(24, 24));
+
+    d.agregarPokemon("Pikachu", Coordenada(0, 6));
+    d.agregarPokemon("Pikachu", Coordenada(0, 12));
+    d.agregarPokemon("Charmander", Coordenada(6, 6));
+    d.agregarPokemon("Pikachu", Coordenada(0, 18));
+
+    ASSERT(d.cantPokemonsTotales() == 23);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 15);
+    ASSERT(d.cantMismaEspecie("Charmander") == 8);
+
+    //Pruebo Caso 2 y 3, son parecidos
+
+    d.desconectarse(Peron);
+    d.conectarse(Peron, Coordenada(6, 6));
+
+    d.moverse(Peron, Coordenada(10, 6));
+    d.moverse(Peron, Coordenada(6, 6));
+    d.moverse(Peron, Coordenada(10, 6));
+    d.moverse(Peron, Coordenada(6, 6));
+    d.moverse(Peron, Coordenada(10, 6));
+    d.moverse(Peron, Coordenada(6, 6));
+    d.moverse(Peron, Coordenada(10, 6));
+    d.moverse(Peron, Coordenada(6, 6));
+    d.moverse(Peron, Coordenada(10, 6));
+    d.moverse(Peron, Coordenada(6, 6));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 12)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 18)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 6)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 24)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 12)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 18)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 24)));
+
+    ASSERT(d.pokemons(Ash).Definido("Pikachu"));
+    ASSERT(d.pokemons(Ash).Significado("Pikachu") == 3);
+    ASSERT(d.pokemons(ElChinoNegro).Definido("Pikachu"));
+    ASSERT(d.pokemons(ElChinoNegro).Significado("Pikachu") == 4);
+    ASSERT(d.pokemons(LaMinaColorada).Definido("Pikachu"));
+    ASSERT(d.pokemons(LaMinaColorada).Significado("Pikachu") == 4);
+    ASSERT(d.pokemons(Manaos).Definido("Pikachu"));
+    ASSERT(d.pokemons(Manaos).Significado("Pikachu") == 3);
+    ASSERT(d.pokemons(Pitusas).Definido("Charmander"));
+    ASSERT(d.pokemons(Pitusas).Significado("Charmander") == 3);
+
+    d.agregarPokemon("Pikachu", Coordenada(0, 0));
+    d.agregarPokemon("Pikachu", Coordenada(0, 6));
+    d.agregarPokemon("Pikachu", Coordenada(0, 12));
+    d.agregarPokemon("Pikachu", Coordenada(0, 18));
+
+    ASSERT(d.cantPokemonsTotales() == 27);
+    ASSERT(d.cantMismaEspecie("Pikachu") == 19);
+    ASSERT(d.cantMismaEspecie("Charmander") == 8);
+
+    d.desconectarse(Peron);
+    d.conectarse(Peron, Coordenada(10, 6));
+
+    d.moverse(Peron, Coordenada(6, 6));
+    d.moverse(Peron, Coordenada(10, 6));
+    d.moverse(Peron, Coordenada(6, 6));
+    d.moverse(Peron, Coordenada(10, 6));
+    d.moverse(Peron, Coordenada(6, 6));
+    d.moverse(Peron, Coordenada(10, 6));
+    d.moverse(Peron, Coordenada(6, 6));
+    d.moverse(Peron, Coordenada(10, 6));
+    d.moverse(Peron, Coordenada(6, 6));
+    d.moverse(Peron, Coordenada(10, 6));
+
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 0)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 6)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 12)));
+    ASSERT(d.puedoAgregarPokemon(Coordenada(0, 18)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 6)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(0, 24)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 0)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 12)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 18)));
+    ASSERT(!d.puedoAgregarPokemon(Coordenada(6, 24)));
+
+    ASSERT(d.pokemons(Ash).Definido("Pikachu"));
+    ASSERT(d.pokemons(Ash).Significado("Pikachu") == 4);
+    ASSERT(d.pokemons(ElChinoNegro).Definido("Pikachu"));
+    ASSERT(d.pokemons(ElChinoNegro).Significado("Pikachu") == 5);
+    ASSERT(d.pokemons(LaMinaColorada).Definido("Pikachu"));
+    ASSERT(d.pokemons(LaMinaColorada).Significado("Pikachu") == 5);
+    ASSERT(d.pokemons(Manaos).Definido("Pikachu"));
+    ASSERT(d.pokemons(Manaos).Significado("Pikachu") == 4);
+    ASSERT(d.pokemons(Pitusas).Definido("Charmander"));
+    ASSERT(d.pokemons(Pitusas).Significado("Charmander") == 3);
+
+}
+
+
 int main(int argc, char **argv){
- /*   RUN_TEST(test_constructor_con_mapa);
+  /*  RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -2474,6 +3092,7 @@ int main(int argc, char **argv){
 	RUN_TEST(test_posicionJugador);
 	RUN_TEST(test_posConPokemon);
 	RUN_TEST(test_expulsados);
+
 /*	RUN_TEST(test_cantMismaEspecie);
 */	
 /*    RUN_TEST(test_cantPokemonesTotales);
@@ -2488,6 +3107,11 @@ int main(int argc, char **argv){
 
 	std::cout << "\nPara mí con estos tests ya estaría\n";
 ;
+
+    RUN_TEST(test_capturasMultiples);
+
+
+    std::cout << "\nPara mí con estos tests ya estaría.\n";
 
     return 0;
 }

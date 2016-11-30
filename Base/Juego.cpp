@@ -614,7 +614,7 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
                 //Faltaba sumar uno a la cantidad de pokemones capturados
                 _jugadores[pokeNodo->_entrenadores.Proximo().id]._cantCap++;
-
+ 
                 // Borro el pokenodo.
                 it.EliminarSiguiente();
 
@@ -622,12 +622,17 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 delete pokeNodo;
                 // continue;
             }
+            else{
+            	if(it.HaySiguiente()){
+            		it.Avanzar();
+            	}
+            }
         }
         //Nota, sin este if se rompe en el caso de capturar un pokemon
-        if(it.HaySiguiente()){
-            it.Avanzar();
-        }else {
-            break;
+        else {
+            if(it.HaySiguiente()){
+            		it.Avanzar();
+            }
         }
     }
 
@@ -666,10 +671,8 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
             _pokenodos[x][y] = NULL;
         }
         //Nota, sin este if se rompe en el caso de capturar un pokemon
-        if(it.HaySiguiente()){
+        else {
             it.Avanzar();
-        }else {
-            break;
         }
     }
 }
@@ -701,7 +704,7 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
         if (it.Siguiente() == pokePos) {
             // Aumento su contador.
             pokeNodo->_contador = 0;
-
+                        it.Avanzar();
 
         } else if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
                 // Si el contador llego a 10...
@@ -718,12 +721,10 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 delete pokeNodo;
                 _pokenodos[x][y] = NULL;
         }
-       
+
         //Nota, sin este if se rompe en el caso de capturar un pokemon
-        if(it.HaySiguiente()){
+        else {
             it.Avanzar();
-        }else {
-            break;
         }
     }
 }
@@ -736,7 +737,7 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
     // std::cout << "Creo el iterador de pos pokemones\n";
 
     while (it.HaySiguiente()) {
-        
+
         // std::cout << "pos que estoy recorriendo: " << it.Siguiente() << "\n";
 
         Nat x = it.Siguiente().latitud;
@@ -745,7 +746,7 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
         pokeStruc* pokeNodo = _pokenodos[x][y];
 
         // std::cout << "pokenodo en esa coordenada: " << pokeNodo << "\n";
-        
+
 
         // Aumento el contador del pokenodo.
         pokeNodo->_contador++;
@@ -764,9 +765,9 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 it.EliminarSiguiente();
                 _pokenodos[x][y] = NULL;
                 delete pokeNodo;
-        } 
+        }
 
-        if (it.HaySiguiente()) {
+        else {
             it.Avanzar();
         }
     }
@@ -790,6 +791,7 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
     // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
+
     while (it.HaySiguiente()) {
 
         Nat x = it.Siguiente().latitud;
@@ -803,6 +805,7 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
             // Aumento su contador.
             pokeNodo->_contador = 0;
+            it.Avanzar();
         }
         else{
             // Si no es al que entro el jugador...
@@ -824,14 +827,13 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
                 delete pokeNodo;
                 _pokenodos[x][y] = NULL;
-            }   
+            }
+            else {
+                it.Avanzar();
+            }
+
         }
         //Nota, sin este if se rompe en el caso de capturar un pokemon
-        if(it.HaySiguiente()){
-            it.Avanzar();
-        }else {
-            break;
-        }
     }
 
 }
@@ -847,7 +849,7 @@ bool Juego::MovValido(Jugador e, const Coordenada& c) const{
 
 
 void Juego::SumarUnoEnJug(Pokemon p, Jugador e){
-    
+
     // std::cout << "Hay alguna definicion? " << _jugadores[e]._pokemons.Claves().HaySiguiente() << "\n";
 
     // Si ya tiene alguna de la misma especie...
