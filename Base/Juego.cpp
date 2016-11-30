@@ -11,7 +11,6 @@ using namespace aed2;
 Juego::Juego(const Mapa &map) : _cantPokemon(), _cantPokemonesTotales(0), _mapa(),
  _jugadores(), _jugadoresNoEliminados(), _grillaJugadores(), _pokenodos(), _posPokemons(){
 
-    // *_mapa = map;
     this->_mapa = new Mapa(map);
 
     for (Nat i = 0; i < map.Tam(); i++) {
@@ -54,7 +53,7 @@ void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){
     // Aumenta en uno la cantidad de pokemones en el juego.
     _cantPokemonesTotales++;
 
-    // Se agregua el pokemon al conjunto.
+    // Se agrega el pokemon al conjunto.
     _posPokemons.AgregarRapido(c);
 
 
@@ -84,8 +83,6 @@ void Juego::AgregarPokemon(const Pokemon &p, const Coordenada &c){
 
         i++;
     }
-
-
 }
 
 Nat Juego::AgregarJugador(){
@@ -132,33 +129,22 @@ void Juego::Conectarse(Jugador e, const Coordenada &c) {
 
         }
     }
-
-
 }
 
 void Juego::Desconectarse(Jugador e){
-    // Se desconecta al jugador.
-
     _jugadores[e]._conectado = false;
-
+    // Elimino al jugador de la lista de jugs en su posicion
     _jugadores[e]._itAPos.EliminarSiguiente();
 
     Coordenada c(_jugadores[e]._pos);
 
-
      // Se verifica si el jugador estaba en un pokenodo.
     if (HayPokemonCercano(c)) {
-
         if (_mapa->HayCamino(c, PosPokemonCercano(c))) {
-
-        /*    Nat latPok = PosPokemonCercano(c).latitud;
-            Nat lonPok = PosPokemonCercano(c).longitud;*/
             // Se lo elimina del pokenodo
             _jugadores[e]._itAEntrenadores.Borrar();
         }
     }
-
-
 }
 
 void Juego::Moverse(Jugador e, const Coordenada &c){
