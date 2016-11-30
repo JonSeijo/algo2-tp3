@@ -4,6 +4,7 @@
 #include "aed2.h"
 #include "TiposJuego.h"
 
+#include <cassert>
 
 using namespace aed2;
 
@@ -603,6 +604,13 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
         if (it.Siguiente() != pokePos) {
 
             pokeStruc* pokeNodo = _pokenodos[x][y];
+
+            // if (pokeNodo == NULL) {
+            //     it.Avanzar();
+            // }
+
+            // AL SALIR MAL DE LA ITERACION ANTERIOR QUIZA ESTE POKENODO ES NULL.... REVISAR ESO?
+
             // Aumento su contador.
             pokeNodo->_contador++;
 
@@ -614,25 +622,25 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
                 //Faltaba sumar uno a la cantidad de pokemones capturados
                 _jugadores[pokeNodo->_entrenadores.Proximo().id]._cantCap++;
- 
+
                 // Borro el pokenodo.
                 it.EliminarSiguiente();
 
                 _pokenodos[x][y] = NULL;
                 delete pokeNodo;
-                // continue;
             }
-            else{
-            	if(it.HaySiguiente()){
-            		it.Avanzar();
-            	}
-            }
+            
+            break;
+            // else {
+            //     it.Avanzar();
+            //     break;
+            //     // continue;
+            //     // assert(false);
+            // }
         }
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         else {
-            if(it.HaySiguiente()){
-            		it.Avanzar();
-            }
+            it.Avanzar();
         }
     }
 
