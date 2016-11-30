@@ -3057,7 +3057,7 @@ void test_capturasMultiples(){
 
 
 int main(int argc, char **argv){
-  /*  RUN_TEST(test_constructor_con_mapa);
+    RUN_TEST(test_constructor_con_mapa);
     RUN_TEST(test_agregar_jugadores);
     RUN_TEST(test_agregar_pokemones);
     RUN_TEST(test_agregar_pokemones_sinJugs);
@@ -3093,25 +3093,19 @@ int main(int argc, char **argv){
 	RUN_TEST(test_posConPokemon);
 	RUN_TEST(test_expulsados);
 
-/*	RUN_TEST(test_cantMismaEspecie);
-*/	
-/*    RUN_TEST(test_cantPokemonesTotales);
+	RUN_TEST(test_cantMismaEspecie);
+	
+    RUN_TEST(test_cantPokemonesTotales);
 	RUN_TEST(test_estaConectado);
 	RUN_TEST(test_sanciones);
-	R;UN_TEST(test_pokemonsDelJugador);
-	;RUN_TEST(test_pokemonEnPos);
-  ;  RUN_TEST(test_coordenada_12_1);
-*/
+	RUN_TEST(test_pokemonsDelJugador);
+	RUN_TEST(test_pokemonEnPos);
+    RUN_TEST(test_coordenada_12_1);
+
     RUN_TEST(test_sanciones_movsinvalidos);
     RUN_TEST(test_sanciones_desesperado);
 
-	std::cout << "\nPara mí con estos tests ya estaría\n";
-;
-
-    RUN_TEST(test_capturasMultiples);
-
-
-    std::cout << "\nPara mí con estos tests ya estaría.\n";
+    // RUN_TEST(test_capturasMultiples);
 
     return 0;
 }
