@@ -265,7 +265,6 @@ Conj<Jugador> Juego::Expulsados() const{
 
     // Itero todos los jugadores.
     for (Nat i = 0; i < _jugadores.Longitud(); i++) {
-
         // Si tiene mas de 5 sanciones...
         if (_jugadores[i]._sanciones >= 5) {
             // Lo agrego al conjunto de expulsados.
@@ -290,12 +289,12 @@ Nat Juego::CantMovimientosParaCaptura(const Coordenada &c) const{
     return _pokenodos[c.latitud][c.longitud]->_contador;
 }
 
+// Recontra chequeado
 bool Juego::HayPokemonCercano(const Coordenada &c) const{
     Nat x = c.latitud;
     Nat y = c.longitud;
 
     Nat m = _mapa->Tam();
-
 
     // Esto es para evitar problemas, podria quitarse peeeeero..
     if (x >= m || y >= m) {
@@ -343,11 +342,12 @@ bool Juego::HayPokemonCercano(const Coordenada &c) const{
     // Hay un pokemon en (x+2, y).
     hayPokemon |= ((m > 1 && x + 2 < m) && (_pokenodos[x+2][y] != NULL));
 
-
     return hayPokemon;
-
 }
 
+// Necesitamos muchos casos para evitar overflows al restar,
+// y para no acceder a posiciones mayores al tamaño
+// Podria hacerse mas lindo quiza. If aint broken...
 Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
     Nat x = c.latitud;
     Nat y = c.longitud;
@@ -359,58 +359,48 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
         posConPoke = Coordenada(x, y);
     }
     if (x > 0) {
-
         if ( _pokenodos[x-1][y] != NULL) {
             posConPoke = Coordenada(x-1, y);
         }
-
         if (y > 0 && (_pokenodos[x-1][y-1] != NULL)) {
             posConPoke = Coordenada(x-1, y-1);
         }
-
         if (y + 1 < m  && (_pokenodos[x-1][y+1] != NULL)) {
             posConPoke = Coordenada(x-1, y+1);
         }
         if (x > 1  && (_pokenodos[x-2][y] != NULL)) {
             posConPoke = Coordenada(x-2, y);
         }
-
     }
 
     if (y > 0) {
         if (_pokenodos[x][y-1] != NULL) {
             posConPoke = Coordenada(x, y-1);
         }
-        // @BUG cambio < por >
+        // @BUG diseño cambio < por >
         if (y > 1  && (_pokenodos[x][y-2] != NULL)) {
             posConPoke = Coordenada(x, y-2);
         }
-
     }
 
     if (y + 1 < m) {
-
         if (_pokenodos[x][y+1] != NULL) {
             posConPoke = Coordenada(x, y+1);
         }
         if (m > 1 && y + 2 < m  && (_pokenodos[x][y+2] != NULL)) {
             posConPoke = Coordenada(x, y+2);
         }
-
     }
     if (x + 1 < m) {
         if (_pokenodos[x+1][y] != NULL) {
             posConPoke = Coordenada(x+1, y);
         }
-
         if (y > 0 && (_pokenodos[x+1][y-1] != NULL)) {
             posConPoke = Coordenada(x+1, y-1);
         }
-
         if (y + 1 < m && (_pokenodos[x+1][y+1] != NULL)) {
             posConPoke = Coordenada(x+1, y+1);
         }
-
     }
 
     if (m > 1 && x + 2 < m  && (_pokenodos[x+2][y] != NULL)) {
@@ -421,24 +411,8 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c) const{
 }
 
 bool Juego::PuedoAgregarPokemon(const Coordenada& c) const{
-
-    if (!_mapa->PosExistente(c)) {
-        return false;
-    }
-
-    // Conj<Coordenada>::const_Iterador iter = this->PosConPokemons().CrearIt();
-    // while (iter.HaySiguiente()) {
-    //     if (distEuclidea(c, iter.Siguiente()) <= 25) {
-    //         return false;
-    //     }
-    //     iter.Avanzar();
-    // }
-    // return true;
-
-
     return _mapa->PosExistente(c) && !HayPokemonEnTerritorioRango5(c);
 }
-
 
 Conj<Jugador> Juego::EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &es) const{
 
@@ -482,6 +456,7 @@ Nat Juego::CantMismaEspecie(const Pokemon &p) const{
 /*Funciones privadas */
 /*********************/
 
+// Si la posicion no existe, no hay jugadores en ella, por eso no chequeamos posExistente cada vez
 Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
     Vector<Jugador> jugsRadio;
     Nat x = c.latitud;
@@ -493,22 +468,18 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
         AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y);
     }
     if (x > 0) {
-
         if (!_grillaJugadores[x-1][y].EsVacia()) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y);
         }
-
         if (y > 0 && (!_grillaJugadores[x-1][y-1].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x-1, y-1)))) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y-1);
         }
-
         if (y + 1 < m  && (!_grillaJugadores[x-1][y+1].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x-1, y+1)))) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-1, y+1);
         }
         if (x > 1  && (!_grillaJugadores[x-2][y].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x-2, y)))) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x-2, y);
         }
-
     }
 
     if (y > 0) {
@@ -519,11 +490,9 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
         if (y > 1  && (!_grillaJugadores[x][y-2].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x, y-2)))) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y-2);
         }
-
     }
 
     if (y + 1 < m) {
-
         if (!_grillaJugadores[x][y+1].EsVacia()) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x, y+1);
         }
@@ -536,15 +505,12 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
         if (!_grillaJugadores[x+1][y].EsVacia()) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y);
         }
-
         if (y > 0 && (!_grillaJugadores[x+1][y-1].EsVacia())) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y-1);
         }
-
         if (y + 1 < m && (!_grillaJugadores[x+1][y+1].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x+1, y+1)))) {
             AgregarAtrasJugsQueEstanEnPos(jugsRadio,x+1, y+1);
         }
-
     }
 
     if (m > 1 && x + 2 < m  && (!_grillaJugadores[x+2][y].EsVacia() && this -> _mapa -> HayCamino(Coordenada(x, y), Coordenada(x+2, y)))) {
@@ -552,7 +518,6 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
     }
 
     return jugsRadio;
-
 }
 
 void Juego::AgregarAtrasJugsQueEstanEnPos(Vector<Jugador> &jugs, Nat x, Nat y) const {
