@@ -520,22 +520,23 @@ Vector<Jugador> Juego::DameJugadoreseEnPokerango(const Coordenada& c) const{
     return jugsRadio;
 }
 
+// Agrega en el vector que se le pasa (por referencia)
+// a los jugadores conectados (todos deberian estar conectados si estan en la lista.. pero evitemos bugs)
 void Juego::AgregarAtrasJugsQueEstanEnPos(Vector<Jugador> &jugs, Nat x, Nat y) const {
     Lista <Jugador>::const_Iterador it = _grillaJugadores[x][y].CrearIt();
-
-    Coordenada c(x, y);
     // Itero sobre los jugadores en esa posicion.
     while (it.HaySiguiente()) {
         Nat e = it.Siguiente();
-
-        // Si esta conectado y puede llegar al pokemon...
-        if(EstaConectado(e) && _mapa->HayCamino(Posicion(e), c)){
+        // Si esta conectado..
+        if(EstaConectado(e)){
             jugs.AgregarAtras(e);
         }
         it.Avanzar();
     }
 }
 
+// Caso1 : Se movio HACIA un pokenodo, y SI estaba en alguno.
+// En caso1, Se movio dentro del mismo pokenodo de origen
 void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp){
 
     // El pokenodo al que entro el jugador.
@@ -554,15 +555,8 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
             pokeStruc* pokeNodo = _pokenodos[x][y];
 
-            // if (pokeNodo == NULL) {
-            //     it.Avanzar();
-            // }
-
-            // AL SALIR MAL DE LA ITERACION ANTERIOR QUIZA ESTE POKENODO ES NULL.... REVISAR ESO?
-
             // Aumento su contador.
             pokeNodo->_contador++;
-
 
             // Si el contador llego a 10...
             if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
@@ -586,21 +580,20 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
             //     // continue;
             //     // assert(false);
             // }
-        }
-        //Nota, sin este if se rompe en el caso de capturar un pokemon
-        else {
+
+        } else {
             it.Avanzar();
         }
     }
 
 }
 
-
+// Caso2 : NO entro a ningun pokenodo, pero SALIO desde uno.
 void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp){
     // Lo borro de entrenadores.
     _jugadores[e]._itAEntrenadores.Borrar();
 
-        // Itero sobre los pokenodos
+    // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
     while (it.HaySiguiente()) {
@@ -626,14 +619,14 @@ void Juego::CasoMov2(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
             delete pokeNodo;
             _pokenodos[x][y] = NULL;
-        }
-        //Nota, sin este if se rompe en el caso de capturar un pokemon
-        else {
+        
+        } else {
             it.Avanzar();
         }
     }
 }
 
+// Caso3 : Se movio HACIA un pokenodo y NO estaba en ninguno
 void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp){
     // El pokenodo al que entro el jugador.
     Coordenada pokePos(PosPokemonCercano(desp));
@@ -644,7 +637,6 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
     // Agrego el entrenador al pokenodo.
     jugYCantCapt jug(e, _jugadores[e]._cantCap);
     _jugadores[e]._itAEntrenadores = _pokenodos[lat][lon]->_entrenadores.Encolar(jug);
-
 
     // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
@@ -657,11 +649,11 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
         pokeNodo->_contador++;
 
-        // Si no es al que entro el jugador...
+        // Si es al que entro el jugador..
         if (it.Siguiente() == pokePos) {
-            // Aumento su contador.
+            // Reseteo su contador
             pokeNodo->_contador = 0;
-                        it.Avanzar();
+            it.Avanzar();
 
         } else if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
                 // Si el contador llego a 10...
@@ -677,49 +669,40 @@ void Juego::CasoMov3(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
                 delete pokeNodo;
                 _pokenodos[x][y] = NULL;
-        }
-
-        //Nota, sin este if se rompe en el caso de capturar un pokemon
-        else {
+       
+        } else {
             it.Avanzar();
         }
     }
 }
 
+// Caso4 : NO entro a ningun pokenodo, y NO salio desde ninguno
 void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp){
 
     // Itero sobre los pokenodos
     Conj<Coordenada>::Iterador it = _posPokemons.CrearIt();
 
-    // std::cout << "Creo el iterador de pos pokemones\n";
-
     while (it.HaySiguiente()) {
-
-        // std::cout << "pos que estoy recorriendo: " << it.Siguiente() << "\n";
-
         Nat x = it.Siguiente().latitud;
         Nat y = it.Siguiente().longitud;
 
         pokeStruc* pokeNodo = _pokenodos[x][y];
 
-        // std::cout << "pokenodo en esa coordenada: " << pokeNodo << "\n";
-
-
         // Aumento el contador del pokenodo.
         pokeNodo->_contador++;
 
-        // Si no es al que entro el jugador...
+        // Si el contador llego a 10...
         if (pokeNodo->_contador == 10 && !pokeNodo->_entrenadores.EsVacia()) {
-                // Si el contador llego a 10...
-           //     std::cout << "Llego a 10\n";
+
                 // Agrego el pokemon al entrenador que captura.
                 SumarUnoEnJug(pokeNodo->_poke, pokeNodo->_entrenadores.Proximo().id);
-                // Borro el pokenodo.
+
                 //Faltaba sumar uno a la cantidad de pokemones capturados
                 _jugadores[pokeNodo->_entrenadores.Proximo().id]._cantCap++;
-             //    std::cout << "Sali de sumar uno\n";
 
+                // Borro el pokenodo.
                 it.EliminarSiguiente();
+
                 _pokenodos[x][y] = NULL;
                 delete pokeNodo;
         }
@@ -730,6 +713,7 @@ void Juego::CasoMov4(Jugador e, const Coordenada& antes, const Coordenada& desp)
     }
 }
 
+// Caso5 : Se movio HACIA un pokenodo, y SI estaba en alguno.
 void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp){
     // El pokenodo al que entro el jugador.
     Coordenada pokePos( PosPokemonCercano(desp) );
@@ -784,15 +768,12 @@ void Juego::CasoMov5(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
                 delete pokeNodo;
                 _pokenodos[x][y] = NULL;
-            }
-            else {
+            
+            } else {
                 it.Avanzar();
             }
-
         }
-        //Nota, sin este if se rompe en el caso de capturar un pokemon
     }
-
 }
 
 bool Juego::MovValido(Jugador e, const Coordenada& c) const{
@@ -801,14 +782,10 @@ bool Juego::MovValido(Jugador e, const Coordenada& c) const{
 
     // Hay camino y esta a menos de 100 de dsitancia.
     return camino && distancia;
-
 }
 
 
 void Juego::SumarUnoEnJug(Pokemon p, Jugador e){
-
-    // std::cout << "Hay alguna definicion? " << _jugadores[e]._pokemons.Claves().HaySiguiente() << "\n";
-
     // Si ya tiene alguna de la misma especie...
     if (_jugadores[e]._pokemons.Definido(p)) {
         // Le sumo uno.
@@ -816,16 +793,16 @@ void Juego::SumarUnoEnJug(Pokemon p, Jugador e){
         _jugadores[e]._pokemons.Definir(p, actual + 1);
     } else {
         // Si no lo defino en 1.
-       // std::cout << "Deberia caer aca\n";
         _jugadores[e]._pokemons.Definir(p, 1);
     }
 }
 
+// En el tp de diseño habia un error y revisaba rango2
 bool Juego::HayPokemonEnTerritorioRango5(const Coordenada &c) const{
     Nat x = c.latitud;
     Nat y = c.longitud;
 
-    //En teoría PosExistente se fija si se pasa del tamaño del mapa.
+    //PosExistente se fija si se pasa del tamaño del mapa.
     if(x < 5){
         if(y < 5){
             // std::cout << "Entre al caso 1" << std::endl;
