@@ -4,6 +4,7 @@
 #include "aed2.h"
 #include "TiposJuego.h"
 
+#include <cassert>
 
 using namespace aed2;
 
@@ -604,9 +605,9 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
             pokeStruc* pokeNodo = _pokenodos[x][y];
 
-            if (pokeNodo == NULL) {
-                it.Avanzar();
-            }
+            // if (pokeNodo == NULL) {
+            //     it.Avanzar();
+            // }
 
             // AL SALIR MAL DE LA ITERACION ANTERIOR QUIZA ESTE POKENODO ES NULL.... REVISAR ESO?
 
@@ -627,11 +628,15 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
 
                 _pokenodos[x][y] = NULL;
                 delete pokeNodo;
-                // continue;
             }
-             else {
-                // it.Avanzar();
-            }
+            
+            break;
+            // else {
+            //     it.Avanzar();
+            //     break;
+            //     // continue;
+            //     // assert(false);
+            // }
         }
         //Nota, sin este if se rompe en el caso de capturar un pokemon
         else {
