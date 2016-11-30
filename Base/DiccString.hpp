@@ -9,10 +9,6 @@
 #include <string>
 #include "aed2.h"
 
-// #include "./../mini_test.h"
-// #include "./../TiposJuego.h"
-
-
 using namespace aed2;
 using namespace std;
 
@@ -28,12 +24,10 @@ class DiccString{
     //no esta en el modulo.
     DiccString(const DiccString<S>& otro);
 
-    // @LEAK
-    // PARA DEBUG
-
+    // @TEST para debug
     static Nat newsNodos;
     static Nat deletesNodos;
-
+    static bool TEST_DICC;
 
     void Definir(const string &clave, const S& significado);
     bool Definido(const string &clave) const;
@@ -81,7 +75,7 @@ class DiccString{
             Conj<string>::Iterador itClave;
 
             Nodo() : definicion(NULL), siguientes(256),  itClave(){}
-            // Revisar destructor de nodo
+
             ~Nodo() {
                 delete definicion;
                 for (Nat i = 0; i < 256; i++){
@@ -89,8 +83,7 @@ class DiccString{
                         Nodo* tmp = siguientes[i];
                         siguientes[i] = NULL;
                         delete tmp;
-                        DiccString<S>::deletesNodos++;
-                        // std::cout << "DELETE: nodo en destructor\n";
+                        DiccString<S>::deletesNodos++; // @TEST
                     }
                 }
             }
@@ -102,7 +95,7 @@ class DiccString{
         Lista<Nodo*> _listaNodos;
 
         Nat CuentaHijos(Nodo* padre) const;
-        void BorrarDesde(Nodo* &reserva, Nat rindex, const string &clave);;
+        void BorrarDesde(Nodo* &reserva, Nat rindex, const string &clave);
 };
 
 // @LEAK
@@ -110,12 +103,15 @@ template< class S>
 Nat DiccString<S>::newsNodos = 0;
 template< class S>
 Nat DiccString<S>::deletesNodos = 0;
+template< class S>
+bool DiccString<S>::TEST_DICC = false;
 
 
 // Implementacion Dicc
 template< class S>
 DiccString<S>::DiccString()
  : _claves(), _raiz(NULL) {
+
     DiccString<S>::newsNodos = 0;
     DiccString<S>::deletesNodos = 0;
 }
@@ -136,8 +132,10 @@ DiccString<S>::~DiccString(){
         this->Borrar(vectorClaves[i]);
     }
 
-    // std::cout << "\n\nNEWS:   " << DiccString<S>::newsNodos << " \n";
-    // std::cout << "\nDELETES:   " << DiccString<S>::deletesNodos << " \n";
+    if (DiccString<S>::TEST_DICC) {
+        std::cout << "\n\nNEWS:   " << DiccString<S>::newsNodos << " \n";
+        std::cout << "\nDELETES:   " << DiccString<S>::deletesNodos << " \n";
+    }
 
     // if(_raiz != NULL){
     //     std::cout << "DELETE: _raiz desde destructor\n";
@@ -163,10 +161,12 @@ DiccString<S>::DiccString(const DiccString<S>& otro){
 
 template<class S>
 void DiccString<S>::Definir(const string& clave, const S& significado){
-    //std::cout << "\nDefiniendo: " << clave << "\n";
+
+    if (DiccString<S>::TEST_DICC) { std::cout << "\nDefiniendo: " << clave << "\n"; }
+
     if (this->_claves.Cardinal() == 0) {
         this->_raiz = new Nodo();
-        DiccString<S>::newsNodos++;
+        DiccString<S>::newsNodos++; // @TEST
     }
 
     Nodo* nodoActual = this->_raiz;
@@ -177,8 +177,10 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
         // Si donde debe ir el caracter el nodo no esta definido, creo uno
         if (!nodoActual->siguientes.Definido(int(clave[i]))) {
             Nodo* nuevo = new Nodo;
-            DiccString<S>::newsNodos++;
-            // std::cout << "NEW: nodo caracter:  " << clave[i] << "\n";
+            DiccString<S>::newsNodos++; // @TEST
+            
+            if(DiccString<S>::TEST_DICC) { std::cout << "NEW: nodo caracter:  " << clave[i] << "\n"; }
+            
             nodoActual->siguientes.Definir(int(clave[i]), nuevo);
         }
 
@@ -199,7 +201,8 @@ void DiccString<S>::Definir(const string& clave, const S& significado){
 
     // Guardo un puntero con la nueva definicion
     nodoActual->definicion = new S(significado);
-   // std::cout << "Termino definir: " << clave << "\n";
+
+    if (DiccString<S>::TEST_DICC) {std::cout << "Termino definir: " << clave << "\n"; }
 }
 
 
@@ -220,12 +223,10 @@ bool DiccString<S>::Definido(const string& clave) const{
         nodoActual = nodoActual->siguientes[int(clave[i])];
     }
 
-    // std::cout << "en definido\n";
-    // return nodoActual != NULL && nodoActual->definicion != NULL;
-
+    return nodoActual != NULL && nodoActual->definicion != NULL;
 
     // SOLO PARA TEST, porque no deberiamos poder comparar con 0 si es un tipo T:
-    return nodoActual != NULL && nodoActual->definicion != NULL && *(nodoActual->definicion) != 0;
+    // return nodoActual != NULL && nodoActual->definicion != NULL && *(nodoActual->definicion) != 0;
 }
 
 template< class S>
