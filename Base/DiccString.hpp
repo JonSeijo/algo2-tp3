@@ -137,6 +137,7 @@ DiccString<S>::~DiccString(){
         std::cout << "\nDELETES:   " << DiccString<S>::deletesNodos << " \n";
     }
 
+    // La raiz ya es eliminada cuando se Borra la ultima clave
     // if(_raiz != NULL){
     //     std::cout << "DELETE: _raiz desde destructor\n";
     //     Nodo* temp = _raiz;
@@ -251,7 +252,7 @@ S& DiccString<S>::Significado(const string& clave) {
 
 template<class S>
 void DiccString<S>::Borrar(const string& clave){
-    //std::cout << "Palabra a borrar: " << clave << "\n";
+    if (DiccString<S>::TEST_DICC) {std::cout << "Palabra a borrar: " << clave << "\n";}
 
     bool borrarRaiz = (this->_claves.Cardinal() == 1);
     Nodo* nodoReserva = this->_raiz;
@@ -270,13 +271,15 @@ void DiccString<S>::Borrar(const string& clave){
         }
     }
 
+    // @TEST
     // nodoActual contiene el nodo al ultimo caracter
     // por invariante tiene una defincion
-   /* if(!nodoActual->itClave.HaySiguiente()) {
-        std::cout << "\nHAY UN PROBLEMA\n";
-        std::cout << "\nEL NODO NO APUNTA A NINGUNA CLAVE\n";
-    }*/
+    // if(!nodoActual->itClave.HaySiguiente()) {
+    //     std::cout << "\nHAY UN PROBLEMA\n";
+    //     std::cout << "\nEL NODO NO APUNTA A NINGUNA CLAVE\n";
+    // }
 
+    // Elimino la clave del conjunto de claves
     nodoActual->itClave.EliminarSiguiente();
 
     if (this->CuentaHijos(nodoActual) > 0) {
@@ -286,20 +289,24 @@ void DiccString<S>::Borrar(const string& clave){
 
     } else {
         this->BorrarDesde(nodoReserva, rindex, clave);
-        if (nodoReserva->siguientes[int(clave[rindex])] != NULL) {
-            //std::cout << "TENEMOS UN PROBLEMA\n";
+        
+        if (DiccString<S>::TEST_DICC) {
+            if (nodoReserva->siguientes[int(clave[rindex])] != NULL) {
+                std::cout << "TENEMOS UN PROBLEMA\n";
+            }
         }
+
     }
 
     if (borrarRaiz && this->_raiz != NULL) {
         Nodo* tempe = this->_raiz;
         this->_raiz = NULL;
         delete tempe;
-        DiccString<S>::deletesNodos++;
-        // std::cout << "DELETE: _raiz   desde Borrar\n";
+        DiccString<S>::deletesNodos++; // @TEST
+        if (DiccString<S>::TEST_DICC) {std::cout << "DELETE: _raiz   desde Borrar\n";}
     }
 
-   // std::cout << "Salgo de borrar: " << clave << "\n";
+    if (DiccString<S>::TEST_DICC) {std::cout << "Salgo de borrar: " << clave << "\n";}
 }
 
 template<class S>
@@ -329,7 +336,7 @@ void DiccString<S>::BorrarDesde(DiccString<S>::Nodo* &desde, Nat rindex, const s
         nodoActual->siguientes[int(clave[i])] = NULL;
         aBorrar.AgregarAtras(tmp);
         nodoActual = tmp;
-        // std::cout << "Se intenta borrar caracter: " << clave[i] <<"\n";
+        if (DiccString<S>::TEST_DICC) {std::cout << "Se intenta borrar caracter: " << clave[i] <<"\n";}
     }
 
     // Borro el vector
