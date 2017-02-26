@@ -1,7 +1,18 @@
 # algo2-tp3
-TP3 Implementacion
+TP3 Implementacion.
 
 Archivos en la carpeta "Base" (puede cambiarse)
+
+# IMPORTANTE NOTA POST CUATRI:
+
+En los ultimos dias antes de la entrega tuvimos un pico de commits y branches desesperados, un test de la catedra nos fallaba y no podiamos encontrar el error. Termino siendo un problema del bot de la catedra, que pudimos resorverlo en los labos del dc con nuestro ayudante corrector. 
+
+Por este motivo, no garantizo que el repo en su version actual sea la version que fue entregada, sobre todo en el CasoMov1. Ni siquiera garantizo que compile (aunque deberia)
+
+Espero que te sirva para algo (budum tss)
+
+
+---------------
 
 # Como hacer un rebase
 
