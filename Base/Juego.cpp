@@ -573,13 +573,10 @@ void Juego::CasoMov1(Jugador e, const Coordenada& antes, const Coordenada& desp)
                 delete pokeNodo;
             }
             
-            break;
-            // else {
-            //     it.Avanzar();
-            //     break;
-            //     // continue;
-            //     // assert(false);
-            // }
+            // Esto fue modificado en los labos, no estoy 100% seguro que sea la version correcta
+            else {
+                it.Avanzar();
+            }
 
         } else {
             it.Avanzar();
